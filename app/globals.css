@@ -1,0 +1,265 @@
+@import 'tailwindcss';
+
+/* ==========================================================================
+   CHILDRESS PAINTING — DESIGN SYSTEM
+   Palette: navy / red / white / light gray, per brand direction.
+   Type:    Archivo (variable width display) + IBM Plex Sans + IBM Plex Mono.
+   Motif:   drawing-sheet "title block" — mono labels, CSI codes, red rules.
+   ========================================================================== */
+
+@theme {
+  /* --- Brand color ------------------------------------------------------ */
+  --color-navy: #0d1b2a;
+  --color-navy-800: #142639;
+  --color-navy-700: #1c3349;
+  --color-navy-600: #27455f;
+  --color-steel: #64798f;
+  --color-steel-light: #9aabbc;
+
+  --color-red: #d72638;
+  --color-red-dark: #ad1b2a;
+  --color-red-light: #f04252;
+
+  --color-ink: #111827;
+  --color-body: #46536b;
+  --color-mist: #f4f5f7;
+  --color-concrete: #e6e9ee;
+  --color-line: #dfe3e9;
+
+  /* --- Type ------------------------------------------------------------- */
+  --font-display: 'Archivo', 'Archivo Fallback', 'Helvetica Neue', Arial, sans-serif;
+  --font-sans: 'IBM Plex Sans', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  /* --- Motion ----------------------------------------------------------- */
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Metric-adjusted fallback so swapping in the webfont does not shift layout. */
+@font-face {
+  font-family: 'Archivo Fallback';
+  src: local('Arial');
+  size-adjust: 102%;
+  ascent-override: 92%;
+  descent-override: 24%;
+  line-gap-override: 0%;
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    background: #ffffff;
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.02;
+    text-wrap: balance;
+    margin: 0;
+  }
+
+  /* The display face is a variable font; widen it for a monumental,
+     architectural set. Falls back gracefully if the axis is unavailable. */
+  h1,
+  h2 {
+    font-variation-settings: 'wdth' 112;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img,
+  svg,
+  video {
+    display: block;
+    max-width: 100%;
+  }
+
+  /* Visible, high-contrast focus for keyboard users on every interactive el. */
+  :focus-visible {
+    outline: 3px solid var(--color-red);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background: var(--color-red);
+    color: #fff;
+  }
+
+  /* Anchor targets clear the fixed header. */
+  :target {
+    scroll-margin-top: 7rem;
+  }
+}
+
+@layer components {
+  /* Page gutter — one container rule used everywhere, mobile-first. */
+  .container-site {
+    width: 100%;
+    max-width: 84rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .container-site {
+      padding-inline: 2rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .container-site {
+      padding-inline: 3rem;
+    }
+  }
+
+  /* --- Title block: the signature device -------------------------------
+     A mono label + red dimension rule, borrowed from drawing sheet title
+     blocks. Used to introduce every major section and page. */
+  .title-block {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .title-block::before {
+    content: '';
+    width: 1.75rem;
+    height: 0;
+    border-top: 3px solid var(--color-red);
+    flex: none;
+  }
+
+  /* Fine hairline rule with end ticks, like a dimension line. */
+  .dim-rule {
+    position: relative;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.35;
+  }
+
+  .dim-rule::before,
+  .dim-rule::after {
+    content: '';
+    position: absolute;
+    top: -3px;
+    width: 1px;
+    height: 7px;
+    background: currentColor;
+  }
+
+  .dim-rule::before {
+    left: 0;
+  }
+
+  .dim-rule::after {
+    right: 0;
+  }
+
+  /* Hairline grid used behind dark sections — reads as a drawing grid. */
+  .sheet-grid {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+    background-size: 88px 88px;
+  }
+
+  .prose-site p {
+    color: var(--color-body);
+    margin-block: 0 1.15rem;
+  }
+
+  .prose-site p:last-child {
+    margin-bottom: 0;
+  }
+
+  .prose-site h2 {
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    margin-block: 2.75rem 1rem;
+  }
+
+  .prose-site h3 {
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    margin-block: 2rem 0.75rem;
+  }
+
+  .prose-site ul {
+    margin-block: 0 1.15rem;
+    padding-left: 1.15rem;
+    color: var(--color-body);
+  }
+
+  .prose-site li {
+    margin-block: 0.4rem;
+  }
+
+  .prose-site a {
+    color: var(--color-red-dark);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+}
+
+@layer utilities {
+  /* Hides content visually but reveals it on keyboard focus (skip link). */
+  .sr-only-focusable:not(:focus):not(:focus-within) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+/* Respect the OS reduced-motion setting across CSS and Framer Motion. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
