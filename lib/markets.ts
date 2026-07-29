@@ -24,8 +24,10 @@ export type Market = {
   /** How the work is planned — sector-specific practice. */
   approach: { heading: string; body: string }[];
   relatedServices: string[];
-  /** Tailwind gradient classes used for the card image placeholder.
-      REPLACE: swap these for real photography via `image`. */
+  /** Key into components/ui/SectorArt.tsx — drawn artwork used until a real
+      photograph is supplied via `image`. */
+  art: string;
+  /** Legacy gradient, retained as the final fallback. */
   gradient: string;
   /** REPLACE — path to a real, cleared photograph, e.g. '/images/markets/healthcare.jpg' */
   image?: string;
@@ -34,6 +36,7 @@ export type Market = {
 export const markets: Market[] = [
   {
     slug: 'healthcare',
+    art: 'healthcare',
     title: 'Healthcare',
     shortTitle: 'Healthcare',
     code: 'SECTOR / HC',
@@ -91,6 +94,7 @@ export const markets: Market[] = [
   },
   {
     slug: 'aviation',
+    art: 'aviation',
     title: 'Aviation',
     shortTitle: 'Aviation',
     code: 'SECTOR / AV',
@@ -148,6 +152,7 @@ export const markets: Market[] = [
   },
   {
     slug: 'education',
+    art: 'education',
     title: 'Education',
     shortTitle: 'Education',
     code: 'SECTOR / ED',
@@ -205,6 +210,7 @@ export const markets: Market[] = [
   },
   {
     slug: 'industrial',
+    art: 'industrial',
     title: 'Industrial',
     shortTitle: 'Industrial',
     code: 'SECTOR / IN',
@@ -262,6 +268,7 @@ export const markets: Market[] = [
   },
   {
     slug: 'multifamily',
+    art: 'multifamily',
     title: 'Multifamily',
     shortTitle: 'Multifamily',
     code: 'SECTOR / MF',
@@ -319,6 +326,7 @@ export const markets: Market[] = [
   },
   {
     slug: 'retail',
+    art: 'retail',
     title: 'Retail & Hospitality',
     shortTitle: 'Retail & Hospitality',
     code: 'SECTOR / RH',
@@ -373,6 +381,122 @@ export const markets: Market[] = [
     ],
     relatedServices: ['commercial-painting', 'maintenance-repaints'],
     gradient: 'from-[#cbbfa6] via-[#7a7059] to-[#1c1b1f]',
+  },
+  {
+    slug: 'government',
+    art: 'government',
+    title: 'Government & Civic',
+    shortTitle: 'Government',
+    code: 'SECTOR / GV',
+    summary:
+      'Municipal buildings, courthouses, public safety facilities, and civic infrastructure, where procurement rules and public access shape the whole job.',
+    intro:
+      'Public work runs on process. Prevailing wage, bonding, certified payroll, and formal change procedures are not administrative friction around the job — they are part of the job, and a contractor who treats them as an afterthought will hold up the pay application for everyone.',
+    metaTitle: 'Government & Municipal Painting Contractor | Texas',
+    metaDescription:
+      'Painting and coatings for municipal buildings, courthouses, public safety, and civic facilities across Texas. Public procurement, prevailing wage, and certified payroll aware.',
+    constraints: [
+      {
+        title: 'Procurement and compliance',
+        body: 'Public projects carry bonding, prevailing wage, certified payroll, and formal documentation requirements. These are priced and staffed for from the outset rather than discovered after award.',
+      },
+      {
+        title: 'Buildings the public walks into',
+        body: 'Courthouses, city halls, and permit offices serve the public daily. Work is phased around public hours, with access routes, signage, and safety separation agreed with the facility before mobilization.',
+      },
+      {
+        title: 'Secured and restricted areas',
+        body: 'Police, fire, detention, and emergency operations facilities carry background check, escort, and access control requirements. Clearance timelines go on the mobilization schedule as long-lead items.',
+      },
+      {
+        title: 'Durability under a public budget',
+        body: 'Civic buildings are repainted on long cycles because the funding arrives on long cycles. Specification choices favour service life over first cost, because the next repaint may be a decade away.',
+      },
+    ],
+    facilities: [
+      'City halls and administrative buildings',
+      'Courthouses and judicial facilities',
+      'Police and fire stations',
+      'Detention and correctional facilities',
+      'Public libraries and community centers',
+      'Parks, recreation, and aquatic facilities',
+      'Water treatment and public works',
+      'Transit and maintenance facilities',
+    ],
+    approach: [
+      {
+        heading: 'Read the front-end documents, not just Division 09',
+        body: 'On public work, the general conditions and supplementary conditions carry requirements that change the price — wage determinations, insurance limits, retainage, and submittal procedure. We price from those as well as the technical section.',
+      },
+      {
+        heading: 'Document as you go',
+        body: 'Certified payroll, daily reports, and change documentation are produced on the cycle the contract requires rather than assembled at the end. On public work, incomplete paperwork stops payment regardless of whether the painting is finished.',
+      },
+      {
+        heading: 'Keep the public side clean',
+        body: 'Entrances, lobbies, and counters stay usable and presentable throughout. Where the work is visible to the public, the site is a reflection on the agency as much as on the contractor.',
+      },
+    ],
+    relatedServices: ['commercial-painting', 'maintenance-repaints'],
+    gradient: 'from-[#c3ccd4] via-[#6d7c8b] to-[#1b2733]',
+  },
+  {
+    slug: 'office',
+    art: 'office',
+    title: 'Commercial Office',
+    shortTitle: 'Commercial Office',
+    code: 'SECTOR / OF',
+    summary:
+      'Tenant improvements, spec suites, common-area repositioning, and full-building refresh across office towers, campuses, and flex space.',
+    intro:
+      'Office work is leasing work. A tenant improvement has a lease commencement date attached to it, a spec suite exists to be shown, and a lobby repositioning is there to justify a rent increase. The finish date is a revenue date, which is why it does not move.',
+    metaTitle: 'Office Painting Contractor | Tenant Improvements, DFW',
+    metaDescription:
+      'Commercial office painting in Dallas–Fort Worth: tenant improvements, spec suites, lobby and common-area repositioning, and occupied-building refresh programs.',
+    constraints: [
+      {
+        title: 'The lease date is the schedule',
+        body: 'Tenant improvement work is driven by commencement dates. Delivering late has a rent consequence, so crew loading is planned against the date rather than against average production.',
+      },
+      {
+        title: 'Other tenants keep working',
+        body: 'A floor under construction usually sits above and below floors that are fully occupied. Noise, odor, freight elevator access, and after-hours work are coordinated with building management, not just the general contractor.',
+      },
+      {
+        title: 'Repositioning is a first impression',
+        body: 'Lobbies, elevator lobbies, and amenity floors are the surfaces a prospective tenant judges the building by. They are inspected at close range and warrant a higher finish standard than a back-of-house corridor.',
+      },
+      {
+        title: 'Turn speed on spec suites',
+        body: 'Vacant space earns nothing. Spec suites and downtime turns are staffed to move quickly with a defined standard, so finish quality does not vary between suites in the same building.',
+      },
+    ],
+    facilities: [
+      'Office towers and mid-rise buildings',
+      'Tenant improvements and fit-outs',
+      'Spec suites and white-box space',
+      'Lobbies and elevator lobbies',
+      'Amenity floors and conference centers',
+      'Flex, creative, and adaptive-reuse space',
+      'Corporate campuses',
+      'Parking structures and back-of-house',
+    ],
+    approach: [
+      {
+        heading: 'Work to the building rules',
+        body: 'Every building has its own hours, freight elevator scheduling, dock access, and protection standards. We confirm them with property management before the first delivery rather than finding out when a crew is turned away at the dock.',
+      },
+      {
+        heading: 'Set the standard on the first suite',
+        body: 'On multi-suite programs, the first space establishes the finish standard and the production rate. We get it walked and approved before applying the same approach across the rest of the floor plate.',
+      },
+      {
+        heading: 'Leave no trace on occupied floors',
+        body: 'Common corridors, elevator cabs, and lobbies used to reach the work are protected and cleaned daily. Other tenants should not be able to tell which floor is under construction.',
+      },
+    ],
+    relatedServices: ['commercial-painting', 'specialty-coatings'],
+    gradient: 'from-[#c9d2da] via-[#66798c] to-[#141f2c]',
   },
 ];
 

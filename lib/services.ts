@@ -34,11 +34,16 @@ export type Service = {
   /** Buyer-facing questions, also emitted as FAQPage structured data. */
   faqs: { question: string; answer: string }[];
   relatedMarkets: string[];
+  /** Key into components/ui/SectorArt.tsx. */
+  art: string;
+  /** Anchor sections rendered inside the page (e.g. interior vs exterior). */
+  subScopes?: { id: string; title: string; body: string; items: string[] }[];
 };
 
 export const services: Service[] = [
   {
     slug: 'commercial-painting',
+    art: 'commercial-painting',
     title: 'Commercial Painting',
     shortTitle: 'Commercial Painting',
     csi: 'CSI 09 91 00',
@@ -104,10 +109,39 @@ export const services: Service[] = [
           'Yes. Product data, MSDS, color schedules, and mockups are handled as part of the submittal package. On projects where the finish is design-critical, we recommend an approved mockup before production so the standard is agreed rather than argued.',
       },
     ],
+    subScopes: [
+      {
+        id: 'interior',
+        title: 'Interior painting',
+        body: 'Everything inside the envelope, planned around whoever is still using the building. Interior work is where occupied-site planning, odor control, and phasing decide whether the job succeeds — the coating itself is the straightforward part.',
+        items: [
+          'Walls, ceilings, soffits, and bulkheads',
+          'Doors, frames, and hollow metal',
+          'Exposed structure and dryfall above the ceiling line',
+          'Scrubbable epoxy in wet and high-touch areas',
+          'Millwork, trim, and architectural woodwork',
+          'Level 4 and Level 5 finish coordination',
+        ],
+      },
+      {
+        id: 'exterior',
+        title: 'Exterior painting',
+        body: 'Everything outside the envelope, planned around weather windows and access equipment. In North Texas the south and west elevations degrade years ahead of the rest of the building, so exterior scope is written elevation by elevation rather than as one number.',
+        items: [
+          'Stucco, EIFS, and cementitious substrates',
+          'Tilt-wall, precast, and masonry',
+          'Structural and architectural metal',
+          'Sealant and caulking replacement',
+          'Pressure washing and substrate preparation',
+          'Elastomeric and high-build envelope systems',
+        ],
+      },
+    ],
     relatedMarkets: ['healthcare', 'education', 'retail'],
   },
   {
     slug: 'industrial-coatings',
+    art: 'industrial-coatings',
     title: 'Industrial Coatings',
     shortTitle: 'Industrial Coatings',
     csi: 'CSI 09 96 00',
@@ -177,6 +211,7 @@ export const services: Service[] = [
   },
   {
     slug: 'new-construction',
+    art: 'new-construction',
     title: 'New Construction',
     shortTitle: 'New Construction',
     csi: 'CSI 09 00 00',
@@ -245,6 +280,7 @@ export const services: Service[] = [
   },
   {
     slug: 'maintenance-repaints',
+    art: 'maintenance-repaints',
     title: 'Maintenance & Repaints',
     shortTitle: 'Maintenance & Repaints',
     csi: 'CSI 09 91 00',
@@ -310,6 +346,146 @@ export const services: Service[] = [
       },
     ],
     relatedMarkets: ['multifamily', 'retail', 'education'],
+  },
+  {
+    slug: 'epoxy-flooring',
+    art: 'epoxy-flooring',
+    title: 'Epoxy & Resinous Flooring',
+    shortTitle: 'Epoxy Flooring',
+    csi: 'CSI 09 67 00',
+    kicker: 'Seamless floor systems',
+    summary:
+      'Epoxy, urethane, and polyaspartic floor systems for warehouses, kitchens, labs, healthcare, and manufacturing — installed over a slab that has been tested first.',
+    intro:
+      'A resinous floor either bonds to the slab or it does not. Almost every failure traces back to something that happened before the first coat went down: moisture that was never measured, a profile that was never opened, or a contaminant that was never removed. We test, prepare, and document in that order.',
+    metaTitle: 'Epoxy Flooring Contractor | Resinous Floor Systems, Texas',
+    metaDescription:
+      'Epoxy, urethane cement, and polyaspartic floor systems across Texas. Moisture testing, mechanical surface preparation, coved bases, and safety striping.',
+    scope: [
+      'Concrete moisture vapor and relative humidity testing',
+      'Shot blasting, grinding, and mechanical profiling',
+      'Joint filling, crack repair, and slab patching',
+      'Epoxy build and self-levelling systems',
+      'Urethane cement for thermal-shock and washdown areas',
+      'Polyaspartic and urethane wear coats',
+      'Broadcast quartz and vinyl flake systems',
+      'Integral coved base and sealed transitions',
+      'Anti-slip aggregate and safety line striping',
+      'Electrostatic-dissipative systems where specified',
+    ],
+    systems: [
+      { label: 'Warehouse traffic', detail: 'Epoxy build coat with a urethane wear coat over a shot-blasted profile' },
+      { label: 'Food and beverage', detail: 'Urethane cement, coved and sealed, for thermal shock and washdown' },
+      { label: 'Healthcare and lab', detail: 'Self-levelling epoxy or seamless resin with a coved, cleanable base' },
+      { label: 'Mechanical rooms', detail: 'Broadcast quartz for slip resistance and chemical exposure' },
+      { label: 'Preparation', detail: 'Mechanical profile to the manufacturer’s required CSP — never acid etching' },
+    ],
+    sections: [
+      {
+        heading: 'Test the slab before quoting the floor',
+        body: 'Concrete moisture vapor emission and internal relative humidity testing come first, because the result decides whether a moisture-mitigating primer is required and therefore what the floor actually costs. Pricing a resinous floor over an untested slab is a guess, and the person who pays for the guess is whoever owns the building when it delaminates.',
+      },
+      {
+        heading: 'Mechanical preparation, not acid etching',
+        body: 'We shot blast or diamond grind to open the required surface profile. Acid etching is faster and cheaper and it is the reason a great many floors fail — it leaves residue, it does not reliably reach profile, and it cannot address contamination in the top of the slab.',
+      },
+      {
+        heading: 'Details are what fail first',
+        body: 'Floors rarely fail in the field of the slab. They fail at control joints, at the transition to a drain, at the wall base, and at the doorway. Those details are drawn, priced, and installed deliberately — coved bases, keyed terminations, and properly treated joints rather than a coating run to the edge and stopped.',
+      },
+      {
+        heading: 'Downtime is the real constraint',
+        body: 'Most floors are installed in buildings that need to reopen. Cure schedules, return-to-service times, and the sequence in which areas come out of use are planned with the facility before mobilization, and fast-cure systems are specified where the window genuinely demands them.',
+      },
+    ],
+    faqs: [
+      {
+        question: 'How long before we can use the floor again?',
+        answer:
+          'It depends on the system and the ambient conditions — typically 24 to 72 hours for foot traffic and longer for vehicles or hard-wheeled loads. Polyaspartic systems can return to service far faster where the schedule justifies the premium. We give you the actual figure for the specified system before you commit to a shutdown window.',
+      },
+      {
+        question: 'Can you coat over an existing epoxy floor?',
+        answer:
+          'Sometimes. It depends on adhesion of the existing system, compatibility with the new one, and contamination. We test adhesion before recommending it. Where the existing floor is failing, coating over it just transfers the failure to the new surface.',
+      },
+      {
+        question: 'Do you handle safety striping and markings?',
+        answer:
+          'Yes — aisle striping, pedestrian walkways, equipment footprints, hazard marking, and colour-coded identification, applied as part of the floor system rather than taped on afterwards.',
+      },
+    ],
+    relatedMarkets: ['industrial', 'healthcare', 'retail'],
+  },
+  {
+    slug: 'specialty-coatings',
+    art: 'specialty-coatings',
+    title: 'Specialty Coatings & Wall Systems',
+    shortTitle: 'Specialty Coatings',
+    csi: 'CSI 09 72 00',
+    kicker: 'Beyond standard finishes',
+    summary:
+      'Wallcovering, wall protection, intumescent fireproofing, elastomeric envelopes, and architectural finishes that sit outside a standard paint scope.',
+    intro:
+      'Some finishes need a specification that a general painting scope does not cover. Intumescent fireproofing is a life-safety system with a tested assembly behind it. Wall protection is a maintenance decision. Elastomeric is a building-envelope product. Each carries its own submittal requirements and its own inspection regime, and each is priced accordingly.',
+    metaTitle: 'Specialty Coatings & Wallcovering | Commercial Texas',
+    metaDescription:
+      'Wallcovering, wall protection, intumescent fireproofing, elastomeric coatings, and architectural finishes for commercial buildings across Texas.',
+    scope: [
+      'Commercial vinyl and Type II wallcovering',
+      'Wall protection — sheet, rigid panel, and impact systems',
+      'Intumescent fireproofing to tested assemblies',
+      'Elastomeric envelope coatings over stucco and EIFS',
+      'Anti-graffiti and easy-clean sacrificial systems',
+      'Antimicrobial and cleanroom-grade finishes',
+      'Faux, metallic, and architectural specialty finishes',
+      'Acoustic and ceiling coatings',
+      'Concrete stains, sealers, and densifiers',
+      'Substrate preparation and skim coating to the required finish level',
+    ],
+    systems: [
+      { label: 'Wallcovering', detail: 'Level 4 or 5 substrate, primed with a wallcovering primer before hanging' },
+      { label: 'Intumescent', detail: 'Applied to the tested assembly, with thickness verified and logged' },
+      { label: 'Wall protection', detail: 'Sheet or rigid panel at the heights the facility actually takes damage' },
+      { label: 'Elastomeric', detail: 'Sealant renewal and substrate repair before a high-build envelope coat' },
+      { label: 'Anti-graffiti', detail: 'Sacrificial or permanent, chosen on how often the surface is cleaned' },
+    ],
+    sections: [
+      {
+        heading: 'Fireproofing is a life-safety system',
+        body: 'Intumescent coatings protect structural steel to a tested assembly, and the film thickness is the whole product. We apply to the assembly as tested, verify thickness, log it, and turn the record over. This is not a scope to award on price alone, and an inspector will not accept it without documentation.',
+      },
+      {
+        heading: 'Wallcovering exposes the substrate',
+        body: 'Vinyl telegraphs everything under it. The wall has to reach the specified finish level and be primed with a proper wallcovering primer, or every seam and fastener shows under grazing light. Where the drywall contractor has not reached the required level, we say so before hanging rather than after.',
+      },
+      {
+        heading: 'Wall protection is a maintenance decision',
+        body: 'Corridors in hospitals, schools, and back-of-house areas take cart and equipment damage in predictable places at predictable heights. Installing protection at those heights costs less over a building’s life than repainting the same corridor every eighteen months.',
+      },
+      {
+        heading: 'Architectural finishes need an approved sample',
+        body: 'Metallic, faux, and textured finishes vary with application technique, so the standard has to be set by an approved sample before production and the same applicator has to carry it through. We agree that in preconstruction rather than discovering the variation at the punch walk.',
+      },
+    ],
+    faqs: [
+      {
+        question: 'Do you install intumescent fireproofing?',
+        answer:
+          'Yes, applied to the tested assembly with thickness verified and recorded. Where the specification calls for third-party inspection, we coordinate it. The turnover package includes product data, the assembly reference, and thickness readings.',
+      },
+      {
+        question: 'What finish level does wallcovering need?',
+        answer:
+          'Normally Level 4 as a minimum, and Level 5 where lighting is critical or the covering is thin. Confirm it with the drywall contractor before the wall is closed out — correcting it afterwards means skim coating a finished surface.',
+      },
+      {
+        question: 'Is anti-graffiti coating worth it?',
+        answer:
+          'On surfaces that are actually being tagged, yes. Sacrificial systems are cheaper and are removed with the graffiti, so they suit surfaces cleaned occasionally. Permanent systems cost more up front and suit surfaces cleaned repeatedly. The right answer depends on how often you are cleaning.',
+      },
+    ],
+    relatedMarkets: ['healthcare', 'education', 'office'],
   },
 ];
 

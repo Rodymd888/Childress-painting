@@ -1,50 +1,45 @@
-import { ImageIcon } from 'lucide-react';
+import { SectorArt, type ArtKey } from './SectorArt';
 
 /**
- * Labeled stand-in shown wherever real photography has not been supplied yet.
- * It is deliberately visible rather than decorative: the point is that nobody
- * can ship the site without noticing which images are still missing.
+ * IMAGE SLOT
+ * ---------------------------------------------------------------------------
+ * v2 — previously a gradient block with a diagonal hatch and a visible
+ * "photography placeholder" label. It did its job (nobody could ship without
+ * noticing) but it made finished pages look unfinished.
  *
- * Replace by setting `featuredImage` / `image` on the relevant data record.
+ * Now it renders a purpose-drawn architectural scene from SectorArt, which
+ * reads as art direction rather than a missing asset. The "awaiting
+ * photography" note is still there for the team — but as a small, dismissable
+ * corner marker rather than a banner across the artwork, and it can be turned
+ * off entirely with `showNote={false}` once you are comfortable shipping the
+ * drawings as the permanent treatment.
  */
 export function ImagePlaceholder({
-  gradient,
+  art,
   label,
-  note = 'Photography placeholder',
+  note = 'Awaiting photography',
+  showNote = true,
   className,
 }: {
-  gradient: string;
+  art: ArtKey;
   label: string;
   note?: string;
+  showNote?: boolean;
   className?: string;
 }) {
   return (
     <div
       role="img"
-      aria-label={`${label} — image placeholder, awaiting project photography`}
-      className={[
-        'relative flex h-full w-full items-end overflow-hidden bg-gradient-to-br',
-        gradient,
-        className,
-      ]
-        .filter(Boolean)
-        .join(' ')}
+      aria-label={`${label} — illustrative architectural drawing`}
+      className={['relative size-full overflow-hidden bg-navy', className].filter(Boolean).join(' ')}
     >
-      {/* Diagonal hatch, echoing a drawing sheet's "not issued" fill. */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 opacity-45"
-        style={{
-          backgroundImage:
-            'repeating-linear-gradient(125deg, transparent 0 30px, rgba(255,255,255,0.07) 30px 31px)',
-        }}
-      />
-      <div className="relative z-10 flex items-center gap-2 p-4 md:p-5">
-        <ImageIcon aria-hidden="true" className="size-3.5 shrink-0 text-white/70" />
-        <span className="font-mono text-[0.5625rem] uppercase tracking-[0.18em] text-white/70">
+      <SectorArt art={art} className="size-full" />
+
+      {showNote && (
+        <span className="absolute bottom-3 right-3 z-10 rounded-full bg-navy-900/70 px-2.5 py-1 font-mono text-[0.5rem] uppercase tracking-[0.16em] text-white/70 backdrop-blur-sm">
           {note}
         </span>
-      </div>
+      )}
     </div>
   );
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import { CheckCircle2, AlertTriangle, Loader2 } from 'lucide-react';
-import type { FormEvent, ReactNode } from 'react';
+import type { FormEvent, ReactNode, RefObject } from 'react';
 import type { SubmitState } from './useFormSubmit';
 import { Button } from '@/components/ui/Button';
 import { company } from '@/lib/site';
@@ -19,6 +19,11 @@ export function FormShell({
   successBody,
   resetLabel = 'Send another',
   onReset,
+  formRef,
+  /** Hide the submit button — used by multi-step forms that supply their own. */
+  hideSubmit = false,
+  /** Extra controls rendered beside the submit button (wizard navigation). */
+  footer,
 }: {
   state: SubmitState;
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
@@ -28,6 +33,9 @@ export function FormShell({
   successBody: string;
   resetLabel?: string;
   onReset?: () => void;
+  formRef?: RefObject<HTMLFormElement | null>;
+  hideSubmit?: boolean;
+  footer?: ReactNode;
 }) {
   if (state.status === 'success') {
     return (
@@ -62,7 +70,11 @@ export function FormShell({
   const submitting = state.status === 'submitting';
 
   return (
-    <form onSubmit={onSubmit} noValidate className="border-t-4 border-red bg-mist p-6 md:p-9 lg:p-12">
+    <form
+      ref={formRef}
+      onSubmit={onSubmit}
+      className="border-t-4 border-red bg-mist p-6 md:p-9 lg:p-12"
+    >
       {/* Live region so assistive tech announces the failure without a jump. */}
       <div aria-live="polite">
         {state.status === 'error' && (
@@ -88,10 +100,15 @@ export function FormShell({
       <div className="space-y-10">{children}</div>
 
       <div className="mt-10 border-t border-line pt-8">
-        <Button type="submit" size="lg" disabled={submitting}>
-          {submitting && <Loader2 aria-hidden="true" className="size-4 animate-spin" />}
-          {submitting ? 'Sending…' : submitLabel}
-        </Button>
+        <div className="flex flex-wrap items-center gap-3">
+          {footer}
+          {!hideSubmit && (
+            <Button type="submit" size="lg" disabled={submitting}>
+              {submitting && <Loader2 aria-hidden="true" className="size-4 animate-spin" />}
+              {submitting ? 'Sending…' : submitLabel}
+            </Button>
+          )}
+        </div>
         <p className="mt-4 max-w-xl text-[0.8125rem] leading-relaxed text-body">
           Fields marked with an asterisk are required. We use what you send to respond to your
           enquiry — see our{' '}

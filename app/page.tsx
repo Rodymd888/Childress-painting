@@ -2,6 +2,8 @@ import Link from 'next/link';
 import { ShieldCheck, ClipboardCheck, Building2, Wrench, ArrowRight } from 'lucide-react';
 
 import { Hero } from '@/components/home/Hero';
+import { IndustryMarquee } from '@/components/home/IndustryMarquee';
+import { WhyChoose } from '@/components/home/WhyChoose';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { Reveal, RevealGroup, RevealItem } from '@/components/ui/Reveal';
 import { TextLink, ButtonLink } from '@/components/ui/Button';
@@ -19,7 +21,6 @@ import { featuredProjects } from '@/lib/projects';
 import { company, testimonials } from '@/lib/site';
 import {
   processSteps,
-  differentiators,
   safetyCommitments,
   qualityPractices,
   historyMilestones,
@@ -62,6 +63,8 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+
+      <IndustryMarquee />
 
       {/* ── Commercial credibility strip ──────────────────────────────── */}
       <section className="border-b border-line bg-mist">
@@ -136,21 +139,25 @@ export default function HomePage() {
             layout="split"
             light
             label="Capabilities"
-            title="Four scopes. One accountable contractor."
+            title="Six scopes. One accountable contractor."
             intro={
               <p>
-                We self-perform commercial painting and industrial coatings, take on complete
+                We self-perform painting, coatings, and resinous flooring, take on complete
                 Division 09 packages on ground-up construction, and run planned repaint programs
-                for owners between capital cycles.
+                for owners between capital cycles. Interior and exterior are both covered under
+                commercial painting.
               </p>
             }
             action={<TextLink href="/services" light>All services</TextLink>}
           />
 
-          <RevealGroup className="mt-14 grid gap-px bg-white/12 sm:grid-cols-2 xl:grid-cols-4">
-            {services.map((service) => (
-              <RevealItem key={service.slug}>
-                <ServiceCard service={service} />
+          <RevealGroup
+            stagger={0.06}
+            className="mt-14 grid gap-px bg-white/12 sm:grid-cols-2 xl:grid-cols-3"
+          >
+            {services.map((service, i) => (
+              <RevealItem key={service.slug} className={i === 0 ? 'sm:col-span-2' : ''}>
+                <ServiceCard service={service} index={i} featured={i === 0} />
               </RevealItem>
             ))}
           </RevealGroup>
@@ -163,7 +170,7 @@ export default function HomePage() {
           <SectionHeading
             layout="split"
             label="Markets"
-            title="Every sector has a constraint that decides the schedule."
+            title="Eight sectors. Eight different reasons the schedule is hard."
             intro={
               <p>
                 An infection control barrier, a badging queue, the first day of class, a plant
@@ -174,7 +181,7 @@ export default function HomePage() {
             action={<TextLink href="/markets">All markets</TextLink>}
           />
 
-          <RevealGroup className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <RevealGroup stagger={0.05} className="mt-14 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
             {markets.map((market) => (
               <RevealItem key={market.slug}>
                 <MarketCard market={market} />
@@ -184,44 +191,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Why Childress ─────────────────────────────────────────────── */}
-      <section className="bg-mist py-20 md:py-24 lg:py-28">
-        <div className="container-site">
-          <SectionHeading
-            layout="split"
-            label="Why Childress"
-            title="What a general contractor is actually buying."
-            intro={
-              <p>
-                Not a price on a page. A subcontractor who responds to the invitation, prices what
-                is on the drawings, shows up with the crew that was promised, and does not create
-                work for the project team.
-              </p>
-            }
-          />
-
-          <RevealGroup className="mt-14 grid gap-px bg-line md:grid-cols-2 xl:grid-cols-3">
-            {differentiators.map((item, i) => (
-              <RevealItem
-                key={item.title}
-                className="group relative bg-mist p-7 transition-colors duration-300 hover:bg-white lg:p-8"
-              >
-                <span
-                  aria-hidden="true"
-                  className="absolute inset-x-0 top-0 h-0.5 w-0 bg-red transition-all duration-500 group-hover:w-full"
-                />
-                <span className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-navy/60">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <h3 className="mt-4 text-[1.375rem] leading-tight text-navy lg:text-2xl">
-                  {item.title}
-                </h3>
-                <p className="mt-3.5 text-[0.9375rem] leading-relaxed text-body">{item.body}</p>
-              </RevealItem>
-            ))}
-          </RevealGroup>
-        </div>
-      </section>
+      <WhyChoose />
 
       {/* ── Featured projects ─────────────────────────────────────────── */}
       <section className="bg-white py-20 md:py-24 lg:py-28">

@@ -5,6 +5,56 @@ Framer Motion, and Lucide icons. Deploys to Vercel with no configuration.
 
 ---
 
+## v2 — design and performance pass
+
+A full redesign pass over the live site. Structure, routes, and branding were preserved;
+everything else was reworked. Nothing was rebuilt from scratch.
+
+**Visual**
+- Purpose-drawn architectural artwork (`components/ui/SectorArt.tsx`) replaces the gradient
+  image placeholders. Fourteen scenes — hospital corridor, hangar truss, curtain wall, slab
+  section, tower crane — drawn in the brand palette. Vector, ~1 KB each, no layout shift.
+- Fluid type scale as design tokens (`--text-display` → `--text-lead`), so headings hold
+  their proportions from 375px to 1920px instead of being tuned per component.
+- Hero rebuilt: masked line reveal, Ken Burns drift on the plate, a "Since 1984" standing
+  seal, and trust indicators moved above the fold.
+- Motion primitives in CSS (`.lift`, `.sweep`, `.sheen`, `.underline-sweep`) replace the
+  single red top-bar effect that had been reused on six different card types.
+- Process timeline redesigned as a connected sequence with visible stage connectors.
+- Testimonial placeholders no longer render as red warning boxes — an unapproved reference
+  is a reserved slot, not an error state.
+
+**Performance**
+- Framer Motion removed from all content pages. Scroll reveals now use one shared
+  IntersectionObserver plus CSS transitions. Motion is retained only where it earns its
+  weight: the hero load sequence and the mobile drawer.
+- **First Load JS on content pages: 143 kB → 104 kB (−27%).**
+
+**Content and structure**
+- Services expanded 4 → 6: added Epoxy & Resinous Flooring and Specialty Coatings.
+- Markets expanded 6 → 8: added Government & Civic and Commercial Office.
+- Interior and exterior painting are covered as sub-scopes inside Commercial Painting, with
+  their own anchors, rather than as separate top-level services. Splitting them apart is a
+  residential convention that makes a Division 09 package harder to level, not easier — the
+  services index links to both anchors explicitly.
+- Process expanded from 4 stages to the 6 a buyer recognises, each still tied to a
+  deliverable.
+- Homepage gained a scrolling sector band and a dedicated Why Childress section.
+
+**Request a bid**
+- Rebuilt as a four-step wizard with per-step validation, a real progress indicator, and
+  keyboard/assistive-tech support. All steps stay mounted, so one native submit carries every
+  field and autofill behaves normally.
+- Added Estimated Budget, Additional Notes, and a drag-and-drop plan upload.
+
+**Accessibility**
+- Every text colour re-checked against WCAG AA; all pass 4.5:1.
+- Wizard progress is a real `<ol>` with `aria-current="step"`.
+- All 27 pages verified: unique titles and descriptions, canonicals, OG and Twitter tags,
+  exactly one `<h1>`, valid JSON-LD, no image missing `alt`.
+
+---
+
 ## Quick start
 
 ```bash
@@ -144,13 +194,30 @@ assuming the message arrived.
 browser bundle. Read every API key from `process.env` inside that file. Never prefix a secret
 with `NEXT_PUBLIC_`.
 
-### File uploads
+### Plan uploads
 
-Upload fields collect a **link** rather than a binary. Accepting files needs object storage,
-size limits, and virus scanning — decisions that belong to whichever provider you choose, and
-linking to a plan room is how most GCs share drawings anyway. To enable real uploads: swap the
-input in `FileLinkField` for `<input type="file">`, post as `multipart/form-data`, and stream
-to your storage provider inside the route handler.
+The bid wizard has a real drag-and-drop file picker with type and size validation
+(25 MB per file, 10 files). **The transport is not connected yet** — the browser collects the
+files and sends the filenames with the enquiry, and the UI says so plainly rather than
+implying the drawings arrived.
+
+To finish it, pick a storage provider and wire it up in three places:
+
+1. `components/forms/BidForm.tsx` — post as `FormData` instead of JSON when `files.length > 0`.
+2. `app/api/bid/route.ts` — read the multipart body.
+3. `lib/submissions.ts` — stream each file to storage inside `deliver()`.
+
+Vercel Blob is the shortest path on this stack:
+
+```ts
+import { put } from '@vercel/blob';
+const { url } = await put(`bids/${ref}/${file.name}`, file, { access: 'private' });
+```
+
+Enforce the size limit server-side as well as in the browser, and note that Vercel's
+serverless request body cap applies — for very large plan sets, prefer a client-direct upload
+to storage, or keep using the plan-room link field, which is how most GCs share drawings
+anyway.
 
 ### Rate limiting in production
 

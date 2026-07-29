@@ -8,6 +8,7 @@ import { SectionHeading } from '@/components/ui/SectionHeading';
 import { Reveal, RevealGroup, RevealItem } from '@/components/ui/Reveal';
 import { JsonLd } from '@/components/ui/JsonLd';
 import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder';
+import type { ArtKey } from '@/components/ui/SectorArt';
 import { TextLink } from '@/components/ui/Button';
 import { ProjectCard } from '@/components/cards/ProjectCard';
 
@@ -76,9 +77,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         ) : (
           <div className="absolute inset-0 -z-20">
             <ImagePlaceholder
-              gradient={project.gradient}
+              art={project.art as ArtKey}
               label={project.name}
-              note="Project photography placeholder"
+              note="Awaiting project photography"
             />
           </div>
         )}
@@ -285,9 +286,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                 [0, 1, 2].map((i) => (
                   <RevealItem key={i} className="aspect-4/3">
                     <ImagePlaceholder
-                      gradient={project.gradient}
+                      art={project.art as ArtKey}
                       label={`${project.name} gallery slot ${i + 1}`}
-                      note={`Gallery image ${i + 1} — awaiting photography`}
+                      note={`Gallery ${i + 1}`}
                     />
                   </RevealItem>
                 ))}

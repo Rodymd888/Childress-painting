@@ -11,23 +11,33 @@ import type { ProcessStep } from '@/components/ui/ProcessTimeline';
 /** The four stages of a project, in order, each with a real deliverable. */
 export const processSteps: ProcessStep[] = [
   {
-    title: 'Preconstruction',
-    body: 'We take off the drawings, read the specification for the requirements that actually drive cost, and flag conditions the documents do not cover. Exclusions and assumptions are written down rather than implied.',
+    title: 'Consultation',
+    body: 'We walk the building or read the documents, and we ask the questions that decide the price — working hours, occupancy, access, and what the specification leaves open. Most of what makes a job hard is visible at this stage if anyone looks.',
+    output: 'Site review and scope clarification',
+  },
+  {
+    title: 'Estimating',
+    body: 'Takeoff from the drawings rather than a square-foot rule, read against the specification for the requirements that actually drive cost. Exclusions and assumptions get written down instead of implied.',
     output: 'Priced bid with a written scope letter',
   },
   {
-    title: 'Planning and buyout',
-    body: 'Product approvals are confirmed against the specification before material is ordered. Manpower is loaded against the construction schedule, and access, containment, and working-hours constraints are agreed before mobilization.',
+    title: 'Scheduling',
+    body: 'Manpower is loaded against the construction schedule, product approvals are confirmed before material is ordered, and access, containment, and working hours are agreed before anyone mobilizes.',
     output: 'Submittals, mockups, and a manpower plan',
   },
   {
-    title: 'Production',
-    body: 'Supervision stays on site. Crew size flexes weekly against the look-ahead as areas are released, and quality checks happen before an area is offered for inspection rather than after it fails one.',
+    title: 'Surface preparation',
+    body: 'Substrates are inspected, washed, profiled, patched, and sealed as the condition requires. Coating failures are almost always preparation failures, so this stage is where the service life of the job is decided.',
+    output: 'Prepared substrate, documented and accepted',
+  },
+  {
+    title: 'Painting & coatings',
+    body: 'Supervision stays on site. Crew size flexes weekly against the look-ahead as areas release, conditions are monitored on systems that are sensitive to them, and quality checks happen before an area is offered rather than after it fails.',
     output: 'Weekly progress reporting and pay app backup',
   },
   {
-    title: 'Closeout',
-    body: 'Punch is tracked by area throughout production instead of collected at the end. Touch-up follows final cleaning, and the turnover package is assembled as the work completes.',
+    title: 'Final walkthrough',
+    body: 'Punch is tracked by area throughout production rather than collected at the end. Touch-up follows final cleaning, and the turnover package is assembled as the work completes rather than hunted for afterwards.',
     output: 'Punch sign-off, attic stock, and warranty package',
   },
 ];
@@ -35,28 +45,39 @@ export const processSteps: ProcessStep[] = [
 /** Why a general contractor would put Childress on the bid list. */
 export const differentiators = [
   {
-    title: 'We answer the invitation',
-    body: 'Every bid invitation gets a response — including a no-bid. Estimators plan around answers, not silence, and a fast no is worth more than a late maybe.',
+    title: 'Painting experience since 1984',
+    body: 'The family trade dates to 1984. Four decades of knowing what a surface does before you coat it is the reason the estimating and the field work hold up.',
+    metric: 'Since 1984',
   },
   {
-    title: 'Scope letters, not assumptions',
-    body: 'Our bids state what is included, what is excluded, and what we assumed. It makes bids easy to level and removes the argument that usually shows up in month three.',
+    title: 'Commercial specialists',
+    body: 'No residential division competing for our crews. Everything we estimate, staff, and schedule is built around commercial and industrial work and the people who buy it.',
+    metric: 'Commercial only',
   },
   {
-    title: 'Manpower matched to the schedule',
-    body: 'Production is set by how much area gets released, not by how many painters are on site. We load crews against the look-ahead and adjust as the building opens up.',
+    title: 'An experienced field team',
+    body: 'Supervision that has run occupied hospitals, live terminals, and operating plants. Field questions get answered on site the same day instead of waiting on a callback.',
+    metric: 'Supervised on site',
   },
   {
-    title: 'Built for occupied buildings',
-    body: 'Hospitals, schools, plants, and retail centers do not stop operating for paint. Phasing, containment, odor control, and after-hours work are planned in preconstruction, not improvised on site.',
+    title: 'Reliable scheduling',
+    body: 'Production is set by how much area is released, not by how many painters are on site. We load crews against the look-ahead and say something early when a predecessor slips.',
+    metric: 'Loaded to the look-ahead',
   },
   {
-    title: 'One point of contact',
-    body: 'You get a person who knows the job, answers the phone, and can make a decision — not a queue. Field issues are resolved the same day wherever they can be.',
+    title: 'Quality control that pre-empts punch',
+    body: 'A supervisor walks each area before it is offered for inspection, so the first walk with the general contractor is a confirmation rather than a discovery exercise.',
+    metric: 'Walked before offered',
   },
   {
-    title: 'Documentation that survives review',
-    body: 'Product data, color schedules, coating records, and punch sign-offs are assembled as the work proceeds so closeout is a handover rather than a hunt.',
+    title: 'Safety as a planning input',
+    body: 'Site-specific hazard planning before mobilization, daily task review in the field, and stop-work authority for every crew member without being second-guessed.',
+    metric: 'Planned, then reviewed daily',
+  },
+  {
+    title: 'Professional communication',
+    body: 'Every bid invitation gets an answer, including a no-bid. You get one point of contact who knows the job and can make a decision, not a queue.',
+    metric: 'Bid or no-bid, always',
   },
 ];
 

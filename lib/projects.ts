@@ -59,7 +59,10 @@ export type Project = {
   results: string[];
   featuredImage?: ProjectImage;
   gallery: ProjectImage[];
-  /** Gradient used for the placeholder block when no photo exists yet. */
+  /** Key into components/ui/SectorArt.tsx — drawn artwork used until a real
+      photograph is supplied via `featuredImage`. */
+  art: string;
+  /** Legacy gradient, retained as the final fallback. */
   gradient: string;
   /** true = illustrative sample, renders a visible notice. */
   sample: boolean;
@@ -70,6 +73,7 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: 'medical-office-building-interior-finishes',
+    art: 'healthcare',
     name: 'Medical Office Building — Interior Finishes',
     location: 'Fort Worth, TX',
     market: 'healthcare',
@@ -106,6 +110,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'distribution-center-coatings-program',
+    art: 'industrial',
     name: 'Distribution Center — Coatings Program',
     location: 'Dallas, TX',
     market: 'industrial',
@@ -142,6 +147,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'k12-campus-summer-repaint',
+    art: 'education',
     name: 'K–12 Campus — Summer Repaint',
     location: 'Plano, TX',
     market: 'education',
@@ -178,6 +184,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'multifamily-community-exterior-renewal',
+    art: 'multifamily',
     name: 'Multifamily Community — Exterior Renewal',
     location: 'Arlington, TX',
     market: 'multifamily',
@@ -214,6 +221,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'airport-concourse-interior-refresh',
+    art: 'aviation',
     name: 'Airport Concourse — Interior Refresh',
     location: 'Sample location — pending',
     market: 'aviation',
@@ -249,6 +257,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'shopping-center-facade-and-tenant-spaces',
+    art: 'retail',
     name: 'Shopping Center — Facade and Tenant Spaces',
     location: 'Dallas, TX',
     market: 'retail',

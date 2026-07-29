@@ -1,15 +1,22 @@
 @import 'tailwindcss';
 
 /* ==========================================================================
-   CHILDRESS PAINTING — DESIGN SYSTEM
-   Palette: navy / red / white / light gray, per brand direction.
+   CHILDRESS PAINTING — DESIGN SYSTEM  v2
+   Palette: navy / red / white / gray.
    Type:    Archivo (variable width display) + IBM Plex Sans + IBM Plex Mono.
    Motif:   drawing-sheet "title block" — mono labels, CSI codes, red rules.
+
+   v2 changes:
+   - Fluid type scale as tokens, so headings stay proportional 375px → 1920px
+   - Editorial rhythm tokens; section padding no longer hand-tuned per page
+   - Motion primitives: lift, sweep, sheen, reveal — CSS-driven, JS-free
+   - Elevation via hairlines and shadow tokens rather than ad-hoc borders
    ========================================================================== */
 
 @theme {
   /* --- Brand color ------------------------------------------------------ */
   --color-navy: #0d1b2a;
+  --color-navy-900: #0a1522;
   --color-navy-800: #142639;
   --color-navy-700: #1c3349;
   --color-navy-600: #27455f;
@@ -26,13 +33,33 @@
   --color-concrete: #e6e9ee;
   --color-line: #dfe3e9;
 
-  /* --- Type ------------------------------------------------------------- */
+  /* --- Fluid type scale -------------------------------------------------
+     Every heading pulls from these so proportions hold at any width. */
+  --text-display: clamp(2.75rem, 8vw, 6.75rem);
+  --text-h1: clamp(2.25rem, 6.2vw, 4.75rem);
+  --text-h2: clamp(1.875rem, 4.4vw, 3.5rem);
+  --text-h3: clamp(1.375rem, 2.6vw, 2rem);
+  --text-h4: clamp(1.125rem, 1.8vw, 1.375rem);
+  --text-lead: clamp(1.0625rem, 1.6vw, 1.3125rem);
+
+  /* --- Vertical rhythm --------------------------------------------------- */
+  --space-section: clamp(4.5rem, 9vw, 8.5rem);
+  --space-section-sm: clamp(3.5rem, 6vw, 5.5rem);
+
+  /* --- Type families ----------------------------------------------------- */
   --font-display: 'Archivo', 'Archivo Fallback', 'Helvetica Neue', Arial, sans-serif;
   --font-sans: 'IBM Plex Sans', 'Segoe UI', system-ui, -apple-system, sans-serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
 
-  /* --- Motion ----------------------------------------------------------- */
+  /* --- Motion ------------------------------------------------------------ */
   --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.36, 0.64, 1);
+
+  /* --- Elevation --------------------------------------------------------- */
+  --shadow-card: 0 1px 2px rgb(13 27 42 / 0.04), 0 12px 32px -12px rgb(13 27 42 / 0.16);
+  --shadow-lift: 0 2px 4px rgb(13 27 42 / 0.05), 0 28px 56px -20px rgb(13 27 42 / 0.28);
+  --shadow-menu: 0 24px 60px -16px rgb(13 27 42 / 0.35);
 }
 
 /* Metric-adjusted fallback so swapping in the webfont does not shift layout. */
@@ -59,12 +86,14 @@
 
   body {
     margin: 0;
-    background: #ffffff;
+    background: #fff;
     color: var(--color-ink);
     font-family: var(--font-sans);
     font-size: 1rem;
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
+    /* Stops iOS Safari from bouncing past the fixed header background. */
+    overscroll-behavior-y: none;
   }
 
   h1,
@@ -73,17 +102,26 @@
   h4 {
     font-family: var(--font-display);
     font-weight: 800;
-    letter-spacing: -0.025em;
-    line-height: 1.02;
+    letter-spacing: -0.028em;
+    line-height: 1.01;
     text-wrap: balance;
     margin: 0;
   }
 
-  /* The display face is a variable font; widen it for a monumental,
-     architectural set. Falls back gracefully if the axis is unavailable. */
-  h1,
+  /* Widen the variable display face for a monumental, architectural set.
+     Larger sizes get more width; small headings stay closer to normal. */
+  h1 {
+    font-variation-settings: 'wdth' 114;
+  }
+
   h2 {
-    font-variation-settings: 'wdth' 112;
+    font-variation-settings: 'wdth' 110;
+  }
+
+  h3,
+  h4 {
+    font-variation-settings: 'wdth' 104;
+    letter-spacing: -0.02em;
   }
 
   p {
@@ -102,7 +140,6 @@
     max-width: 100%;
   }
 
-  /* Visible, high-contrast focus for keyboard users on every interactive el. */
   :focus-visible {
     outline: 3px solid var(--color-red);
     outline-offset: 3px;
@@ -114,14 +151,13 @@
     color: #fff;
   }
 
-  /* Anchor targets clear the fixed header. */
   :target {
     scroll-margin-top: 7rem;
   }
 }
 
 @layer components {
-  /* Page gutter — one container rule used everywhere, mobile-first. */
+  /* --- Layout ------------------------------------------------------------ */
   .container-site {
     width: 100%;
     max-width: 84rem;
@@ -141,9 +177,16 @@
     }
   }
 
-  /* --- Title block: the signature device -------------------------------
-     A mono label + red dimension rule, borrowed from drawing sheet title
-     blocks. Used to introduce every major section and page. */
+  .section {
+    padding-block: var(--space-section);
+  }
+
+  .section-sm {
+    padding-block: var(--space-section-sm);
+  }
+
+  /* --- Title block: the signature device ---------------------------------
+     Mono label + red dimension rule, from drawing-sheet title blocks. */
   .title-block {
     display: inline-flex;
     align-items: center;
@@ -158,45 +201,136 @@
   .title-block::before {
     content: '';
     width: 1.75rem;
-    height: 0;
     border-top: 3px solid var(--color-red);
     flex: none;
+    transition: width 0.5s var(--ease-out-quint);
   }
 
-  /* Fine hairline rule with end ticks, like a dimension line. */
-  .dim-rule {
-    position: relative;
-    height: 1px;
-    background: currentColor;
-    opacity: 0.35;
+  /* Sections grow their rule as they enter — a small, quiet flourish. */
+  .reveal.is-visible .title-block::before {
+    width: 2.75rem;
   }
 
-  .dim-rule::before,
-  .dim-rule::after {
-    content: '';
-    position: absolute;
-    top: -3px;
-    width: 1px;
-    height: 7px;
-    background: currentColor;
-  }
-
-  .dim-rule::before {
-    left: 0;
-  }
-
-  .dim-rule::after {
-    right: 0;
-  }
-
-  /* Hairline grid used behind dark sections — reads as a drawing grid. */
   .sheet-grid {
     background-image:
-      linear-gradient(to right, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+      linear-gradient(to right, rgb(255 255 255 / 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(255 255 255 / 0.045) 1px, transparent 1px);
     background-size: 88px 88px;
   }
 
+  .sheet-grid-dark {
+    background-image:
+      linear-gradient(to right, rgb(13 27 42 / 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(13 27 42 / 0.045) 1px, transparent 1px);
+    background-size: 88px 88px;
+  }
+
+  /* --- Motion primitives -------------------------------------------------
+     Scroll reveal. A tiny IntersectionObserver adds .is-visible; all the
+     animation itself is CSS, so no animation library ships on these pages. */
+  .reveal {
+    opacity: 0;
+    transform: translate3d(0, 22px, 0);
+    transition:
+      opacity 0.7s var(--ease-out-quint),
+      transform 0.7s var(--ease-out-quint);
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: opacity, transform;
+  }
+
+  .reveal-left {
+    transform: translate3d(-22px, 0, 0);
+  }
+
+  .reveal-right {
+    transform: translate3d(22px, 0, 0);
+  }
+
+  .reveal-scale {
+    transform: scale(0.97);
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+    will-change: auto;
+  }
+
+  /* Card lift on hover — used across every card type for consistency. */
+  .lift {
+    transition:
+      transform 0.45s var(--ease-out-quint),
+      box-shadow 0.45s var(--ease-out-quint),
+      border-color 0.3s ease;
+  }
+
+  @media (hover: hover) {
+    .lift:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lift);
+    }
+  }
+
+  /* Red rule that sweeps across a card edge on hover. */
+  .sweep::after {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    height: 3px;
+    background: var(--color-red);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.55s var(--ease-out-quint);
+  }
+
+  @media (hover: hover) {
+    .sweep:hover::after,
+    .sweep:focus-visible::after {
+      transform: scaleX(1);
+    }
+  }
+
+  /* Diagonal light pass over imagery on hover. */
+  .sheen::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: linear-gradient(
+      105deg,
+      transparent 35%,
+      rgb(255 255 255 / 0.13) 48%,
+      transparent 62%
+    );
+    transform: translateX(-100%);
+    transition: transform 0.9s var(--ease-out-expo);
+    pointer-events: none;
+  }
+
+  @media (hover: hover) {
+    .group:hover .sheen::before {
+      transform: translateX(100%);
+    }
+  }
+
+  /* Link underline that draws in from the left. */
+  .underline-sweep {
+    background-image: linear-gradient(var(--color-red), var(--color-red));
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0% 2px;
+    transition: background-size 0.4s var(--ease-out-quint);
+    padding-bottom: 2px;
+  }
+
+  @media (hover: hover) {
+    .underline-sweep:hover {
+      background-size: 100% 2px;
+    }
+  }
+
+  /* --- Prose -------------------------------------------------------------- */
   .prose-site p {
     color: var(--color-body);
     margin-block: 0 1.15rem;
@@ -207,13 +341,15 @@
   }
 
   .prose-site h2 {
-    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    font-size: var(--text-h3);
     margin-block: 2.75rem 1rem;
+    color: var(--color-navy);
   }
 
   .prose-site h3 {
-    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    font-size: var(--text-h4);
     margin-block: 2rem 0.75rem;
+    color: var(--color-navy);
   }
 
   .prose-site ul {
@@ -231,10 +367,31 @@
     text-decoration: underline;
     text-underline-offset: 3px;
   }
+
+  /* --- Industry marquee ---------------------------------------------------
+     Duplicated track scrolls one full copy then resets, so the loop is
+     seamless without cloning nodes in JavaScript. */
+  .marquee-track {
+    animation: marquee 42s linear infinite;
+  }
+
+  @media (hover: hover) {
+    .marquee:hover .marquee-track {
+      animation-play-state: paused;
+    }
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
 }
 
 @layer utilities {
-  /* Hides content visually but reveals it on keyboard focus (skip link). */
   .sr-only-focusable:not(:focus):not(:focus-within) {
     position: absolute;
     width: 1px;
@@ -246,12 +403,42 @@
     white-space: nowrap;
     border: 0;
   }
+
+  .text-display {
+    font-size: var(--text-display);
+  }
+  .text-h1 {
+    font-size: var(--text-h1);
+  }
+  .text-h2 {
+    font-size: var(--text-h2);
+  }
+  .text-h3 {
+    font-size: var(--text-h3);
+  }
+  .text-h4 {
+    font-size: var(--text-h4);
+  }
+  .text-lead {
+    font-size: var(--text-lead);
+  }
 }
 
-/* Respect the OS reduced-motion setting across CSS and Framer Motion. */
+/* Respect the OS reduced-motion setting everywhere. Reveals resolve to their
+   final state immediately rather than animating faster. */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .marquee-track {
+    animation: none !important;
   }
 
   *,

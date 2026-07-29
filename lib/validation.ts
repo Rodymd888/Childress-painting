@@ -114,6 +114,15 @@ export const PROJECT_SIZES = [
   'Not yet defined',
 ] as const;
 
+export const PROJECT_BUDGETS = [
+  'Under $25,000',
+  '$25,000 – $100,000',
+  '$100,000 – $500,000',
+  '$500,000 – $1M',
+  'Over $1M',
+  'Not yet established',
+] as const;
+
 export const CONTACT_METHODS = ['Email', 'Phone', 'Either'] as const;
 
 export const INSURANCE_STATUSES = [
@@ -159,7 +168,10 @@ export const bidSchema: Schema = {
   startDate: { label: 'Estimated start date', type: 'date' },
   bidDueDate: { label: 'Bid due date', type: 'date' },
   projectSize: { label: 'Estimated project size', oneOf: PROJECT_SIZES },
+  budget: { label: 'Estimated budget', oneOf: PROJECT_BUDGETS },
   planLink: { label: 'Plan link', maxLength: 500 },
+  attachments: { label: 'Attached filenames', maxLength: 2000 },
+  notes: { label: 'Additional notes', maxLength: 5000 },
   contactMethod: { label: 'Preferred contact method', required: true, oneOf: CONTACT_METHODS },
   scope: { label: 'Scope description', required: true, minLength: 20, maxLength: 5000 },
 };

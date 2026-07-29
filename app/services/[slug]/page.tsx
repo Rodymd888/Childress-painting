@@ -129,6 +129,47 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         </div>
       </section>
 
+      {/* Interior / exterior sub-scopes ------------------------------------- */}
+      {service.subScopes && service.subScopes.length > 0 && (
+        <section className="border-t border-line bg-mist section-sm">
+          <div className="container-site">
+            <SectionHeading
+              layout="split"
+              label="Inside this scope"
+              title="Interior and exterior, priced together."
+              intro={
+                <p>
+                  Most contractors split these into two services. For a Division 09 package they
+                  are one scope with two sets of constraints — so they are estimated, staffed, and
+                  scheduled together here.
+                </p>
+              }
+            />
+
+            <RevealGroup className="mt-12 grid gap-px bg-line md:grid-cols-2">
+              {service.subScopes.map((sub) => (
+                <RevealItem key={sub.id} className="bg-mist p-7 lg:p-9">
+                  <span id={sub.id} className="block scroll-mt-32" />
+                  <h3 className="text-h3 text-navy">{sub.title}</h3>
+                  <p className="mt-4 text-[0.9375rem] leading-relaxed text-body">{sub.body}</p>
+                  <ul className="mt-6 border-t border-line">
+                    {sub.items.map((item) => (
+                      <li
+                        key={item}
+                        className="flex items-start gap-3 border-b border-line py-3 text-[0.9375rem] leading-snug text-navy"
+                      >
+                        <Check aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-red" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </RevealItem>
+              ))}
+            </RevealGroup>
+          </div>
+        </section>
+      )}
+
       {/* Systems / spec table ---------------------------------------------- */}
       <section className="bg-navy py-20 md:py-24 lg:py-28">
         <div className="container-site">

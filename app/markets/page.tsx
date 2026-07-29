@@ -27,7 +27,7 @@ export default function MarketsPage() {
     <>
       <PageHero
         label="Markets served"
-        title="Six sectors. Six different reasons the schedule is hard."
+        title="Eight sectors. Eight different reasons the schedule is hard."
         intro="A coating system is chosen from a specification. How the work actually gets done is decided by the building — who occupies it, when it can be accessed, and what happens if it stops running."
         crumbs={crumbs}
         meta={[
@@ -55,7 +55,7 @@ export default function MarketsPage() {
             action={<TextLink href="/services">View services</TextLink>}
           />
 
-          <RevealGroup className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <RevealGroup stagger={0.05} className="mt-14 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
             {markets.map((market) => (
               <RevealItem key={market.slug}>
                 <MarketCard market={market} />
@@ -70,13 +70,13 @@ export default function MarketsPage() {
           <SectionHeading
             layout="split"
             label="Not listed?"
-            title="Office, government, worship, and light industrial work too."
+            title="Worship, data centers, senior living, and light industrial too."
             intro={
               <p>
-                The six sectors above are where the planning differences are most pronounced. We
-                also work on office buildings, municipal and government facilities, places of
-                worship, self-storage, and light industrial property. If your building type is not
-                shown, send the project and we will tell you plainly whether it is a fit.
+                The eight sectors above are where the planning differences are most pronounced.
+                We also work on places of worship, self-storage, data centers, senior living, and
+                light industrial property. If your building type is not shown, send the project and
+                we will tell you plainly whether it is a fit.
               </p>
             }
             action={<TextLink href="/request-bid">Request a bid</TextLink>}

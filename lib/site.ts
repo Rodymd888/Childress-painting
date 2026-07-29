@@ -81,6 +81,16 @@ export const primaryNav: NavItem[] = [
         href: '/services/maintenance-repaints',
         blurb: 'Recurring programs that protect the asset between capital cycles.',
       },
+      {
+        label: 'Epoxy & Resinous Flooring',
+        href: '/services/epoxy-flooring',
+        blurb: 'Seamless floor systems over a slab that has been tested first.',
+      },
+      {
+        label: 'Specialty Coatings',
+        href: '/services/specialty-coatings',
+        blurb: 'Wallcovering, wall protection, fireproofing, and architectural finishes.',
+      },
     ],
   },
   {
@@ -93,6 +103,8 @@ export const primaryNav: NavItem[] = [
       { label: 'Industrial', href: '/markets/industrial' },
       { label: 'Multifamily', href: '/markets/multifamily' },
       { label: 'Retail & Hospitality', href: '/markets/retail' },
+      { label: 'Government & Civic', href: '/markets/government' },
+      { label: 'Commercial Office', href: '/markets/office' },
     ],
   },
   { label: 'Projects', href: '/projects' },
@@ -110,6 +122,8 @@ export const footerNav = [
       { label: 'Industrial Coatings', href: '/services/industrial-coatings' },
       { label: 'New Construction', href: '/services/new-construction' },
       { label: 'Maintenance & Repaints', href: '/services/maintenance-repaints' },
+      { label: 'Epoxy & Resinous Flooring', href: '/services/epoxy-flooring' },
+      { label: 'Specialty Coatings', href: '/services/specialty-coatings' },
     ],
   },
   {
@@ -121,6 +135,8 @@ export const footerNav = [
       { label: 'Industrial', href: '/markets/industrial' },
       { label: 'Multifamily', href: '/markets/multifamily' },
       { label: 'Retail & Hospitality', href: '/markets/retail' },
+      { label: 'Government & Civic', href: '/markets/government' },
+      { label: 'Commercial Office', href: '/markets/office' },
     ],
   },
   {
@@ -210,7 +226,7 @@ export const testimonials = [
   {
     id: 'testimonial-1',
     quote:
-      'Placeholder for a general contractor reference. Ask for a quote that names the schedule constraint, how the crew handled it, and the outcome at turnover.',
+      'Reserved for a general contractor reference. The strongest version names the schedule constraint, how the crew handled it, and the state of the punch list at turnover.',
     name: 'Name pending',
     title: 'Project Manager',
     organization: 'General contractor — reference to be confirmed',
@@ -219,7 +235,7 @@ export const testimonials = [
   {
     id: 'testimonial-2',
     quote:
-      'Placeholder for a property or facility manager reference. The strongest version speaks to working around occupants and tenants without complaints.',
+      'Reserved for a property or facility manager reference. Ask about working around occupants and tenants, and how many complaints the program generated.',
     name: 'Name pending',
     title: 'Facility Director',
     organization: 'Property group — reference to be confirmed',
@@ -228,7 +244,7 @@ export const testimonials = [
   {
     id: 'testimonial-3',
     quote:
-      'Placeholder for a developer or owner reference. Ask about bid responsiveness, budget accuracy, and punch-list closeout.',
+      'Reserved for a developer or owner reference. Ask about bid responsiveness, how close the final number landed to the bid, and closeout.',
     name: 'Name pending',
     title: 'Director of Construction',
     organization: 'Development group — reference to be confirmed',

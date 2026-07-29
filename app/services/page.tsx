@@ -32,8 +32,8 @@ export default function ServicesPage() {
     <>
       <PageHero
         label="Capabilities"
-        title="Four scopes, priced from the documents."
-        intro="Commercial painting, industrial coatings, ground-up Division 09 packages, and planned repaint programs — self-performed, estimated from the drawings, and staffed to the schedule."
+        title="Six scopes, priced from the documents."
+        intro="Painting, coatings, resinous flooring, ground-up Division 09 packages, and planned repaint programs — self-performed, estimated from the drawings, and staffed to the schedule."
         crumbs={crumbs}
         meta={[
           { label: 'Delivery', value: 'GC subcontract and direct' },
@@ -112,12 +112,22 @@ export default function ServicesPage() {
           <SectionHeading
             layout="split"
             label="Process"
-            title="The same four stages, whatever the scope."
+            title="The same six stages, whatever the scope."
             intro={
               <p>
                 A repaint program and a ground-up hospital run at different scales, but the
                 sequence does not change — and each stage still has to produce something you can
                 hold the contractor to.
+              </p>
+            }
+            action={
+              <p className="font-mono text-[0.625rem] uppercase leading-relaxed tracking-[0.14em] text-navy/60">
+                Looking for interior or exterior painting specifically? Both sit inside{' '}
+                <Link href="/services/commercial-painting" className="text-red underline underline-offset-2">
+                  commercial painting
+                </Link>
+                {' '}— splitting them apart is a residential convention that makes a Division 09
+                package harder to read, not easier.
               </p>
             }
           />
