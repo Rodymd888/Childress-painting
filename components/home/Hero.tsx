@@ -35,9 +35,9 @@ import { company } from '@/lib/site';
  */
 
 const HEADLINE = [
-  'Commercial painting',
-  'held to the',
-  { text: 'construction schedule.', accent: true },
+  'Commercial Painting',
+  'Held to the',
+  { text: 'Construction Schedule.', accent: true },
 ] as const;
 
 const TRUST = [
@@ -146,7 +146,7 @@ export function Hero() {
               1984
             </span>
             <span className="mt-1.5 block font-mono text-[0.4375rem] uppercase tracking-[0.2em] text-red-light">
-              Commercial only
+              TX · KS · MO
             </span>
           </div>
         </div>
@@ -179,7 +179,7 @@ export function Hero() {
                 >
                   {accent ? (
                     <>
-                      construction <span className="text-red">schedule.</span>
+                      Construction <span className="text-red">Schedule.</span>
                     </>
                   ) : (
                     text
@@ -197,10 +197,10 @@ export function Hero() {
             loaded ? 'translate-y-0 opacity-100' : 'translate-y-3 opacity-0',
           ].join(' ')}
         >
-          Four decades of commercial-only work for general contractors, developers, and
-          facility teams — national retail and restaurant rollouts, healthcare and school
-          programs, industrial coatings, and tenant finish-outs. We make the
-          superintendent&rsquo;s job easier.
+          Four decades of work for general contractors, developers, facility teams, and
+          homeowners — national retail and restaurant rollouts, healthcare and school
+          programs, industrial coatings, and residential projects held to the same standard.
+          We make the superintendent&rsquo;s job easier.
         </p>
 
         <div

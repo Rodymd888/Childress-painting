@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useRef, type DragEvent } from 'react';
-import { Check, ChevronLeft, ChevronRight, Upload, X, FileText } from 'lucide-react';
+import { useState, useRef } from 'react';
+import { Check, ChevronLeft, ChevronRight } from 'lucide-react';
 
 import { useFormSubmit } from './useFormSubmit';
 import { FormShell } from './FormShell';
@@ -47,19 +47,13 @@ const STEP_FIELDS: string[][] = [
   ['scope', 'contactMethod'],
 ];
 
-const MAX_FILE_MB = 25;
-const ACCEPTED = '.pdf,.dwg,.dxf,.zip,.rvt,.doc,.docx,.xls,.xlsx,.jpg,.png';
 
 export function BidForm() {
   const { state, onSubmit } = useFormSubmit('/api/bid');
   const err = state.errors;
 
   const [step, setStep] = useState(0);
-  const [files, setFiles] = useState<File[]>([]);
-  const [dragging, setDragging] = useState(false);
-  const [fileError, setFileError] = useState('');
   const formRef = useRef<HTMLFormElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
 
   /* Ask the browser to validate only the fields belonging to the current step. */
   function stepIsValid(index: number) {
@@ -93,27 +87,6 @@ export function BidForm() {
   function back() {
     setStep((s) => Math.max(s - 1, 0));
     formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
-  function addFiles(incoming: FileList | null) {
-    if (!incoming) return;
-    setFileError('');
-
-    const accepted: File[] = [];
-    for (const file of Array.from(incoming)) {
-      if (file.size > MAX_FILE_MB * 1024 * 1024) {
-        setFileError(`${file.name} is larger than ${MAX_FILE_MB} MB. Send a link instead.`);
-        continue;
-      }
-      accepted.push(file);
-    }
-    setFiles((current) => [...current, ...accepted].slice(0, 10));
-  }
-
-  function onDrop(event: DragEvent<HTMLDivElement>) {
-    event.preventDefault();
-    setDragging(false);
-    addFiles(event.dataTransfer.files);
   }
 
   const isLast = step === STEPS.length - 1;
@@ -306,96 +279,9 @@ export function BidForm() {
               error={err.scope}
             />
 
-            {/* Plan upload ---------------------------------------------------- */}
-            <div className="sm:col-span-2">
-              <span className="block font-mono text-[0.625rem] font-medium uppercase tracking-[0.16em] text-ink">
-                Upload plans
-                <span className="ml-2 normal-case tracking-normal text-body/60">optional</span>
-              </span>
-
-              <div
-                onDragOver={(e) => {
-                  e.preventDefault();
-                  setDragging(true);
-                }}
-                onDragLeave={() => setDragging(false)}
-                onDrop={onDrop}
-                className={[
-                  'mt-2 border-2 border-dashed p-6 text-center transition-colors',
-                  dragging ? 'border-red bg-red/[0.04]' : 'border-line bg-white',
-                ].join(' ')}
-              >
-                <Upload aria-hidden="true" className="mx-auto size-5 text-red" />
-                <p className="mt-3 text-[0.9375rem] text-ink">
-                  Drag drawings here, or{' '}
-                  <button
-                    type="button"
-                    onClick={() => inputRef.current?.click()}
-                    className="font-semibold text-red-dark underline underline-offset-2"
-                  >
-                    browse your files
-                  </button>
-                </p>
-                <p className="mt-1.5 text-[0.8125rem] text-body">
-                  PDF, DWG, RVT, ZIP, and images. Up to {MAX_FILE_MB} MB each, 10 files.
-                </p>
-
-                <input
-                  ref={inputRef}
-                  id="plans"
-                  name="plans"
-                  type="file"
-                  multiple
-                  accept={ACCEPTED}
-                  className="sr-only"
-                  onChange={(e) => addFiles(e.target.files)}
-                />
-              </div>
-
-              {fileError && (
-                <p role="alert" className="mt-2 text-[0.8125rem] font-medium text-red-dark">
-                  {fileError}
-                </p>
-              )}
-
-              {files.length > 0 && (
-                <ul className="mt-3 space-y-1.5">
-                  {files.map((file, i) => (
-                    <li
-                      key={`${file.name}-${i}`}
-                      className="flex items-center gap-3 border border-line bg-white px-4 py-2.5"
-                    >
-                      <FileText aria-hidden="true" className="size-4 shrink-0 text-ink/60" />
-                      <span className="min-w-0 flex-1 truncate text-[0.875rem] text-ink">
-                        {file.name}
-                      </span>
-                      <span className="shrink-0 font-mono text-[0.625rem] text-body">
-                        {(file.size / 1024 / 1024).toFixed(1)} MB
-                      </span>
-                      <button
-                        type="button"
-                        onClick={() => setFiles((c) => c.filter((_, index) => index !== i))}
-                        className="shrink-0 text-ink/60 transition-colors hover:text-red"
-                      >
-                        <X aria-hidden="true" className="size-4" />
-                        <span className="sr-only">Remove {file.name}</span>
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              )}
-
-              <p className="mt-3 border-l-2 border-line pl-3 font-mono text-[0.5625rem] uppercase leading-relaxed tracking-[0.14em] text-body">
-                {/* Honest status: the picker is real, the transport is not wired yet. */}
-                File transport is not connected yet — see README. Until it is, filenames are sent
-                with your enquiry and we request the drawings by reply. The link field below
-                reaches us immediately.
-              </p>
-            </div>
-
             <TextField
               name="planLink"
-              label="Or link to the plan room"
+              label="Link to your plans"
               type="url"
               className="sm:col-span-2"
               placeholder="https://"
@@ -423,8 +309,6 @@ export function BidForm() {
           </FieldGroup>
         </div>
 
-        {/* Filenames travel with the submission so estimating knows what is coming. */}
-        <input type="hidden" name="attachments" value={files.map((f) => f.name).join(', ')} />
       </FormShell>
     </div>
   );

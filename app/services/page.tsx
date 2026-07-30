@@ -9,7 +9,7 @@ import { Reveal, RevealGroup, RevealItem } from '@/components/ui/Reveal';
 import { ButtonLink, TextLink } from '@/components/ui/Button';
 import { JsonLd } from '@/components/ui/JsonLd';
 
-import { services } from '@/lib/services';
+import { serviceGroups, servicesByGroup, services } from '@/lib/services';
 import { capabilitySnapshot } from '@/lib/content';
 import { breadcrumbSchema } from '@/lib/schema';
 import { company } from '@/lib/site';
@@ -27,7 +27,7 @@ export default function ServicesPage() {
       <PageHero
         label="Commercial capabilities"
         title="Seven scopes. One subcontractor."
-        intro="Everything a general contractor needs from a Division 09 partner — priced, submitted, staffed, inspected, and closed out by the same team. Commercial work only."
+        intro="Commercial, residential, and industrial painting — and every trade that supports them — priced, submitted, staffed, inspected, and closed out by the same team."
         crumbs={[
           { name: 'Home', href: '/' },
           { name: 'Services', href: '/services' },
@@ -52,7 +52,7 @@ export default function ServicesPage() {
           <SectionHeading
             label="What we bid"
             layout="split"
-            title="Scope defined before award, not during construction."
+            title={`${services.length} services, defined before award.`}
             intro={
               <p>
                 Every proposal states what is included, what is assumed, and what is excluded.
@@ -62,13 +62,35 @@ export default function ServicesPage() {
             }
           />
 
-          <RevealGroup className="mt-14 grid gap-px bg-line lg:grid-cols-2" stagger={0.06}>
-            {services.map((service, i) => (
-              <RevealItem key={service.slug}>
-                <ServiceCard service={service} index={i} />
-              </RevealItem>
-            ))}
-          </RevealGroup>
+          <div className="mt-14 space-y-16">
+            {serviceGroups.map((group) => {
+              const items = servicesByGroup(group);
+              let offset = 0;
+              for (const g of serviceGroups) {
+                if (g === group) break;
+                offset += servicesByGroup(g).length;
+              }
+              return (
+                <div key={group}>
+                  <div className="flex items-baseline justify-between border-t-2 border-ink pt-6">
+                    <h3 className="font-display text-[1.375rem] font-bold tracking-tight text-ink">
+                      {group}
+                    </h3>
+                    <span className="font-mono text-[0.625rem] uppercase tracking-[0.18em] text-red">
+                      {items.length} {items.length === 1 ? 'service' : 'services'}
+                    </span>
+                  </div>
+                  <RevealGroup className="mt-8 grid gap-px bg-line lg:grid-cols-2" stagger={0.05}>
+                    {items.map((service, i) => (
+                      <RevealItem key={service.slug}>
+                        <ServiceCard service={service} index={offset + i} />
+                      </RevealItem>
+                    ))}
+                  </RevealGroup>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </section>
 

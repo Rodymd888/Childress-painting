@@ -72,8 +72,8 @@ export function Footer() {
             <LogoFull light width={230} />
 
             <p className="mt-6 max-w-sm text-sm leading-relaxed text-ash">
-              {company.legalName} — commercial painting and coatings for general contractors,
-              developers, and facility teams. Commercial work only, since {company.heritageYear}.
+              Commercial, residential, and industrial painting for general contractors,
+              developers, facility teams, and homeowners — since {company.heritageYear}.
             </p>
 
             {/* Both operating locations. Driven by `offices` in lib/site.ts. */}

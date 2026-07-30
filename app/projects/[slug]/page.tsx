@@ -191,6 +191,60 @@ export default async function ProjectPage({ params }: Params) {
                 </>
               )}
 
+              {/* SCOPE OF WORK — derived from the services performed, so it is
+                  substantive without inventing project-specific data. */}
+              {!isCaseStudy && servicesPerformed.length > 0 && (
+                <div className="mt-14">
+                  <span className="title-block text-ink/60">Scope of work</span>
+                  <h2 className="mt-5 text-h3 text-ink">What this engagement covers.</h2>
+                  <div className="mt-8 space-y-px border border-line bg-line">
+                    {servicesPerformed.map((service) => (
+                      <div key={service.slug} className="bg-white p-6 md:p-7">
+                        <div className="flex flex-wrap items-baseline justify-between gap-2">
+                          <h3 className="font-display text-[1.0625rem] font-bold tracking-tight text-ink">
+                            {service.title}
+                          </h3>
+                          <span className="font-mono text-[0.5625rem] uppercase tracking-[0.16em] text-red">
+                            {service.csi}
+                          </span>
+                        </div>
+                        <p className="mt-2 text-[0.875rem] leading-relaxed text-body">
+                          {service.summary}
+                        </p>
+                        <ul className="mt-4 grid gap-x-6 gap-y-1.5 sm:grid-cols-2">
+                          {service.scope.slice(0, 4).map((item) => (
+                            <li
+                              key={item}
+                              className="flex items-start gap-2.5 text-[0.8125rem] leading-snug text-ink/70"
+                            >
+                              <span aria-hidden="true" className="mt-1.5 size-1 shrink-0 bg-red" />
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* SECTOR CONTEXT — how work in this market actually runs. */}
+              {!isCaseStudy && industry && industry.constraints.length > 0 && (
+                <div className="mt-14">
+                  <span className="title-block text-ink/60">
+                    How {industry.shortTitle.toLowerCase()} work runs
+                  </span>
+                  <div className="mt-7 space-y-8">
+                    {industry.constraints.slice(0, 2).map((c) => (
+                      <div key={c.title} className="border-l-2 border-red pl-6">
+                        <h3 className="text-h4 text-ink">{c.title}</h3>
+                        <p className="mt-2.5 leading-relaxed text-body">{c.body}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {isCaseStudy && project.challenges && project.challenges.length > 0 && (
                 <div className="mt-12">
                   <h2 className="text-h3 text-ink">Challenges</h2>

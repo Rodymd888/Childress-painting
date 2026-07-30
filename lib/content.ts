@@ -113,7 +113,7 @@ export const differentiators = [
 export const credentials = [
   { value: '40+', label: 'Years Experience', body: 'Commercial painting leadership dating to 1984.' },
   { value: '1984', label: 'Since', body: 'Four decades of continuous commercial work.' },
-  { value: '100%', label: 'Commercial Only', body: 'No residential distractions, no learning curve.' },
+  { value: '16', label: 'Services Offered', body: 'Commercial, residential, and industrial painting under one roof.' },
   { value: '3', label: 'States Served', body: 'Texas primary; Kansas and Missouri secondary.' },
   { value: '2yr', label: 'Workmanship Warranty', body: 'Written, on every project, in addition to material warranties.' },
   { value: '24/7', label: 'Shift Capability', body: 'Day, night, and occupied-site shifts.' },
@@ -139,15 +139,15 @@ export const timeline = [
   {
     year: 'Today',
     title: 'Dallas–Fort Worth and beyond',
-    body: 'Operating from Dallas as Childress Painting DFW LLC, serving Texas as the primary market with continued Kansas and Missouri coverage — commercial work only, across twelve market sectors.',
+    body: 'Operating from Dallas as Childress Painting DFW LLC, serving Texas as the primary market with continued Kansas and Missouri coverage — commercial construction at the core, with residential and industrial painting delivered to the same standard.',
   },
 ] as const;
 
 /** Company values. */
 export const values = [
   {
-    title: 'Commercial only',
-    body: 'No residential distractions. No learning curve on prevailing wage, multi-trade sequencing, or what a general contractor actually needs from a subcontractor.',
+    title: 'Construction discipline first',
+    body: 'Commercial construction is where our habits were formed — prevailing wage, multi-trade sequencing, and what a superintendent actually needs from a subcontractor. Every project we touch, commercial or residential, inherits that discipline.',
   },
   {
     title: 'Say it early',

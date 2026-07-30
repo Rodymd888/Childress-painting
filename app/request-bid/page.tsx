@@ -83,7 +83,7 @@ export default function RequestBidPage() {
                 </a>
                 <a
                   href={`mailto:${company.estimatingEmail}`}
-                  className="group flex items-center gap-3 font-mono text-[0.75rem] uppercase tracking-[0.12em] text-white transition-colors hover:text-red-light"
+                  className="group flex items-center gap-3 font-mono text-[0.8125rem] tracking-normal text-white transition-colors hover:text-red-light"
                 >
                   <Mail aria-hidden="true" className="size-4 shrink-0 text-red" />
                   <span className="break-all">{company.estimatingEmail}</span>
@@ -166,9 +166,9 @@ export default function RequestBidPage() {
                 <div className="border border-line bg-ink p-6 text-white md:p-7">
                   <Send aria-hidden="true" className="size-5 text-red" />
                   <p className="mt-4 text-[0.9375rem] leading-relaxed text-ash">
-                    Files too large for the form? Send a share link (Dropbox, Box, SharePoint,
-                    Procore, BuildingConnected) in the plan-link field and we will pull them
-                    down.
+                    Share your drawings by link — Dropbox, Box, SharePoint, Procore, or
+                    BuildingConnected all work. Paste the link in the plans field and
+                    estimating pulls them down the same day.
                   </p>
                 </div>
               </div>

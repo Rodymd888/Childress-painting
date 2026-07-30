@@ -106,10 +106,10 @@ export const companyStats = [
 /** Leadership, per the qualifications document. */
 export const leadership = [
   {
-    name: 'Cole Childress',
-    role: 'Field Operations',
+    name: 'Rody Diyoka',
+    role: 'Business Development & Preconstruction',
     focus:
-      'Runs crews in the field — manpower loading, daily production, and the standard of finish that leaves the site.',
+      'Handles takeoff, scope review, product verification, and bid coordination with general contractors and owners.',
   },
   {
     name: 'Joey Battisto',
@@ -118,10 +118,10 @@ export const leadership = [
       'Owns the schedule and the superintendent relationship: sequencing, manpower commitments, and punch closeout.',
   },
   {
-    name: 'Rody Diyoka',
-    role: 'Business Development & Preconstruction',
+    name: 'Cole Childress',
+    role: 'Field Operations',
     focus:
-      'Handles takeoff, scope review, product verification, and bid coordination with general contractors and owners.',
+      'Runs crews in the field — manpower loading, daily production, and the standard of finish that leaves the site.',
   },
 ] as const;
 
@@ -141,41 +141,22 @@ export const primaryNav: NavItem[] = [
     label: 'Services',
     href: '/services',
     children: [
-      {
-        label: 'Commercial Interior Painting',
-        href: '/services/commercial-interior-painting',
-        blurb: 'Walls, ceilings, hollow metal, and exposed structure.',
-      },
-      {
-        label: 'Commercial Exterior Painting',
-        href: '/services/commercial-exterior-painting',
-        blurb: 'Tilt-wall, EIFS, masonry, and structural silver.',
-      },
-      {
-        label: 'Tenant Finish-Outs',
-        href: '/services/tenant-finish-outs',
-        blurb: 'Shell-to-suite finishes on a landlord delivery date.',
-      },
-      {
-        label: 'Occupied Renovations',
-        href: '/services/occupied-renovations',
-        blurb: 'Phased work in buildings that never close.',
-      },
-      {
-        label: 'New Construction',
-        href: '/services/new-construction',
-        blurb: 'Division 09 packages sequenced to the CPM schedule.',
-      },
-      {
-        label: 'Surface Preparation',
-        href: '/services/surface-preparation',
-        blurb: 'The scope that determines whether the finish lasts.',
-      },
-      {
-        label: 'High-Performance Coatings',
-        href: '/services/high-performance-coatings',
-        blurb: 'Epoxy, urethane, and industrial systems.',
-      },
+      { label: 'Commercial Painting', href: '/services/commercial-painting', blurb: 'Our core business since 1984.' },
+      { label: 'Residential Painting', href: '/services/residential-painting', blurb: 'Commercial discipline, brought home.' },
+      { label: 'Industrial Painting', href: '/services/industrial-painting', blurb: 'Plants, steel, and heavy service.' },
+      { label: 'Interior Painting', href: '/services/interior-painting', blurb: 'Walls, ceilings, trim, and doors.' },
+      { label: 'Exterior Painting', href: '/services/exterior-painting', blurb: 'Tilt-wall, stucco, masonry, siding.' },
+      { label: 'Epoxy Floor Coatings', href: '/services/epoxy-floor-coatings', blurb: 'Resinous floors over tested slabs.' },
+      { label: 'Protective Coatings', href: '/services/protective-coatings', blurb: 'High-performance systems.' },
+      { label: 'Cabinet Refinishing', href: '/services/cabinet-painting-refinishing', blurb: 'Shop-quality sprayed finishes.' },
+      { label: 'Custom Wood Staining', href: '/services/custom-wood-staining', blurb: 'Stain-grade doors and millwork.' },
+      { label: 'Decorative Finishes', href: '/services/decorative-finishes', blurb: 'Feature walls and specialty systems.' },
+      { label: 'Line Striping', href: '/services/line-striping', blurb: 'Lots, warehouses, safety marking.' },
+      { label: 'Drywall Repair', href: '/services/drywall-repair', blurb: 'Patches that disappear.' },
+      { label: 'Pressure Washing', href: '/services/pressure-washing', blurb: 'Cleaning matched to the substrate.' },
+      { label: 'Caulking & Sealants', href: '/services/caulking-sealants', blurb: 'The joints that keep water out.' },
+      { label: 'Maintenance Painting', href: '/services/maintenance-painting', blurb: 'Occupied-building programs.' },
+      { label: 'Color Consulting', href: '/services/color-consulting', blurb: 'Decide once, on the wall.' },
     ],
   },
   {
@@ -200,7 +181,7 @@ export const primaryNav: NavItem[] = [
     label: 'Company',
     href: '/about',
     children: [
-      { label: 'About Childress', href: '/about', blurb: 'Four decades of commercial-only work.' },
+      { label: 'About Childress', href: '/about', blurb: 'Four decades of professional painting.' },
       { label: 'Our Process', href: '/process', blurb: 'Preconstruction through closeout, in eight steps.' },
       { label: 'Why Childress', href: '/why-childress', blurb: 'What general contractors actually buy.' },
       { label: 'Safety & Quality', href: '/safety-quality', blurb: 'OSHA-compliant crews and QC inspections.' },
@@ -216,13 +197,15 @@ export const footerNav = [
   {
     heading: 'Services',
     links: [
-      { label: 'Commercial Interior Painting', href: '/services/commercial-interior-painting' },
-      { label: 'Commercial Exterior Painting', href: '/services/commercial-exterior-painting' },
-      { label: 'Tenant Finish-Outs', href: '/services/tenant-finish-outs' },
-      { label: 'Occupied Renovations', href: '/services/occupied-renovations' },
-      { label: 'New Construction', href: '/services/new-construction' },
-      { label: 'Surface Preparation', href: '/services/surface-preparation' },
-      { label: 'High-Performance Coatings', href: '/services/high-performance-coatings' },
+      { label: 'Commercial Painting', href: '/services/commercial-painting' },
+      { label: 'Residential Painting', href: '/services/residential-painting' },
+      { label: 'Industrial Painting', href: '/services/industrial-painting' },
+      { label: 'Interior Painting', href: '/services/interior-painting' },
+      { label: 'Exterior Painting', href: '/services/exterior-painting' },
+      { label: 'Epoxy Floor Coatings', href: '/services/epoxy-floor-coatings' },
+      { label: 'Protective Coatings', href: '/services/protective-coatings' },
+      { label: 'Maintenance Painting', href: '/services/maintenance-painting' },
+      { label: 'All Services', href: '/services' },
     ],
   },
   {

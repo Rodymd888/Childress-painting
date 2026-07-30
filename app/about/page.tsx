@@ -16,7 +16,7 @@ import { breadcrumbSchema } from '@/lib/schema';
 export const metadata: Metadata = {
   title: 'About Childress Painting | Commercial Painting Since 1984',
   description:
-    'Childress Painting has performed commercial-only painting work since 1984. Based in Dallas, serving Texas with continued Kansas and Missouri coverage. Meet the leadership team.',
+    'Childress Painting has performed professional painting work since 1984 — commercial construction at the core, with residential and industrial services alongside. Meet the leadership team.',
   alternates: { canonical: '/about' },
 };
 
@@ -25,7 +25,7 @@ export default function AboutPage() {
     <>
       <PageHero
         label="About Childress"
-        title="Four decades of commercial-only work."
+        title="Four decades of professional painting."
         intro="Since 1984, one operating premise: make the superintendent's job easier. Show up when the schedule says we will, communicate problems before they become delays, and leave the site cleaner than a paint crew is expected to."
         crumbs={[
           { name: 'Home', href: '/' },
@@ -55,16 +55,16 @@ export default function AboutPage() {
 
               <div className="prose-site mt-8">
                 <p className="text-lead leading-relaxed text-ink/80">
-                  Childress Painting is a commercial painting contractor operating as{' '}
-                  {company.legalName} from {company.address.city}, {company.address.region}. We
-                  work for general contractors, developers, property groups, and facility teams
-                  — and we work in commercial buildings only.
+                  Childress Painting is a professional painting contractor based in{' '}
+                  {company.address.city}, {company.address.region}. We work for general
+                  contractors, developers, property groups, facility teams, and homeowners —
+                  with commercial construction as the core of the business.
                 </p>
                 <p>
-                  That focus matters more than it sounds. A contractor splitting attention
-                  between residential and commercial carries a learning curve on prevailing
-                  wage, submittals, multi-trade sequencing, and what a superintendent actually
-                  needs from a subcontractor on a Tuesday morning. We do not have that curve.
+                  That foundation matters more than it sounds. Habits formed on commercial
+                  jobsites — prevailing wage, submittals, multi-trade sequencing, and what a
+                  superintendent needs on a Tuesday morning — carry into every residential and
+                  industrial project we take on. The discipline does not switch off.
                 </p>
                 <p>
                   We coordinate directly with drywall, flooring, and finish-carpentry crews to
@@ -105,7 +105,7 @@ export default function AboutPage() {
                 />
                 <div className="mt-8 border-l-2 border-red pl-6">
                   <p className="font-display text-[1.375rem] font-bold leading-snug tracking-tight text-ink">
-                    &ldquo;Commercial work only. No residential distractions.&rdquo;
+                    &ldquo;Built around the construction schedule.&rdquo;
                   </p>
                   <p className="mt-3 font-mono text-[0.625rem] uppercase tracking-[0.18em] text-ink/50">
                     Since {company.heritageYear}

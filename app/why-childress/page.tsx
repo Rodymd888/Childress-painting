@@ -24,7 +24,7 @@ import { breadcrumbSchema } from '@/lib/schema';
 export const metadata: Metadata = {
   title: 'Why Choose Childress Painting | For General Contractors',
   description:
-    '40+ years experience, commercial-only focus, reliable scheduling, dedicated project management, quality control inspections, fast punch lists, and a two-year workmanship warranty.',
+    '40+ years experience, a commercial-first focus, reliable scheduling, dedicated project management, quality control inspections, fast punch lists, and a two-year workmanship warranty.',
   alternates: { canonical: '/why-childress' },
 };
 
@@ -52,7 +52,7 @@ export default function WhyChildressPage() {
         ]}
         meta={[
           { label: 'Experience', value: '40+ years' },
-          { label: 'Focus', value: 'Commercial only' },
+          { label: 'Focus', value: 'Commercial-first' },
           { label: 'Warranty', value: company.warranty },
           { label: 'Safety', value: company.safety },
         ]}

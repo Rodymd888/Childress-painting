@@ -41,10 +41,11 @@ new content.
 lib/
 ├── site.ts        Company facts, both offices, navigation, service areas
 ├── clients.ts     Representative clients by industry + education partners
-├── services.ts    The 7 services (drives /services and /services/[slug])
+├── services.ts    The 16 services, grouped (drives /services and /services/[slug])
 ├── industries.ts  The 12 sectors (drives /industries and /industries/[slug])
 ├── projects.ts    Project portfolio (drives /projects and /projects/[slug])
 ├── content.ts     Process steps, differentiators, values, timeline, safety, QC
+├── testimonials.ts Client reviews (names supplied by the company)
 ├── schema.ts      JSON-LD builders
 ├── seo.ts         Metadata helper
 ├── validation.ts  Server-side form schemas
@@ -111,7 +112,7 @@ seamlessly, are in **`public/video/README.md`**. No code changes needed.
 
 ### Add a service or industry
 
-Append to `services` in `lib/services.ts` or `industries` in
+Append to `services` in `lib/services.ts` (set its `group`, and `featured` if it belongs on the homepage) or `industries` in
 `lib/industries.ts`, then add the nav entry in `lib/site.ts` (`primaryNav` and
 `footerNav`). Everything else is automatic.
 
@@ -223,8 +224,9 @@ Before launch:
 The site deliberately does not publish anything that cannot be substantiated:
 
 - No invented statistics, contract values, or square footage.
-- No testimonials until the quote, name, title, and company are confirmed in
-  writing by the person quoted.
+- Testimonials render only from lib/testimonials.ts, with reviewer names
+  supplied by the company and a visible disclaimer that reviewers speak for
+  themselves, not for the brands named in their quotes.
 - Client names are set in type, never reproduced as logos, and every surface
   that names them carries a descriptive-use disclaimer.
 - Project pages default to the honest `'experience'` state rather than

@@ -16,6 +16,7 @@ import {
 import { Hero } from '@/components/home/Hero';
 import { TrustedBy } from '@/components/home/TrustedBy';
 import { StatsBand } from '@/components/home/StatsBand';
+import { Testimonials } from '@/components/home/Testimonials';
 import { ServiceCard } from '@/components/cards/ServiceCard';
 import { IndustryCard } from '@/components/cards/IndustryCard';
 import { ProjectCard } from '@/components/cards/ProjectCard';
@@ -26,7 +27,7 @@ import { Reveal, RevealGroup, RevealItem } from '@/components/ui/Reveal';
 import { TextLink, ButtonLink } from '@/components/ui/Button';
 import { JsonLd } from '@/components/ui/JsonLd';
 
-import { services } from '@/lib/services';
+import { featuredServices } from '@/lib/services';
 import { industries } from '@/lib/industries';
 import { featuredProjects, projectCountByIndustry } from '@/lib/projects';
 import { differentiators, capabilitySnapshot } from '@/lib/content';
@@ -37,7 +38,7 @@ import { breadcrumbSchema } from '@/lib/schema';
 export const metadata: Metadata = {
   title: 'Commercial Painting Contractor in Dallas–Fort Worth | Since 1984',
   description:
-    'Childress Painting is a commercial-only painting contractor serving Texas since 1984. Retail, restaurant, healthcare, education, industrial, and government work for general contractors. Two-year workmanship warranty.',
+    'Childress Painting is a commercial painting contractor serving Texas since 1984, with residential and industrial painting alongside. Retail, restaurant, healthcare, education, and government work for general contractors. Two-year workmanship warranty.',
   alternates: { canonical: '/' },
   openGraph: {
     title: 'Childress Painting | Commercial Painting Specialists Since 1984',
@@ -105,10 +106,11 @@ export default function HomePage() {
                 Sherwin-Williams coating system backed by a two-year workmanship warranty.
               </p>
               <p>
-                Commercial work only. No residential distractions, no learning curve on
-                prevailing wage or multi-trade sequencing — just a crew that has done this on
-                retail, restaurant, healthcare, government, industrial, and education projects
-                for four decades.
+                Commercial construction is the core of the business — and the discipline it
+                demands carries into everything else we paint, from industrial plants to
+                residential projects. No learning curve on prevailing wage or multi-trade
+                sequencing; just a crew that has done this across retail, restaurant,
+                healthcare, government, industrial, and education work for four decades.
               </p>
 
               <div className="mt-8 flex flex-wrap gap-3">
@@ -134,22 +136,22 @@ export default function HomePage() {
             layout="split"
             title={
               <>
-                Seven scopes. One
-                <br className="hidden sm:block" /> subcontractor.
+                Sixteen services.
+                <br className="hidden sm:block" /> One contractor.
               </>
             }
             intro={
               <p>
-                Interior and exterior finishes, tenant finish-outs, occupied renovations, new
-                construction packages, surface preparation, and high-performance coatings —
-                priced, staffed, and closed out by the same team.
+                Commercial, residential, and industrial painting — plus the coatings, floors,
+                and preparation trades that surround them — priced, staffed, and closed out by
+                the same team.
               </p>
             }
             action={<TextLink href="/services">All services</TextLink>}
           />
 
           <RevealGroup className="mt-14 grid gap-px bg-line md:grid-cols-2" stagger={0.06}>
-            {services.map((service, i) => (
+            {featuredServices.map((service, i) => (
               <RevealItem key={service.slug}>
                 <ServiceCard service={service} index={i} />
               </RevealItem>
@@ -266,6 +268,8 @@ export default function HomePage() {
           </RevealGroup>
         </div>
       </section>
+
+      <Testimonials />
 
       {/* ============================================================== PROJECTS */}
       <section className="section bg-mist">

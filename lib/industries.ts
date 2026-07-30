@@ -73,10 +73,9 @@ export const industries: Industry[] = [
       'Storefront, canopy, and exterior signage bands',
     ],
     relatedServices: [
-      'commercial-interior-painting',
-      'tenant-finish-outs',
-      'occupied-renovations',
-      'new-construction',
+      'interior-painting',
+      'commercial-painting',
+      'maintenance-painting',
     ],
   },
   {
@@ -118,10 +117,10 @@ export const industries: Industry[] = [
       'Decorative and accent wall finishes',
     ],
     relatedServices: [
-      'commercial-interior-painting',
-      'tenant-finish-outs',
-      'high-performance-coatings',
-      'surface-preparation',
+      'interior-painting',
+      'commercial-painting',
+      'protective-coatings',
+      'pressure-washing',
     ],
   },
   {
@@ -163,10 +162,10 @@ export const industries: Industry[] = [
       'Med spa and elective care environments',
     ],
     relatedServices: [
-      'occupied-renovations',
-      'commercial-interior-painting',
-      'high-performance-coatings',
-      'tenant-finish-outs',
+      'maintenance-painting',
+      'interior-painting',
+      'protective-coatings',
+      'commercial-painting',
     ],
   },
   {
@@ -207,10 +206,10 @@ export const industries: Industry[] = [
       'Community college and higher-education buildings',
     ],
     relatedServices: [
-      'commercial-interior-painting',
-      'commercial-exterior-painting',
-      'occupied-renovations',
-      'surface-preparation',
+      'interior-painting',
+      'exterior-painting',
+      'maintenance-painting',
+      'pressure-washing',
     ],
   },
   {
@@ -252,10 +251,10 @@ export const industries: Industry[] = [
       'Safety striping and line marking',
     ],
     relatedServices: [
-      'high-performance-coatings',
-      'surface-preparation',
-      'commercial-exterior-painting',
-      'occupied-renovations',
+      'protective-coatings',
+      'pressure-washing',
+      'exterior-painting',
+      'maintenance-painting',
     ],
   },
   {
@@ -297,10 +296,10 @@ export const industries: Industry[] = [
       'Secure and restricted-access areas',
     ],
     relatedServices: [
-      'commercial-interior-painting',
-      'commercial-exterior-painting',
-      'occupied-renovations',
-      'surface-preparation',
+      'interior-painting',
+      'exterior-painting',
+      'maintenance-painting',
+      'pressure-washing',
     ],
   },
   {
@@ -341,10 +340,9 @@ export const industries: Industry[] = [
       'Tenant demising and office splits',
     ],
     relatedServices: [
-      'tenant-finish-outs',
-      'commercial-interior-painting',
-      'occupied-renovations',
-      'new-construction',
+      'commercial-painting',
+      'interior-painting',
+      'maintenance-painting',
     ],
   },
   {
@@ -385,10 +383,10 @@ export const industries: Industry[] = [
       'Exterior facades and porte-cocheres',
     ],
     relatedServices: [
-      'occupied-renovations',
-      'commercial-interior-painting',
-      'commercial-exterior-painting',
-      'tenant-finish-outs',
+      'maintenance-painting',
+      'interior-painting',
+      'exterior-painting',
+      'commercial-painting',
     ],
   },
   {
@@ -430,10 +428,10 @@ export const industries: Industry[] = [
       'Exterior facades and gates',
     ],
     relatedServices: [
-      'commercial-interior-painting',
-      'high-performance-coatings',
-      'occupied-renovations',
-      'surface-preparation',
+      'interior-painting',
+      'protective-coatings',
+      'maintenance-painting',
+      'pressure-washing',
     ],
   },
   {
@@ -474,10 +472,10 @@ export const industries: Industry[] = [
       'Wayfinding and finish transitions',
     ],
     relatedServices: [
-      'occupied-renovations',
-      'commercial-interior-painting',
-      'tenant-finish-outs',
-      'high-performance-coatings',
+      'maintenance-painting',
+      'interior-painting',
+      'commercial-painting',
+      'protective-coatings',
     ],
   },
   {
@@ -518,10 +516,9 @@ export const industries: Industry[] = [
       'Re-tenanting and refresh scopes',
     ],
     relatedServices: [
-      'tenant-finish-outs',
-      'commercial-interior-painting',
-      'new-construction',
-      'surface-preparation',
+      'commercial-painting',
+      'interior-painting',
+      'pressure-washing',
     ],
   },
   {
@@ -562,10 +559,10 @@ export const industries: Industry[] = [
       'Site structures and canopies',
     ],
     relatedServices: [
-      'new-construction',
-      'commercial-interior-painting',
-      'commercial-exterior-painting',
-      'surface-preparation',
+      'commercial-painting',
+      'interior-painting',
+      'exterior-painting',
+      'pressure-washing',
     ],
   },
 ];

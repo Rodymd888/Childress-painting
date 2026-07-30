@@ -1,497 +1,925 @@
 /**
- * SERVICE DEFINITIONS
+ * SERVICE DEFINITIONS — the single source of truth
  * ---------------------------------------------------------------------------
- * Drives /services, /services/[slug], navigation, the footer, and Service
- * structured data. CSI section numbers are real MasterFormat references used
- * as page-level labels.
+ * Every service the company offers exists exactly once, in this array. The
+ * services index, each /services/[slug] page, navigation, the footer, the
+ * homepage grid, project "services performed" chips, and structured data all
+ * read from here — so a service can never be duplicated or drift between
+ * surfaces.
  *
- * TO ADD A SERVICE: append a record. The index, nav, sitemap, and related-
- * service links all read from this array.
+ * `group`    controls how the index page organises the catalogue.
+ * `featured` promotes a service to the homepage grid (keep this to ~8).
+ *
+ * TO ADD A SERVICE: append one record. Nothing else needs to change.
  */
 
 export type Service = {
   slug: string;
   title: string;
   shortTitle: string;
-  /** MasterFormat reference shown in the title block. */
+  /** MasterFormat reference where a real one applies; SVC codes otherwise. */
   csi: string;
   kicker: string;
   summary: string;
   intro: string;
   metaTitle: string;
   metaDescription: string;
-  /** What is actually included in a bid. */
+  group: 'Service lines' | 'Painting & finishes' | 'Coatings & floors' | 'Preparation & maintenance';
+  featured?: boolean;
   scope: string[];
-  /** Substrate / system detail, rendered as a spec table. */
   systems: { label: string; detail: string }[];
-  /** Body sections for the service page. */
   sections: { heading: string; body: string }[];
-  /** Buyer-facing questions, also emitted as FAQPage structured data. */
   faqs: { question: string; answer: string }[];
-  /** Slugs from lib/industries.ts. */
   relatedIndustries: string[];
-  /** Key into components/ui/SectorArt.tsx. */
   art: string;
   image?: string;
 };
 
 export const services: Service[] = [
+  /* ==================================================== SERVICE LINES ==== */
   {
-    slug: 'commercial-interior-painting',
-    art: 'interior',
-    title: 'Commercial Interior Painting',
-    shortTitle: 'Interior Painting',
-    csi: 'CSI 09 91 23',
-    kicker: 'Walls · ceilings · hollow metal · exposed structure',
+    slug: 'commercial-painting',
+    group: 'Service lines',
+    featured: true,
+    art: 'construction',
+    title: 'Commercial Painting',
+    shortTitle: 'Commercial Painting',
+    csi: 'CSI 09 91 00',
+    kicker: 'Our core business since 1984',
     summary:
-      'Interior finishes for offices, clinics, stores, restaurants, and campuses — including work performed around occupants and other trades.',
+      'Full commercial painting packages for general contractors, developers, and owners — new construction, tenant finish-outs, and remodels held to the construction schedule.',
     intro:
-      'Interior painting is a scheduling problem before it is a finish problem. The coating is the easy part; the difficulty is producing a clean, uniform result inside an active building, around other trades, on the days the general contractor actually has the space available. We estimate, staff, and sequence around that reality.',
-    metaTitle: 'Commercial Interior Painting Contractor | Dallas–Fort Worth',
+      'Commercial construction is where this company was built and where most of our crews work every day. We carry complete Division 09 packages — submittals, mockups, production, quality control, and closeout — sequenced against the general contractor schedule and staffed against the area release plan rather than an ideal duration.',
+    metaTitle: 'Commercial Painting Contractor | Dallas–Fort Worth & Texas',
     metaDescription:
-      'Commercial interior painting for offices, clinics, retail, and restaurants across Texas. Occupied-space phasing, Level 4/5 coordination, and documented punch closeout.',
+      'Commercial painting for general contractors and owners across Texas, Kansas, and Missouri. New construction, tenant finish-outs, remodels, and multi-site programs since 1984.',
     scope: [
-      'Wall, ceiling, and soffit coatings',
-      'Doors, frames, and hollow metal — field or shop-applied',
-      'Exposed structure and dryfall applications',
-      'Level 4 and Level 5 finish coordination with the drywall contractor',
-      'Wallcovering, vinyl, and specialty wall protection',
-      'Epoxy and scrubbable finishes in wet or high-touch areas',
-      'Caulking, sealant, and substrate repair within the paint scope',
-      'Mockups, submittals, and approved color schedules',
-      'Final punch, touch-up, and attic-stock delivery',
+      'Full Division 09 painting packages for new construction',
+      'Tenant finish-outs delivered to lease commencement dates',
+      'Remodels phased around trading hours and occupants',
+      'Multi-site and rollout programs to a brand prototype standard',
+      'Submittals, color schedules, and approved mockups',
+      'Day, night, and occupied-site shift scheduling',
+      'Progressive punch and documented closeout',
     ],
     systems: [
-      { label: 'Gypsum board', detail: 'Primer plus two finish coats; sheen per finish schedule' },
-      { label: 'Hollow metal', detail: 'Rust-inhibitive primer with an alkyd or waterborne enamel' },
-      { label: 'CMU / masonry', detail: 'Block filler with an acrylic or epoxy topcoat' },
-      { label: 'Exposed structure', detail: 'Dryfall applied before ceiling grid and MEP close-in' },
-      { label: 'Wet / high-touch areas', detail: 'Scrubbable epoxy or catalyzed acrylic systems' },
+      { label: 'Gypsum board', detail: 'Primer plus two finish coats per the finish schedule' },
+      { label: 'Hollow metal', detail: 'Rust-inhibitive primer with enamel topcoat' },
+      { label: 'Exposed structure', detail: 'Dryfall applied ahead of MEP close-in' },
+      { label: 'Exterior envelope', detail: 'Manufacturer-specified assembly for the substrate' },
     ],
     sections: [
       {
-        heading: 'Working in occupied buildings',
-        body: 'Most interior repaint work happens while the building is still being used. We plan the work in zones, agree the containment and protection standard before we start, and stage material so corridors and exits stay clear. Where the schedule demands it, crews run second shift or weekends so the space is returned each morning ready for use. Odor-sensitive areas get low-VOC systems specified during preconstruction rather than negotiated on site.',
+        heading: 'Built around the schedule',
+        body: 'Painting sits behind drywall and ahead of flooring, casework, and equipment, so it absorbs every upstream delay. We plan the compressed version of the schedule from day one, add shifts rather than move dates, and tell the superintendent early when something upstream is going to move us.',
       },
       {
-        heading: 'Drywall finish level coordination',
-        body: 'More interior paint complaints trace to the drywall finish level than to the coating. A Level 4 wall under critical lighting will telegraph joints no matter what is applied over it. During preconstruction we confirm the specified finish level against the lighting design and flag the mismatch in writing before anyone is standing in a finished room disagreeing about who owns it.',
-      },
-      {
-        heading: 'What closeout includes',
-        body: 'The punch list is a scope item, not an afterthought. We walk the space ahead of the general contractor, correct what we find, and hand over attic stock, the approved color schedule, and product data as a package. The goal is a short list at turnover and no return trips after occupancy.',
+        heading: 'One subcontractor, closeout included',
+        body: 'Attic stock, the approved color schedule, product data, and a written two-year workmanship warranty are delivered as a package at turnover. Our own quality walk happens before the general contractor walkthrough, which is why the punch list handed over is short.',
       },
     ],
     faqs: [
       {
-        question: 'Can you work while our building stays open?',
+        question: 'Do you handle multi-site rollout programs?',
         answer:
-          'Yes — this is the majority of our interior work. We zone the building, agree containment and protection standards before mobilizing, and run night or weekend shifts where the space has to be returned to use each morning. Low-odor and low-VOC systems are specified in preconstruction for occupied areas.',
+          'Yes — national retail and restaurant rollouts are a core part of our record. The finish schedule is verified against the brand prototype book during preconstruction and substitutions are flagged in writing before material is ordered.',
       },
       {
-        question: 'Do you handle wallcovering and wall protection?',
+        question: 'Can you work while a business stays open?',
         answer:
-          'Yes. Vinyl wallcovering, wall protection systems, corner guards, and specialty finishes are carried within the interior scope so there is no gap between the paint contract and the finish schedule.',
+          'Yes. Night shifts, barricaded phasing, and daily return to service are standard. The shift structure is agreed and priced at bid, so there is no premium-time surprise later.',
+      },
+    ],
+    relatedIndustries: ['retail', 'restaurants', 'office', 'new-construction', 'tenant-improvements'],
+  },
+  {
+    slug: 'residential-painting',
+    group: 'Service lines',
+    featured: true,
+    art: 'interior',
+    title: 'Residential Painting',
+    shortTitle: 'Residential Painting',
+    csi: 'SVC / RES',
+    kicker: 'Commercial discipline, brought home',
+    summary:
+      'Interior and exterior residential painting delivered with the same preparation standards, clean job sites, and written warranty we bring to commercial construction.',
+    intro:
+      'Most of our work is commercial construction — and that is exactly why homeowners hire us. The habits that keep a general contractor happy translate directly: showing up when we said we would, protecting everything that is not being painted, cleaning up daily, and standing behind the work in writing.',
+    metaTitle: 'Residential Painting | Interior & Exterior House Painting',
+    metaDescription:
+      'Residential interior and exterior painting with commercial-grade preparation, clean job sites, clear communication, and a written two-year workmanship warranty.',
+    scope: [
+      'Interior repaints — walls, ceilings, trim, and doors',
+      'Exterior repaints over siding, stucco, brick, and trim',
+      'Cabinet painting and refinishing',
+      'Drywall repair, texture matching, and caulking',
+      'Color consultation before a gallon is ordered',
+      'Daily cleanup and full protection of floors and furnishings',
+      'Written two-year workmanship warranty',
+    ],
+    systems: [
+      { label: 'Interior walls', detail: 'Premium washable acrylics, sheen matched to the room' },
+      { label: 'Trim and doors', detail: 'Waterborne enamel for a smooth, durable finish' },
+      { label: 'Exteriors', detail: 'Cleaned, repaired, and coated to the substrate' },
+      { label: 'Cabinets', detail: 'Catalyzed sprayed finish, shop-quality result' },
+    ],
+    sections: [
+      {
+        heading: 'The same standard as a jobsite',
+        body: 'A home gets the same sequence a commercial project does: surfaces inspected and repaired before coating, a written scope so nothing is assumed, protection of everything adjacent, and a walk-through at the end against that scope rather than against memory.',
       },
       {
-        question: 'How do you handle color approval?',
+        heading: 'Communication you can plan around',
+        body: 'You get a start date, a duration, and a daily update if anything changes. Crews arrive when scheduled, and the house is left livable every evening — floors clear, furniture back, no open paint left behind.',
+      },
+    ],
+    faqs: [
+      {
+        question: 'Do you take small residential projects?',
         answer:
-          'Colors are submitted and mocked up before production. On projects with a corporate prototype standard we verify the schedule against the brand book and flag any substitution in writing before material is ordered.',
+          'Yes. Single rooms, exteriors, and cabinet projects are all welcome. The written scope and warranty apply regardless of project size.',
+      },
+      {
+        question: 'How do you protect the home while working?',
+        answer:
+          'Floors, fixtures, and furnishings are covered before the first can is opened, work areas are contained, and the space is returned to use each evening. Low-odor products are used in occupied homes.',
+      },
+    ],
+    relatedIndustries: ['tenant-improvements'],
+  },
+  {
+    slug: 'industrial-painting',
+    group: 'Service lines',
+    featured: true,
+    art: 'industrial',
+    title: 'Industrial Painting',
+    shortTitle: 'Industrial Painting',
+    csi: 'CSI 09 97 00',
+    kicker: 'Plants, steel & heavy-service environments',
+    summary:
+      'Industrial painting and coatings for manufacturing plants, distribution centers, and processing facilities — specified against the actual service conditions.',
+    intro:
+      'In an industrial building the coating is a maintenance decision. It has to handle temperature, chemical exposure, washdown, abrasion, or all four, and it has to be applied in the window the plant is willing to give up. Specification and surface preparation carry more weight here than anywhere else.',
+    metaTitle: 'Industrial Painting Contractor | Plants & Distribution Facilities',
+    metaDescription:
+      'Industrial painting for manufacturing plants, warehouses, and processing facilities. Structural steel, equipment, and high-performance systems with shutdown-window scheduling.',
+    scope: [
+      'Structural steel and exposed structure coatings',
+      'Plant interiors, ceilings, and dryfall applications',
+      'Equipment, tank exteriors, and piping identification',
+      'Chemical- and washdown-resistant wall systems',
+      'Safety striping and line marking',
+      'Shutdown-window and live-plant scheduling',
+      'Surface preparation to the specified SSPC standard',
+    ],
+    systems: [
+      { label: 'Structural steel', detail: 'Epoxy primer with aliphatic urethane topcoat' },
+      { label: 'Process areas', detail: 'Novolac or specialty resin matched to exposure' },
+      { label: 'Washdown zones', detail: 'Catalyzed epoxy rated for the cleaning regime' },
+      { label: 'Concrete floors', detail: 'Resinous systems over profiled, tested slabs' },
+    ],
+    sections: [
+      {
+        heading: 'The service environment drives the system',
+        body: 'Chemical exposure, thermal cycling, washdown, and abrasion each rule out different products. We collect the actual conditions during preconstruction and confirm the assembly with the manufacturer before it is priced — a product correct for a warehouse and wrong for a wash bay looks identical on a submittal.',
+      },
+      {
+        heading: 'Planned to the hour',
+        body: 'Scope is broken into what can be done live, what needs a line down, and what needs an area fully cleared — priced separately so the plant can decide how much downtime the result is worth.',
+      },
+    ],
+    faqs: [
+      {
+        question: 'Can you work without shutting the plant down?',
+        answer:
+          'Partially, and we tell you exactly which parts. Some scope runs live behind containment; some genuinely requires the line down for access or cure. The bid separates the two so the decision is yours.',
+      },
+      {
+        question: 'What preparation standards do you work to?',
+        answer:
+          'SSPC surface preparation standards for steel, and profile, moisture, and pH verification on concrete. The standard is agreed in writing at bid and the substrate is documented before coating.',
+      },
+    ],
+    relatedIndustries: ['industrial', 'government', 'aviation'],
+  },
+
+  /* ================================================ PAINTING & FINISHES == */
+  {
+    slug: 'interior-painting',
+    group: 'Painting & finishes',
+    featured: true,
+    art: 'interior',
+    title: 'Interior Painting',
+    shortTitle: 'Interior Painting',
+    csi: 'CSI 09 91 23',
+    kicker: 'Walls · ceilings · trim · doors',
+    summary:
+      'Interior painting for commercial and residential spaces — clean lines, uniform finishes, and work sequenced around the people using the building.',
+    intro:
+      'Interior painting is judged from two feet away in good light, and it usually happens in a space somebody still needs to use. The coating is the straightforward part; producing a uniform result around occupants, other trades, and the schedule is the craft.',
+    metaTitle: 'Interior Painting | Commercial & Residential Interiors',
+    metaDescription:
+      'Interior painting for offices, stores, restaurants, clinics, and homes. Walls, ceilings, trim, doors, and specialty finishes with occupied-space phasing.',
+    scope: [
+      'Wall, ceiling, and soffit coatings',
+      'Trim, doors, frames, and millwork finishing',
+      'Exposed structure and dryfall applications',
+      'Accent walls and specialty finishes',
+      'Scrubbable systems for high-touch areas',
+      'Low-odor products for occupied spaces',
+      'Drywall finish level coordination',
+    ],
+    systems: [
+      { label: 'Gypsum board', detail: 'Primer plus two finish coats to the specified sheen' },
+      { label: 'Trim and doors', detail: 'Waterborne or alkyd enamel per the schedule' },
+      { label: 'High-touch areas', detail: 'Scrubbable, high-hide washable systems' },
+      { label: 'Occupied spaces', detail: 'Low-VOC systems with minimal cure odor' },
+    ],
+    sections: [
+      {
+        heading: 'Working around occupants',
+        body: 'Most interior work happens in buildings still in use. We zone the work, agree containment and protection before starting, and run night or weekend shifts where the space must be returned each morning — clean, clear, and usable.',
+      },
+      {
+        heading: 'Finish level matters more than paint',
+        body: 'A Level 4 wall under critical lighting will telegraph joints no matter what is applied over it. We confirm the specified drywall finish level against the lighting design during preconstruction and flag mismatches in writing before anyone is standing in a finished room disputing ownership.',
+      },
+    ],
+    faqs: [
+      {
+        question: 'Commercial and residential?',
+        answer:
+          'Both. The preparation standard, the product quality, and the written warranty are identical — only the scheduling differs.',
+      },
+      {
+        question: 'How do you handle color and sheen selection?',
+        answer:
+          'Colors are confirmed with samples or mockups before production. On brand-standard projects the schedule is verified against the prototype book; on residential work we offer color consulting before ordering.',
       },
     ],
     relatedIndustries: ['office', 'healthcare', 'retail', 'restaurants', 'education'],
   },
   {
-    slug: 'commercial-exterior-painting',
+    slug: 'exterior-painting',
+    group: 'Painting & finishes',
+    featured: true,
     art: 'exterior',
-    title: 'Commercial Exterior Painting',
+    title: 'Exterior Painting',
     shortTitle: 'Exterior Painting',
     csi: 'CSI 09 91 13',
-    kicker: 'Tilt-wall · EIFS · masonry · structural silver',
+    kicker: 'Tilt-wall · stucco · masonry · siding · steel',
     summary:
-      'Exterior repaint and new-construction coatings over tilt-wall, stucco, EIFS, masonry, and metal — including access, sealants, and substrate repair.',
+      'Exterior painting over tilt-wall, stucco, EIFS, masonry, siding, and steel — bought on how long it lasts, which is decided by preparation.',
     intro:
-      'An exterior repaint is bought on how long it lasts, and that is decided by preparation and by whether the sealants were addressed. Coating over a failing joint or a chalking, unwashed substrate buys two years. Doing the preparation properly buys the full service life of the system.',
-    metaTitle: 'Commercial Exterior Painting Contractor | Tilt-Wall, EIFS & Masonry',
+      'An exterior repaint is bought on service life, and service life is decided before the first coat: cleaning, substrate repair, and whether the sealant joints were addressed. Coating over a failing joint buys two years; doing the preparation properly buys the full life of the system.',
+    metaTitle: 'Exterior Painting | Commercial Buildings & Homes',
     metaDescription:
-      'Commercial exterior painting across Texas: tilt-wall, stucco, EIFS, masonry, and structural silver. Pressure washing, sealant replacement, and elastomeric coating systems.',
+      'Exterior painting for commercial buildings and homes across Texas. Tilt-wall, stucco, EIFS, masonry, and siding with pressure washing and sealant replacement.',
     scope: [
       'Tilt-wall and precast concrete coatings',
       'Stucco and EIFS repaint, including elastomeric systems',
-      'Masonry, CMU, and brick coatings',
-      'Structural and architectural silver',
-      'Metal panel, canopy, and storefront finishes',
+      'Masonry, brick, and CMU coatings',
+      'Siding, fascia, and trim on residential exteriors',
+      'Structural and architectural steel',
       'Pressure washing and substrate cleaning',
-      'Sealant and caulk joint replacement',
-      'Substrate crack repair within the coating scope',
-      'Lift, swing stage, and boom access planning',
+      'Sealant replacement and crack repair',
     ],
     systems: [
       { label: 'Tilt-wall / precast', detail: 'Acrylic or elastomeric over cleaned, patched substrate' },
-      { label: 'Stucco / EIFS', detail: 'Elastomeric or 100% acrylic with sealant replacement as required' },
-      { label: 'Masonry / CMU', detail: 'Block filler and acrylic, or a breathable masonry coating' },
-      { label: 'Structural silver', detail: 'Rust-inhibitive or epoxy primer with a urethane topcoat' },
-      { label: 'Metal panel', detail: 'Bonding primer with a direct-to-metal acrylic or urethane' },
+      { label: 'Stucco / EIFS', detail: 'Elastomeric or full acrylic with sealant replacement' },
+      { label: 'Masonry', detail: 'Breathable masonry coating, efflorescence treated' },
+      { label: 'Steel', detail: 'Rust-inhibitive primer with urethane topcoat' },
     ],
     sections: [
       {
         heading: 'Preparation determines the warranty',
-        body: 'Chalking, mildew, efflorescence, and failed sealant all defeat an otherwise correct coating system. Every exterior scope starts with cleaning, moisture assessment, and a written sealant condition report. Where the substrate needs repair beyond the coating scope, we say so at bid rather than coating over it and warranting a result we cannot stand behind.',
+        body: 'Chalking, mildew, efflorescence, and failed sealant all defeat an otherwise correct system. Every exterior scope starts with cleaning, moisture assessment, and a written sealant condition report — and if the substrate needs repair beyond the coating scope, we say so at bid rather than coating over it.',
       },
       {
-        heading: 'Access planning',
-        body: 'On a multi-story or long-elevation building, access is a larger cost driver than paint. Lift type, swing stage, ground conditions, traffic control, and pedestrian protection are planned at bid, not discovered on mobilization day. That is also where most schedule surprises on exterior work come from.',
-      },
-      {
-        heading: 'Weather and the schedule',
-        body: 'Texas exterior work is governed by dew point, surface temperature, and wind. We build float into exterior schedules for the days that are not workable and communicate early when a weather window is going to move a completion date, rather than applying product outside its specified conditions to hold a date.',
+        heading: 'Weather is part of the schedule',
+        body: 'Texas exterior work is governed by dew point, surface temperature, and wind. We build float in for the days that are not workable and communicate early when a weather window moves a date — rather than applying product outside its specified conditions to hold one.',
       },
     ],
     faqs: [
       {
-        question: 'Do you replace sealants as part of an exterior repaint?',
+        question: 'Do you replace sealants as part of a repaint?',
         answer:
-          'Where the joints are failing, yes — and we recommend it. Coating over a failed sealant joint guarantees water intrusion behind a new finish. We survey joint condition before bid and carry replacement as a defined line item so it is a decision rather than a surprise.',
-      },
-      {
-        question: 'How long does an exterior coating system last?',
-        answer:
-          'It depends on the system, exposure, and substrate condition at the time of application. Manufacturer service-life expectations are provided with the submittal, and our two-year workmanship warranty covers our application separately from the manufacturer material warranty.',
+          'Where the joints are failing, yes — and we recommend it. We survey joint condition before bid and carry replacement as a defined line item so it is a decision rather than a surprise.',
       },
       {
         question: 'Can you work around an operating business?',
         answer:
-          'Yes. Exterior work is sequenced around parking, entrances, deliveries, and pedestrian routes, with protection and traffic control planned before mobilization.',
+          'Yes. Work is sequenced around parking, entrances, deliveries, and pedestrian routes, with protection and traffic control planned before mobilization.',
       },
     ],
-    relatedIndustries: ['industrial', 'retail', 'education', 'government', 'new-construction'],
+    relatedIndustries: ['retail', 'industrial', 'education', 'government'],
   },
   {
-    slug: 'tenant-finish-outs',
-    art: 'tenant',
-    title: 'Tenant Finish-Outs',
-    shortTitle: 'Tenant Finish-Outs',
-    csi: 'CSI 09 90 00',
-    kicker: 'Shell to suite, on a landlord delivery date',
+    slug: 'cabinet-painting-refinishing',
+    group: 'Painting & finishes',
+    art: 'interior',
+    title: 'Cabinet Painting & Refinishing',
+    shortTitle: 'Cabinet Refinishing',
+    csi: 'SVC / CAB',
+    kicker: 'Shop-quality sprayed finishes',
     summary:
-      'Shell-to-suite finish packages for office, retail, medical, and restaurant tenants — delivered against a lease commencement date.',
+      'Cabinet painting and refinishing with a sprayed, catalyzed finish — a factory-quality result at a fraction of replacement cost.',
     intro:
-      'A finish-out is a date before it is a scope. The lease says when the tenant takes the space, and painting sits near the end of the sequence, which means it absorbs every delay upstream of it. We plan the compressed version of the schedule from day one and staff to protect the delivery date.',
-    metaTitle: 'Tenant Finish-Out Painting Contractor | Office, Retail & Medical',
+      'Refinishing existing cabinetry costs a fraction of replacement and, done properly, is indistinguishable from new. Done improperly — brushed latex over unprepared thermofoil — it peels within a year. The difference is entirely in preparation, product selection, and spray application.',
+    metaTitle: 'Cabinet Painting & Refinishing | Sprayed Catalyzed Finishes',
     metaDescription:
-      'Tenant finish-out painting for office, retail, medical, and restaurant suites. Lease-date delivery, landlord versus tenant scope definition, and fast punch closeout.',
+      'Cabinet painting and refinishing with degreasing, sanding, bonding primers, and sprayed catalyzed enamel for a durable, factory-smooth finish.',
     scope: [
-      'Full suite interior finish packages',
-      'White-box and vanilla-shell delivery',
-      'Demising wall and office split finishes',
-      'Corridor, lobby, and common-area work',
-      'Accent, decorative, and brand-standard finishes',
-      'Door, frame, and millwork finishing',
-      'Wall protection in high-traffic suites',
-      'Landlord versus tenant scope definition at bid',
-      'Punch, touch-up, and turnover documentation',
+      'Kitchen and bathroom cabinet refinishing',
+      'Built-ins, bookcases, and millwork',
+      'Commercial casework and reception millwork',
+      'Degreasing, sanding, and bonding primer systems',
+      'Sprayed catalyzed enamel application',
+      'Doors and drawers finished flat, off-site where possible',
+      'Hardware removal and reinstallation',
     ],
     systems: [
-      { label: 'New gypsum board', detail: 'Primer plus two finish coats to the specified sheen' },
-      { label: 'Existing painted walls', detail: 'Spot prime, skim as needed, two finish coats' },
-      { label: 'Doors and frames', detail: 'Field or shop enamel finish per the door schedule' },
-      { label: 'Accent and feature walls', detail: 'Specialty finishes with an approved mockup' },
-      { label: 'Exposed ceilings', detail: 'Dryfall spray before ceiling and MEP close-in' },
+      { label: 'Preparation', detail: 'Degrease, scuff sand, and bonding primer — every surface' },
+      { label: 'Finish', detail: 'Sprayed catalyzed enamel, cured hard for daily use' },
+      { label: 'Doors / drawers', detail: 'Removed and sprayed flat for a level finish' },
+      { label: 'Frames', detail: 'Masked and sprayed in place under containment' },
     ],
     sections: [
       {
-        heading: 'Defining the scope line',
-        body: 'The boundary between landlord base-building work and tenant improvement work causes more disputes on finish-outs than any coating issue. We define that line explicitly in the bid — which walls, which side of the demising partition, whose ceiling, whose doors — so the conversation happens before the work rather than during it.',
+        heading: 'Why sprayed and catalyzed',
+        body: 'Brushed wall paint on cabinets shows every stroke and never cures hard enough for daily handling. A sprayed catalyzed enamel levels flat and cures to a furniture-grade hardness that survives fingernails, cleaners, and grease.',
       },
       {
-        heading: 'Changes arrive late',
-        body: 'Tenant-driven changes almost always land after the bid is issued. We turn change pricing around quickly, because a decision waiting on a number is a day off the schedule. Priced changes are documented against the original scope so nobody is reconciling a moving target at closeout.',
-      },
-      {
-        heading: 'Turnover the tenant will accept',
-        body: 'A tenant will not take a suite with an open punch list. We run our own quality walk before the general contractor\'s, correct what we find, and present a space that is ready rather than nearly ready.',
+        heading: 'Preparation is the whole job',
+        body: 'Kitchen cabinets carry years of cooking residue that defeats adhesion. Every surface is degreased, sanded, and primed with a bonding primer before color — skip any one of those steps and the finish fails, which is why we never do.',
       },
     ],
     faqs: [
       {
-        question: 'How fast can you turn a finish-out?',
+        question: 'How long does a kitchen take?',
         answer:
-          'It depends on square footage, access, and how the space is released to us. What we commit to at bid is manpower against the delivery date — if the schedule compresses upstream, we add crew rather than move the date. We tell you at bid what that costs so it is not a change-order conversation later.',
+          'Most kitchens run three to five working days, with doors and drawers finishing off-site while frames are completed in place. The kitchen remains usable for most of that time.',
       },
       {
-        question: 'Do you work from a corporate brand standard?',
+        question: 'Can you match a specific color or sheen?',
         answer:
-          'Yes. For retail, restaurant, and franchise tenants we verify the finish schedule against the prototype book during preconstruction and flag substitutions in writing before material is ordered.',
-      },
-      {
-        question: 'Can you deliver white-box or vanilla-shell spaces?',
-        answer:
-          'Yes — speculative suite programs and white-box delivery are routine work, including repeat programs across a landlord\'s portfolio.',
+          'Yes — any manufacturer color, with a sample sprayed for approval before production.',
       },
     ],
-    relatedIndustries: ['office', 'tenant-improvements', 'retail', 'restaurants', 'healthcare'],
+    relatedIndustries: ['hospitality', 'office', 'healthcare'],
   },
   {
-    slug: 'occupied-renovations',
-    art: 'occupied',
-    title: 'Occupied Renovations',
-    shortTitle: 'Occupied Renovations',
-    csi: 'CSI 09 90 00',
-    kicker: 'Work in buildings that never close',
+    slug: 'custom-wood-staining',
+    group: 'Painting & finishes',
+    art: 'restaurant',
+    title: 'Custom Wood Staining',
+    shortTitle: 'Wood Staining',
+    csi: 'CSI 09 93 00',
+    kicker: 'Stain-grade finishing & transparent systems',
     summary:
-      'Phased painting in hospitals, schools, hotels, offices, and stores that stay open — containment, night shifts, and daily return to service.',
+      'Stain-grade finishing for doors, trim, millwork, beams, and feature elements — color-matched samples first, sealed systems built for the exposure.',
     intro:
-      'Working in an occupied building changes almost nothing about the coating and almost everything about the plan. Odor, dust, noise, and traffic all leave the work area, and the people affected did not sign the contract. The scope that matters is containment, sequencing, and the discipline to hand the space back clean every single morning.',
-    metaTitle: 'Occupied Building Painting Contractor | Phased Renovations',
+      'Stain-grade work is unforgiving: there is no primer to hide behind, and every sanding scratch, lap mark, and blotch telegraphs through the finish. It rewards patience — sample boards, conditioners on blotch-prone species, and finish systems selected for the exposure rather than habit.',
+    metaTitle: 'Custom Wood Staining | Stain-Grade Doors, Trim & Millwork',
     metaDescription:
-      'Painting in occupied buildings — hospitals, schools, hotels, offices, and stores. Containment, night and weekend shifts, low-odor systems, and daily return to service.',
+      'Custom wood staining and transparent finishing for doors, trim, millwork, beams, and exterior wood. Color-matched samples and sealed systems built for the exposure.',
     scope: [
-      'Zoned and phased work planning',
-      'Containment, barricade, and dust control',
-      'Night, weekend, and off-hours shifts',
-      'Low-VOC and low-odor system specification',
-      'Daily protection, cleanup, and return to service',
-      'Coordination with facility and building management',
-      'Infection-control-aware planning in clinical areas',
-      'Occupant and tenant communication support',
-      'Progressive punch as each zone completes',
+      'Stain-grade doors, trim, and millwork',
+      'Ceiling beams and feature woodwork',
+      'Restaurant and hospitality wood elements',
+      'Exterior wood — doors, gates, and accents',
+      'Color matching to an existing finish or control sample',
+      'Conditioners and blotch control on difficult species',
+      'Sealed topcoat systems matched to the exposure',
     ],
     systems: [
-      { label: 'Occupied interiors', detail: 'Low-VOC acrylic systems with minimal cure odor' },
-      { label: 'Clinical adjacency', detail: 'Low-odor systems selected against the facility ICRA' },
-      { label: 'High-traffic corridors', detail: 'Scrubbable, high-hide systems for fast recoat' },
-      { label: 'Wet areas', detail: 'Catalyzed epoxy or acrylic where washdown is expected' },
-      { label: 'Fast return to service', detail: 'Products selected for short recoat and cure windows' },
+      { label: 'Interior millwork', detail: 'Stain with catalyzed or conversion varnish topcoat' },
+      { label: 'Doors', detail: 'Sprayed transparent system, both faces sealed' },
+      { label: 'Exterior wood', detail: 'Penetrating or film-forming system rated for UV' },
+      { label: 'Color matching', detail: 'Sample boards approved before production' },
+    ],
+    sections: [
+      {
+        heading: 'Samples before production',
+        body: 'The same stain reads differently on every species and every veneer lot. We produce sample boards on the actual material, adjust until approved, and lock the formula — so the five-hundredth linear foot matches the first.',
+      },
+      {
+        heading: 'Built for where the wood lives',
+        body: 'A restaurant tabletop, an exterior gate in Texas sun, and a residential stair rail need three different topcoat systems. We match the system to the exposure and say so on the proposal, because a beautiful finish that fails in a year is not a finish.',
+      },
+    ],
+    faqs: [
+      {
+        question: 'Can you match existing woodwork?',
+        answer:
+          'Yes. We build custom stain formulas against a control sample and approve the match with you on the actual species before production.',
+      },
+      {
+        question: 'Do you refinish as well as finish new wood?',
+        answer:
+          'Yes — stripping, sanding, and refinishing existing doors, trim, and millwork is routine work, priced after we assess the existing finish.',
+      },
+    ],
+    relatedIndustries: ['restaurants', 'hospitality', 'office'],
+  },
+  {
+    slug: 'decorative-finishes',
+    group: 'Painting & finishes',
+    art: 'hospitality',
+    title: 'Decorative Finishes',
+    shortTitle: 'Decorative Finishes',
+    csi: 'CSI 09 94 00',
+    kicker: 'Specialty & feature-wall systems',
+    summary:
+      'Specialty and decorative finish systems — textures, metallics, and feature treatments executed from approved mockups.',
+    intro:
+      'Decorative work is bought on a look, and a look cannot be specified in words. Everything starts from a physical mockup: the finish is developed, adjusted, and approved on a sample before it touches the wall, so the result is the one that was bought.',
+    metaTitle: 'Decorative Finishes | Specialty Paint & Feature Walls',
+    metaDescription:
+      'Decorative and specialty paint finishes for restaurants, hospitality, retail, and residential feature walls. Textures, metallics, and custom treatments from approved mockups.',
+    scope: [
+      'Feature and accent wall treatments',
+      'Metallic and pearlescent systems',
+      'Textured and troweled finishes',
+      'Restaurant and hospitality brand treatments',
+      'Ceiling features and painted patterns',
+      'Approved mockups before production',
+      'Coordination with designers and brand standards',
+    ],
+    systems: [
+      { label: 'Metallics', detail: 'Sprayed or rolled systems with controlled sheen' },
+      { label: 'Textures', detail: 'Troweled and applied texture systems' },
+      { label: 'Brand treatments', detail: 'Executed to the prototype or design intent' },
+      { label: 'Mockups', detail: 'Physical sample approved before production' },
+    ],
+    sections: [
+      {
+        heading: 'The mockup is the contract',
+        body: 'A decorative finish approved on a two-foot board is a defined product; one described in an email is an argument waiting to happen. We build the sample, adjust it with the designer or owner, and production matches the approved board.',
+      },
+      {
+        heading: 'Durability is part of the design',
+        body: 'A feature wall in a restaurant entry gets touched, scuffed, and cleaned. We build decorative systems with topcoats that survive the traffic they will actually see, so the finish still looks intentional a year in.',
+      },
+    ],
+    faqs: [
+      {
+        question: 'Do you work from a designer specification?',
+        answer:
+          'Yes — and where the specification describes an effect rather than a product, we develop the system and confirm it with a mockup before pricing production.',
+      },
+      {
+        question: 'Can decorative finishes be repaired later?',
+        answer:
+          'We document the system and retain the formula so future repairs blend rather than patch.',
+      },
+    ],
+    relatedIndustries: ['restaurants', 'hospitality', 'retail'],
+  },
+  {
+    slug: 'color-consulting',
+    group: 'Painting & finishes',
+    art: 'office',
+    title: 'Color Consulting',
+    shortTitle: 'Color Consulting',
+    csi: 'SVC / CLR',
+    kicker: 'Decide once, on the wall',
+    summary:
+      'Color selection support for owners, designers, and facility teams — large drawdown samples on the actual walls, under the actual light.',
+    intro:
+      'Color is the least expensive decision on a project and the one most often re-made at full price. A color chosen from a one-inch chip under showroom lighting routinely looks wrong across forty feet of wall. We move the decision to the wall itself, before a gallon is ordered.',
+    metaTitle: 'Color Consulting | Paint Color Selection Support',
+    metaDescription:
+      'Professional paint color consulting for commercial and residential projects. Large drawdown samples evaluated in place, sheen guidance, and a documented schedule.',
+    scope: [
+      'On-site color consultation',
+      'Large-format drawdown samples on the actual surfaces',
+      'Sheen selection by room function and lighting',
+      'Whole-building and multi-room color schedules',
+      'Coordination with existing finishes and furnishings',
+      'Brand color matching across manufacturers',
+      'Documented color schedule for future touch-ups',
+    ],
+    systems: [
+      { label: 'Sampling', detail: 'Large drawdowns evaluated morning and evening light' },
+      { label: 'Sheen map', detail: 'Sheen matched to function, traffic, and lighting' },
+      { label: 'Schedule', detail: 'Every room and surface documented by product code' },
+      { label: 'Matching', detail: 'Cross-manufacturer matches verified on the wall' },
+    ],
+    sections: [
+      {
+        heading: 'Decide on the wall, not the chip',
+        body: 'Light direction, ceiling height, floor color, and adjacent surfaces all shift how a color reads. Large samples on the actual walls, viewed at different times of day, turn the decision from a guess into an observation.',
+      },
+      {
+        heading: 'The schedule outlives the project',
+        body: 'The deliverable is a documented color schedule — every surface, product, color, and sheen — so touch-ups and future phases match without archaeology.',
+      },
+    ],
+    faqs: [
+      {
+        question: 'Is consulting available without the painting?',
+        answer:
+          'It is offered with our painting work, where it removes the most common source of delay and repaint cost — a color decision made too late or re-made after application.',
+      },
+      {
+        question: 'Can you match a brand color across manufacturers?',
+        answer:
+          'Yes. Matches are verified with sprayed or rolled samples on the wall rather than trusted from a formula screen.',
+      },
+    ],
+    relatedIndustries: ['office', 'hospitality', 'retail'],
+  },
+
+  /* ================================================= COATINGS & FLOORS === */
+  {
+    slug: 'epoxy-floor-coatings',
+    group: 'Coatings & floors',
+    featured: true,
+    art: 'coatings',
+    title: 'Epoxy Floor Coatings',
+    shortTitle: 'Epoxy Floors',
+    csi: 'CSI 09 67 00',
+    kicker: 'Resinous flooring over tested slabs',
+    summary:
+      'Epoxy and resinous floor systems for kitchens, plants, warehouses, and showrooms — over profiled, moisture-tested concrete.',
+    intro:
+      'Resinous floors fail for one reason far more than any other: they were installed over a slab that was never tested. Moisture vapor lifts the most expensive system just as effectively as the cheapest. We profile the slab, test it, and put the results in writing before anything is mixed.',
+    metaTitle: 'Epoxy Floor Coatings | Commercial & Industrial Resinous Flooring',
+    metaDescription:
+      'Epoxy and resinous floor coatings for commercial kitchens, plants, warehouses, and showrooms. Mechanical profiling, moisture testing, and systems matched to service.',
+    scope: [
+      'Commercial kitchen and food-service floors',
+      'Warehouse and plant floor systems',
+      'Showroom and retail decorative epoxy',
+      'Mechanical grinding and shot-blast profiling',
+      'Moisture vapor and pH testing before installation',
+      'Cove bases and integral drainage details',
+      'Safety striping within the floor scope',
+    ],
+    systems: [
+      { label: 'Kitchens', detail: 'Urethane cement or epoxy rated for thermal shock' },
+      { label: 'Warehouses', detail: 'High-build epoxy with urethane wear topcoat' },
+      { label: 'Showrooms', detail: 'Decorative flake or metallic systems' },
+      { label: 'Slab testing', detail: 'Moisture, RH, and pH verified before install' },
+    ],
+    sections: [
+      {
+        heading: 'The slab decides everything',
+        body: 'Profile, moisture, and contamination determine whether a resinous system bonds or delaminates. We mechanically profile to the specified CSP, test moisture and pH, and share the results — including when they say the slab needs mitigation before any floor should go down.',
+      },
+      {
+        heading: 'Downtime, planned honestly',
+        body: 'Cure windows are chemistry, not negotiation. We break installation into phases the operation can live with, state the return-to-service time for each, and hold to it — rather than promising a cure time the product cannot deliver.',
+      },
+    ],
+    faqs: [
+      {
+        question: 'How long before the floor can be used?',
+        answer:
+          'It depends on the system — foot traffic typically within a day, wheel traffic and washdown later. The proposal states the return-to-service time for the specific product, and fast-cure systems are available where downtime is expensive.',
+      },
+      {
+        question: 'What if the slab has moisture problems?',
+        answer:
+          'We tell you before installing, with the test data — and price a mitigation system if one is needed. Installing over a wet slab and warranting the result is not something we do.',
+      },
+    ],
+    relatedIndustries: ['restaurants', 'industrial', 'retail', 'healthcare'],
+  },
+  {
+    slug: 'protective-coatings',
+    group: 'Coatings & floors',
+    featured: true,
+    art: 'industrial',
+    title: 'Protective Coatings',
+    shortTitle: 'Protective Coatings',
+    csi: 'CSI 09 96 00',
+    kicker: 'High-performance systems for hard service',
+    summary:
+      'High-performance protective coatings for steel, concrete, and equipment — selected against chemical exposure, washdown, abrasion, and weather.',
+    intro:
+      'A protective coating is bought for what it resists. The correct system is a function of the actual service environment — which chemicals, at what concentration, cleaned how, at what temperature — and specifying it from a catalog instead of the conditions is how these systems fail early and expensively.',
+    metaTitle: 'Protective Coatings | High-Performance Industrial Systems',
+    metaDescription:
+      'High-performance protective coatings for structural steel, concrete, tanks, and equipment. Epoxy, urethane, and specialty systems specified against real service conditions.',
+    scope: [
+      'Structural steel protective systems',
+      'Chemical- and washdown-resistant wall coatings',
+      'Tank exteriors and equipment coatings',
+      'Secondary containment systems',
+      'Direct-to-metal industrial finishes',
+      'Manufacturer system verification before pricing',
+      'SSPC-standard surface preparation',
+    ],
+    systems: [
+      { label: 'Steel', detail: 'Epoxy primer with aliphatic urethane topcoat' },
+      { label: 'Chemical exposure', detail: 'Novolac or specialty resin matched to the exposure' },
+      { label: 'Containment', detail: 'Chemical-resistant systems for the stored product' },
+      { label: 'Washdown', detail: 'Catalyzed systems rated for the cleaning regime' },
+    ],
+    sections: [
+      {
+        heading: 'Specified against conditions',
+        body: 'We collect the actual exposure during preconstruction and confirm the system with the manufacturer before it is priced. Where testing on existing coatings or substrates is warranted, we carry it in the bid and share the results.',
+      },
+      {
+        heading: 'Preparation is not optional here',
+        body: 'High-performance systems are less forgiving than architectural paint. Profile, cleanliness, and moisture are verified before application to the standard agreed in writing at bid — because most failures in this category trace to preparation, not product.',
+      },
+    ],
+    faqs: [
+      {
+        question: 'How do you choose between epoxy, urethane, and specialty resins?',
+        answer:
+          'By the exposure. Chemistry, temperature, UV, abrasion, and cleaning each rule products in or out — we match the assembly to the conditions and confirm it with the manufacturer.',
+      },
+      {
+        question: 'Do you handle secondary containment?',
+        answer:
+          'Yes — containment coatings are selected against the specific stored product and its concentration, not a generic chemical-resistance claim.',
+      },
+    ],
+    relatedIndustries: ['industrial', 'aviation', 'government', 'sports-entertainment'],
+  },
+  {
+    slug: 'line-striping',
+    group: 'Coatings & floors',
+    art: 'coatings',
+    title: 'Line Striping',
+    shortTitle: 'Line Striping',
+    csi: 'CSI 32 17 23',
+    kicker: 'Parking lots · warehouses · safety marking',
+    summary:
+      'Parking lot striping, warehouse floor marking, and safety line work — laid out square, sprayed sharp, and compliant.',
+    intro:
+      'Striping is the finish everyone sees from the street and the safety system everyone depends on inside. It is bought on straight lines, correct layout, ADA compliance, and paint that survives traffic — all of which are decided by layout discipline and product selection, not by the spray rig.',
+    metaTitle: 'Line Striping | Parking Lots & Warehouse Floor Marking',
+    metaDescription:
+      'Parking lot striping, ADA-compliant layouts, warehouse aisle marking, and facility safety striping with traffic-rated paints.',
+    scope: [
+      'Parking lot layout and striping',
+      'ADA-compliant stall and signage marking',
+      'Fire lane and regulatory marking',
+      'Warehouse aisle and rack-row marking',
+      'Safety zones, walkways, and hazard striping',
+      'Restriping over existing layouts',
+      'Night and weekend scheduling around operations',
+    ],
+    systems: [
+      { label: 'Asphalt lots', detail: 'Traffic-rated waterborne or acrylic marking paint' },
+      { label: 'Concrete floors', detail: 'Epoxy or urethane striping for wheel traffic' },
+      { label: 'ADA elements', detail: 'Stalls, aisles, and markings to current standards' },
+      { label: 'Layout', detail: 'Measured and snapped before any paint is sprayed' },
+    ],
+    sections: [
+      {
+        heading: 'Layout before paint',
+        body: 'A striping job is won or lost before the rig starts: stall counts, ADA positions, fire lanes, and flow are measured and snapped first. Restripes are trued up rather than blindly traced, because copying a crooked layout preserves the crooked layout.',
+      },
+      {
+        heading: 'Scheduled around the operation',
+        body: 'Lots and warehouses cannot close for striping. Work is phased by section, run at night or on weekends where needed, and returned to service on a stated cure time.',
+      },
+    ],
+    faqs: [
+      {
+        question: 'Do you verify ADA compliance?',
+        answer:
+          'Layouts are marked to current ADA dimensional standards for stalls, access aisles, and signage positions, and we flag existing non-compliant layouts before restriping them.',
+      },
+      {
+        question: 'How long before traffic can return?',
+        answer:
+          'Waterborne lot paint typically accepts traffic within an hour in Texas conditions; floor systems vary by product. The proposal states the cure time for the specific system.',
+      },
+    ],
+    relatedIndustries: ['retail', 'industrial', 'office', 'education'],
+  },
+
+  /* ======================================== PREPARATION & MAINTENANCE === */
+  {
+    slug: 'drywall-repair',
+    group: 'Preparation & maintenance',
+    art: 'prep',
+    title: 'Drywall Repair',
+    shortTitle: 'Drywall Repair',
+    csi: 'CSI 09 21 16',
+    kicker: 'Patches that disappear',
+    summary:
+      'Drywall repair, texture matching, and finish-level correction — the difference between a patch you can find and one you cannot.',
+    intro:
+      'Every repaint runs through drywall condition first, and a visible patch under new paint reads as a defect in the paint. Repairs are feathered wide, textures are matched to the existing field, and the finish level is brought to what the lighting demands — so the repair disappears instead of announcing itself.',
+    metaTitle: 'Drywall Repair | Patching, Texture Matching & Finishing',
+    metaDescription:
+      'Drywall repair and finishing for commercial and residential spaces. Patches, texture matching, water damage repair, and Level 4 and 5 finish correction.',
+    scope: [
+      'Holes, cracks, and impact damage repair',
+      'Water damage cutout and replacement',
+      'Texture matching to the existing field',
+      'Skim coating and Level 5 correction',
+      'Fastener pops and joint repair',
+      'Repairs carried inside the painting scope',
+      'Dust containment in occupied spaces',
+    ],
+    systems: [
+      { label: 'Patches', detail: 'Feathered wide and blended into the field' },
+      { label: 'Textures', detail: 'Matched by technique to the existing finish' },
+      { label: 'Critical light', detail: 'Skim to Level 5 where the lighting demands it' },
+      { label: 'Water damage', detail: 'Cut back to sound board, sealed, and refinished' },
+    ],
+    sections: [
+      {
+        heading: 'The patch you cannot find',
+        body: 'A repair that reads through paint was feathered too tight or textured wrong. We blend repairs wide, match texture by technique rather than by product, and check the result under raking light before any paint goes on.',
+      },
+      {
+        heading: 'One trade, no gap',
+        body: 'Carrying drywall repair inside the painting scope removes the most common finger-pointing gap on a repaint — the wall is our responsibility from substrate to final coat.',
+      },
+    ],
+    faqs: [
+      {
+        question: 'Can you match heavy or unusual textures?',
+        answer:
+          'Yes — orange peel, knockdown, skip trowel, and regional hand textures are matched with sample patches approved before the full repair.',
+      },
+      {
+        question: 'Do you handle water-damaged drywall?',
+        answer:
+          'Yes, once the source is fixed. Damaged board is cut back to sound material, stains are sealed with the correct blocker, and the surface is refinished to match.',
+      },
+    ],
+    relatedIndustries: ['office', 'healthcare', 'hospitality', 'education'],
+  },
+  {
+    slug: 'pressure-washing',
+    group: 'Preparation & maintenance',
+    art: 'exterior',
+    title: 'Pressure Washing',
+    shortTitle: 'Pressure Washing',
+    csi: 'SVC / PW',
+    kicker: 'Cleaning matched to the substrate',
+    summary:
+      'Commercial pressure washing for buildings, concrete, and site elements — pressure and chemistry matched to the surface, not maxed out.',
+    intro:
+      'Pressure washing done wrong is fast damage: etched wood, blown sealant joints, and water driven behind siding. Done right, it is the first step of every exterior coating and a maintenance service on its own — pressure, tips, and chemistry selected for the substrate.',
+    metaTitle: 'Pressure Washing | Commercial Buildings & Concrete',
+    metaDescription:
+      'Commercial pressure washing for building exteriors, concrete, sidewalks, and site elements. Soft washing where the substrate requires it; coating preparation included.',
+    scope: [
+      'Building exterior washdown ahead of coating',
+      'Soft washing for EIFS, stucco, and siding',
+      'Concrete, sidewalks, and drive-through lanes',
+      'Dumpster pads and service areas',
+      'Mildew and organic growth treatment',
+      'Gum and stain removal on flatwork',
+      'Scheduled maintenance washing programs',
+    ],
+    systems: [
+      { label: 'Coating prep', detail: 'Washdown to a paint-ready standard, documented' },
+      { label: 'Soft substrates', detail: 'Low-pressure chemical cleaning, rinsed thoroughly' },
+      { label: 'Concrete', detail: 'Surface cleaners for even, streak-free results' },
+      { label: 'Organic growth', detail: 'Treated at the source, not just blasted off' },
+    ],
+    sections: [
+      {
+        heading: 'Pressure is a tool, not a setting',
+        body: 'EIFS, wood, and aged masonry are destroyed by the pressure that concrete shrugs off. We match pressure, tip, distance, and chemistry to each surface — soft washing where the substrate requires it — because the goal is a clean surface, not a scarred one.',
+      },
+      {
+        heading: 'As preparation or as maintenance',
+        body: 'Washing is built into every exterior coating scope, and it stands alone as scheduled maintenance for storefronts, drive-throughs, and common areas that are judged on how clean they look.',
+      },
+    ],
+    faqs: [
+      {
+        question: 'Will washing damage sealant joints or siding?',
+        answer:
+          'Not when the method matches the substrate. Joints and soft materials get low-pressure chemical cleaning; high pressure is reserved for concrete and hard masonry.',
+      },
+      {
+        question: 'Do you offer recurring maintenance washing?',
+        answer:
+          'Yes — scheduled programs for retail, restaurant, and office properties, run at night or before opening so the site is clean when customers arrive.',
+      },
+    ],
+    relatedIndustries: ['retail', 'restaurants', 'office', 'industrial'],
+  },
+  {
+    slug: 'caulking-sealants',
+    group: 'Preparation & maintenance',
+    art: 'prep',
+    title: 'Caulking & Sealants',
+    shortTitle: 'Caulking & Sealants',
+    csi: 'CSI 07 92 00',
+    kicker: 'The joints that keep water out',
+    summary:
+      'Joint sealant replacement and installation — the scope that decides whether an exterior coating lasts and a building stays dry.',
+    intro:
+      'Sealant joints are the building envelope working parts: they move with the structure and keep water out while doing it. Failed joints defeat any coating applied over them, which is why sealant condition is surveyed on every exterior bid — and why replacement is carried as its own visible line item.',
+    metaTitle: 'Caulking & Sealant Replacement | Building Joint Sealants',
+    metaDescription:
+      'Commercial caulking and joint sealant replacement. Expansion joints, panel joints, window perimeters, and wet-area sealants with correct joint design.',
+    scope: [
+      'Expansion and control joint replacement',
+      'Tilt-wall and precast panel joints',
+      'Window and door perimeter sealants',
+      'Dissimilar material transitions',
+      'Interior wet-area sealants',
+      'Failed sealant cutout and joint preparation',
+      'Backer rod and correct joint geometry',
+    ],
+    systems: [
+      { label: 'Moving joints', detail: 'Urethane or hybrid sealant sized to the movement' },
+      { label: 'Panel joints', detail: 'Cut out, backer rod set, tooled to profile' },
+      { label: 'Perimeters', detail: 'Sealed to the adjacent substrate correctly' },
+      { label: 'Wet areas', detail: 'Mildew-resistant sealants tooled clean' },
+    ],
+    sections: [
+      {
+        heading: 'Joint geometry is the specification',
+        body: 'A sealant bead without backer rod, bonded on three sides, tears itself apart with the first thermal cycle regardless of product quality. Joints are cut out, sized, and tooled to the geometry the sealant is designed for — which is the difference between a five-year joint and a twenty-year joint.',
+      },
+      {
+        heading: 'Surveyed before every exterior coat',
+        body: 'Coating over failed sealant guarantees water behind a new finish. Every exterior scope includes a written joint condition survey so replacement is a deliberate decision, made before the coating rather than after the leak.',
+      },
+    ],
+    faqs: [
+      {
+        question: 'Can sealant color match the finish?',
+        answer:
+          'Yes — sealants are available in standard colors and can be coated where paintable products are specified, so joints read as part of the finish rather than an interruption.',
+      },
+      {
+        question: 'How long does sealant replacement last?',
+        answer:
+          'Correctly designed and installed joints deliver the full manufacturer service life — typically well over a decade. Our workmanship warranty covers the installation itself.',
+      },
+    ],
+    relatedIndustries: ['industrial', 'retail', 'office', 'education'],
+  },
+  {
+    slug: 'maintenance-painting',
+    group: 'Preparation & maintenance',
+    featured: true,
+    art: 'occupied',
+    title: 'Maintenance Painting',
+    shortTitle: 'Maintenance Painting',
+    csi: 'SVC / MNT',
+    kicker: 'Repaints & occupied-building programs',
+    summary:
+      'Repaint and maintenance programs for occupied buildings — phased, off-hours, and returned to service every morning.',
+    intro:
+      'Maintenance painting is the discipline of working in a building that never stops being used. Odor, dust, noise, and traffic all leave the work area, and the people affected did not sign the contract. The scope that matters is phasing, containment, and handing the space back clean every single day.',
+    metaTitle: 'Maintenance Painting | Occupied Building Repaint Programs',
+    metaDescription:
+      'Maintenance and repaint programs for occupied offices, stores, hotels, schools, and facilities. Night shifts, phased zones, low-odor systems, and daily return to service.',
+    scope: [
+      'Facility repaint programs, phased by zone',
+      'Night, weekend, and off-hours shifts',
+      'Common area and corridor refresh work',
+      'Low-VOC and low-odor system specification',
+      'Touch-up and punch programs for property managers',
+      'Multi-property and portfolio scheduling',
+      'Daily protection, cleanup, and return to service',
+    ],
+    systems: [
+      { label: 'Occupied interiors', detail: 'Low-odor acrylics with fast return to service' },
+      { label: 'High-traffic areas', detail: 'Scrubbable systems that survive cleaning' },
+      { label: 'Phasing', detail: 'Zones with stated start, finish, and return times' },
+      { label: 'Portfolios', detail: 'Consistent specification across properties' },
     ],
     sections: [
       {
         heading: 'Zoning is the whole plan',
-        body: 'Before anything is opened, the building is divided into zones with a defined start, a defined finish, and a defined route in and out. Each zone has a return-to-service time the facility can plan around. That is what lets a hospital keep its rooms booked, a school keep its summer programs running, and a hotel keep its keys sellable.',
+        body: 'Before anything is opened, the building is divided into zones with a defined start, finish, and return-to-service time the facility can plan around — which is what lets a hotel keep keys sellable, a school keep summer programs running, and an office keep tenants undisturbed.',
       },
       {
-        heading: 'Odor, dust, and noise',
-        body: 'These are the three complaints that reach management, and none of them are about paint quality. Low-odor systems, negative air where required, and controlled work hours are agreed before mobilization. Where a high-performance system is genuinely necessary, we build the schedule around the ventilation window rather than hoping nobody notices.',
-      },
-      {
-        heading: 'Leaving it better than a paint crew usually does',
-        body: 'The standard we hold is that the space looks untouched apart from the finish. Floors protected, furniture returned, corridors clear, and no tape residue or overspray on adjacent surfaces. It is the single thing facility managers remember about a contractor.',
+        heading: 'The standard facility managers remember',
+        body: 'The space should look untouched apart from the finish: floors protected, furniture returned, corridors clear, no tape residue or overspray. It is the single thing facility managers remember about a contractor, and it is why maintenance work becomes repeat work.',
       },
     ],
     faqs: [
       {
-        question: 'Do you run night and weekend shifts?',
+        question: 'Do you run recurring programs?',
         answer:
-          'Yes. Day, night, and occupied-site shifts are standard for us. The shift structure is agreed at bid and priced accordingly, so there is no premium-time surprise later.',
+          'Yes — annual and multi-year repaint programs for properties and portfolios, with a documented color schedule so every phase matches the last.',
       },
       {
-        question: 'How do you handle infection control in healthcare?',
+        question: 'How do you handle odor complaints?',
         answer:
-          'Work adjacent to patient care areas is planned around the facility\'s infection control risk assessment. Containment, negative air, and traffic routes are agreed with the facility before mobilization rather than improvised on the first day.',
-      },
-      {
-        question: 'What about odor complaints from tenants or occupants?',
-        answer:
-          'Low-VOC and low-odor systems are specified during preconstruction for any area adjacent to occupied space. We also support building management with advance notice so occupants know what is happening and when.',
+          'By preventing them: low-VOC systems are specified for occupied areas during preconstruction, and building management gets advance notice of every phase.',
       },
     ],
-    relatedIndustries: ['healthcare', 'education', 'hospitality', 'office', 'aviation'],
-  },
-  {
-    slug: 'new-construction',
-    art: 'construction',
-    title: 'New Construction',
-    shortTitle: 'New Construction',
-    csi: 'CSI 09 00 00',
-    kicker: 'Division 09 packages on the CPM schedule',
-    summary:
-      'Ground-up Division 09 finish packages for general contractors — sequenced, submitted, staffed, and closed out on the construction schedule.',
-    intro:
-      'On a ground-up project, painting is a schedule position before it is a finish. We sit behind drywall and ahead of flooring, casework, and equipment, and the float in front of us is decided months before we mobilize. What a general contractor is buying is a subcontractor who understands that, staffs for it, and says something early when an upstream trade is about to move us.',
-    metaTitle: 'New Construction Painting Contractor | Division 09 for GCs',
-    metaDescription:
-      'Ground-up commercial construction painting for general contractors. Division 09 packages, CPM sequencing, submittals and mockups, and documented punch closeout.',
-    scope: [
-      'Full Division 09 painting and coating packages',
-      'Submittals, product data, and color schedules',
-      'Mockups and approved control samples',
-      'Sequencing against the CPM schedule',
-      'Interior and exterior finish scopes',
-      'Dryfall and exposed structure coatings',
-      'Hollow metal, door, and frame finishing',
-      'Progressive punch by area release',
-      'Attic stock, warranty, and closeout documentation',
-    ],
-    systems: [
-      { label: 'Submittal package', detail: 'Product data, color schedule, and sample submittals' },
-      { label: 'Mockups', detail: 'Approved control sample established before production' },
-      { label: 'Interior systems', detail: 'Primer plus two coats per the finish schedule' },
-      { label: 'Exterior systems', detail: 'Manufacturer-specified assembly for the substrate' },
-      { label: 'Closeout package', detail: 'Attic stock, warranty, and as-applied documentation' },
-    ],
-    sections: [
-      {
-        heading: 'Sequence over duration',
-        body: 'The useful question on a new build is never how long painting takes. It is which areas are released, in what order, and whether drywall is genuinely finished in them. We plan against the release sequence, hold manpower to it, and give the superintendent an honest read when the sequence changes rather than absorbing it silently and missing a date.',
-      },
-      {
-        heading: 'Submittals early, not on the critical path',
-        body: 'Product data, color schedules, and mockups go in early so approval is complete before production starts. A finish held up in review is one of the more avoidable ways to lose a week on a project, and it is entirely within the subcontractor\'s control.',
-      },
-      {
-        heading: 'Coordination with the trades around us',
-        body: 'We coordinate directly with drywall, flooring, and finish carpentry rather than routing every question through the superintendent. Fewer conversations for the GC, fewer conflicts on the floor, and a finish that is not damaged by the trade that follows us.',
-      },
-    ],
-    faqs: [
-      {
-        question: 'Do you carry the full Division 09 painting package?',
-        answer:
-          'Yes — interior and exterior coatings, hollow metal and door finishing, dryfall and exposed structure, and specialty finishes, with submittals, mockups, and closeout documentation carried as scope.',
-      },
-      {
-        question: 'How do you handle schedule compression?',
-        answer:
-          'By adding manpower and shifts, and by telling the general contractor what that requires as soon as it becomes clear. What we do not do is quietly accept a date we cannot hit and reveal the problem at the punch walk.',
-      },
-      {
-        question: 'What does closeout include?',
-        answer:
-          'Attic stock, the approved color schedule, product data, the workmanship warranty, and a completed punch list. Delivered as a package with turnover rather than chased afterwards.',
-      },
-    ],
-    relatedIndustries: ['new-construction', 'retail', 'restaurants', 'industrial', 'government'],
-  },
-  {
-    slug: 'surface-preparation',
-    art: 'prep',
-    title: 'Surface Preparation',
-    shortTitle: 'Surface Preparation',
-    csi: 'CSI 09 91 00',
-    kicker: 'The scope that decides whether the finish lasts',
-    summary:
-      'Cleaning, profiling, repair, and priming — the work that determines whether a coating system reaches its service life or fails early.',
-    intro:
-      'Nearly every coating failure we are asked to look at traces to preparation rather than product. The substrate was not clean, was not dry, had no profile, or had a failed sealant left in place. Preparation is where a bid is genuinely won or lost, and it is the first thing removed when a number needs to come down.',
-    metaTitle: 'Surface Preparation Contractor | Commercial & Industrial Coatings',
-    metaDescription:
-      'Commercial and industrial surface preparation: pressure washing, abrasive blasting, mechanical profiling, moisture testing, substrate repair, and priming.',
-    scope: [
-      'Pressure washing and chemical cleaning',
-      'Abrasive blasting and mechanical profiling',
-      'Grinding, sanding, and feathering',
-      'Moisture and pH testing on concrete',
-      'Adhesion testing on questionable substrates',
-      'Rust removal and corrosion treatment',
-      'Substrate patching and crack repair',
-      'Sealant and caulk joint replacement',
-      'Priming to the manufacturer specification',
-    ],
-    systems: [
-      { label: 'Concrete floors', detail: 'Mechanical profile to the specified CSP; moisture tested' },
-      { label: 'Structural silver', detail: 'SSPC-SP surface prep to the level the system requires' },
-      { label: 'Existing coatings', detail: 'Adhesion tested; failed material removed, not coated over' },
-      { label: 'Exterior masonry', detail: 'Cleaned, efflorescence treated, pH verified before coating' },
-      { label: 'Gypsum board', detail: 'Repaired, skimmed, and sanded to the specified finish level' },
-    ],
-    sections: [
-      {
-        heading: 'Testing before coating',
-        body: 'On concrete, moisture vapor emission and pH decide whether a resinous system will bond or delaminate — and the test costs a fraction of the failure. On existing coatings, an adhesion test tells you whether you are building on something sound. Where testing is warranted we carry it in the bid and share the results, including when they say something the schedule did not want to hear.',
-      },
-      {
-        heading: 'When we say the substrate is not ready',
-        body: 'Occasionally the honest answer is that the surface needs work outside the painting scope before a coating should go on it — structural repair, a moisture mitigation system, or remediation of a failed assembly. We say so in writing at bid rather than coating over it and issuing a warranty we know is hollow.',
-      },
-      {
-        heading: 'Preparation as a line item',
-        body: 'We price preparation separately from application so it is visible. When a budget has to come down, everyone can see exactly what is being traded away and make the decision deliberately, rather than discovering two years later that the number was achieved by skipping the wash.',
-      },
-    ],
-    faqs: [
-      {
-        question: 'Why is preparation priced separately?',
-        answer:
-          'So it is visible. Preparation is the first thing cut when a number needs to come down, and it is the single largest driver of coating service life. Pricing it as its own line means a reduction is a decision somebody makes rather than something that quietly happens.',
-      },
-      {
-        question: 'Do you test concrete before applying resinous systems?',
-        answer:
-          'Where the system requires it, yes — moisture vapor emission, relative humidity, and pH. Applying a resinous floor over a slab with excess moisture is the most common way those systems fail, and the test is inexpensive relative to a re-do.',
-      },
-      {
-        question: 'What if the existing coating is failing?',
-        answer:
-          'It gets removed rather than coated over. New material bonded to failing material fails with it. We identify that condition at bid and carry removal in the scope.',
-      },
-    ],
-    relatedIndustries: ['industrial', 'new-construction', 'education', 'government', 'retail'],
-  },
-  {
-    slug: 'high-performance-coatings',
-    art: 'coatings',
-    title: 'High-Performance & Specialty Coatings',
-    shortTitle: 'High-Performance Coatings',
-    csi: 'CSI 09 96 00',
-    kicker: 'Epoxy · urethane · industrial systems',
-    summary:
-      'Epoxy, urethane, and industrial coating systems specified against chemical exposure, washdown, abrasion, and thermal service conditions.',
-    intro:
-      'A high-performance coating is bought for what it resists. Chemical attack, constant washdown, abrasion, temperature cycling, or all of them at once. The correct product is a function of the service environment, and specifying it from a catalog rather than from the actual conditions is how these systems fail early and expensively.',
-    metaTitle: 'High-Performance & Industrial Coatings Contractor | Epoxy & Urethane',
-    metaDescription:
-      'Epoxy, urethane, and industrial coating systems for plants, kitchens, and processing facilities. Specification against service conditions, surface prep, and containment.',
-    scope: [
-      'Epoxy wall and ceiling systems',
-      'Urethane and polyaspartic topcoats',
-      'Resinous and epoxy floor systems',
-      'Direct-to-metal industrial coatings',
-      'Chemical- and washdown-resistant finishes',
-      'Structural silver protective systems',
-      'Safety striping and line marking',
-      'Containment and secondary containment coatings',
-      'Manufacturer-specified system verification',
-    ],
-    systems: [
-      { label: 'Commercial kitchens', detail: 'Catalyzed epoxy rated for washdown and grease' },
-      { label: 'Processing / food plants', detail: 'USDA-acceptable epoxy or urethane assemblies' },
-      { label: 'Structural silver', detail: 'Epoxy primer with an aliphatic urethane topcoat' },
-      { label: 'Concrete floors', detail: 'Resinous systems over a profiled, moisture-tested slab' },
-      { label: 'Chemical exposure', detail: 'Novolac or specialty resin selected to the exposure' },
-    ],
-    sections: [
-      {
-        heading: 'Specify against conditions, not a catalog',
-        body: 'The right question is what the surface is exposed to: which chemicals, at what concentration, how often, at what temperature, and cleaned how. We collect that at preconstruction and confirm the system with the manufacturer before it is priced. A product that is correct for a warehouse and wrong for a wash bay looks identical on a submittal.',
-      },
-      {
-        heading: 'Preparation is not optional here',
-        body: 'High-performance systems are less forgiving than architectural coatings. Profile, cleanliness, and moisture are verified before application, and the standard is agreed in writing at bid. Where a slab needs a moisture mitigation system, that is identified before the floor goes down rather than after it lifts.',
-      },
-      {
-        heading: 'Working around production',
-        body: 'These coatings usually go into buildings that would rather not stop. Scope is broken into what can be applied live, what needs a line down, and what needs an area fully cleared — priced separately so the facility can decide how much downtime the result is worth.',
-      },
-    ],
-    faqs: [
-      {
-        question: 'How do you select the right system?',
-        answer:
-          'From the service conditions: chemical exposure, cleaning regime, temperature, abrasion, and traffic. We collect those in preconstruction and confirm the assembly with the manufacturer before pricing it, rather than defaulting to a familiar product.',
-      },
-      {
-        question: 'Can epoxy floors be installed without shutting down?',
-        answer:
-          'Partially. Some scope can be done live behind containment; some genuinely requires the area cleared for cure. We break the scope into those categories at bid so the facility can weigh downtime against sequencing.',
-      },
-      {
-        question: 'Do you do safety striping and line marking?',
-        answer:
-          'Yes — aisle marking, hazard striping, and equipment zoning are carried with the floor coating scope so there is no separate mobilization for it.',
-      },
-    ],
-    relatedIndustries: ['industrial', 'restaurants', 'healthcare', 'sports-entertainment', 'aviation'],
+    relatedIndustries: ['office', 'healthcare', 'hospitality', 'education', 'aviation'],
   },
 ];
 
 export const getService = (slug: string) => services.find((s) => s.slug === slug);
 export const serviceSlugs = services.map((s) => s.slug);
+export const featuredServices = services.filter((s) => s.featured);
+
+export const serviceGroups = ['Service lines', 'Painting & finishes', 'Coatings & floors', 'Preparation & maintenance'] as const;
+export const servicesByGroup = (group: string) => services.filter((s) => s.group === group);

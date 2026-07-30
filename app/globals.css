@@ -47,7 +47,7 @@
   --space-section-sm: clamp(3.5rem, 6vw, 5.5rem);
 
   /* --- Type families ------------------------------------------------------ */
-  --font-display: 'Archivo', 'Archivo Fallback', 'Helvetica Neue', Arial, sans-serif;
+  --font-display: 'Inter Tight', 'Inter Tight Fallback', 'Helvetica Neue', Arial, sans-serif;
   --font-sans: 'Inter', 'Inter Fallback', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
 
@@ -64,10 +64,10 @@
 
 /* Metric-adjusted fallbacks so the webfont swap does not shift layout. */
 @font-face {
-  font-family: 'Archivo Fallback';
+  font-family: 'Inter Tight Fallback';
   src: local('Arial');
-  size-adjust: 102%;
-  ascent-override: 92%;
+  size-adjust: 100%;
+  ascent-override: 96%;
   descent-override: 24%;
   line-gap-override: 0%;
 }
@@ -116,13 +116,9 @@
     margin: 0;
   }
 
-  /* Widen the variable display face for a monumental, architectural set. */
-  h1 { font-variation-settings: 'wdth' 112; }
-  h2 { font-variation-settings: 'wdth' 108; }
-  h3, h4 {
-    font-variation-settings: 'wdth' 104;
-    letter-spacing: -0.022em;
-  }
+  h1 { letter-spacing: -0.038em; }
+  h2 { letter-spacing: -0.032em; }
+  h3, h4 { letter-spacing: -0.022em; }
 
   p { text-wrap: pretty; }
 

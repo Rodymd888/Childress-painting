@@ -9,7 +9,7 @@ import { industrySlugs } from '@/lib/industries';
  *
  * Seven of the eight v2 market slugs map 1:1 onto v3 industry slugs. The
  * exception is 'multifamily', which was retired — it does not appear in the
- * qualifications record and Childress works commercial only — so it falls back
+ * qualifications record and it is not part of the service record — so it falls back
  * to the sector index instead of a non-existent page.
  *
  * SAFE TO DELETE once /markets no longer exists in your repository.

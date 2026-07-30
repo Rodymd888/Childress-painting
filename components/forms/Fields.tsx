@@ -276,9 +276,6 @@ export function FileLinkField({
               aria-describedby={describedBy(name, undefined, error)}
               className={[controlBase, 'mt-3', error ? bad : ok].join(' ')}
             />
-            <p className="mt-2 font-mono text-[0.5625rem] uppercase tracking-[0.16em] text-body/60">
-              Direct file upload pending storage setup — see README
-            </p>
           </div>
         </div>
       </div>

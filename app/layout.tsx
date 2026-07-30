@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     template: '%s | Childress Painting',
   },
   description:
-    'Commercial-only painting contractor since 1984. Interior and exterior painting, tenant finish-outs, occupied renovations, and high-performance coatings across Texas, Kansas, and Missouri. Two-year workmanship warranty.',
+    'Professional painting contractor since 1984 — commercial, residential, and industrial. Interior and exterior painting, epoxy floors, and protective coatings across Texas, Kansas, and Missouri. Two-year workmanship warranty.',
   applicationName: company.name,
   authors: [{ name: company.name }],
   creator: company.name,
@@ -51,7 +51,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           the swap does not shift layout.
 
           If you prefer zero third-party requests, self-host instead:
-            import { Archivo, Inter, JetBrains_Mono } from 'next/font/google';
+            import { Inter_Tight, Inter, JetBrains_Mono } from 'next/font/google';
           then apply the generated className to <html> and delete these tags.
         */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -62,7 +62,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             whole site rather than per page. */}
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
         />
       </head>
       <body className="antialiased">

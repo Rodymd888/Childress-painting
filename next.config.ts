@@ -41,33 +41,22 @@ const nextConfig: NextConfig = {
       { source: '/markets/:slug', destination: '/industries/:slug', permanent: true },
       { source: '/markets', destination: '/industries', permanent: true },
 
-      /* --- Legacy v2 service slugs ---------------------------------------- */
-      {
-        source: '/services/commercial-painting',
-        destination: '/services/commercial-interior-painting',
-        permanent: true,
-      },
-      {
-        source: '/services/industrial-coatings',
-        destination: '/services/high-performance-coatings',
-        permanent: true,
-      },
-      {
-        source: '/services/specialty-coatings',
-        destination: '/services/high-performance-coatings',
-        permanent: true,
-      },
-      {
-        source: '/services/epoxy-flooring',
-        destination: '/services/high-performance-coatings',
-        permanent: true,
-      },
-      {
-        source: '/services/maintenance-repaints',
-        destination: '/services/occupied-renovations',
-        permanent: true,
-      },
-      // '/services/new-construction' exists in both v2 and v3 — no redirect.
+      /* --- Legacy service slugs (v2 and v3) -------------------------------
+         The v4 catalogue restructured services around sixteen offerings. Every
+         retired slug 301s to its closest successor so no inbound link or
+         ranking is lost. NOTE: /services/commercial-painting is now a REAL
+         page — it must not appear here, or the redirect would shadow it. */
+      { source: '/services/commercial-interior-painting', destination: '/services/interior-painting', permanent: true },
+      { source: '/services/commercial-exterior-painting', destination: '/services/exterior-painting', permanent: true },
+      { source: '/services/tenant-finish-outs', destination: '/services/commercial-painting', permanent: true },
+      { source: '/services/occupied-renovations', destination: '/services/maintenance-painting', permanent: true },
+      { source: '/services/new-construction', destination: '/services/commercial-painting', permanent: true },
+      { source: '/services/surface-preparation', destination: '/services/pressure-washing', permanent: true },
+      { source: '/services/high-performance-coatings', destination: '/services/protective-coatings', permanent: true },
+      { source: '/services/industrial-coatings', destination: '/services/industrial-painting', permanent: true },
+      { source: '/services/specialty-coatings', destination: '/services/decorative-finishes', permanent: true },
+      { source: '/services/epoxy-flooring', destination: '/services/epoxy-floor-coatings', permanent: true },
+      { source: '/services/maintenance-repaints', destination: '/services/maintenance-painting', permanent: true },
     ];
   },
 
