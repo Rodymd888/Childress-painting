@@ -13,7 +13,7 @@ import { breadcrumbSchema } from '@/lib/schema';
 export const metadata = buildMetadata({
   title: 'Careers | Commercial Painting Jobs in Dallas–Fort Worth',
   description:
-    'Commercial painting and industrial coatings careers with Childress Painting across Dallas–Fort Worth and Texas. Field, supervision, estimating, and office roles.',
+    'Commercial painting careers with Childress Painting across Texas, Kansas, and Missouri. Field, supervision, estimating, and office roles.',
   path: '/careers',
 });
 
@@ -104,7 +104,7 @@ export default function CareersPage() {
                   className="absolute inset-x-0 top-0 h-0.5 w-0 bg-red transition-all duration-500 group-hover:w-full"
                 />
                 <area.icon aria-hidden="true" className="size-5 text-red" />
-                <h3 className="mt-5 text-[1.5rem] leading-tight text-navy lg:text-[1.75rem]">
+                <h3 className="mt-5 text-[1.5rem] leading-tight text-ink lg:text-[1.75rem]">
                   {area.title}
                 </h3>
                 <p className="mt-3.5 text-[0.9375rem] leading-relaxed text-body">{area.body}</p>
@@ -112,7 +112,7 @@ export default function CareersPage() {
                   {area.examples.map((example) => (
                     <li
                       key={example}
-                      className="py-1.5 font-mono text-[0.625rem] uppercase tracking-[0.14em] text-navy/60"
+                      className="py-1.5 font-mono text-[0.625rem] uppercase tracking-[0.14em] text-ink/60"
                     >
                       {example}
                     </li>
@@ -124,7 +124,7 @@ export default function CareersPage() {
         </div>
       </section>
 
-      <section className="bg-navy py-20 md:py-24 lg:py-28">
+      <section className="bg-ink py-20 md:py-24 lg:py-28">
         <div className="container-site">
           <SectionHeading
             layout="split"
@@ -142,14 +142,14 @@ export default function CareersPage() {
 
           <RevealGroup className="mt-14 grid gap-px bg-white/12 md:grid-cols-2">
             {whatMatters.map((item, i) => (
-              <RevealItem key={item.title} className="bg-navy p-7 lg:p-9">
+              <RevealItem key={item.title} className="bg-ink p-7 lg:p-9">
                 <span className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-red">
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <h3 className="mt-4 text-[1.375rem] leading-tight text-white lg:text-2xl">
                   {item.title}
                 </h3>
-                <p className="mt-3.5 text-[0.9375rem] leading-relaxed text-steel-light">
+                <p className="mt-3.5 text-[0.9375rem] leading-relaxed text-ash">
                   {item.body}
                 </p>
               </RevealItem>
@@ -163,8 +163,8 @@ export default function CareersPage() {
           <div className="grid gap-12 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,0.65fr)] lg:gap-16">
             <div>
               <Reveal>
-                <span className="title-block text-navy/60">Apply</span>
-                <h2 className="mt-5 text-[clamp(1.75rem,3.6vw,2.75rem)] text-navy">
+                <span className="title-block text-ink/60">Apply</span>
+                <h2 className="mt-5 text-[clamp(1.75rem,3.6vw,2.75rem)] text-ink">
                   Tell us what you do.
                 </h2>
                 <p className="mt-5 max-w-2xl text-[1.0625rem] leading-relaxed text-body">
@@ -183,7 +183,7 @@ export default function CareersPage() {
               <div className="border-t-4 border-red bg-white p-7">
                 <div className="flex items-center gap-3">
                   <MapPin aria-hidden="true" className="size-4 shrink-0 text-red" />
-                  <h2 className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-navy/60">
+                  <h2 className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-ink/60">
                     Where the work is
                   </h2>
                 </div>
@@ -202,7 +202,7 @@ export default function CareersPage() {
                   </a>
                   .
                 </p>
-                <p className="mt-6 border-t border-line pt-5 font-mono text-[0.5625rem] uppercase leading-relaxed tracking-[0.14em] text-navy/60">
+                <p className="mt-6 border-t border-line pt-5 font-mono text-[0.5625rem] uppercase leading-relaxed tracking-[0.14em] text-ink/60">
                   {/* REPLACE — confirm the company's EEO statement with counsel. */}
                   Equal opportunity statement to be confirmed and added here before launch.
                 </p>

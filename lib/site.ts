@@ -2,52 +2,132 @@
  * CENTRAL SITE CONFIGURATION
  * ---------------------------------------------------------------------------
  * Every hard fact the site renders lives here so it can be verified and
- * updated in one place.
- *
- * ⚠️ REPLACE BEFORE LAUNCH — items marked PLACEHOLDER are not verified.
+ * updated in one place. Values below are taken from the 2026 Commercial
+ * Qualifications & Experience document.
  */
 
 export const company = {
   name: 'Childress Painting',
   legalName: 'Childress Painting DFW LLC',
-  tagline: 'Commercial painting and industrial coatings for Texas builders.',
+  tagline: 'Quality painting. Professional results.',
+  positioning: 'Commercial painting professionals since 1984.',
 
-  /* PLACEHOLDER — replace with the published business line. */
-  phone: '(214) 555-1984',
-  phoneHref: '+12145551984',
+  /* Primary line — Dallas–Fort Worth. */
+  phone: '972-863-1919',
+  phoneHref: '+19728631919',
 
-  /* PLACEHOLDER — confirm these inboxes exist and are monitored. */
-  email: 'estimating@childresspainting.com',
-  careersEmail: 'careers@childresspainting.com',
+  email: 'contact@childresspaintingtx.com',
+  estimatingEmail: 'contact@childresspaintingtx.com',
+  careersEmail: 'contact@childresspaintingtx.com',
 
-  /* PLACEHOLDER — replace with the verified office address, or remove the
-     street line entirely and keep the site to a service-area model. */
+  /* Headquarters. `address` is kept as the canonical single address for
+     structured data and the footer; `offices` below drives anywhere both
+     locations should appear. */
   address: {
-    street: 'Address to be confirmed',
+    street: '8601 Sovereign Row',
     city: 'Dallas',
     region: 'TX',
-    postalCode: '75201',
+    postalCode: '75247',
     country: 'US',
   },
 
-  /* Family painting experience dating to 1984. Kept deliberately worded as
-     experience — not as an incorporation date for the current entity. */
+  /** Commercial painting experience dating to 1984. */
   heritageYear: 1984,
 
-  /* Business hours used for LocalBusiness structured data. Confirm. */
   hours: 'Mo-Fr 07:00-17:00',
 
-  /* PLACEHOLDER — add real profiles, or delete the entries you do not use. */
+  /** Day, night, and occupied-site shifts per the capability statement. */
+  scheduling: 'Day, night & occupied-site shifts',
+
+  coatingSystems: 'Sherwin-Williams',
+  warranty: '2-year workmanship warranty',
+  safety: 'OSHA-compliant crews',
+
+  serviceArea: {
+    primary: 'Texas',
+    secondary: ['Kansas', 'Missouri'],
+  },
+
   social: {
-    linkedin: '',
+    linkedin: 'https://www.linkedin.com/company/childress-painting',
     facebook: '',
     instagram: '',
   },
 } as const;
 
+/**
+ * OFFICES
+ * ---------------------------------------------------------------------------
+ * Two operating locations. Texas is the primary market; the Grandview, MO
+ * office serves the established Kansas City-area work in Kansas and Missouri.
+ *
+ * TO ADD A THIRD OFFICE: append a record. The footer, contact page, service
+ * areas page, and LocalBusiness structured data all read from this array.
+ */
+export const offices = [
+  {
+    id: 'dallas',
+    label: 'Dallas – Fort Worth',
+    role: 'Headquarters',
+    street: '8601 Sovereign Row',
+    city: 'Dallas',
+    region: 'TX',
+    postalCode: '75247',
+    country: 'US',
+    phone: '972-863-1919',
+    phoneHref: '+19728631919',
+    email: 'contact@childresspaintingtx.com',
+    covers: 'Texas — primary market',
+  },
+  {
+    id: 'kansas-city',
+    label: 'Kansas City',
+    role: 'Regional office',
+    street: '14000 Century Lane',
+    city: 'Grandview',
+    region: 'MO',
+    postalCode: '64030',
+    country: 'US',
+    phone: '816-966-1701',
+    phoneHref: '+18169661701',
+    email: 'contact@childresspaintingtx.com',
+    covers: 'Kansas & Missouri',
+  },
+] as const;
+
+/** Headline figures from the capability statement. Verified — do not inflate. */
+export const companyStats = [
+  { value: '40+', label: 'Years leadership experience', detail: 'Commercial painting since 1984' },
+  { value: '3', label: 'States served', detail: 'Texas primary · Kansas & Missouri' },
+  { value: '12', label: 'Market sectors', detail: 'Retail through sports & entertainment' },
+  { value: '2yr', label: 'Workmanship warranty', detail: 'Written, on every project' },
+] as const;
+
+/** Leadership, per the qualifications document. */
+export const leadership = [
+  {
+    name: 'Cole Childress',
+    role: 'Field Operations',
+    focus:
+      'Runs crews in the field — manpower loading, daily production, and the standard of finish that leaves the site.',
+  },
+  {
+    name: 'Joey Battisto',
+    role: 'Operations & Project Management',
+    focus:
+      'Owns the schedule and the superintendent relationship: sequencing, manpower commitments, and punch closeout.',
+  },
+  {
+    name: 'Rody Diyoka',
+    role: 'Business Development & Preconstruction',
+    focus:
+      'Handles takeoff, scope review, product verification, and bid coordination with general contractors and owners.',
+  },
+] as const;
+
 /** Canonical production origin. Override with NEXT_PUBLIC_SITE_URL on Vercel. */
 export const siteUrl = (
-  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.childresspainting.com'
+  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.childresspaintingtx.com'
 ).replace(/\/$/, '');
 
 export type NavItem = {
@@ -62,55 +142,73 @@ export const primaryNav: NavItem[] = [
     href: '/services',
     children: [
       {
-        label: 'Commercial Painting',
-        href: '/services/commercial-painting',
-        blurb: 'Interior and exterior finishes for occupied and active buildings.',
+        label: 'Commercial Interior Painting',
+        href: '/services/commercial-interior-painting',
+        blurb: 'Walls, ceilings, hollow metal, and exposed structure.',
       },
       {
-        label: 'Industrial Coatings',
-        href: '/services/industrial-coatings',
-        blurb: 'High-performance systems over steel, concrete, and masonry.',
+        label: 'Commercial Exterior Painting',
+        href: '/services/commercial-exterior-painting',
+        blurb: 'Tilt-wall, EIFS, masonry, and structural silver.',
+      },
+      {
+        label: 'Tenant Finish-Outs',
+        href: '/services/tenant-finish-outs',
+        blurb: 'Shell-to-suite finishes on a landlord delivery date.',
+      },
+      {
+        label: 'Occupied Renovations',
+        href: '/services/occupied-renovations',
+        blurb: 'Phased work in buildings that never close.',
       },
       {
         label: 'New Construction',
         href: '/services/new-construction',
-        blurb: 'Division 09 packages sequenced to the construction schedule.',
+        blurb: 'Division 09 packages sequenced to the CPM schedule.',
       },
       {
-        label: 'Maintenance & Repaints',
-        href: '/services/maintenance-repaints',
-        blurb: 'Recurring programs that protect the asset between capital cycles.',
+        label: 'Surface Preparation',
+        href: '/services/surface-preparation',
+        blurb: 'The scope that determines whether the finish lasts.',
       },
       {
-        label: 'Epoxy & Resinous Flooring',
-        href: '/services/epoxy-flooring',
-        blurb: 'Seamless floor systems over a slab that has been tested first.',
-      },
-      {
-        label: 'Specialty Coatings',
-        href: '/services/specialty-coatings',
-        blurb: 'Wallcovering, wall protection, fireproofing, and architectural finishes.',
+        label: 'High-Performance Coatings',
+        href: '/services/high-performance-coatings',
+        blurb: 'Epoxy, urethane, and industrial systems.',
       },
     ],
   },
   {
-    label: 'Markets',
-    href: '/markets',
+    label: 'Industries',
+    href: '/industries',
     children: [
-      { label: 'Healthcare', href: '/markets/healthcare' },
-      { label: 'Aviation', href: '/markets/aviation' },
-      { label: 'Education', href: '/markets/education' },
-      { label: 'Industrial', href: '/markets/industrial' },
-      { label: 'Multifamily', href: '/markets/multifamily' },
-      { label: 'Retail & Hospitality', href: '/markets/retail' },
-      { label: 'Government & Civic', href: '/markets/government' },
-      { label: 'Commercial Office', href: '/markets/office' },
+      { label: 'Retail', href: '/industries/retail' },
+      { label: 'Restaurants', href: '/industries/restaurants' },
+      { label: 'Healthcare', href: '/industries/healthcare' },
+      { label: 'Education', href: '/industries/education' },
+      { label: 'Industrial', href: '/industries/industrial' },
+      { label: 'Government & Municipal', href: '/industries/government' },
+      { label: 'Commercial Office', href: '/industries/office' },
+      { label: 'Hospitality', href: '/industries/hospitality' },
+      { label: 'Sports & Entertainment', href: '/industries/sports-entertainment' },
+      { label: 'Aviation', href: '/industries/aviation' },
     ],
   },
   { label: 'Projects', href: '/projects' },
-  { label: 'Safety & Quality', href: '/safety-quality' },
-  { label: 'Service Areas', href: '/service-areas' },
-  { label: 'About', href: '/about' },
+  { label: 'Clients', href: '/clients' },
+  {
+    label: 'Company',
+    href: '/about',
+    children: [
+      { label: 'About Childress', href: '/about', blurb: 'Four decades of commercial-only work.' },
+      { label: 'Our Process', href: '/process', blurb: 'Preconstruction through closeout, in eight steps.' },
+      { label: 'Why Childress', href: '/why-childress', blurb: 'What general contractors actually buy.' },
+      { label: 'Safety & Quality', href: '/safety-quality', blurb: 'OSHA-compliant crews and QC inspections.' },
+      { label: 'Service Areas', href: '/service-areas', blurb: 'Texas primary; Kansas and Missouri secondary.' },
+      { label: 'Careers', href: '/careers', blurb: 'Field and project management roles.' },
+      { label: 'Subcontractors', href: '/subcontractors', blurb: 'Prequalify to work with us.' },
+    ],
+  },
   { label: 'Contact', href: '/contact' },
 ];
 
@@ -118,136 +216,91 @@ export const footerNav = [
   {
     heading: 'Services',
     links: [
-      { label: 'Commercial Painting', href: '/services/commercial-painting' },
-      { label: 'Industrial Coatings', href: '/services/industrial-coatings' },
+      { label: 'Commercial Interior Painting', href: '/services/commercial-interior-painting' },
+      { label: 'Commercial Exterior Painting', href: '/services/commercial-exterior-painting' },
+      { label: 'Tenant Finish-Outs', href: '/services/tenant-finish-outs' },
+      { label: 'Occupied Renovations', href: '/services/occupied-renovations' },
       { label: 'New Construction', href: '/services/new-construction' },
-      { label: 'Maintenance & Repaints', href: '/services/maintenance-repaints' },
-      { label: 'Epoxy & Resinous Flooring', href: '/services/epoxy-flooring' },
-      { label: 'Specialty Coatings', href: '/services/specialty-coatings' },
+      { label: 'Surface Preparation', href: '/services/surface-preparation' },
+      { label: 'High-Performance Coatings', href: '/services/high-performance-coatings' },
     ],
   },
   {
-    heading: 'Markets',
+    heading: 'Industries',
     links: [
-      { label: 'Healthcare', href: '/markets/healthcare' },
-      { label: 'Aviation', href: '/markets/aviation' },
-      { label: 'Education', href: '/markets/education' },
-      { label: 'Industrial', href: '/markets/industrial' },
-      { label: 'Multifamily', href: '/markets/multifamily' },
-      { label: 'Retail & Hospitality', href: '/markets/retail' },
-      { label: 'Government & Civic', href: '/markets/government' },
-      { label: 'Commercial Office', href: '/markets/office' },
+      { label: 'Retail', href: '/industries/retail' },
+      { label: 'Restaurants', href: '/industries/restaurants' },
+      { label: 'Healthcare', href: '/industries/healthcare' },
+      { label: 'Education', href: '/industries/education' },
+      { label: 'Industrial', href: '/industries/industrial' },
+      { label: 'Government & Municipal', href: '/industries/government' },
+      { label: 'Sports & Entertainment', href: '/industries/sports-entertainment' },
     ],
   },
   {
     heading: 'Company',
     links: [
       { label: 'About', href: '/about' },
+      { label: 'Our Process', href: '/process' },
+      { label: 'Why Childress', href: '/why-childress' },
       { label: 'Projects', href: '/projects' },
+      { label: 'Representative Clients', href: '/clients' },
       { label: 'Safety & Quality', href: '/safety-quality' },
       { label: 'Service Areas', href: '/service-areas' },
+    ],
+  },
+  {
+    heading: 'Work With Us',
+    links: [
+      { label: 'Request a Bid', href: '/request-bid' },
+      { label: 'Contact', href: '/contact' },
       { label: 'Careers', href: '/careers' },
       { label: 'Subcontractors', href: '/subcontractors' },
+      { label: 'Privacy', href: '/privacy' },
     ],
   },
 ];
 
-/** Metro areas worked from the DFW base, grouped for the service-area page. */
+/** Metro areas worked from the Dallas base. */
 export const serviceAreas = [
   {
     region: 'Dallas County',
+    note: 'Home base — 8601 Sovereign Row, Dallas',
     cities: [
-      'Dallas',
-      'Irving',
-      'Garland',
-      'Mesquite',
-      'Richardson',
-      'Carrollton',
-      'Grand Prairie',
-      'DeSoto',
-      'Cedar Hill',
-      'Farmers Branch',
+      'Dallas', 'Irving', 'Garland', 'Mesquite', 'Richardson', 'Carrollton',
+      'Grand Prairie', 'DeSoto', 'Cedar Hill', 'Farmers Branch',
     ],
   },
   {
     region: 'Tarrant County',
+    note: 'Daily coverage',
     cities: [
-      'Fort Worth',
-      'Arlington',
-      'Grapevine',
-      'Southlake',
-      'Keller',
-      'Bedford',
-      'Euless',
-      'North Richland Hills',
-      'Mansfield',
-      'Azle',
+      'Fort Worth', 'Arlington', 'Grapevine', 'Southlake', 'Keller', 'Bedford',
+      'Euless', 'North Richland Hills', 'Mansfield', 'Azle',
     ],
   },
   {
     region: 'Collin & Denton Counties',
+    note: 'Daily coverage',
     cities: [
-      'Plano',
-      'Frisco',
-      'McKinney',
-      'Allen',
-      'Denton',
-      'Lewisville',
-      'Prosper',
-      'Little Elm',
-      'The Colony',
-      'Flower Mound',
+      'Plano', 'Frisco', 'McKinney', 'Allen', 'Denton', 'Lewisville',
+      'Prosper', 'Little Elm', 'The Colony', 'Flower Mound',
     ],
   },
   {
-    region: 'Statewide Texas',
+    region: 'Texas — Statewide',
+    note: 'Travel crews for multi-site programs',
     cities: [
-      'Austin',
-      'Houston',
-      'San Antonio',
-      'Waco',
-      'Tyler',
-      'Abilene',
-      'Lubbock',
-      'Amarillo',
-      'Midland',
-      'College Station',
+      'Austin', 'Houston', 'San Antonio', 'Waco', 'Tyler', 'Abilene',
+      'Lubbock', 'Amarillo', 'Midland', 'College Station',
     ],
   },
-];
-
-/**
- * TESTIMONIALS — placeholders only.
- * Do not publish until the quote, name, title, and company are confirmed in
- * writing by the person quoted. Set `verified: true` once approved; the
- * component renders an "awaiting approval" state while it is false.
- */
-export const testimonials = [
   {
-    id: 'testimonial-1',
-    quote:
-      'Reserved for a general contractor reference. The strongest version names the schedule constraint, how the crew handled it, and the state of the punch list at turnover.',
-    name: 'Name pending',
-    title: 'Project Manager',
-    organization: 'General contractor — reference to be confirmed',
-    verified: false,
-  },
-  {
-    id: 'testimonial-2',
-    quote:
-      'Reserved for a property or facility manager reference. Ask about working around occupants and tenants, and how many complaints the program generated.',
-    name: 'Name pending',
-    title: 'Facility Director',
-    organization: 'Property group — reference to be confirmed',
-    verified: false,
-  },
-  {
-    id: 'testimonial-3',
-    quote:
-      'Reserved for a developer or owner reference. Ask about bid responsiveness, how close the final number landed to the bid, and closeout.',
-    name: 'Name pending',
-    title: 'Director of Construction',
-    organization: 'Development group — reference to be confirmed',
-    verified: false,
+    region: 'Kansas & Missouri',
+    note: 'Served from our Grandview, MO office — 14000 Century Lane',
+    cities: [
+      'Kansas City', 'Overland Park', 'Olathe', 'Lenexa', 'Shawnee',
+      'Leawood', 'Independence', 'Pleasant Hill', 'Osawatomie', 'Burlington',
+    ],
   },
 ];

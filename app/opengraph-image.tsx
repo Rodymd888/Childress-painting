@@ -1,14 +1,16 @@
 import { ImageResponse } from 'next/og';
+import { company } from '@/lib/site';
 
 /**
  * Social share card, generated at build time.
  *
- * Uses system-metric sans-serif rather than a webfont so the build has no
- * network dependency. If you want the brand display face here, fetch the font
- * file at build time and pass it through the `fonts` option.
+ * Uses a system-metric sans-serif rather than a webfont so the build has no
+ * network dependency. To use the brand display face here, fetch the font file
+ * at build time and pass it through the `fonts` option.
  */
 
-export const alt = 'Childress Painting — commercial painting contractor, Dallas–Fort Worth';
+export const alt =
+  'Childress Painting — commercial painting contractor, Texas, Kansas and Missouri, since 1984';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -22,7 +24,7 @@ export default async function OpengraphImage() {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          background: '#0d1b2a',
+          background: '#0a0a0b',
           padding: 72,
           fontFamily: 'sans-serif',
           position: 'relative',
@@ -36,10 +38,11 @@ export default async function OpengraphImage() {
             left: 0,
             right: 0,
             height: 12,
-            background: '#d72638',
+            background: '#d81f26',
           }}
         />
 
+        {/* Brand lockup */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
           <div style={{ display: 'flex' }}>
             <div
@@ -47,7 +50,7 @@ export default async function OpengraphImage() {
                 width: 56,
                 height: 56,
                 background: '#ffffff',
-                color: '#0d1b2a',
+                color: '#0a0a0b',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -63,7 +66,7 @@ export default async function OpengraphImage() {
                 width: 56,
                 height: 56,
                 marginLeft: -8,
-                background: '#d72638',
+                background: '#d81f26',
                 color: '#ffffff',
                 display: 'flex',
                 alignItems: 'center',
@@ -76,11 +79,12 @@ export default async function OpengraphImage() {
               P
             </div>
           </div>
+
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <div
               style={{
                 color: '#ffffff',
-                fontSize: 30,
+                fontSize: 26,
                 fontWeight: 800,
                 letterSpacing: -0.5,
                 textTransform: 'uppercase',
@@ -90,57 +94,78 @@ export default async function OpengraphImage() {
             </div>
             <div
               style={{
-                color: '#d72638',
-                fontSize: 15,
-                letterSpacing: 6,
+                color: '#d81f26',
+                fontSize: 13,
+                letterSpacing: 5,
                 textTransform: 'uppercase',
                 marginTop: 4,
               }}
             >
-              Commercial · Industrial
+              Since 1984
             </div>
           </div>
         </div>
 
+        {/* Headline */}
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <div
             style={{
               color: '#ffffff',
-              fontSize: 78,
-              fontWeight: 800,
+              fontSize: 74,
+              fontWeight: 900,
               lineHeight: 1.02,
               letterSpacing: -2.5,
               maxWidth: 940,
             }}
           >
-            Commercial painting built to the construction schedule.
+            Commercial painting held to the construction schedule.
           </div>
           <div
             style={{
-              color: '#9aabbc',
-              fontSize: 28,
-              marginTop: 28,
+              color: '#b8b8c0',
+              fontSize: 26,
+              marginTop: 26,
+              maxWidth: 880,
+              lineHeight: 1.35,
             }}
           >
-            Dallas–Fort Worth &amp; Texas · Division 09 packages · Industrial coatings
+            Commercial-only work for general contractors across Texas, Kansas &amp; Missouri.
           </div>
         </div>
 
+        {/* Footer strip */}
         <div
           style={{
             display: 'flex',
-            borderTop: '1px solid rgba(255,255,255,0.18)',
-            paddingTop: 24,
-            color: 'rgba(255,255,255,0.55)',
-            fontSize: 20,
-            letterSpacing: 3,
-            textTransform: 'uppercase',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            borderTop: '1px solid rgba(255,255,255,0.16)',
+            paddingTop: 26,
           }}
         >
-          childresspainting.com
+          <div
+            style={{
+              color: '#8f8f9a',
+              fontSize: 19,
+              letterSpacing: 2.5,
+              textTransform: 'uppercase',
+            }}
+          >
+            Dallas, TX · Grandview, MO
+          </div>
+          <div
+            style={{
+              color: '#ffffff',
+              fontSize: 19,
+              letterSpacing: 2.5,
+              textTransform: 'uppercase',
+            }}
+          >
+            {company.phone}
+          </div>
         </div>
       </div>
     ),
-    size,
+    { ...size },
   );
 }

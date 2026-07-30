@@ -9,13 +9,13 @@ import type { ReactNode } from 'react';
    -------------------------------------------------------------------------- */
 
 const controlBase =
-  'w-full min-h-12 border bg-white px-4 py-3 text-[0.9375rem] text-ink transition-colors placeholder:text-body/60 focus:border-navy focus:outline-none';
+  'w-full min-h-12 border bg-white px-4 py-3 text-[0.9375rem] text-ink transition-colors placeholder:text-body/60 focus:border-ink focus:outline-none';
 
-const ok = 'border-line hover:border-navy/35';
+const ok = 'border-line hover:border-ink/35';
 const bad = 'border-red bg-red/[0.03]';
 
 function labelClasses() {
-  return 'block font-mono text-[0.625rem] font-medium uppercase tracking-[0.16em] text-navy';
+  return 'block font-mono text-[0.625rem] font-medium uppercase tracking-[0.16em] text-ink';
 }
 
 function FieldWrapper({
@@ -202,7 +202,7 @@ export function RadioGroupField({
         {options.map((option) => (
           <label
             key={option}
-            className="flex min-h-11 cursor-pointer items-center gap-2.5 border border-line bg-white px-4 py-2.5 text-[0.9375rem] transition-colors has-checked:border-navy has-checked:bg-navy has-checked:text-white hover:border-navy/40"
+            className="flex min-h-11 cursor-pointer items-center gap-2.5 border border-line bg-white px-4 py-2.5 text-[0.9375rem] transition-colors has-checked:border-ink has-checked:bg-ink has-checked:text-white hover:border-ink/40"
           >
             <input
               type="radio"
@@ -315,7 +315,7 @@ export function FieldGroup({
         <span className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-red">
           {step}
         </span>
-        <h2 className="text-xl text-navy md:text-2xl">{title}</h2>
+        <h2 className="text-xl text-ink md:text-2xl">{title}</h2>
       </div>
       {description && <p className="mt-2.5 max-w-2xl text-[0.9375rem] text-body">{description}</p>}
       <div className="mt-6 grid gap-5 sm:grid-cols-2">{children}</div>

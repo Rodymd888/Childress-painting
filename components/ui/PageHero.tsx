@@ -18,7 +18,7 @@ type Props = {
  */
 export function PageHero({ label, title, intro, crumbs, meta, children }: Props) {
   return (
-    <section className="relative overflow-hidden bg-navy text-white">
+    <section className="relative overflow-hidden bg-ink text-white">
       <div className="sheet-grid absolute inset-0" aria-hidden="true" />
       {/* Ambient red wash, kept low-contrast so text stays legible. */}
       <div
@@ -38,7 +38,7 @@ export function PageHero({ label, title, intro, crumbs, meta, children }: Props)
         <h1 className="mt-5 max-w-5xl text-[clamp(2.5rem,7vw,5.25rem)]">{title}</h1>
 
         {intro && (
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-steel-light md:text-xl">
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ash md:text-xl">
             {intro}
           </p>
         )}
@@ -48,7 +48,7 @@ export function PageHero({ label, title, intro, crumbs, meta, children }: Props)
         {meta && meta.length > 0 && (
           <dl className="mt-12 grid grid-cols-1 gap-px border-t border-white/15 bg-white/10 sm:grid-cols-2 lg:grid-cols-4">
             {meta.map((item) => (
-              <div key={item.label} className="bg-navy py-5 sm:px-5 sm:first:pl-0">
+              <div key={item.label} className="bg-ink py-5 sm:px-5 sm:first:pl-0">
                 <dt className="font-mono text-[0.625rem] uppercase tracking-[0.18em] text-white/60">
                   {item.label}
                 </dt>

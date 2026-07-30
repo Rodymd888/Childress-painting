@@ -1,56 +1,59 @@
 /**
  * SECTOR ARTWORK
  * ===========================================================================
- * Purpose-drawn architectural scenes, one per market and service.
+ * Purpose-drawn architectural scenes — one per industry, service, and project
+ * type. Vector, roughly 1–2 KB each, scale to any size, cause no layout shift.
  *
  * WHY THIS EXISTS
- * Until real project photography is cleared for publication, every image slot
- * on the site needs something in it. Flat gradient blocks read as "unfinished
- * website". These read as deliberate art direction — abstract section drawings
+ * Until project photography is cleared for publication, every image slot on
+ * the site needs something in it. Flat gradient blocks read as an unfinished
+ * website. These read as deliberate art direction — abstract section drawings
  * in the brand palette, in the visual language of the drawing set the buyer
  * works from every day.
  *
- * They are vector, so they cost roughly 1 KB each, scale to any size without
- * artefacts, and never cause layout shift.
- *
  * REPLACING WITH PHOTOGRAPHY
- * Set `image` on a market in lib/markets.ts, or `featuredImage` on a project in
- * lib/projects.ts. The card components prefer a real photograph whenever one is
- * present and fall back to this artwork automatically. Nothing here needs to be
- * deleted — it keeps working as the fallback for any record without a photo.
+ * Set `image` on an industry in lib/industries.ts or a service in
+ * lib/services.ts, or `featuredImage` on a project in lib/projects.ts. Card and
+ * hero components prefer a real photograph whenever one is present and fall
+ * back to this artwork automatically. Nothing here needs to be deleted — it
+ * remains the fallback for any record without a photo.
  * ===========================================================================
  */
 
 import type { ReactNode } from 'react';
 
 export type ArtKey =
+  /* Industries */
+  | 'retail'
+  | 'restaurant'
+  | 'restaurants'
   | 'healthcare'
-  | 'aviation'
   | 'education'
   | 'industrial'
-  | 'multifamily'
-  | 'retail'
   | 'government'
   | 'office'
-  | 'commercial-painting'
-  | 'industrial-coatings'
-  | 'epoxy-flooring'
-  | 'new-construction'
-  | 'maintenance-repaints'
-  | 'specialty-coatings'
+  | 'hospitality'
+  | 'sports'
+  | 'aviation'
+  | 'tenant'
+  | 'construction'
+  /* Services */
+  | 'interior'
+  | 'exterior'
+  | 'occupied'
+  | 'prep'
+  | 'coatings'
   | 'default';
 
-/* Shared palette so every scene reads as one family. */
-const SKY_TOP = '#16293d';
-const SKY_BOTTOM = '#0a1522';
-const FAR = '#1c3349';
-const MID = '#27455f';
-const NEAR = '#0f2033';
-
-/* Fine hairline used for construction lines across all scenes. */
-const HAIR = 'rgba(154,171,188,0.28)';
-const HAIR_SOFT = 'rgba(154,171,188,0.14)';
-const RED = '#d72638';
+/* Shared palette — derived from the brand mark. Every scene reads as family. */
+const SKY_TOP = '#26262c';
+const SKY_BOTTOM = '#0a0a0b';
+const FAR = '#34343c';
+const MID = '#45454f';
+const NEAR = '#141418';
+const HAIR = 'rgba(184,184,192,0.30)';
+const HAIR_SOFT = 'rgba(184,184,192,0.12)';
+const RED = '#d81f26';
 
 function Scene({ id, children }: { id: string; children: ReactNode }) {
   return (
@@ -68,7 +71,7 @@ function Scene({ id, children }: { id: string; children: ReactNode }) {
         </linearGradient>
         <linearGradient id={`fade-${id}`} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor="#000" stopOpacity="0" />
-          <stop offset="100%" stopColor="#000" stopOpacity="0.45" />
+          <stop offset="100%" stopColor="#000" stopOpacity="0.5" />
         </linearGradient>
       </defs>
 
@@ -93,363 +96,499 @@ function Scene({ id, children }: { id: string; children: ReactNode }) {
 
 /* -------------------------------------------------------------------------- */
 
-const scenes: Record<Exclude<ArtKey, 'default'>, ReactNode> = {
-  /* Corridor in one-point perspective — the defining space of a hospital. */
-  healthcare: (
-    <g>
-      <path d="M0 600 L250 330 L550 330 L800 600 Z" fill={NEAR} />
-      <path d="M250 330 L250 120 L550 120 L550 330 Z" fill={FAR} />
-      <path d="M0 0 L250 120 L250 330 L0 600 Z" fill={MID} opacity="0.55" />
-      <path d="M800 0 L550 120 L550 330 L800 600 Z" fill={MID} opacity="0.55" />
-      {/* Ceiling runs and door openings drawn to the vanishing point. */}
-      <g stroke={HAIR} strokeWidth="1.5" fill="none">
-        <path d="M0 120 L250 200" />
-        <path d="M800 120 L550 200" />
-        <path d="M120 600 L280 300" />
-        <path d="M680 600 L520 300" />
-        <rect x="300" y="190" width="60" height="140" />
-        <rect x="440" y="190" width="60" height="140" />
-      </g>
-      <rect x="250" y="326" width="300" height="4" fill={RED} />
-      <circle cx="400" cy="150" r="26" fill="none" stroke={HAIR} strokeWidth="1.5" />
+const retailScene = (
+  <g>
+    {/* Big-box storefront elevation with a signage band. */}
+    <rect x="60" y="250" width="680" height="290" fill={FAR} />
+    <rect x="60" y="250" width="680" height="58" fill={MID} />
+    <rect x="96" y="270" width="150" height="18" fill={RED} />
+    <g fill={NEAR}>
+      {Array.from({ length: 7 }, (_, i) => (
+        <rect key={i} x={100 + i * 92} y="360" width="60" height="180" />
+      ))}
     </g>
-  ),
-
-  /* Hangar: portal truss and a wing silhouette. */
-  aviation: (
-    <g>
-      <path d="M0 600 L800 600 L800 430 L0 430 Z" fill={NEAR} />
-      <path d="M60 430 L60 250 Q400 90 740 250 L740 430 Z" fill={FAR} />
-      {/* Truss webbing across the hangar opening. */}
-      <g stroke={HAIR} strokeWidth="1.5" fill="none">
-        <path d="M60 250 Q400 90 740 250" />
-        <path d="M60 300 Q400 145 740 300" />
-        {Array.from({ length: 13 }, (_, i) => {
-          const x = 60 + i * 56.7;
-          return <line key={i} x1={x} y1="250" x2={x} y2="430" opacity="0.6" />;
-        })}
-      </g>
-      {/* Wing and fuselage, reduced to two strokes. */}
-      <path d="M170 430 L400 350 L640 430 Z" fill={MID} />
-      <path d="M300 430 L400 300 L500 430 Z" fill={NEAR} opacity="0.85" />
-      <rect x="60" y="426" width="680" height="4" fill={RED} />
+    <g stroke={HAIR} strokeWidth="1.25" fill="none">
+      <rect x="60" y="250" width="680" height="290" />
+      <line x1="60" y1="308" x2="740" y2="308" />
+      <line x1="60" y1="360" x2="740" y2="360" />
     </g>
-  ),
+    {/* Entry canopy */}
+    <rect x="360" y="330" width="150" height="14" fill={RED} opacity="0.85" />
+    <line x1="30" y1="540" x2="770" y2="540" stroke={HAIR} strokeWidth="2" />
+  </g>
+);
 
-  /* School elevation — repeating classroom bays and a gable. */
-  education: (
-    <g>
-      <path d="M0 600 L800 600 L800 380 L0 380 Z" fill={NEAR} />
-      <path d="M90 380 L90 210 L710 210 L710 380 Z" fill={FAR} />
-      <path d="M60 210 L400 90 L740 210 Z" fill={MID} />
-      <g stroke={HAIR} strokeWidth="1.5" fill="none">
-        {Array.from({ length: 6 }, (_, i) => (
-          <rect key={i} x={130 + i * 100} y="250" width="58" height="90" />
-        ))}
-        <path d="M60 210 L740 210" />
-        <path d="M400 90 L400 210" opacity="0.5" />
-      </g>
-      <rect x="368" y="380" width="64" height="120" fill={NEAR} stroke={HAIR} strokeWidth="1.5" />
-      <rect x="90" y="376" width="620" height="4" fill={RED} />
+const restaurantScene = (
+  <g>
+    {/* Dining room section: banquette, pendant lights, feature wall. */}
+    <rect x="0" y="300" width="800" height="240" fill={NEAR} />
+    <rect x="0" y="180" width="800" height="120" fill={FAR} />
+    <rect x="0" y="180" width="800" height="10" fill={RED} opacity="0.7" />
+    {/* Pendants */}
+    <g stroke={HAIR} strokeWidth="1.25">
+      {[170, 300, 430, 560, 690].map((x) => (
+        <line key={x} x1={x} y1="190" x2={x} y2="252" />
+      ))}
     </g>
-  ),
-
-  /* Warehouse interior: racking bays and exposed structure. */
-  industrial: (
-    <g>
-      <path d="M0 600 L800 600 L800 440 L0 440 Z" fill={NEAR} />
-      <path d="M0 440 L0 160 L800 160 L800 440 Z" fill={FAR} opacity="0.75" />
-      {/* Exposed joists overhead. */}
-      <g stroke={HAIR} strokeWidth="1.5" fill="none">
-        <path d="M0 160 L800 160" />
-        {Array.from({ length: 16 }, (_, i) => (
-          <line key={i} x1={i * 53} y1="160" x2={i * 53 + 26} y2="215" opacity="0.55" />
-        ))}
-        <path d="M0 215 L800 215" opacity="0.6" />
-      </g>
-      {/* Pallet racking, three bays deep. */}
-      <g fill={MID}>
-        <rect x="70" y="250" width="18" height="190" />
-        <rect x="270" y="250" width="18" height="190" />
-        <rect x="470" y="250" width="18" height="190" />
-        <rect x="670" y="250" width="18" height="190" />
-        <rect x="70" y="300" width="618" height="10" />
-        <rect x="70" y="370" width="618" height="10" />
-      </g>
-      <rect x="0" y="436" width="800" height="4" fill={RED} />
-      <g stroke={HAIR} strokeWidth="2" strokeDasharray="14 10">
-        <line x1="0" y1="520" x2="800" y2="520" />
-      </g>
+    <g fill={MID}>
+      {[170, 300, 430, 560, 690].map((x) => (
+        <ellipse key={x} cx={x} cy="262" rx="26" ry="11" />
+      ))}
     </g>
-  ),
-
-  /* Stacked balconies of a wrap or podium community. */
-  multifamily: (
-    <g>
-      <path d="M0 600 L800 600 L800 520 L0 520 Z" fill={NEAR} />
-      <path d="M80 520 L80 90 L720 90 L720 520 Z" fill={FAR} />
-      <g stroke={HAIR} strokeWidth="1.5" fill="none">
-        {Array.from({ length: 5 }, (_, row) => (
-          <g key={row}>
-            <line x1="80" y1={150 + row * 78} x2="720" y2={150 + row * 78} />
-            {Array.from({ length: 6 }, (_, col) => (
-              <rect key={col} x={120 + col * 100} y={104 + row * 78} width="58" height="42" />
-            ))}
-          </g>
-        ))}
-      </g>
-      {/* Projecting balcony slabs catch the light. */}
-      <g fill={MID}>
-        {Array.from({ length: 5 }, (_, row) => (
-          <rect key={row} x="70" y={146 + row * 78} width="660" height="8" />
-        ))}
-      </g>
-      <rect x="80" y="516" width="640" height="4" fill={RED} />
+    {/* Banquette */}
+    <rect x="60" y="392" width="680" height="66" fill={MID} />
+    <rect x="60" y="380" width="680" height="14" fill={FAR} />
+    {/* Tables */}
+    <g fill={FAR}>
+      {[150, 320, 490, 660].map((x) => (
+        <rect key={x} x={x} y="440" width="90" height="8" />
+      ))}
     </g>
-  ),
+    <line x1="0" y1="540" x2="800" y2="540" stroke={HAIR} strokeWidth="2" />
+  </g>
+);
 
-  /* Storefront run with canopy and signage band. */
-  retail: (
-    <g>
-      <path d="M0 600 L800 600 L800 470 L0 470 Z" fill={NEAR} />
-      <path d="M40 470 L40 170 L760 170 L760 470 Z" fill={FAR} />
-      {/* Signage band. */}
-      <rect x="40" y="170" width="720" height="70" fill={MID} />
-      {/* Canopy. */}
-      <path d="M20 300 L780 300 L760 330 L40 330 Z" fill={MID} />
-      <g stroke={HAIR} strokeWidth="1.5" fill="none">
-        {Array.from({ length: 4 }, (_, i) => (
-          <rect key={i} x={90 + i * 165} y="350" width="120" height="120" />
-        ))}
-        <path d="M40 240 L760 240" />
-      </g>
-      <rect x="40" y="466" width="720" height="4" fill={RED} />
-      <circle cx="400" cy="205" r="16" fill="none" stroke={HAIR} strokeWidth="2" />
+const healthcareScene = (
+  <g>
+    {/* Corridor in one-point perspective. */}
+    <path d="M0 600 L250 330 L550 330 L800 600 Z" fill={NEAR} />
+    <path d="M0 0 L250 330 L250 600 L0 600 Z" fill={FAR} />
+    <path d="M800 0 L550 330 L550 600 L800 600 Z" fill={FAR} />
+    <rect x="250" y="180" width="300" height="150" fill={MID} />
+    <g stroke={HAIR} strokeWidth="1.25" fill="none">
+      <line x1="0" y1="0" x2="250" y2="330" />
+      <line x1="800" y1="0" x2="550" y2="330" />
+      <line x1="0" y1="600" x2="250" y2="330" />
+      <line x1="800" y1="600" x2="550" y2="330" />
+      <rect x="250" y="180" width="300" height="150" />
     </g>
-  ),
-
-  /* Civic portico — colonnade and pediment. */
-  government: (
-    <g>
-      <path d="M0 600 L800 600 L800 500 L0 500 Z" fill={NEAR} />
-      <path d="M110 500 L110 230 L690 230 L690 500 Z" fill={FAR} />
-      <path d="M70 230 L400 110 L730 230 Z" fill={MID} />
-      {/* Columns. */}
-      <g fill={MID}>
-        {Array.from({ length: 6 }, (_, i) => (
-          <rect key={i} x={150 + i * 92} width="38" y="270" height="230" />
-        ))}
-      </g>
-      <g stroke={HAIR} strokeWidth="1.5" fill="none">
-        <path d="M110 270 L690 270" />
-        <path d="M70 230 L730 230" />
-        <path d="M400 110 L400 230" opacity="0.45" />
-        <path d="M130 500 L670 500" />
-      </g>
-      {/* Steps. */}
-      <g fill={NEAR}>
-        <rect x="90" y="500" width="620" height="16" />
-        <rect x="70" y="516" width="660" height="16" />
-        <rect x="50" y="532" width="700" height="18" />
-      </g>
-      <rect x="110" y="226" width="580" height="4" fill={RED} />
+    {/* Door openings along the corridor */}
+    <g fill={NEAR}>
+      <path d="M92 250 L92 470 L142 430 L142 292 Z" />
+      <path d="M708 250 L708 470 L658 430 L658 292 Z" />
     </g>
-  ),
+    {/* Handrail — the red datum line */}
+    <path d="M0 420 L250 400" stroke={RED} strokeWidth="3" fill="none" />
+    <path d="M800 420 L550 400" stroke={RED} strokeWidth="3" fill="none" />
+  </g>
+);
 
-  /* Curtain-wall office tower, three planes deep. */
-  office: (
-    <g>
-      <path d="M0 600 L800 600 L800 540 L0 540 Z" fill={NEAR} />
-      <path d="M470 540 L470 130 L720 130 L720 540 Z" fill={FAR} opacity="0.75" />
-      <path d="M90 540 L90 60 L430 60 L430 540 Z" fill={FAR} />
-      <path d="M430 540 L430 190 L500 190 L500 540 Z" fill={MID} opacity="0.6" />
-      {/* Mullion grid on the near tower. */}
-      <g stroke={HAIR} strokeWidth="1.2" fill="none">
-        {Array.from({ length: 11 }, (_, i) => (
-          <line key={`r${i}`} x1="90" y1={60 + i * 44} x2="430" y2={60 + i * 44} />
-        ))}
-        {Array.from({ length: 6 }, (_, i) => (
-          <line key={`c${i}`} x1={90 + i * 68} y1="60" x2={90 + i * 68} y2="540" />
-        ))}
-      </g>
-      <g stroke={HAIR_SOFT} strokeWidth="1" fill="none">
-        {Array.from({ length: 9 }, (_, i) => (
-          <line key={i} x1="470" y1={130 + i * 46} x2="720" y2={130 + i * 46} />
-        ))}
-      </g>
-      <rect x="90" y="536" width="340" height="4" fill={RED} />
+const educationScene = (
+  <g>
+    {/* Repeating classroom bays with a gymnasium volume. */}
+    <rect x="0" y="330" width="470" height="210" fill={FAR} />
+    <rect x="470" y="230" width="330" height="310" fill={MID} />
+    <g fill={NEAR}>
+      {Array.from({ length: 5 }, (_, i) => (
+        <rect key={i} x={30 + i * 88} y="370" width="56" height="80" />
+      ))}
     </g>
-  ),
-
-  /* --- Service scenes ---------------------------------------------------- */
-
-  /* Wall in section: substrate, primer, two finish coats. */
-  'commercial-painting': (
-    <g>
-      <path d="M0 600 L800 600 L800 0 L520 0 Z" fill={NEAR} />
-      <path d="M0 0 L520 0 L800 600 L0 600 Z" fill={FAR} opacity="0.5" />
-      {/* Coating build-up, drawn as stacked layers. */}
-      <g>
-        <rect x="120" y="120" width="420" height="360" fill={MID} />
-        <rect x="150" y="150" width="360" height="300" fill={FAR} />
-        <rect x="180" y="180" width="300" height="240" fill={NEAR} />
-      </g>
-      <g stroke={HAIR} strokeWidth="1.5" fill="none">
-        <path d="M120 120 L150 150" />
-        <path d="M540 120 L510 150" />
-        <path d="M120 480 L150 450" />
-        <path d="M540 480 L510 450" />
-        {/* Dimension line with end ticks. */}
-        <path d="M600 120 L600 480" />
-        <path d="M590 120 L610 120" />
-        <path d="M590 480 L610 480" />
-      </g>
-      <rect x="180" y="180" width="300" height="6" fill={RED} />
-      <circle cx="330" cy="300" r="54" fill="none" stroke={HAIR} strokeWidth="1.5" />
+    {/* Gym clerestory */}
+    <g fill={NEAR}>
+      {Array.from({ length: 4 }, (_, i) => (
+        <rect key={i} x={506 + i * 74} y="266" width="46" height="34" />
+      ))}
     </g>
-  ),
-
-  /* Structural steel with a coating profile callout. */
-  'industrial-coatings': (
-    <g>
-      <path d="M0 600 L800 600 L800 470 L0 470 Z" fill={NEAR} />
-      {/* Wide-flange beam in section. */}
-      <g fill={MID}>
-        <rect x="200" y="130" width="360" height="44" />
-        <rect x="340" y="174" width="80" height="220" />
-        <rect x="200" y="394" width="360" height="44" />
-      </g>
-      <g stroke={HAIR} strokeWidth="1.5" fill="none">
-        <rect x="188" y="118" width="384" height="332" strokeDasharray="10 8" />
-        <path d="M572 130 L680 90" />
-        <path d="M572 438 L680 478" />
-        <circle cx="700" cy="80" r="10" />
-        <circle cx="700" cy="488" r="10" />
-      </g>
-      {/* Corrosion-control accent on the exposed flange. */}
-      <rect x="200" y="130" width="360" height="8" fill={RED} />
-      <g stroke={HAIR} strokeWidth="2" strokeDasharray="6 8">
-        <path d="M120 260 L188 260" />
-        <path d="M572 260 L640 260" />
-      </g>
+    <rect x="470" y="230" width="330" height="12" fill={RED} opacity="0.8" />
+    <g stroke={HAIR} strokeWidth="1.25" fill="none">
+      <rect x="0" y="330" width="470" height="210" />
+      <rect x="470" y="230" width="330" height="310" />
+      <line x1="0" y1="450" x2="470" y2="450" />
     </g>
-  ),
+    <line x1="0" y1="540" x2="800" y2="540" stroke={HAIR} strokeWidth="2" />
+  </g>
+);
 
-  /* Resinous floor: slab section with build coat and broadcast aggregate. */
-  'epoxy-flooring': (
-    <g>
-      <path d="M0 600 L800 600 L800 300 L0 300 Z" fill={NEAR} />
-      <path d="M0 0 L800 0 L800 300 L0 300 Z" fill={FAR} opacity="0.45" />
-      {/* Floor plane in perspective. */}
-      <path d="M0 600 L280 300 L520 300 L800 600 Z" fill={MID} opacity="0.55" />
-      <g stroke={HAIR} strokeWidth="1.4" fill="none">
-        <path d="M120 600 L300 300" />
-        <path d="M300 600 L360 300" />
-        <path d="M500 600 L440 300" />
-        <path d="M680 600 L500 300" />
-        <path d="M0 380 L800 380" opacity="0.5" />
-        <path d="M0 470 L800 470" opacity="0.4" />
-      </g>
-      {/* Safety striping — the most recognisable thing on a coated floor. */}
-      <path d="M180 600 L340 330 L400 330 L240 600 Z" fill={RED} opacity="0.9" />
-      <g fill={HAIR}>
-        {Array.from({ length: 22 }, (_, i) => (
-          <circle key={i} cx={80 + ((i * 137) % 660)} cy={340 + ((i * 71) % 230)} r="2.5" />
-        ))}
-      </g>
+const industrialScene = (
+  <g>
+    {/* Portal frames, sawtooth roof, stack. */}
+    <path d="M40 540 L40 300 L200 240 L360 300 L360 540 Z" fill={FAR} />
+    <path d="M360 540 L360 320 L520 260 L680 320 L680 540 Z" fill={MID} />
+    <rect x="700" y="140" width="46" height="400" fill={FAR} />
+    <rect x="694" y="140" width="58" height="16" fill={RED} opacity="0.85" />
+    {/* Portal frame structure */}
+    <g stroke={HAIR} strokeWidth="1.5" fill="none">
+      <path d="M40 540 L40 300 L200 240 L360 300 L360 540" />
+      <path d="M360 540 L360 320 L520 260 L680 320 L680 540" />
+      {[100, 160, 220, 280].map((x) => (
+        <line key={x} x1={x} y1="540" x2={x} y2="272" />
+      ))}
     </g>
-  ),
+    {/* Roll-up doors */}
+    <g fill={NEAR}>
+      <rect x="70" y="420" width="90" height="120" />
+      <rect x="420" y="430" width="110" height="110" />
+    </g>
+    <line x1="0" y1="540" x2="800" y2="540" stroke={HAIR} strokeWidth="2" />
+  </g>
+);
 
-  /* Building under construction: frame, crane, partial envelope. */
-  'new-construction': (
-    <g>
-      <path d="M0 600 L800 600 L800 520 L0 520 Z" fill={NEAR} />
-      {/* Completed envelope on the left, open frame on the right. */}
-      <path d="M110 520 L110 150 L400 150 L400 520 Z" fill={FAR} />
-      <g stroke={HAIR} strokeWidth="2" fill="none">
-        {Array.from({ length: 6 }, (_, i) => (
-          <line key={`h${i}`} x1="400" y1={150 + i * 74} x2="660" y2={150 + i * 74} />
-        ))}
-        {Array.from({ length: 4 }, (_, i) => (
-          <line key={`v${i}`} x1={400 + i * 87} y1="150" x2={400 + i * 87} y2="520" />
-        ))}
-      </g>
-      <g stroke={HAIR} strokeWidth="1.4" fill="none">
-        {Array.from({ length: 5 }, (_, i) => (
-          <line key={i} x1="110" y1={190 + i * 74} x2="400" y2={190 + i * 74} opacity="0.55" />
-        ))}
-      </g>
-      {/* Tower crane. */}
-      <g stroke={RED} strokeWidth="5" fill="none" strokeLinecap="square">
-        <path d="M690 520 L690 80" />
-        <path d="M470 80 L760 80" />
-        <path d="M560 80 L560 170" />
-      </g>
-      <rect x="110" y="516" width="290" height="4" fill={RED} />
+const governmentScene = (
+  <g>
+    {/* Civic elevation — colonnade with a raised entablature. */}
+    <rect x="110" y="270" width="580" height="42" fill={MID} />
+    <rect x="110" y="270" width="580" height="10" fill={RED} opacity="0.75" />
+    <path d="M90 270 L400 170 L710 270 Z" fill={FAR} />
+    <g fill={FAR}>
+      {Array.from({ length: 7 }, (_, i) => (
+        <rect key={i} x={150 + i * 78} y="312" width="34" height="200" />
+      ))}
     </g>
-  ),
+    <rect x="110" y="512" width="580" height="28" fill={MID} />
+    <g stroke={HAIR} strokeWidth="1.25" fill="none">
+      <path d="M90 270 L400 170 L710 270" />
+      <rect x="110" y="270" width="580" height="42" />
+      <rect x="110" y="512" width="580" height="28" />
+    </g>
+    <line x1="0" y1="540" x2="800" y2="540" stroke={HAIR} strokeWidth="2" />
+  </g>
+);
 
-  /* Elevation split down the middle: weathered against renewed. */
-  'maintenance-repaints': (
-    <g>
-      <path d="M0 600 L800 600 L800 480 L0 480 Z" fill={NEAR} />
-      <path d="M70 480 L70 110 L730 110 L730 480 Z" fill={FAR} />
-      {/* Left half degraded — broken, faded hatching. */}
-      <g stroke={HAIR_SOFT} strokeWidth="2" strokeDasharray="9 13">
-        {Array.from({ length: 9 }, (_, i) => (
-          <line key={i} x1="70" y1={150 + i * 38} x2="395" y2={150 + i * 38} />
-        ))}
-      </g>
-      {/* Right half renewed — clean, continuous. */}
-      <rect x="400" y="110" width="330" height="370" fill={MID} opacity="0.5" />
-      <g stroke={HAIR} strokeWidth="1.6">
-        {Array.from({ length: 9 }, (_, i) => (
-          <line key={i} x1="405" y1={150 + i * 38} x2="730" y2={150 + i * 38} />
-        ))}
-      </g>
-      {/* The working edge between the two. */}
-      <rect x="396" y="110" width="5" height="370" fill={RED} />
-      <g stroke={HAIR} strokeWidth="1.5" fill="none">
-        {Array.from({ length: 4 }, (_, i) => (
-          <rect key={i} x={130 + i * 155} y="380" width="70" height="100" />
-        ))}
-      </g>
-      <rect x="70" y="476" width="660" height="4" fill={RED} opacity="0.55" />
+const officeScene = (
+  <g>
+    {/* Curtain wall grid with a red spandrel accent. */}
+    <rect x="90" y="90" width="290" height="450" fill={FAR} />
+    <rect x="400" y="180" width="320" height="360" fill={MID} />
+    <g fill={NEAR}>
+      {Array.from({ length: 8 }, (_, r) =>
+        Array.from({ length: 4 }, (_, c) => (
+          <rect key={`${r}-${c}`} x={106 + c * 70} y={106 + r * 54} width="52" height="36" />
+        )),
+      )}
     </g>
-  ),
+    <g fill={NEAR}>
+      {Array.from({ length: 6 }, (_, r) =>
+        Array.from({ length: 4 }, (_, c) => (
+          <rect key={`${r}-${c}`} x={416 + c * 78} y={196 + r * 58} width="58" height="38" />
+        )),
+      )}
+    </g>
+    <rect x="106" y="376" width="262" height="10" fill={RED} opacity="0.8" />
+    <g stroke={HAIR} strokeWidth="1.25" fill="none">
+      <rect x="90" y="90" width="290" height="450" />
+      <rect x="400" y="180" width="320" height="360" />
+    </g>
+    <line x1="0" y1="540" x2="800" y2="540" stroke={HAIR} strokeWidth="2" />
+  </g>
+);
 
-  /* Specialty finishes: layered panels and a wallcovering seam. */
-  'specialty-coatings': (
-    <g>
-      <path d="M0 600 L800 600 L800 0 L0 0 Z" fill={SKY_BOTTOM} />
-      {/* Overlapping material panels, each a different treatment. */}
-      <g>
-        <rect x="60" y="90" width="230" height="420" fill={FAR} />
-        <rect x="300" y="140" width="200" height="370" fill={MID} opacity="0.7" />
-        <rect x="510" y="90" width="230" height="420" fill={NEAR} />
-      </g>
-      <g stroke={HAIR} strokeWidth="1.5" fill="none">
-        {/* Sample chips lifted off each panel. */}
-        <rect x="110" y="180" width="130" height="90" />
-        <rect x="345" y="230" width="110" height="90" />
-        <rect x="560" y="180" width="130" height="90" />
-        {/* Seam line through the middle panel. */}
-        <path d="M400 140 L400 510" strokeDasharray="8 10" />
-      </g>
-      <rect x="110" y="300" width="130" height="8" fill={RED} />
-      <rect x="345" y="350" width="110" height="8" fill={RED} opacity="0.6" />
-      <rect x="560" y="300" width="130" height="8" fill={RED} opacity="0.35" />
+const hospitalityScene = (
+  <g>
+    {/* Guest-room stack over a lit podium and porte-cochère. */}
+    <rect x="130" y="80" width="540" height="330" fill={FAR} />
+    <g fill={NEAR}>
+      {Array.from({ length: 6 }, (_, r) =>
+        Array.from({ length: 8 }, (_, c) => (
+          <rect key={`${r}-${c}`} x={152 + c * 64} y={102 + r * 52} width="42" height="32" />
+        )),
+      )}
     </g>
-  ),
-};
+    <rect x="90" y="410" width="620" height="130" fill={MID} />
+    <rect x="90" y="410" width="620" height="10" fill={RED} opacity="0.8" />
+    {/* Porte-cochère */}
+    <rect x="300" y="450" width="200" height="6" fill={FAR} />
+    <g stroke={HAIR} strokeWidth="1.25" fill="none">
+      <rect x="130" y="80" width="540" height="330" />
+      <rect x="90" y="410" width="620" height="130" />
+      <line x1="330" y1="456" x2="330" y2="540" />
+      <line x1="470" y1="456" x2="470" y2="540" />
+    </g>
+    <line x1="0" y1="540" x2="800" y2="540" stroke={HAIR} strokeWidth="2" />
+  </g>
+);
+
+const sportsScene = (
+  <g>
+    {/* Seating bowl section with a cantilevered roof and light towers. */}
+    <path d="M60 540 L200 340 L600 340 L740 540 Z" fill={NEAR} />
+    <path d="M120 540 L230 380 L570 380 L680 540 Z" fill={FAR} />
+    {/* Rake lines */}
+    <g stroke={HAIR} strokeWidth="1.25">
+      {Array.from({ length: 9 }, (_, i) => (
+        <line key={i} x1={140 + i * 66} y1="540" x2={214 + i * 41} y2="386" />
+      ))}
+    </g>
+    {/* Roof */}
+    <path d="M40 300 L400 240 L760 300 L760 322 L400 262 L40 322 Z" fill={MID} />
+    <path d="M40 300 L400 240 L760 300" stroke={RED} strokeWidth="3" fill="none" />
+    {/* Light towers */}
+    <g fill={FAR}>
+      <rect x="86" y="150" width="12" height="160" />
+      <rect x="702" y="150" width="12" height="160" />
+      <rect x="60" y="132" width="64" height="20" />
+      <rect x="676" y="132" width="64" height="20" />
+    </g>
+    <line x1="0" y1="540" x2="800" y2="540" stroke={HAIR} strokeWidth="2" />
+  </g>
+);
+
+const aviationScene = (
+  <g>
+    {/* Terminal concourse — barrel roof on tapered columns. */}
+    <path
+      d="M40 330 Q400 170 760 330 L760 356 Q400 200 40 356 Z"
+      fill={MID}
+    />
+    <path d="M40 330 Q400 170 760 330" stroke={RED} strokeWidth="3" fill="none" />
+    <g fill={FAR}>
+      {[120, 290, 460, 630].map((x) => (
+        <path key={x} d={`M${x} 540 L${x + 10} 300 L${x + 26} 300 L${x + 36} 540 Z`} />
+      ))}
+    </g>
+    <rect x="0" y="430" width="800" height="110" fill={NEAR} />
+    {/* Glazing band */}
+    <g fill={FAR}>
+      {Array.from({ length: 12 }, (_, i) => (
+        <rect key={i} x={20 + i * 66} y="360" width="46" height="60" />
+      ))}
+    </g>
+    <line x1="0" y1="540" x2="800" y2="540" stroke={HAIR} strokeWidth="2" />
+  </g>
+);
+
+const tenantScene = (
+  <g>
+    {/* Plan fragment: demised suites with a shared corridor. */}
+    <rect x="60" y="120" width="680" height="380" fill={NEAR} />
+    <g stroke={HAIR} strokeWidth="1.5" fill="none">
+      <rect x="60" y="120" width="680" height="380" />
+      <line x1="60" y1="290" x2="740" y2="290" />
+      <line x1="60" y1="330" x2="740" y2="330" />
+      <line x1="290" y1="120" x2="290" y2="290" />
+      <line x1="520" y1="120" x2="520" y2="290" />
+      <line x1="400" y1="330" x2="400" y2="500" />
+    </g>
+    {/* Suites filled */}
+    <g fill={FAR}>
+      <rect x="72" y="132" width="206" height="146" />
+      <rect x="302" y="132" width="206" height="146" />
+      <rect x="532" y="132" width="196" height="146" />
+      <rect x="72" y="342" width="316" height="146" />
+      <rect x="412" y="342" width="316" height="146" />
+    </g>
+    {/* Corridor datum */}
+    <rect x="60" y="304" width="680" height="12" fill={RED} opacity="0.6" />
+    {/* Door swings */}
+    <g stroke={HAIR} strokeWidth="1.25" fill="none">
+      <path d="M150 290 A34 34 0 0 1 184 256" />
+      <path d="M380 290 A34 34 0 0 1 414 256" />
+      <path d="M610 290 A34 34 0 0 1 644 256" />
+    </g>
+  </g>
+);
+
+const constructionScene = (
+  <g>
+    {/* Structure under construction — frame, deck, tower crane. */}
+    <g stroke={HAIR} strokeWidth="1.5" fill="none">
+      {[140, 280, 420, 560].map((x) => (
+        <line key={x} x1={x} y1="540" x2={x} y2="200" />
+      ))}
+      {[200, 280, 360, 440, 520].map((y) => (
+        <line key={y} x1="140" y1={y} x2="560" y2={y} />
+      ))}
+    </g>
+    <g fill={FAR}>
+      <rect x="140" y="440" width="140" height="80" />
+      <rect x="280" y="360" width="140" height="80" />
+      <rect x="420" y="440" width="140" height="80" />
+    </g>
+    {/* Tower crane */}
+    <g stroke={RED} strokeWidth="3" fill="none">
+      <line x1="650" y1="540" x2="650" y2="120" />
+      <line x1="520" y1="120" x2="770" y2="120" />
+      <line x1="596" y1="120" x2="596" y2="180" />
+    </g>
+    <g stroke={HAIR} strokeWidth="1.25" fill="none">
+      <line x1="650" y1="120" x2="770" y2="150" />
+      <line x1="650" y1="120" x2="520" y2="150" />
+    </g>
+    <line x1="0" y1="540" x2="800" y2="540" stroke={HAIR} strokeWidth="2" />
+  </g>
+);
+
+const interiorScene = (
+  <g>
+    {/* Interior elevation: wall plane, base, ceiling grid, coating build-up. */}
+    <rect x="0" y="120" width="800" height="420" fill={FAR} />
+    <rect x="0" y="120" width="800" height="46" fill={MID} />
+    {/* Ceiling grid */}
+    <g stroke={HAIR} strokeWidth="1" fill="none">
+      {Array.from({ length: 9 }, (_, i) => (
+        <line key={i} x1={i * 100} y1="120" x2={i * 100} y2="166" />
+      ))}
+    </g>
+    {/* Coating layer callout — three stacked bands */}
+    <rect x="80" y="250" width="300" height="12" fill={NEAR} />
+    <rect x="80" y="272" width="300" height="12" fill={MID} />
+    <rect x="80" y="294" width="300" height="12" fill={RED} opacity="0.85" />
+    <g stroke={HAIR} strokeWidth="1.25" fill="none">
+      <line x1="400" y1="256" x2="470" y2="256" />
+      <line x1="400" y1="278" x2="470" y2="278" />
+      <line x1="400" y1="300" x2="470" y2="300" />
+      <line x1="470" y1="240" x2="470" y2="316" />
+    </g>
+    {/* Base and door */}
+    <rect x="0" y="504" width="800" height="20" fill={MID} />
+    <rect x="580" y="300" width="120" height="204" fill={NEAR} />
+    <g stroke={HAIR} strokeWidth="1.25" fill="none">
+      <rect x="580" y="300" width="120" height="204" />
+    </g>
+    <line x1="0" y1="540" x2="800" y2="540" stroke={HAIR} strokeWidth="2" />
+  </g>
+);
+
+const exteriorScene = (
+  <g>
+    {/* Tilt-wall panel elevation with joint lines and a lift. */}
+    <rect x="40" y="140" width="620" height="400" fill={FAR} />
+    <g stroke={HAIR} strokeWidth="1.5" fill="none">
+      <rect x="40" y="140" width="620" height="400" />
+      {[195, 350, 505].map((x) => (
+        <line key={x} x1={x} y1="140" x2={x} y2="540" />
+      ))}
+      <line x1="40" y1="300" x2="660" y2="300" />
+    </g>
+    {/* Reveal joints in red — the sealant scope */}
+    <g stroke={RED} strokeWidth="2.5" opacity="0.8">
+      <line x1="195" y1="140" x2="195" y2="540" />
+      <line x1="505" y1="140" x2="505" y2="540" />
+    </g>
+    <g fill={NEAR}>
+      <rect x="70" y="410" width="96" height="130" />
+      <rect x="380" y="180" width="96" height="70" />
+    </g>
+    {/* Boom lift */}
+    <g stroke={HAIR} strokeWidth="2.5" fill="none">
+      <line x1="710" y1="520" x2="710" y2="470" />
+      <line x1="710" y1="470" x2="620" y2="330" />
+    </g>
+    <rect x="596" y="308" width="48" height="26" fill={MID} />
+    <rect x="682" y="512" width="60" height="22" fill={MID} />
+    <line x1="0" y1="540" x2="800" y2="540" stroke={HAIR} strokeWidth="2" />
+  </g>
+);
+
+const occupiedScene = (
+  <g>
+    {/* Zoned floor plate: one zone under containment, the rest in service. */}
+    <rect x="60" y="120" width="680" height="400" fill={NEAR} />
+    <g stroke={HAIR} strokeWidth="1.5" fill="none">
+      <rect x="60" y="120" width="680" height="400" />
+      <line x1="60" y1="320" x2="740" y2="320" />
+    </g>
+    {/* In-service zones */}
+    <g fill={FAR}>
+      <rect x="74" y="134" width="290" height="172" />
+      <rect x="74" y="334" width="290" height="172" />
+      <rect x="452" y="334" width="276" height="172" />
+    </g>
+    {/* Containment zone — hatched, red boundary */}
+    <rect x="392" y="134" width="336" height="172" fill={MID} />
+    <g stroke={RED} strokeWidth="2.5" fill="none">
+      <rect x="392" y="134" width="336" height="172" />
+    </g>
+    <g stroke={RED} strokeWidth="1.25" opacity="0.55">
+      {Array.from({ length: 12 }, (_, i) => (
+        <line key={i} x1={392 + i * 34} y1="306" x2={426 + i * 34} y2="134" />
+      ))}
+    </g>
+    {/* Route arrow */}
+    <path d="M120 320 L360 320" stroke={RED} strokeWidth="3" fill="none" />
+    <path d="M352 312 L368 320 L352 328 Z" fill={RED} />
+  </g>
+);
+
+const prepScene = (
+  <g>
+    {/* Substrate section: profile, primer, and the test-point callout. */}
+    <rect x="0" y="360" width="800" height="180" fill={NEAR} />
+    {/* Profiled surface */}
+    <path
+      d="M0 360 L40 342 L80 362 L120 340 L160 360 L200 338 L240 360 L280 344 L320 362 L360 340 L400 360 L440 342 L480 362 L520 340 L560 360 L600 344 L640 362 L680 340 L720 360 L760 344 L800 360 Z"
+      fill={MID}
+    />
+    <path
+      d="M0 360 L40 342 L80 362 L120 340 L160 360 L200 338 L240 360 L280 344 L320 362 L360 340 L400 360 L440 342 L480 362 L520 340 L560 360 L600 344 L640 362 L680 340 L720 360 L760 344 L800 360"
+      stroke={HAIR}
+      strokeWidth="1.5"
+      fill="none"
+    />
+    {/* Primer band */}
+    <rect x="0" y="316" width="800" height="14" fill={RED} opacity="0.75" />
+    {/* Test point */}
+    <circle cx="400" cy="230" r="46" fill="none" stroke={HAIR} strokeWidth="1.5" />
+    <circle cx="400" cy="230" r="6" fill={RED} />
+    <line x1="400" y1="276" x2="400" y2="330" stroke={HAIR} strokeWidth="1.5" />
+    <g stroke={HAIR} strokeWidth="1.25">
+      <line x1="354" y1="230" x2="330" y2="230" />
+      <line x1="446" y1="230" x2="470" y2="230" />
+    </g>
+    <line x1="0" y1="540" x2="800" y2="540" stroke={HAIR} strokeWidth="2" />
+  </g>
+);
+
+const coatingsScene = (
+  <g>
+    {/* Layered coating system section with a steel member. */}
+    <rect x="0" y="380" width="800" height="160" fill={NEAR} />
+    {/* Steel I-section */}
+    <g fill={FAR}>
+      <rect x="270" y="150" width="260" height="34" />
+      <rect x="366" y="184" width="68" height="180" />
+      <rect x="270" y="364" width="260" height="34" />
+    </g>
+    <g stroke={HAIR} strokeWidth="1.5" fill="none">
+      <rect x="270" y="150" width="260" height="34" />
+      <rect x="366" y="184" width="68" height="180" />
+      <rect x="270" y="364" width="260" height="34" />
+    </g>
+    {/* Coating build-up bands to the left */}
+    <g>
+      <rect x="60" y="200" width="150" height="16" fill={MID} />
+      <rect x="60" y="226" width="150" height="16" fill={FAR} />
+      <rect x="60" y="252" width="150" height="16" fill={RED} opacity="0.85" />
+    </g>
+    <g stroke={HAIR} strokeWidth="1.25" fill="none">
+      <line x1="210" y1="208" x2="250" y2="208" />
+      <line x1="210" y1="234" x2="250" y2="234" />
+      <line x1="210" y1="260" x2="250" y2="260" />
+      <line x1="250" y1="192" x2="250" y2="276" />
+    </g>
+    {/* Safety striping on the deck */}
+    <g stroke={RED} strokeWidth="4" opacity="0.7">
+      {Array.from({ length: 8 }, (_, i) => (
+        <line key={i} x1={580 + i * 30} y1="470" x2={610 + i * 30} y2="430" />
+      ))}
+    </g>
+    <line x1="0" y1="540" x2="800" y2="540" stroke={HAIR} strokeWidth="2" />
+  </g>
+);
 
 /* -------------------------------------------------------------------------- */
 
-/**
- * Renders the scene for a given key. Unknown keys fall back to the office
- * elevation, so a new market or service never renders an empty box.
- */
-export function SectorArt({ art, className }: { art: ArtKey; className?: string }) {
+const scenes: Record<Exclude<ArtKey, 'default'>, ReactNode> = {
+  retail: retailScene,
+  restaurant: restaurantScene,
+  restaurants: restaurantScene,
+  healthcare: healthcareScene,
+  education: educationScene,
+  industrial: industrialScene,
+  government: governmentScene,
+  office: officeScene,
+  hospitality: hospitalityScene,
+  sports: sportsScene,
+  aviation: aviationScene,
+  tenant: tenantScene,
+  construction: constructionScene,
+  interior: interiorScene,
+  exterior: exteriorScene,
+  occupied: occupiedScene,
+  prep: prepScene,
+  coatings: coatingsScene,
+};
+
+export function SectorArt({ art, className }: { art: string; className?: string }) {
   const key = (art in scenes ? art : 'office') as Exclude<ArtKey, 'default'>;
 
   return (

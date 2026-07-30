@@ -1,52 +1,59 @@
-import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
 import Link from 'next/link';
-import { AlertTriangle, MapPin, ArrowRight } from 'lucide-react';
+import Image from 'next/image';
+import { notFound } from 'next/navigation';
+import { ArrowUpRight, MapPin, CalendarDays, Layers, Info } from 'lucide-react';
 
-import { CtaBanner } from '@/components/ui/CtaBanner';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { SectionHeading } from '@/components/ui/SectionHeading';
-import { Reveal, RevealGroup, RevealItem } from '@/components/ui/Reveal';
-import { JsonLd } from '@/components/ui/JsonLd';
-import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder';
-import type { ArtKey } from '@/components/ui/SectorArt';
-import { TextLink } from '@/components/ui/Button';
+import { CtaBanner } from '@/components/ui/CtaBanner';
 import { ProjectCard } from '@/components/cards/ProjectCard';
+import { MediaFrame } from '@/components/ui/MediaFrame';
+import { SectorArt } from '@/components/ui/SectorArt';
+import { Reveal, RevealGroup, RevealItem } from '@/components/ui/Reveal';
+import { ButtonLink } from '@/components/ui/Button';
+import { JsonLd } from '@/components/ui/JsonLd';
 
-import { projects, getProject, projectSlugs } from '@/lib/projects';
-import { getMarket } from '@/lib/markets';
+import { getProject, projectSlugs, relatedProjects } from '@/lib/projects';
+import { getIndustry } from '@/lib/industries';
 import { getService } from '@/lib/services';
-import { buildMetadata } from '@/lib/seo';
 import { breadcrumbSchema } from '@/lib/schema';
+import { company } from '@/lib/site';
 
-export const dynamicParams = false;
+type Params = { params: Promise<{ slug: string }> };
 
 export function generateStaticParams() {
   return projectSlugs.map((slug) => ({ slug }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
   const project = getProject(slug);
   if (!project) return {};
 
-  return buildMetadata({
-    /* Sample records are marked in the title so they can never be mistaken for
-       verified work in a search result. Remove once `sample` is false. */
-    title: project.sample
-      ? `${project.name} (Sample) | Project Profile`
-      : `${project.name} | Project Profile`,
-    description: project.scopeSummary.slice(0, 158),
-    path: `/projects/${project.slug}`,
-    noIndex: project.sample,
-  });
+  const industry = getIndustry(project.industry);
+  const title = `${project.name} | ${industry?.title ?? 'Commercial'} Painting`;
+
+  return {
+    title,
+    description: project.scopeSummary,
+    alternates: { canonical: `/projects/${project.slug}` },
+    openGraph: { title, description: project.scopeSummary, url: `/projects/${project.slug}` },
+  };
 }
 
-export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function ProjectPage({ params }: Params) {
   const { slug } = await params;
   const project = getProject(slug);
   if (!project) notFound();
 
-  const market = getMarket(project.market);
+  const industry = getIndustry(project.industry);
+  const servicesPerformed = project.serviceTypes
+    .map(getService)
+    .filter((s): s is NonNullable<typeof s> => Boolean(s));
+  const related = relatedProjects(project.slug, 3);
+  const isCaseStudy = project.detail === 'case-study';
+  const gallery = project.gallery ?? [];
 
   const crumbs = [
     { name: 'Home', href: '/' },
@@ -54,290 +61,344 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
     { name: project.name, href: `/projects/${project.slug}` },
   ];
 
-  const related = projects
-    .filter((p) => p.slug !== project.slug && p.market === project.market)
-    .slice(0, 3);
-
-  const fallback = projects.filter((p) => p.slug !== project.slug).slice(0, 3);
-  const alsoSee = related.length > 0 ? related : fallback;
-
   return (
     <>
-      {/* Hero -------------------------------------------------------------- */}
-      <section className="relative isolate flex min-h-[30rem] flex-col justify-end overflow-hidden bg-navy pt-28 md:min-h-[36rem] lg:pt-36">
-        {project.featuredImage ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={project.featuredImage.src}
-            alt={project.featuredImage.alt}
-            width={project.featuredImage.width}
-            height={project.featuredImage.height}
-            className="absolute inset-0 -z-20 size-full object-cover"
-          />
-        ) : (
-          <div className="absolute inset-0 -z-20">
-            <ImagePlaceholder
-              art={project.art as ArtKey}
-              label={project.name}
-              note="Awaiting project photography"
+      {/* ================================================================= HERO */}
+      <section className="relative isolate flex min-h-[30rem] flex-col justify-end overflow-hidden bg-ink pt-32 md:min-h-[36rem] md:pt-40">
+        <div className="absolute inset-0 -z-20">
+          {project.featuredImage ? (
+            <Image
+              src={project.featuredImage.src}
+              alt={project.featuredImage.alt}
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover object-center"
             />
-          </div>
-        )}
+          ) : (
+            <SectorArt art={project.art} className="size-full" />
+          )}
+        </div>
 
         <div
           aria-hidden="true"
-          className="absolute inset-0 -z-10 bg-gradient-to-t from-navy via-navy/80 to-navy/40"
+          className="absolute inset-0 -z-10 bg-gradient-to-t from-ink via-ink/70 to-ink/40"
         />
+        <div className="sheet-grid absolute inset-0 -z-10 opacity-50" aria-hidden="true" />
 
-        <div className="container-site relative pb-14 md:pb-20">
+        <div className="container-site relative pb-14 md:pb-18">
           <Breadcrumbs crumbs={crumbs} />
 
-          <div className="mt-8 flex flex-wrap items-center gap-3">
-            <span className="bg-white px-3 py-1.5 font-mono text-[0.5625rem] uppercase tracking-[0.18em] text-navy">
-              {market?.shortTitle ?? project.market}
-            </span>
-            {project.sample && (
-              <span className="bg-red px-3 py-1.5 font-mono text-[0.5625rem] uppercase tracking-[0.18em] text-white">
-                Sample layout
-              </span>
-            )}
-          </div>
+          <span className="title-block mt-8 text-white/70">
+            {industry?.code ?? 'Project'} · {industry?.title ?? project.industry}
+          </span>
 
-          <h1 className="mt-6 max-w-4xl text-[clamp(2.25rem,6vw,4.5rem)] text-white">
+          <h1 className="mt-5 max-w-4xl text-[clamp(2.5rem,6.4vw,4.75rem)] text-white">
             {project.name}
           </h1>
 
-          <p className="mt-5 flex items-center gap-2 font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-white/70">
-            <MapPin aria-hidden="true" className="size-3.5 text-red" />
-            {project.location}
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ash md:text-xl">
+            {project.scopeSummary}
           </p>
-        </div>
 
-        {/* Title-block strip */}
-        <div className="relative border-t border-white/15 bg-navy/80 backdrop-blur-sm">
-          <div className="container-site">
-            <dl className="grid grid-cols-2 md:grid-cols-4 md:divide-x md:divide-white/12">
-              <div className="border-b border-white/12 py-5 md:border-b-0 md:pr-6">
-                <dt className="font-mono text-[0.5625rem] uppercase tracking-[0.2em] text-white/60">
-                  Sector
-                </dt>
-                <dd className="mt-1.5 text-[0.9375rem] font-medium text-white">
-                  {market?.shortTitle ?? project.market}
-                </dd>
-              </div>
-              <div className="border-b border-l border-white/12 py-5 pl-5 md:border-b-0 md:px-6">
-                <dt className="font-mono text-[0.5625rem] uppercase tracking-[0.2em] text-white/60">
-                  Completion
-                </dt>
-                <dd className="mt-1.5 text-[0.9375rem] font-medium text-white">
-                  {project.completionDate}
-                </dd>
-              </div>
-              <div className="py-5 md:px-6">
-                <dt className="font-mono text-[0.5625rem] uppercase tracking-[0.2em] text-white/60">
-                  Services
-                </dt>
-                <dd className="mt-1.5 text-[0.9375rem] font-medium text-white">
-                  {project.serviceTypes
-                    .map((s) => getService(s)?.shortTitle ?? s)
-                    .join(' · ')}
-                </dd>
-              </div>
-              <div className="border-l border-white/12 py-5 pl-5 md:pl-6">
-                <dt className="font-mono text-[0.5625rem] uppercase tracking-[0.2em] text-white/60">
+          {/* Fact strip — renders only the facts the record actually holds. */}
+          <dl className="mt-11 grid grid-cols-1 gap-px border-t border-white/15 bg-white/10 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="bg-ink py-5 sm:px-5 sm:first:pl-0">
+              <dt className="flex items-center gap-2 font-mono text-[0.625rem] uppercase tracking-[0.18em] text-white/60">
+                <Layers aria-hidden="true" className="size-3 text-red" />
+                Market sector
+              </dt>
+              <dd className="mt-2 text-[0.9375rem] font-medium text-white">
+                {industry?.title ?? project.industry}
+              </dd>
+            </div>
+
+            {project.location && (
+              <div className="bg-ink py-5 sm:px-5">
+                <dt className="flex items-center gap-2 font-mono text-[0.625rem] uppercase tracking-[0.18em] text-white/60">
+                  <MapPin aria-hidden="true" className="size-3 text-red" />
                   Location
                 </dt>
-                <dd className="mt-1.5 text-[0.9375rem] font-medium text-white">
+                <dd className="mt-2 text-[0.9375rem] font-medium text-white">
                   {project.location}
                 </dd>
               </div>
-            </dl>
+            )}
+
+            {project.completionDate && (
+              <div className="bg-ink py-5 sm:px-5">
+                <dt className="flex items-center gap-2 font-mono text-[0.625rem] uppercase tracking-[0.18em] text-white/60">
+                  <CalendarDays aria-hidden="true" className="size-3 text-red" />
+                  Completed
+                </dt>
+                <dd className="mt-2 text-[0.9375rem] font-medium text-white">
+                  {project.completionDate}
+                </dd>
+              </div>
+            )}
+
+            <div className="bg-ink py-5 sm:px-5">
+              <dt className="font-mono text-[0.625rem] uppercase tracking-[0.18em] text-white/60">
+                Services performed
+              </dt>
+              <dd className="mt-2 text-[0.9375rem] font-medium text-white">
+                {servicesPerformed.length}
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      {/* ============================================================== OVERVIEW */}
+      <section className="section bg-white">
+        <div className="container-site">
+          <div className="grid gap-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-20">
+            <Reveal>
+              <span className="title-block text-ink/60">Project overview</span>
+
+              {isCaseStudy && project.overview ? (
+                <div className="prose-site mt-7">
+                  <p className="text-lead leading-relaxed text-ink/80">{project.overview}</p>
+                </div>
+              ) : (
+                <>
+                  <p className="mt-7 text-[clamp(1.25rem,2.4vw,1.625rem)] font-medium leading-snug tracking-tight text-ink">
+                    {project.scopeSummary}
+                  </p>
+
+                  {/* Honest state: this record documents experience, not a
+                      fully released case study. No invented specifics. */}
+                  <div className="mt-9 flex items-start gap-4 border border-line bg-mist p-6">
+                    <Info aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-red" />
+                    <div>
+                      <p className="font-mono text-[0.625rem] uppercase tracking-[0.18em] text-ink/55">
+                        Project detail
+                      </p>
+                      <p className="mt-2 text-[0.9375rem] leading-relaxed text-body">
+                        This entry documents commercial project experience from our
+                        qualifications record. Photography, durations, and named references are
+                        published once the owner or general contractor approves release in
+                        writing. For a prequalification or bid, contact us and we will provide
+                        project references directly.
+                      </p>
+                      <div className="mt-5 flex flex-wrap gap-3">
+                        <ButtonLink href="/contact" variant="dark" withArrow>
+                          Request references
+                        </ButtonLink>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {isCaseStudy && project.challenges && project.challenges.length > 0 && (
+                <div className="mt-12">
+                  <h2 className="text-h3 text-ink">Challenges</h2>
+                  <ul className="mt-5 space-y-3">
+                    {project.challenges.map((item) => (
+                      <li key={item} className="flex items-start gap-3 leading-relaxed text-body">
+                        <span aria-hidden="true" className="mt-2.5 size-1.5 shrink-0 bg-red" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {isCaseStudy && project.solution && project.solution.length > 0 && (
+                <div className="mt-12">
+                  <h2 className="text-h3 text-ink">Our approach</h2>
+                  <ul className="mt-5 space-y-3">
+                    {project.solution.map((item) => (
+                      <li key={item} className="flex items-start gap-3 leading-relaxed text-body">
+                        <span aria-hidden="true" className="mt-2.5 size-1.5 shrink-0 bg-red" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {isCaseStudy && project.results && project.results.length > 0 && (
+                <div className="mt-12">
+                  <h2 className="text-h3 text-ink">Outcome</h2>
+                  <ul className="mt-5 space-y-3">
+                    {project.results.map((item) => (
+                      <li key={item} className="flex items-start gap-3 leading-relaxed text-body">
+                        <span aria-hidden="true" className="mt-2.5 size-1.5 shrink-0 bg-red" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </Reveal>
+
+            {/* ------------------------------------------------------- SIDEBAR */}
+            <Reveal delay={0.1} from="right">
+              <div className="lg:sticky lg:top-28">
+                <div className="border border-line bg-mist p-6 md:p-7">
+                  <span className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-red">
+                    Services performed
+                  </span>
+                  <ul className="mt-5 space-y-px">
+                    {servicesPerformed.map((service) => (
+                      <li key={service.slug}>
+                        <Link
+                          href={`/services/${service.slug}`}
+                          className="group flex items-center justify-between gap-3 border-b border-line py-3.5 transition-colors last:border-0 hover:text-red"
+                        >
+                          <span>
+                            <span className="block text-[0.875rem] font-semibold text-ink transition-colors group-hover:text-red">
+                              {service.title}
+                            </span>
+                            <span className="mt-0.5 block font-mono text-[0.5625rem] uppercase tracking-[0.14em] text-ink/45">
+                              {service.csi}
+                            </span>
+                          </span>
+                          <ArrowUpRight
+                            aria-hidden="true"
+                            className="size-4 shrink-0 text-red transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                          />
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {project.facts && project.facts.length > 0 && (
+                  <div className="mt-6 border border-line bg-white p-6 md:p-7">
+                    <span className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-red">
+                      Project facts
+                    </span>
+                    <dl className="mt-5 divide-y divide-line">
+                      {project.facts.map((fact) => (
+                        <div
+                          key={fact.label}
+                          className="flex items-baseline justify-between gap-4 py-3 first:pt-0 last:pb-0"
+                        >
+                          <dt className="font-mono text-[0.625rem] uppercase tracking-[0.14em] text-ink/50">
+                            {fact.label}
+                          </dt>
+                          <dd className="text-right text-[0.875rem] font-semibold text-ink">
+                            {fact.value}
+                          </dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </div>
+                )}
+
+                {industry && (
+                  <Link
+                    href={`/industries/${industry.slug}`}
+                    className="group mt-6 flex items-center justify-between gap-3 border border-line bg-white p-6 transition-colors hover:border-ink"
+                  >
+                    <span>
+                      <span className="block font-mono text-[0.625rem] uppercase tracking-[0.18em] text-ink/50">
+                        Market sector
+                      </span>
+                      <span className="mt-1.5 block font-display text-[1.0625rem] font-bold tracking-tight text-ink transition-colors group-hover:text-red">
+                        {industry.title}
+                      </span>
+                    </span>
+                    <ArrowUpRight
+                      aria-hidden="true"
+                      className="size-4 shrink-0 text-red transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                    />
+                  </Link>
+                )}
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>
 
-      {/* Sample notice ----------------------------------------------------- */}
-      {project.sample && (
-        <section className="border-b border-line bg-mist">
-          <div className="container-site py-8">
-            <div className="flex flex-col gap-4 border-l-4 border-red bg-white p-6 sm:flex-row sm:items-start sm:gap-5">
-              <AlertTriangle aria-hidden="true" className="size-5 shrink-0 text-red" />
-              <p className="max-w-3xl text-[0.9375rem] leading-relaxed text-body">
-                <strong className="font-semibold text-navy">This is a sample layout.</strong> It
-                is an illustrative scope profile used to preview the project page design. It does
-                not represent a completed Childress Painting project, and no client, contract
-                value, date, or outcome shown here is a factual claim. This page is excluded from
-                search engines until it carries verified content.
-              </p>
-            </div>
+      {/* =============================================================== GALLERY */}
+      {gallery.length > 0 && (
+        <section className="section bg-mist">
+          <div className="container-site">
+            <SectionHeading label="Project gallery" title="On site." as="h2" />
+
+            <RevealGroup className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" stagger={0.05}>
+              {gallery.map((image) => (
+                <RevealItem key={image.src} className="group">
+                  <figure>
+                    <div className="sheen relative overflow-hidden">
+                      <MediaFrame
+                        image={image}
+                        art={project.art}
+                        label={project.name}
+                        ratio="landscape"
+                        overlay={false}
+                      />
+                    </div>
+                    {image.caption && (
+                      <figcaption className="mt-3 font-mono text-[0.625rem] uppercase tracking-[0.14em] text-ink/55">
+                        {image.caption}
+                      </figcaption>
+                    )}
+                  </figure>
+                </RevealItem>
+              ))}
+            </RevealGroup>
           </div>
         </section>
       )}
 
-      {/* Scope + facts ------------------------------------------------------ */}
-      <section className="bg-white py-20 md:py-24">
-        <div className="container-site">
-          <div className="grid gap-14 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:gap-20">
-            <Reveal>
-              <span className="title-block text-navy/60">Scope</span>
-              <p className="mt-6 text-[clamp(1.25rem,2.4vw,1.625rem)] leading-snug text-navy">
-                {project.scopeSummary}
-              </p>
-            </Reveal>
-
-            {project.facts.length > 0 && (
-              <Reveal delay={0.08}>
-                <dl className="border-t-4 border-red bg-mist p-7">
-                  {project.facts.map((fact) => (
-                    <div key={fact.label} className="border-b border-line py-4 last:border-b-0">
-                      <dt className="font-mono text-[0.5625rem] uppercase tracking-[0.2em] text-navy/60">
-                        {fact.label}
-                      </dt>
-                      <dd className="mt-1.5 text-[0.9375rem] font-medium text-navy">
-                        {fact.value}
-                      </dd>
-                    </div>
-                  ))}
-                </dl>
-              </Reveal>
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* Challenges / Solution / Results ------------------------------------ */}
-      <section className="bg-navy py-20 md:py-24 lg:py-28">
-        <div className="container-site">
-          <SectionHeading
-            layout="split"
-            light
-            label="Challenge · Solution · Result"
-            title="What made it hard, and what we did about it."
-            intro={
-              <p>
-                Every project has one constraint that decides how it runs. Naming it early is the
-                difference between a plan and a hope.
-              </p>
-            }
-          />
-
-          <div className="mt-14 grid gap-px bg-white/12 lg:grid-cols-3">
-            {[
-              { label: 'Challenges', items: project.challenges },
-              { label: 'Our approach', items: project.solution },
-              { label: 'Results', items: project.results },
-            ].map((column) => (
-              <Reveal key={column.label} className="bg-navy p-7 lg:p-9">
-                <h3 className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-red">
-                  {column.label}
-                </h3>
-                <ul className="mt-7 space-y-5">
-                  {column.items.map((item, i) => (
-                    <li key={i} className="border-t border-white/12 pt-5">
-                      <p className="text-[0.9375rem] leading-relaxed text-steel-light">{item}</p>
-                    </li>
-                  ))}
-                </ul>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Gallery ------------------------------------------------------------ */}
-      <section className="bg-white py-20 md:py-24">
-        <div className="container-site">
-          <SectionHeading
-            layout="split"
-            label="Gallery"
-            title="Project photography."
-            intro={
-              <p>
-                {project.gallery.length > 0
-                  ? 'Selected images from the work.'
-                  : 'No photography has been supplied for this record yet. Add images to the `gallery` array in lib/projects.ts — each needs a src, descriptive alt text, and explicit width and height so the grid does not shift while they load.'}
-              </p>
-            }
-          />
-
-          <RevealGroup className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {project.gallery.length > 0
-              ? project.gallery.map((image) => (
-                  <RevealItem key={image.src}>
-                    <figure>
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={image.src}
-                        alt={image.alt}
-                        width={image.width}
-                        height={image.height}
-                        loading="lazy"
-                        className="w-full object-cover"
-                      />
-                      {image.caption && (
-                        <figcaption className="mt-3 font-mono text-[0.625rem] uppercase tracking-[0.14em] text-body">
-                          {image.caption}
-                        </figcaption>
-                      )}
-                    </figure>
-                  </RevealItem>
-                ))
-              : /* Three empty frames so the grid reads as intentional. */
-                [0, 1, 2].map((i) => (
-                  <RevealItem key={i} className="aspect-4/3">
-                    <ImagePlaceholder
-                      art={project.art as ArtKey}
-                      label={`${project.name} gallery slot ${i + 1}`}
-                      note={`Gallery ${i + 1}`}
-                    />
-                  </RevealItem>
-                ))}
-          </RevealGroup>
-        </div>
-      </section>
-
-      {/* Related ------------------------------------------------------------ */}
-      <section className="border-t border-line bg-mist py-16 md:py-20">
-        <div className="container-site">
-          <SectionHeading
-            as="h2"
-            layout="split"
-            label="More work"
-            title="Related scope profiles."
-            action={<TextLink href="/projects">All projects</TextLink>}
-          />
-
-          <RevealGroup className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-            {alsoSee.map((item) => (
-              <RevealItem key={item.slug}>
-                <ProjectCard project={item} />
-              </RevealItem>
-            ))}
-          </RevealGroup>
-
-          {market && (
+      {/* ================================================================= VIDEO */}
+      {project.video && (
+        <section className="section bg-ink">
+          <div className="container-site">
+            <SectionHeading label="Project video" title="Walkthrough." as="h2" light />
             <Reveal className="mt-12">
-              <Link
-                href={`/markets/${market.slug}`}
-                className="group inline-flex items-center gap-3 border border-line bg-white px-6 py-4 transition-colors hover:border-navy"
+              <video
+                controls
+                playsInline
+                preload="metadata"
+                poster={project.video.poster}
+                className="w-full border border-white/15"
               >
-                <span className="font-mono text-[0.625rem] uppercase tracking-[0.16em] text-navy">
-                  How we plan {market.shortTitle.toLowerCase()} work
-                </span>
-                <ArrowRight
-                  aria-hidden="true"
-                  className="size-4 text-red transition-transform group-hover:translate-x-1"
-                />
-              </Link>
+                <source src={project.video.src} type="video/mp4" />
+                Your browser does not support embedded video.
+              </video>
+              {project.video.caption && (
+                <p className="mt-3 font-mono text-[0.625rem] uppercase tracking-[0.14em] text-white/55">
+                  {project.video.caption}
+                </p>
+              )}
             </Reveal>
-          )}
-        </div>
-      </section>
+          </div>
+        </section>
+      )}
+
+      {/* =============================================================== RELATED */}
+      {related.length > 0 && (
+        <section className="section bg-white">
+          <div className="container-site">
+            <SectionHeading
+              label="Related work"
+              title={
+                industry ? `More ${industry.shortTitle.toLowerCase()} projects.` : 'More projects.'
+              }
+              as="h2"
+            />
+
+            <RevealGroup className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" stagger={0.06}>
+              {related.map((item) => (
+                <RevealItem key={item.slug}>
+                  <ProjectCard project={item} />
+                </RevealItem>
+              ))}
+            </RevealGroup>
+          </div>
+        </section>
+      )}
 
       <CtaBanner
-        label="Similar project?"
-        title="Send us the drawings."
-        body="If your project looks like this one, we can tell you quickly whether we are the right fit and what the paint scope actually involves."
+        label="Bid invitations"
+        title="Bidding similar work?"
+        body={`Send the plans and the specification sections. We confirm receipt, tell you whether we are bidding, and state our assumptions and exclusions in writing. Call ${company.phone}.`}
       />
 
       <JsonLd data={breadcrumbSchema(crumbs)} />

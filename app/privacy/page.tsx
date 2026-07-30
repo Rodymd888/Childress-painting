@@ -36,7 +36,7 @@ export default function PrivacyPage() {
             <div className="flex flex-col gap-4 border-l-4 border-red bg-mist p-6 sm:flex-row sm:items-start sm:gap-5">
               <AlertTriangle aria-hidden="true" className="size-5 shrink-0 text-red" />
               <div>
-                <h2 className="text-lg text-navy">Draft — requires legal review</h2>
+                <h2 className="text-lg text-ink">Draft — requires legal review</h2>
                 <p className="mt-2 max-w-3xl text-[0.9375rem] leading-relaxed text-body">
                   This notice is a starting point written to match how the website currently
                   works. It has not been reviewed by an attorney and does not yet reflect the
@@ -51,7 +51,7 @@ export default function PrivacyPage() {
 
           <div className="prose-site max-w-3xl">
             <p className="text-[1.0625rem]">
-              <strong className="font-semibold text-navy">Last updated:</strong> to be set on
+              <strong className="font-semibold text-ink">Last updated:</strong> to be set on
               publication.
             </p>
 

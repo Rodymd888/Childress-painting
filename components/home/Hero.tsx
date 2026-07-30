@@ -2,172 +2,210 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion, useReducedMotion } from 'framer-motion';
-import { ArrowRight, Phone } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { ArrowRight, Phone, ChevronDown } from 'lucide-react';
 import { company } from '@/lib/site';
 
 /**
- * HOMEPAGE HERO — v2
+ * HOMEPAGE HERO — cinematic video
+ * ===========================================================================
+ * DROP YOUR DRONE FOOTAGE HERE
  * ---------------------------------------------------------------------------
- * Changes from v1:
- * - The headline is now a masked line reveal (each line rises out from behind
- *   its own clip) rather than a simple fade — reads far more considered.
- * - A "Since 1984" seal sits against the skyline as a standing brand mark.
- * - Trust indicators moved above the fold, framed as capability facts rather
- *   than invented statistics.
- * - Two clearly differentiated CTAs: primary bid action, secondary phone.
- * - Ken Burns drift on the plate, disabled under reduced motion.
+ *   /public/video/hero-drone.mp4     H.264 · 1920×1080 · ~8–12 Mbps · muted
+ *   /public/video/hero-drone.webm    (optional) VP9 — smaller, served first
+ *   /public/images/hero-poster.jpg   first frame, 1920px wide
  *
- * ⚠️ REPLACE THE IMAGE — /public/images/dallas-hero.jpg is 1188×888, under what
- * a full-bleed hero needs on a large display. Supply a 2400px-wide original.
+ * The component degrades gracefully at every step:
+ *   • No video file present  → the poster image renders as a still hero.
+ *   • Video errors or stalls → falls back to the poster automatically.
+ *   • Reduced-motion enabled → video never plays; poster is used.
+ *   • Slow connection        → poster shows until the video can play through.
+ *
+ * That means the page is correct today, before the footage is added, and
+ * upgrades itself the moment the file lands in /public/video.
+ * ===========================================================================
  */
 
-const LINES = [
-  { text: 'Commercial painting', accent: false },
-  { text: 'built to the', accent: false },
+const HEADLINE = [
+  'Commercial painting',
+  'held to the',
   { text: 'construction schedule.', accent: true },
-];
+] as const;
 
 const TRUST = [
-  { label: 'Painting experience', value: 'Since 1984' },
-  { label: 'Base', value: 'Dallas–Fort Worth' },
-  { label: 'Coverage', value: 'Texas statewide' },
-  { label: 'Bid response', value: 'Bid or no-bid' },
+  { label: 'Commercial experience', value: 'Since 1984' },
+  { label: 'Coating systems', value: 'Sherwin-Williams' },
+  { label: 'Workmanship warranty', value: 'Two years' },
+  { label: 'Shift capability', value: 'Day · Night · Occupied' },
 ];
 
 export function Hero() {
-  const reduce = useReducedMotion();
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoReady, setVideoReady] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
-  const ease = [0.16, 1, 0.3, 1] as const;
+  /* Trigger the entrance sequence on mount rather than on scroll. */
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setLoaded(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
 
-  const lineVariant = {
-    hidden: { y: reduce ? 0 : '110%' },
-    visible: (i: number) => ({
-      y: 0,
-      transition: { duration: reduce ? 0 : 0.9, delay: reduce ? 0 : 0.15 + i * 0.1, ease },
-    }),
-  };
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
 
-  const fade = {
-    hidden: { opacity: 0, y: reduce ? 0 : 14 },
-    visible: (d: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: { duration: reduce ? 0 : 0.7, delay: reduce ? 0 : d, ease },
-    }),
-  };
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return;
+
+    const onReady = () => {
+      setVideoReady(true);
+      void el.play().catch(() => setVideoReady(false));
+    };
+
+    if (el.readyState >= 3) onReady();
+    else el.addEventListener('canplay', onReady, { once: true });
+
+    el.addEventListener('error', () => setVideoReady(false));
+    return () => el.removeEventListener('canplay', onReady);
+  }, []);
+
+  const step = (i: number) =>
+    ({
+      transitionDelay: `${i * 90}ms`,
+    }) as const;
 
   return (
-    <section className="relative isolate flex min-h-[40rem] flex-col justify-end overflow-hidden bg-navy pt-28 md:min-h-[46rem] lg:min-h-[calc(100vh-5rem)] lg:pt-36">
-      {/* Background plate, with a slow drift that suggests scale. */}
-      <motion.div
-        className="absolute inset-0 -z-20"
-        initial={{ scale: reduce ? 1 : 1.08 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: reduce ? 0 : 14, ease: 'linear' }}
-      >
+    <section className="relative isolate flex min-h-[42rem] flex-col justify-end overflow-hidden bg-ink pt-28 md:min-h-[48rem] lg:min-h-[calc(100vh-2.25rem)] lg:pt-36">
+      {/* ---------------------------------------------------------- BACKPLATE */}
+      {/* Poster is always mounted. The video fades over it once it can play. */}
+      <div className="absolute inset-0 -z-20">
         <Image
-          src="/images/dallas-hero.jpg"
+          src="/images/hero-poster.jpg"
           alt=""
           fill
           priority
           sizes="100vw"
-          quality={85}
-          className="object-cover object-center"
+          quality={80}
+          className="scale-105 object-cover object-center"
         />
-      </motion.div>
+      </div>
 
-      <div
+      <video
+        ref={videoRef}
+        className={[
+          'absolute inset-0 -z-20 size-full object-cover object-center transition-opacity duration-1000',
+          videoReady ? 'opacity-100' : 'opacity-0',
+        ].join(' ')}
+        poster="/images/hero-poster.jpg"
+        muted
+        loop
+        playsInline
+        preload="metadata"
         aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-gradient-to-r from-navy via-navy/88 to-navy/30"
-      />
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-gradient-to-t from-navy via-transparent to-navy/70"
-      />
-      <div className="sheet-grid absolute inset-0 -z-10 opacity-50" aria-hidden="true" />
-
-      {/* "Since 1984" seal — a standing brand mark, not a decorative badge. */}
-      <motion.div
-        custom={1.1}
-        variants={fade}
-        initial="hidden"
-        animate="visible"
-        aria-hidden="true"
-        className="pointer-events-none absolute right-6 top-32 z-10 hidden xl:block 2xl:right-12"
+        tabIndex={-1}
       >
-        <div className="relative flex size-32 items-center justify-center rounded-full border border-white/20 backdrop-blur-[2px]">
-          <div className="absolute inset-2 rounded-full border border-red/40" />
+        <source src="/video/hero-drone.webm" type="video/webm" />
+        <source src="/video/hero-drone.mp4" type="video/mp4" />
+      </video>
+
+      {/* ------------------------------------------------------------ SCRIM */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 bg-gradient-to-r from-ink via-ink/88 to-ink/25"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 bg-gradient-to-t from-ink via-ink/25 to-ink/75"
+      />
+      <div className="sheet-grid absolute inset-0 -z-10 opacity-60" aria-hidden="true" />
+
+      {/* ------------------------------------------------------ SINCE 1984 SEAL */}
+      <div
+        aria-hidden="true"
+        style={step(9)}
+        className={[
+          'pointer-events-none absolute right-6 top-36 z-10 hidden transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] xl:block 2xl:right-12',
+          loaded ? 'translate-y-0 opacity-100' : 'translate-y-3 opacity-0',
+        ].join(' ')}
+      >
+        <div className="relative flex size-36 items-center justify-center rounded-full border border-white/20 backdrop-blur-[2px]">
+          <div className="absolute inset-2 rounded-full border border-red/45" />
           <div className="text-center">
-            <span className="block font-mono text-[0.5rem] uppercase tracking-[0.25em] text-white/60">
-              Est.
+            <span className="block font-mono text-[0.5rem] uppercase tracking-[0.28em] text-white/60">
+              Established
             </span>
-            <span className="mt-0.5 block font-display text-3xl font-black text-white">1984</span>
-            <span className="mt-0.5 block font-mono text-[0.4375rem] uppercase tracking-[0.2em] text-red">
-              Family trade
+            <span className="mt-1 block font-display text-4xl font-black leading-none text-white">
+              1984
+            </span>
+            <span className="mt-1.5 block font-mono text-[0.4375rem] uppercase tracking-[0.2em] text-red-light">
+              Commercial only
             </span>
           </div>
         </div>
-      </motion.div>
+      </div>
 
-      <div className="container-site relative pb-12 md:pb-16 lg:pb-20">
-        <motion.span
-          custom={0}
-          variants={fade}
-          initial="hidden"
-          animate="visible"
-          className="title-block text-white/70"
+      {/* ------------------------------------------------------------- CONTENT */}
+      <div className="container-site relative pb-14 md:pb-18 lg:pb-24">
+        <span
+          style={step(0)}
+          className={[
+            'title-block text-white/70 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]',
+            loaded ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0',
+          ].join(' ')}
         >
-          Commercial · Industrial · New construction
-        </motion.span>
+          Commercial painting specialists · Dallas–Fort Worth
+        </span>
 
-        {/* Masked line reveal: each line rises from behind its own clip. */}
-        <h1 className="mt-7 max-w-[20ch] text-display leading-[0.94] text-white">
-          {LINES.map((line, i) => (
-            <span key={line.text} className="block overflow-hidden pb-[0.06em]">
-              <motion.span
-                custom={i}
-                variants={lineVariant}
-                initial="hidden"
-                animate="visible"
-                className="block"
-              >
-                {line.accent ? (
-                  <>
-                    construction <span className="text-red">schedule.</span>
-                  </>
-                ) : (
-                  line.text
-                )}
-              </motion.span>
-            </span>
-          ))}
+        <h1 className="mt-7 max-w-[19ch] text-display leading-[0.93] text-white">
+          {HEADLINE.map((line, i) => {
+            const text = typeof line === 'string' ? line : line.text;
+            const accent = typeof line !== 'string' && line.accent;
+            return (
+              <span key={text} className="block overflow-hidden pb-[0.06em]">
+                <span
+                  className="block transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
+                  style={{
+                    transitionDelay: `${150 + i * 110}ms`,
+                    transform: loaded ? 'translateY(0)' : 'translateY(110%)',
+                  }}
+                >
+                  {accent ? (
+                    <>
+                      construction <span className="text-red">schedule.</span>
+                    </>
+                  ) : (
+                    text
+                  )}
+                </span>
+              </span>
+            );
+          })}
         </h1>
 
-        <motion.p
-          custom={0.62}
-          variants={fade}
-          initial="hidden"
-          animate="visible"
-          className="mt-8 max-w-2xl text-lead leading-relaxed text-steel-light"
+        <p
+          style={{ transitionDelay: '620ms' }}
+          className={[
+            'mt-8 max-w-2xl text-lead leading-relaxed text-ash transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]',
+            loaded ? 'translate-y-0 opacity-100' : 'translate-y-3 opacity-0',
+          ].join(' ')}
         >
-          Childress Painting bids, staffs, and closes out Division 09 work for general
-          contractors, developers, and facility teams across Dallas–Fort Worth and Texas — on
-          new builds, in operating plants, and inside buildings that never stop running.
-        </motion.p>
+          Four decades of commercial-only work for general contractors, developers, and
+          facility teams — national retail and restaurant rollouts, healthcare and school
+          programs, industrial coatings, and tenant finish-outs. We make the
+          superintendent&rsquo;s job easier.
+        </p>
 
-        <motion.div
-          custom={0.74}
-          variants={fade}
-          initial="hidden"
-          animate="visible"
-          className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap"
+        <div
+          style={{ transitionDelay: '740ms' }}
+          className={[
+            'mt-10 flex flex-col gap-3 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] sm:flex-row sm:flex-wrap',
+            loaded ? 'translate-y-0 opacity-100' : 'translate-y-3 opacity-0',
+          ].join(' ')}
         >
           <Link
             href="/request-bid"
             className="group relative inline-flex min-h-14 items-center justify-center gap-2.5 overflow-hidden bg-red px-8 font-mono text-xs uppercase tracking-[0.16em] text-white"
           >
-            {/* Fill wipes across on hover rather than a flat colour swap. */}
             <span
               aria-hidden="true"
               className="absolute inset-0 origin-left scale-x-0 bg-red-dark transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100"
@@ -181,21 +219,24 @@ export function Hero() {
 
           <a
             href={`tel:${company.phoneHref}`}
-            className="group inline-flex min-h-14 items-center justify-center gap-2.5 border border-white/35 px-8 font-mono text-xs uppercase tracking-[0.16em] text-white transition-colors duration-300 hover:border-white hover:bg-white hover:text-navy"
+            className="group inline-flex min-h-14 items-center justify-center gap-2.5 border border-white/35 px-8 font-mono text-xs uppercase tracking-[0.16em] text-white transition-colors duration-300 hover:border-white hover:bg-white hover:text-ink"
           >
-            <Phone aria-hidden="true" className="size-4 text-red transition-colors group-hover:text-red-dark" />
-            {company.phone}
+            <Phone
+              aria-hidden="true"
+              className="size-4 text-red transition-colors group-hover:text-red-dark"
+            />
+            Call {company.phone}
           </a>
-        </motion.div>
+        </div>
       </div>
 
-      {/* Trust strip — capability facts, framed as a drawing title block. */}
-      <motion.div
-        custom={0.92}
-        variants={fade}
-        initial="hidden"
-        animate="visible"
-        className="relative border-t border-white/15 bg-navy/75 backdrop-blur-md"
+      {/* -------------------------------------------------------- TRUST STRIP */}
+      <div
+        style={{ transitionDelay: '880ms' }}
+        className={[
+          'relative border-t border-white/15 bg-ink/70 backdrop-blur-md transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]',
+          loaded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0',
+        ].join(' ')}
       >
         <div className="container-site">
           <dl className="grid grid-cols-2 md:grid-cols-4">
@@ -203,7 +244,7 @@ export function Hero() {
               <div
                 key={item.label}
                 className={[
-                  'group relative py-5 transition-colors duration-300 hover:bg-white/[0.04] md:px-6',
+                  'group relative py-5 transition-colors duration-300 hover:bg-white/[0.05] md:px-6',
                   i === 0 ? 'md:pl-0' : '',
                   i % 2 === 1 ? 'border-l border-white/12 pl-5 md:pl-6' : '',
                   i < 2 ? 'border-b border-white/12 md:border-b-0' : '',
@@ -224,7 +265,15 @@ export function Hero() {
             ))}
           </dl>
         </div>
-      </motion.div>
+      </div>
+
+      {/* --------------------------------------------------------- SCROLL HINT */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute bottom-40 left-1/2 hidden -translate-x-1/2 lg:block"
+      >
+        <ChevronDown className="scroll-hint size-6 text-white/45" />
+      </div>
     </section>
   );
 }

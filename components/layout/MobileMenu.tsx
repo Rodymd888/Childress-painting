@@ -68,7 +68,7 @@ export function MobileMenu() {
           <>
             <motion.div
               key="scrim"
-              className="fixed inset-0 z-[60] bg-navy/70 backdrop-blur-sm xl:hidden"
+              className="fixed inset-0 z-[60] bg-ink/70 backdrop-blur-sm xl:hidden"
               initial={reduceMotion ? false : { opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={reduceMotion ? undefined : { opacity: 0 }}
@@ -84,7 +84,7 @@ export function MobileMenu() {
               role="dialog"
               aria-modal="true"
               aria-label="Site navigation"
-              className="fixed inset-y-0 right-0 z-[70] flex w-full max-w-sm flex-col overflow-y-auto bg-navy outline-none xl:hidden"
+              className="fixed inset-y-0 right-0 z-[70] flex w-full max-w-sm flex-col overflow-y-auto bg-ink outline-none xl:hidden"
               initial={reduceMotion ? false : { x: '100%' }}
               animate={{ x: 0 }}
               exit={reduceMotion ? undefined : { x: '100%' }}

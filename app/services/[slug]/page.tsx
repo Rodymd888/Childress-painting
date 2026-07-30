@@ -1,61 +1,64 @@
-import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Check, ArrowRight } from 'lucide-react';
+import { notFound } from 'next/navigation';
+import { ArrowUpRight, Check } from 'lucide-react';
 
 import { PageHero } from '@/components/ui/PageHero';
-import { CtaBanner } from '@/components/ui/CtaBanner';
 import { SectionHeading } from '@/components/ui/SectionHeading';
-import { Reveal, RevealGroup, RevealItem } from '@/components/ui/Reveal';
-import { JsonLd } from '@/components/ui/JsonLd';
-import { ButtonLink, TextLink } from '@/components/ui/Button';
+import { CtaBanner } from '@/components/ui/CtaBanner';
 import { ProjectCard } from '@/components/cards/ProjectCard';
+import { Reveal, RevealGroup, RevealItem } from '@/components/ui/Reveal';
+import { MediaFrame } from '@/components/ui/MediaFrame';
+import { ButtonLink } from '@/components/ui/Button';
+import { JsonLd } from '@/components/ui/JsonLd';
 
 import { services, getService, serviceSlugs } from '@/lib/services';
-import { getMarket } from '@/lib/markets';
-import { projectsByService } from '@/lib/projects';
-import { buildMetadata } from '@/lib/seo';
-import { breadcrumbSchema, serviceSchema, faqSchema } from '@/lib/schema';
+import { getIndustry } from '@/lib/industries';
+import { projects } from '@/lib/projects';
+import { breadcrumbSchema, faqSchema, serviceSchema } from '@/lib/schema';
 import { company } from '@/lib/site';
 
-/**
- * Renders /services/commercial-painting, /services/industrial-coatings,
- * /services/new-construction, and /services/maintenance-repaints.
- *
- * These are statically generated at build time from lib/services.ts —
- * `dynamicParams = false` means any other slug returns a 404 rather than
- * being rendered on demand.
- */
-export const dynamicParams = false;
+type Params = { params: Promise<{ slug: string }> };
 
 export function generateStaticParams() {
   return serviceSlugs.map((slug) => ({ slug }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
   const service = getService(slug);
   if (!service) return {};
 
-  return buildMetadata({
+  return {
     title: service.metaTitle,
     description: service.metaDescription,
-    path: `/services/${service.slug}`,
-  });
+    alternates: { canonical: `/services/${service.slug}` },
+    openGraph: {
+      title: service.metaTitle,
+      description: service.metaDescription,
+      url: `/services/${service.slug}`,
+    },
+  };
 }
 
-export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function ServicePage({ params }: Params) {
   const { slug } = await params;
   const service = getService(slug);
   if (!service) notFound();
+
+  const related = services.filter((s) => s.slug !== service.slug).slice(0, 3);
+  const relatedIndustries = service.relatedIndustries
+    .map(getIndustry)
+    .filter((i): i is NonNullable<typeof i> => Boolean(i));
+  const serviceProjects = projects
+    .filter((p) => p.serviceTypes.includes(service.slug))
+    .slice(0, 3);
 
   const crumbs = [
     { name: 'Home', href: '/' },
     { name: 'Services', href: '/services' },
     { name: service.shortTitle, href: `/services/${service.slug}` },
   ];
-
-  const related = projectsByService(service.slug).slice(0, 3);
-  const otherServices = services.filter((s) => s.slug !== service.slug);
 
   return (
     <>
@@ -64,64 +67,77 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         title={service.title}
         intro={service.summary}
         crumbs={crumbs}
+        meta={[
+          { label: 'Scope', value: service.kicker },
+          { label: 'Coating systems', value: company.coatingSystems },
+          { label: 'Scheduling', value: company.scheduling },
+          { label: 'Warranty', value: company.warranty },
+        ]}
       >
         <ButtonLink href="/request-bid" variant="primary" size="lg" withArrow>
           Request a bid
         </ButtonLink>
-        <ButtonLink href="/contact" variant="outlineLight" size="lg">
-          Talk to estimating
+        <ButtonLink href="/services" variant="outlineLight" size="lg">
+          All services
         </ButtonLink>
       </PageHero>
 
-      {/* Intro + scope list ------------------------------------------------ */}
-      <section className="bg-white py-20 md:py-24 lg:py-28">
+      {/* ================================================================= INTRO */}
+      <section className="section bg-white">
         <div className="container-site">
-          <div className="grid gap-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-20">
-            <div>
-              <Reveal>
-                <span className="title-block text-navy/60">Overview</span>
-                <p className="mt-6 text-[clamp(1.25rem,2.4vw,1.625rem)] leading-snug text-navy">
-                  {service.intro}
-                </p>
-              </Reveal>
+          <div className="grid gap-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-20">
+            <Reveal>
+              <span className="title-block text-ink/60">Overview</span>
+              <p className="mt-7 text-[clamp(1.25rem,2.4vw,1.75rem)] font-medium leading-snug tracking-tight text-ink">
+                {service.intro}
+              </p>
 
-              <div className="prose-site mt-12">
-                {service.sections.map((section, i) => (
-                  <Reveal key={section.heading} delay={i * 0.04}>
-                    <h2>{section.heading}</h2>
-                    <p>{section.body}</p>
-                  </Reveal>
+              <div className="mt-12 space-y-10">
+                {service.sections.map((section) => (
+                  <div key={section.heading}>
+                    <h2 className="text-h3 text-ink">{section.heading}</h2>
+                    <p className="mt-4 leading-relaxed text-body">{section.body}</p>
+                  </div>
                 ))}
               </div>
-            </div>
+            </Reveal>
 
-            {/* Scope card — sticky on desktop so it follows the reader. */}
-            <Reveal className="lg:sticky lg:top-32 lg:self-start">
-              <div className="border-t-4 border-red bg-mist p-7 lg:p-8">
-                <h2 className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-navy/60">
-                  Scope of work
-                </h2>
-                <ul className="mt-6 space-y-0">
-                  {service.scope.map((item) => (
-                    <li
-                      key={item}
-                      className="flex items-start gap-3 border-b border-line py-3.5 text-[0.9375rem] leading-snug text-navy last:border-b-0"
-                    >
-                      <Check aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-red" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
+            <Reveal delay={0.1} from="right">
+              <div className="lg:sticky lg:top-28">
+                <MediaFrame
+                  image={
+                    service.image
+                      ? {
+                          src: service.image,
+                          alt: `${service.title} work in progress`,
+                          width: 1200,
+                          height: 1500,
+                        }
+                      : undefined
+                  }
+                  art={service.art}
+                  label={service.title}
+                  ratio="tall"
+                  overlay={false}
+                  sizes="(min-width: 1024px) 34vw, 100vw"
+                />
 
-                <p className="mt-7 text-[0.8125rem] leading-relaxed text-body">
-                  Not sure which items apply to your project? Send the drawings and we will tell
-                  you what is in the paint scope and what is not.
-                </p>
-
-                <div className="mt-6">
-                  <ButtonLink href="/request-bid" variant="dark" withArrow>
-                    Request a bid
-                  </ButtonLink>
+                <div className="mt-8 border border-line bg-mist p-6 md:p-7">
+                  <span className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-red">
+                    Systems &amp; substrates
+                  </span>
+                  <dl className="mt-5 divide-y divide-line">
+                    {service.systems.map((system) => (
+                      <div key={system.label} className="py-3.5 first:pt-0 last:pb-0">
+                        <dt className="text-[0.8125rem] font-semibold text-ink">
+                          {system.label}
+                        </dt>
+                        <dd className="mt-1 text-[0.8125rem] leading-snug text-body">
+                          {system.detail}
+                        </dd>
+                      </div>
+                    ))}
+                  </dl>
                 </div>
               </div>
             </Reveal>
@@ -129,40 +145,63 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         </div>
       </section>
 
-      {/* Interior / exterior sub-scopes ------------------------------------- */}
-      {service.subScopes && service.subScopes.length > 0 && (
-        <section className="border-t border-line bg-mist section-sm">
+      {/* ================================================================= SCOPE */}
+      <section className="relative overflow-hidden bg-ink py-20 md:py-24">
+        <div className="sheet-grid absolute inset-0 opacity-60" aria-hidden="true" />
+        <div className="container-site relative">
+          <SectionHeading
+            light
+            label="Included in a bid"
+            layout="split"
+            title="What this scope actually covers."
+            intro={
+              <p>
+                Listed so there is no ambiguity at award. Anything not on this list is either
+                excluded or priced separately, and the proposal says which.
+              </p>
+            }
+          />
+
+          <RevealGroup
+            className="mt-12 grid gap-px border border-white/12 bg-white/12 sm:grid-cols-2 lg:grid-cols-3"
+            stagger={0.04}
+          >
+            {service.scope.map((item) => (
+              <RevealItem
+                key={item}
+                className="flex items-start gap-3 bg-ink p-5 transition-colors duration-300 hover:bg-ink-800"
+              >
+                <Check aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-red" />
+                <span className="text-[0.875rem] leading-snug text-white">{item}</span>
+              </RevealItem>
+            ))}
+          </RevealGroup>
+        </div>
+      </section>
+
+      {/* ============================================================ INDUSTRIES */}
+      {relatedIndustries.length > 0 && (
+        <section className="section-sm bg-white">
           <div className="container-site">
             <SectionHeading
-              layout="split"
-              label="Inside this scope"
-              title="Interior and exterior, priced together."
-              intro={
-                <p>
-                  Most contractors split these into two services. For a Division 09 package they
-                  are one scope with two sets of constraints — so they are estimated, staffed, and
-                  scheduled together here.
-                </p>
-              }
+              label="Where this scope runs"
+              title="Sectors that buy this service most."
+              as="h2"
             />
 
-            <RevealGroup className="mt-12 grid gap-px bg-line md:grid-cols-2">
-              {service.subScopes.map((sub) => (
-                <RevealItem key={sub.id} className="bg-mist p-7 lg:p-9">
-                  <span id={sub.id} className="block scroll-mt-32" />
-                  <h3 className="text-h3 text-navy">{sub.title}</h3>
-                  <p className="mt-4 text-[0.9375rem] leading-relaxed text-body">{sub.body}</p>
-                  <ul className="mt-6 border-t border-line">
-                    {sub.items.map((item) => (
-                      <li
-                        key={item}
-                        className="flex items-start gap-3 border-b border-line py-3 text-[0.9375rem] leading-snug text-navy"
-                      >
-                        <Check aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-red" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
+            <RevealGroup className="mt-10 flex flex-wrap gap-3" stagger={0.04}>
+              {relatedIndustries.map((industry) => (
+                <RevealItem key={industry.slug}>
+                  <Link
+                    href={`/industries/${industry.slug}`}
+                    className="group inline-flex items-center gap-2.5 border border-line px-5 py-3 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-ink transition-colors hover:border-ink hover:bg-ink hover:text-white"
+                  >
+                    {industry.title}
+                    <ArrowUpRight
+                      aria-hidden="true"
+                      className="size-3.5 text-red transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-white"
+                    />
+                  </Link>
                 </RevealItem>
               ))}
             </RevealGroup>
@@ -170,103 +209,17 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         </section>
       )}
 
-      {/* Systems / spec table ---------------------------------------------- */}
-      <section className="bg-navy py-20 md:py-24 lg:py-28">
-        <div className="container-site">
-          <SectionHeading
-            layout="split"
-            light
-            label="Typical systems"
-            title="What gets specified, and why."
-            intro={
-              <p>
-                Indicative only — the specification governs. Where the documents leave a system
-                open, we recommend one and state it in the scope letter rather than assuming.
-              </p>
-            }
-          />
-
-          <RevealGroup as="dl" className="mt-14 grid gap-px bg-white/12">
-            {service.systems.map((system) => (
-              <RevealItem
-                key={system.label}
-                className="grid gap-2 bg-navy p-6 md:grid-cols-[minmax(0,16rem)_minmax(0,1fr)] md:gap-10 md:p-7"
-              >
-                <dt className="font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-white">
-                  {system.label}
-                </dt>
-                <dd className="text-[0.9375rem] leading-relaxed text-steel-light">
-                  {system.detail}
-                </dd>
-              </RevealItem>
-            ))}
-          </RevealGroup>
-        </div>
-      </section>
-
-      {/* Related markets ---------------------------------------------------- */}
-      <section className="bg-mist py-20 md:py-24">
-        <div className="container-site">
-          <SectionHeading
-            layout="split"
-            label="Where this applies"
-            title="Sectors where this scope comes up most."
-            action={<TextLink href="/markets">All markets</TextLink>}
-          />
-
-          <RevealGroup className="mt-12 grid gap-px bg-line md:grid-cols-3">
-            {service.relatedMarkets.map((marketSlug) => {
-              const market = getMarket(marketSlug);
-              if (!market) return null;
-              return (
-                <RevealItem key={market.slug}>
-                  <Link
-                    href={`/markets/${market.slug}`}
-                    className="group flex h-full flex-col bg-mist p-7 transition-colors hover:bg-white lg:p-8"
-                  >
-                    <span className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-navy/60">
-                      {market.code}
-                    </span>
-                    <h3 className="mt-4 text-[1.375rem] leading-tight text-navy lg:text-2xl">
-                      {market.shortTitle}
-                    </h3>
-                    <p className="mt-3 text-[0.9375rem] leading-relaxed text-body">
-                      {market.summary}
-                    </p>
-                    <span className="mt-auto flex items-center gap-2 pt-7 font-mono text-[0.625rem] uppercase tracking-[0.16em] text-navy transition-colors group-hover:text-red">
-                      View sector
-                      <ArrowRight
-                        aria-hidden="true"
-                        className="size-3.5 transition-transform group-hover:translate-x-1"
-                      />
-                    </span>
-                  </Link>
-                </RevealItem>
-              );
-            })}
-          </RevealGroup>
-        </div>
-      </section>
-
-      {/* Related projects ---------------------------------------------------- */}
-      {related.length > 0 && (
-        <section className="bg-white py-20 md:py-24">
+      {/* ============================================================== PROJECTS */}
+      {serviceProjects.length > 0 && (
+        <section className="section bg-mist">
           <div className="container-site">
             <SectionHeading
-              layout="split"
-              label="Related work"
-              title="Scope profiles using this service."
-              intro={
-                <p>
-                  Sample layouts pending verified project data and photography — see the note on
-                  each card.
-                </p>
-              }
-              action={<TextLink href="/projects">All projects</TextLink>}
+              label="Selected experience"
+              title={`Where we have performed ${service.shortTitle.toLowerCase()}.`}
             />
 
-            <RevealGroup className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-              {related.map((project) => (
+            <RevealGroup className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" stagger={0.06}>
+              {serviceProjects.map((project) => (
                 <RevealItem key={project.slug}>
                   <ProjectCard project={project} />
                 </RevealItem>
@@ -276,55 +229,54 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         </section>
       )}
 
-      {/* FAQ ----------------------------------------------------------------- */}
-      <section className="bg-mist py-20 md:py-24 lg:py-28">
+      {/* ================================================================== FAQS */}
+      <section className="section bg-white">
         <div className="container-site">
           <div className="grid gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-20">
             <Reveal>
-              <span className="title-block text-navy/60">Common questions</span>
-              <h2 className="mt-5 text-[clamp(1.75rem,3.6vw,2.75rem)] text-navy">
-                What buyers ask before they invite us to bid.
-              </h2>
-              <p className="mt-5 text-[1.0625rem] leading-relaxed text-body">
-                If your question is not here, call {company.phone} or send it through the contact
-                form — a real estimator answers.
-              </p>
+              <span className="title-block text-ink/60">Common questions</span>
+              <h2 className="mt-6 text-h2 text-ink">Before you bid it out.</h2>
             </Reveal>
 
-            <RevealGroup as="dl" className="border-t border-line">
-              {service.faqs.map((faq) => (
-                <RevealItem key={faq.question} className="border-b border-line py-7">
-                  <dt className="text-xl text-navy lg:text-[1.375rem]">{faq.question}</dt>
-                  <dd className="mt-3 text-[0.9375rem] leading-relaxed text-body">{faq.answer}</dd>
-                </RevealItem>
-              ))}
-            </RevealGroup>
+            <Reveal delay={0.08}>
+              <dl className="divide-y divide-line border-y border-line">
+                {service.faqs.map((faq) => (
+                  <div key={faq.question} className="py-7 first:pt-0 last:pb-0">
+                    <dt className="text-h4 text-ink">{faq.question}</dt>
+                    <dd className="mt-3 leading-relaxed text-body">{faq.answer}</dd>
+                  </div>
+                ))}
+              </dl>
+            </Reveal>
           </div>
         </div>
       </section>
 
-      {/* Other services ------------------------------------------------------ */}
-      <section className="border-t border-line bg-white py-16 md:py-20">
+      {/* ============================================================ RELATED SVC */}
+      <section className="section-sm bg-mist">
         <div className="container-site">
-          <h2 className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-navy/60">
-            Other services
-          </h2>
-          <RevealGroup as="ul" className="mt-8 grid gap-px bg-line md:grid-cols-3">
-            {otherServices.map((other) => (
-              <RevealItem as="li" key={other.slug}>
+          <SectionHeading label="Related scopes" title="Often bid together." as="h2" />
+
+          <RevealGroup className="mt-10 grid gap-px bg-line md:grid-cols-3" stagger={0.05}>
+            {related.map((item) => (
+              <RevealItem key={item.slug}>
                 <Link
-                  href={`/services/${other.slug}`}
-                  className="group flex h-full flex-col bg-white p-6 transition-colors hover:bg-mist lg:p-7"
+                  href={`/services/${item.slug}`}
+                  className="group sweep relative flex h-full flex-col bg-white p-7 transition-colors hover:bg-mist"
                 >
-                  <span className="font-mono text-[0.5625rem] uppercase tracking-[0.2em] text-navy/60">
-                    {other.csi}
+                  <span className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-red">
+                    {item.csi}
                   </span>
-                  <span className="mt-3 font-display text-xl font-extrabold uppercase tracking-tight text-navy transition-colors group-hover:text-red">
-                    {other.shortTitle}
-                  </span>
-                  <span className="mt-2 text-[0.875rem] leading-relaxed text-body">
-                    {other.kicker}
-                  </span>
+                  <h3 className="mt-3 text-h4 text-ink transition-colors group-hover:text-red">
+                    {item.title}
+                  </h3>
+                  <p className="mt-3 flex-1 text-[0.9375rem] leading-relaxed text-body">
+                    {item.summary}
+                  </p>
+                  <ArrowUpRight
+                    aria-hidden="true"
+                    className="mt-6 size-4 text-red transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                  />
                 </Link>
               </RevealItem>
             ))}
@@ -332,11 +284,12 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         </div>
       </section>
 
-      <CtaBanner />
-
-      <JsonLd
-        data={[breadcrumbSchema(crumbs), serviceSchema(service), faqSchema(service.faqs)]}
+      <CtaBanner
+        label="Bid invitations"
+        title={`Add ${service.shortTitle.toLowerCase()} to your next bid list.`}
       />
+
+      <JsonLd data={[breadcrumbSchema(crumbs), serviceSchema(service), faqSchema(service.faqs)]} />
     </>
   );
 }

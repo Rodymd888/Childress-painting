@@ -1,28 +1,39 @@
 /**
- * PROJECT SYSTEM
+ * PROJECT PORTFOLIO
  * ===========================================================================
- * ⚠️  READ BEFORE EDITING
+ * SCALABLE ARCHITECTURE — designed to hold hundreds of case studies.
  *
- * Every record below is a SAMPLE. These are illustrative scope profiles used
- * to preview the layout — they are NOT verified Childress Painting projects,
- * and every one carries `sample: true`. The UI reads that flag and renders a
- * visible "Sample layout" notice on the card and on the detail page.
+ * HOW IT WORKS
+ * ---------------------------------------------------------------------------
+ * Each record below is a project. The index page groups them by `industry`,
+ * the detail template renders whichever fields are populated, and everything
+ * else (nav, sitemap, related projects, filters) derives automatically.
  *
- * TO PUBLISH A REAL PROJECT
- * -------------------------------------------------------------------------
- * 1. Confirm the owner or general contractor permits the project to be shown,
- *    named, and photographed. Get it in writing.
- * 2. Replace the record's content with verified information.
- * 3. Set `sample: false`. The notice disappears automatically.
- * 4. Drop photographs in /public/images/projects/<slug>/ and point
- *    `featuredImage` and `gallery` at them. Include width and height so the
- *    layout does not shift while images load.
- * 5. Do NOT add contract values, client names, awards, or safety statistics
- *    that have not been confirmed by the company.
+ * HONESTY MODEL
+ * ---------------------------------------------------------------------------
+ * `detail` controls how much a project page claims:
  *
- * When no `featuredImage` is supplied the card renders a labeled placeholder
- * block instead of a broken image, so the site stays presentable until real
- * photography is available.
+ *   'experience'  — the client relationship and scope category are confirmed
+ *                   from the qualifications document, but project specifics
+ *                   (location, dates, square footage) are NOT yet verified.
+ *                   The template renders a clean capability page and does not
+ *                   invent facts. This is the default for everything today.
+ *
+ *   'case-study'  — fully verified. Requires `overview`, `location`,
+ *                   `completionDate`, and at least one gallery image. The
+ *                   template renders the full case study layout.
+ *
+ * TO PUBLISH A FULL CASE STUDY
+ * ---------------------------------------------------------------------------
+ * 1. Confirm in writing that the owner or GC permits the project to be named
+ *    and photographed.
+ * 2. Fill in `location`, `completionDate`, `completionISO`, `overview`,
+ *    `challenges`, `solution`, and `results`.
+ * 3. Drop photography in /public/images/projects/<slug>/ and populate
+ *    `featuredImage` and `gallery` with width and height on every entry.
+ * 4. Change `detail` to 'case-study'.
+ * 5. Do NOT add contract values, square footage, or statistics that have not
+ *    been confirmed by the company.
  * ===========================================================================
  */
 
@@ -36,267 +47,481 @@ export type ProjectImage = {
   caption?: string;
 };
 
+export type ProjectVideo = {
+  src: string;
+  poster?: string;
+  caption?: string;
+};
+
 export type Project = {
   slug: string;
-  /** Project name. */
+  /** Project or client name. */
   name: string;
-  /** City, state. */
-  location: string;
-  /** Must match a slug in lib/markets.ts */
-  market: string;
+  /** Must match a slug in lib/industries.ts */
+  industry: string;
   /** Must match slugs in lib/services.ts */
   serviceTypes: string[];
-  /** One or two sentences describing the painting scope. */
+  /** One or two sentences describing the painting scope category. */
   scopeSummary: string;
-  /** Human-readable completion, e.g. 'March 2024'. Use 'In progress' if live. */
-  completionDate: string;
-  /** ISO date used for sorting and structured data. */
-  completionISO: string;
-  /** Optional descriptive facts. Leave empty rather than estimating. */
-  facts: { label: string; value: string }[];
-  challenges: string[];
-  solution: string[];
-  results: string[];
+  /** How much this page is allowed to claim. See header. */
+  detail: 'experience' | 'case-study';
+
+  /* --- Case-study fields. Populate only when verified. ------------------- */
+  location?: string;
+  completionDate?: string;
+  completionISO?: string;
+  overview?: string;
+  facts?: { label: string; value: string }[];
+  challenges?: string[];
+  solution?: string[];
+  results?: string[];
   featuredImage?: ProjectImage;
-  gallery: ProjectImage[];
-  /** Key into components/ui/SectorArt.tsx — drawn artwork used until a real
-      photograph is supplied via `featuredImage`. */
+  gallery?: ProjectImage[];
+  video?: ProjectVideo;
+
+  /** Key into components/ui/SectorArt.tsx — drawn artwork used until real
+      photography is supplied via `featuredImage`. */
   art: string;
-  /** Legacy gradient, retained as the final fallback. */
-  gradient: string;
-  /** true = illustrative sample, renders a visible notice. */
-  sample: boolean;
-  /** Show on the homepage "featured projects" row. */
+  /** Promote to the homepage featured row. */
   featured?: boolean;
 };
 
 export const projects: Project[] = [
+  /* ---------------------------------------------------------------- RETAIL */
   {
-    slug: 'medical-office-building-interior-finishes',
-    art: 'healthcare',
-    name: 'Medical Office Building — Interior Finishes',
-    location: 'Fort Worth, TX',
-    market: 'healthcare',
-    serviceTypes: ['commercial-painting', 'new-construction'],
+    slug: 'cvs-pharmacy-program',
+    name: 'CVS',
+    industry: 'retail',
+    serviceTypes: ['commercial-interior-painting', 'tenant-finish-outs', 'occupied-renovations'],
     scopeSummary:
-      'Interior painting for a multi-story medical office fit-out: walls, ceilings, hollow metal doors and frames, and scrubbable epoxy finishes in exam and procedure rooms.',
-    completionDate: 'Sample project — date pending',
-    completionISO: '2024-06-01',
-    facts: [
-      { label: 'Delivery method', value: 'Subcontract to general contractor' },
-      { label: 'Building status', value: 'Partially occupied during construction' },
-      { label: 'Primary systems', value: 'Latex enamel, epoxy, hollow metal enamel' },
-    ],
-    challenges: [
-      'Two floors remained in clinical use while the shell floors above were finished, so odor and dust migration through shared risers had to be controlled.',
-      'The finish schedule specified different sheens and coating systems for exam, procedure, and corridor spaces, with limited tolerance for substitution.',
-      'Ceiling grid and MEP rough-in released unevenly across the floor plate, so painting could not proceed in a single continuous sweep.',
-    ],
-    solution: [
-      'Sequenced the work by department zone with agreed containment at each boundary, and confirmed daily access windows in writing with the facility team.',
-      'Specified low-odor, low-VOC systems for areas adjacent to occupied clinical space during preconstruction rather than negotiating substitutions in the field.',
-      'Ran a dedicated dryfall and exposed-structure crew ahead of ceiling close-in, then followed with the wall and trim crew as areas were released.',
-      'Tracked punch by room number from the first area turned over, closing items in batches rather than accumulating them for the end of the job.',
-    ],
-    results: [
-      'Finish standard was set with an approved mockup before production, which removed disputes about acceptable coverage and cut lines.',
-      'Occupied departments continued operating throughout the fit-out with access windows held as agreed.',
-      'Punch closeout was completed area by area, with color schedules and attic stock turned over as a single package.',
-    ],
-    gallery: [],
-    gradient: 'from-[#c8d3dc] via-[#7d8f9e] to-[#243444]',
-    sample: true,
-    featured: true,
-  },
-  {
-    slug: 'distribution-center-coatings-program',
-    art: 'industrial',
-    name: 'Distribution Center — Coatings Program',
-    location: 'Dallas, TX',
-    market: 'industrial',
-    serviceTypes: ['industrial-coatings', 'maintenance-repaints'],
-    scopeSummary:
-      'Interior structural steel and deck coatings, tilt-wall exterior recoat, warehouse floor sealing, and safety striping across an operating distribution facility.',
-    completionDate: 'Sample project — date pending',
-    completionISO: '2024-03-01',
-    facts: [
-      { label: 'Facility status', value: 'Fully operational throughout' },
-      { label: 'Access', value: 'Scissor and boom lifts, aisle-by-aisle' },
-      { label: 'Primary systems', value: 'Epoxy primer, urethane topcoat, floor sealer' },
-    ],
-    challenges: [
-      'The facility ran continuous shifts, so no area could be taken out of service for more than one shift at a time.',
-      'Racking, conveyor, and inventory could not be relocated, which made overspray control the governing constraint on application method.',
-      'Existing coatings varied by age and condition across the building, so a single preparation method would not have been appropriate everywhere.',
-    ],
-    solution: [
-      'Broke the building into work cells matched to the facility’s aisle-closure plan and scheduled around shift changes and inbound trailer volume.',
-      'Designed containment for each cell and confirmed it with facility management before spraying, with brush and roll applied where containment was impractical.',
-      'Surveyed existing coating condition by area and specified preparation to match — pressure wash, power tool clean, or abrasive blast — instead of one blanket approach.',
-      'Recorded environmental conditions and dry film thickness by area so the coating record supported the manufacturer’s warranty.',
-    ],
-    results: [
-      'The facility maintained normal outbound operations for the duration of the program.',
-      'Preparation and thickness documentation was turned over as a complete coating file for future maintenance planning.',
-      'Safety striping and color-coded identification were reinstated to the facility’s current standard rather than the previous layout.',
-    ],
-    gallery: [],
-    gradient: 'from-[#b09071] via-[#6c5a4a] to-[#1f2325]',
-    sample: true,
-    featured: true,
-  },
-  {
-    slug: 'k12-campus-summer-repaint',
-    art: 'education',
-    name: 'K–12 Campus — Summer Repaint',
-    location: 'Plano, TX',
-    market: 'education',
-    serviceTypes: ['commercial-painting', 'maintenance-repaints'],
-    scopeSummary:
-      'Classroom, corridor, gymnasium, and locker room repaint across a campus, completed inside the summer break with doors, frames, and handrails included.',
-    completionDate: 'Sample project — date pending',
-    completionISO: '2023-08-01',
-    facts: [
-      { label: 'Window', value: 'Summer break — fixed return date' },
-      { label: 'Areas', value: 'Classrooms, corridors, gym, locker rooms' },
-      { label: 'Primary systems', value: 'Washable acrylic egg­shell, DTM enamel on rails' },
-    ],
-    challenges: [
-      'The completion date was fixed by the first day of class and could not move for any reason.',
-      'Summer maintenance, flooring, and mechanical work were running in the same buildings at the same time.',
-      'Corridor and gymnasium finishes needed to withstand daily contact and repeated cleaning without burnishing.',
-    ],
-    solution: [
-      'Built the production plan backward from the return date, identified the latest possible start for each building, and confirmed access with district facilities before mobilizing.',
-      'Staged material by building before the window opened so crews were not waiting on deliveries during the shortest weeks of the schedule.',
-      'Loaded multiple crews in parallel with supervision on site full time, so trade conflicts were resolved the same day.',
-      'Selected washable, touch-up-friendly finishes and left labeled attic stock with the maintenance department.',
-    ],
-    results: [
-      'All areas were punched, cleaned, and returned before staff in-service days began.',
-      'Color formulas and product data were archived with the district so future touch-ups match without sampling.',
-      'Work was coordinated with other summer trades without extending any building beyond its planned window.',
-    ],
-    gallery: [],
-    gradient: 'from-[#d3c3ab] via-[#8c7454] to-[#2b2117]',
-    sample: true,
-    featured: true,
-  },
-  {
-    slug: 'multifamily-community-exterior-renewal',
-    art: 'multifamily',
-    name: 'Multifamily Community — Exterior Renewal',
-    location: 'Arlington, TX',
-    market: 'multifamily',
-    serviceTypes: ['maintenance-repaints'],
-    scopeSummary:
-      'Phased exterior repaint across an occupied garden-style community: stucco and siding coatings, sealant replacement, railings, stairwells, and breezeways.',
-    completionDate: 'Sample project — date pending',
-    completionISO: '2024-09-01',
-    facts: [
-      { label: 'Property status', value: 'Fully occupied' },
-      { label: 'Phasing', value: 'Building by building, published schedule' },
-      { label: 'Primary systems', value: 'Elastomeric, acrylic, DTM enamel on rails' },
-    ],
-    challenges: [
-      'Residents occupied every building, with balconies, patios, and parking directly in the work area.',
-      'Sealant and substrate condition varied significantly by elevation, and the true repair scope was not visible until washing was complete.',
-      'South and west elevations showed materially more coating degradation than the rest of the property.',
-    ],
-    solution: [
-      'Completed a condition survey by elevation before pricing, so the repair scope was identified and budgeted rather than discovered as a change order.',
-      'Published a building-by-building schedule that property management distributed to residents, and held it.',
-      'Replaced failed sealant and repaired substrate ahead of the coating crew so no coating was applied over a defect.',
-      'Secured equipment and cleared walkways, stairs, and parking at the end of every shift.',
-    ],
-    results: [
-      'The property remained fully occupied and accessible throughout the program.',
-      'Elevations with the highest exposure were addressed first, within the owner’s budget phasing.',
-      'Color formulas, product data, and elevation photographs were archived for the next maintenance cycle.',
-    ],
-    gallery: [],
-    gradient: 'from-[#c2b4a4] via-[#7d6f63] to-[#26231f]',
-    sample: true,
-    featured: true,
-  },
-  {
-    slug: 'airport-concourse-interior-refresh',
-    art: 'aviation',
-    name: 'Airport Concourse — Interior Refresh',
-    location: 'Sample location — pending',
-    market: 'aviation',
-    serviceTypes: ['commercial-painting'],
-    scopeSummary:
-      'Overnight interior refresh of concourse public areas: walls, columns, exposed structure, and back-of-house corridors within a live passenger terminal.',
-    completionDate: 'Sample project — date pending',
-    completionISO: '2023-11-01',
-    facts: [
-      { label: 'Access', value: 'Badged crews, escorted where required' },
-      { label: 'Work window', value: 'Overnight, between departure banks' },
-      { label: 'Primary systems', value: 'Durable acrylic, dryfall on exposed structure' },
-    ],
-    challenges: [
-      'Every crew member required badging and clearance before setting foot in the secured area.',
-      'The productive window was a fraction of the shift once setup, protection, and teardown were accounted for.',
-      'The concourse had to be fully reopened, clean, and free of protection before the first morning departures.',
-    ],
-    solution: [
-      'Treated badging as a long-lead item on the mobilization schedule and kept the crew roster stable to avoid re-clearing personnel.',
-      'Priced the shift honestly — setup and teardown were built into the crew loading rather than assumed away.',
-      'Staged protection and material at the work area before the shift so productive time started immediately.',
-      'Walked the area with the operator at the end of every shift before the crew left the building.',
-    ],
-    results: [
-      'Public areas were reopened to passengers on schedule after each shift.',
-      'Finishes were selected for cleanability and touch-up so the facility team could maintain them in-house.',
-      'Work proceeded without disruption to departure operations.',
-    ],
-    gallery: [],
-    gradient: 'from-[#b7c5d1] via-[#5f7385] to-[#16232f]',
-    sample: true,
-  },
-  {
-    slug: 'shopping-center-facade-and-tenant-spaces',
+      'Pharmacy retail interiors and remodel work executed to a national prototype finish standard.',
+    detail: 'experience',
     art: 'retail',
-    name: 'Shopping Center — Facade and Tenant Spaces',
-    location: 'Dallas, TX',
-    market: 'retail',
-    serviceTypes: ['commercial-painting', 'maintenance-repaints'],
+    featured: true,
+  },
+  {
+    slug: 'walgreens',
+    name: 'Walgreens',
+    industry: 'retail',
+    serviceTypes: ['commercial-interior-painting', 'occupied-renovations'],
     scopeSummary:
-      'Exterior facade repaint, storefront and canopy coatings, and interior white-box painting for tenant spaces at an operating retail center.',
-    completionDate: 'Sample project — date pending',
-    completionISO: '2024-05-01',
-    facts: [
-      { label: 'Center status', value: 'Open for trade throughout' },
-      { label: 'Scheduling', value: 'Early morning and overnight by tenant' },
-      { label: 'Primary systems', value: 'Acrylic facade coating, DTM on metal' },
-    ],
-    challenges: [
-      'Tenants traded through the entire program, each with different operating hours and delivery schedules.',
-      'Storefronts, signage, and glazing sat immediately adjacent to the coated surfaces.',
-      'The center owner required a consistent facade appearance across tenants with differing brand standards.',
-    ],
-    solution: [
-      'Coordinated a tenant-by-tenant schedule with property management and confirmed working hours with each operator in writing.',
-      'Masked and protected signage, glazing, and storefront systems before each phase, and inspected protection before spraying.',
-      'Applied the owner’s facade standard to the common building envelope and confirmed any brand-specified colors against the tenant’s package before ordering.',
-      'Cleared protection and cleaned the area before opening hours each day.',
-    ],
-    results: [
-      'No tenant lost trading hours to the coating work.',
-      'The facade was returned to a single consistent standard across the center.',
-      'Tenant white-box spaces were completed to the landlord work-letter finish requirements.',
-    ],
-    gallery: [],
-    gradient: 'from-[#cbbfa6] via-[#7a7059] to-[#1c1b1f]',
-    sample: true,
+      'Retail pharmacy interiors, including remodel work phased around trading hours.',
+    detail: 'experience',
+    art: 'retail',
+  },
+  {
+    slug: 'ikea',
+    name: 'IKEA',
+    industry: 'retail',
+    serviceTypes: ['commercial-interior-painting', 'new-construction', 'high-performance-coatings'],
+    scopeSummary:
+      'Large-format retail interiors including sales floor, back-of-house, and exposed structure.',
+    detail: 'experience',
+    art: 'retail',
+    featured: true,
+  },
+  {
+    slug: 'aldi',
+    name: 'Aldi',
+    industry: 'retail',
+    serviceTypes: ['commercial-interior-painting', 'new-construction'],
+    scopeSummary:
+      'Discount grocery interiors and exteriors delivered to a repeatable store prototype.',
+    detail: 'experience',
+    art: 'retail',
+    featured: true,
+  },
+  {
+    slug: 'ross-dress-for-less',
+    name: 'Ross Dress for Less',
+    industry: 'retail',
+    serviceTypes: ['commercial-interior-painting', 'tenant-finish-outs'],
+    scopeSummary: 'Off-price retail interiors, sales floor and stockroom finishes.',
+    detail: 'experience',
+    art: 'retail',
+  },
+  {
+    slug: 'topgolf',
+    name: 'Topgolf',
+    industry: 'retail',
+    serviceTypes: ['commercial-interior-painting', 'high-performance-coatings'],
+    scopeSummary:
+      'Entertainment retail venue interiors including bays, structure, and high-traffic finishes.',
+    detail: 'experience',
+    art: 'hospitality',
+  },
+  {
+    slug: 'menards',
+    name: 'Menards',
+    industry: 'retail',
+    serviceTypes: ['commercial-interior-painting', 'commercial-exterior-painting'],
+    scopeSummary: 'Home improvement warehouse retail interiors and exterior coatings.',
+    detail: 'experience',
+    art: 'retail',
+  },
+  {
+    slug: 'burlington',
+    name: 'Burlington',
+    industry: 'retail',
+    serviceTypes: ['commercial-interior-painting', 'tenant-finish-outs'],
+    scopeSummary: 'Department store interiors and tenant finish-out work.',
+    detail: 'experience',
+    art: 'retail',
+  },
+
+  /* ----------------------------------------------------------- RESTAURANTS */
+  {
+    slug: 'torchys-tacos',
+    name: "Torchy's Tacos",
+    industry: 'restaurants',
+    serviceTypes: ['commercial-interior-painting', 'tenant-finish-outs', 'high-performance-coatings'],
+    scopeSummary:
+      'Fast-casual restaurant finish-outs — decorative front-of-house and washdown-rated kitchen systems.',
+    detail: 'experience',
+    art: 'restaurant',
+    featured: true,
+  },
+  {
+    slug: 'chipotle',
+    name: 'Chipotle',
+    industry: 'restaurants',
+    serviceTypes: ['commercial-interior-painting', 'tenant-finish-outs', 'high-performance-coatings'],
+    scopeSummary:
+      'Multiple locations — prototype-standard restaurant interiors and kitchen coatings.',
+    detail: 'experience',
+    art: 'restaurant',
+    featured: true,
+  },
+  {
+    slug: 'texas-roadhouse',
+    name: 'Texas Roadhouse',
+    industry: 'restaurants',
+    serviceTypes: ['commercial-interior-painting', 'new-construction', 'high-performance-coatings'],
+    scopeSummary:
+      'Full-service restaurant interiors and exteriors, including decorative and kitchen finishes.',
+    detail: 'experience',
+    art: 'restaurant',
+    featured: true,
+  },
+  {
+    slug: 'longhorn-steakhouse',
+    name: 'LongHorn Steakhouse',
+    industry: 'restaurants',
+    serviceTypes: ['commercial-interior-painting', 'new-construction'],
+    scopeSummary: 'Full-service restaurant interior and exterior finish packages.',
+    detail: 'experience',
+    art: 'restaurant',
+  },
+  {
+    slug: 'raising-canes',
+    name: "Raising Cane's",
+    industry: 'restaurants',
+    serviceTypes: ['commercial-interior-painting', 'new-construction', 'high-performance-coatings'],
+    scopeSummary:
+      'Quick-service restaurant new builds — dining room, kitchen, and drive-through canopy.',
+    detail: 'experience',
+    art: 'restaurant',
+    featured: true,
+  },
+  {
+    slug: 'gordon-ramsay-steakhouse',
+    name: "Gordon Ramsay's Steakhouse",
+    industry: 'restaurants',
+    serviceTypes: ['commercial-interior-painting', 'tenant-finish-outs'],
+    scopeSummary:
+      'Premium restaurant interiors with decorative and specialty finish scope under close visual scrutiny.',
+    detail: 'experience',
+    art: 'hospitality',
+    featured: true,
+  },
+  {
+    slug: 'freddys-frozen-custard',
+    name: "Freddy's Frozen Custard & Steakburgers",
+    industry: 'restaurants',
+    serviceTypes: ['commercial-exterior-painting', 'commercial-interior-painting'],
+    scopeSummary:
+      'Quick-service restaurant interiors, exteriors, and site signage structures.',
+    detail: 'experience',
+    art: 'restaurant',
+  },
+  {
+    slug: 'culvers',
+    name: "Culver's",
+    industry: 'restaurants',
+    serviceTypes: ['commercial-interior-painting', 'new-construction'],
+    scopeSummary: 'Quick-service restaurant new construction finish packages.',
+    detail: 'experience',
+    art: 'restaurant',
+  },
+  {
+    slug: 'waffle-house',
+    name: 'Waffle House',
+    industry: 'restaurants',
+    serviceTypes: ['commercial-interior-painting', 'occupied-renovations'],
+    scopeSummary: 'Restaurant interiors and remodel work in operating locations.',
+    detail: 'experience',
+    art: 'restaurant',
+  },
+
+  /* ------------------------------------------------------------ HEALTHCARE */
+  {
+    slug: 'discover-vision',
+    name: 'Discover Vision',
+    industry: 'healthcare',
+    serviceTypes: ['commercial-interior-painting', 'occupied-renovations', 'tenant-finish-outs'],
+    scopeSummary:
+      'Specialty eye care clinic interiors — exam, procedure, and public areas phased around patient schedules.',
+    detail: 'experience',
+    art: 'healthcare',
+    featured: true,
+  },
+  {
+    slug: 'independence-surgery-center',
+    name: 'Independence Surgery Center',
+    industry: 'healthcare',
+    serviceTypes: ['occupied-renovations', 'high-performance-coatings'],
+    scopeSummary:
+      'Ambulatory surgery center interiors with infection-control-aware phasing and low-odor systems.',
+    detail: 'experience',
+    art: 'healthcare',
+  },
+  {
+    slug: 'sopra-med-spa',
+    name: 'Sopra Med Spa',
+    industry: 'healthcare',
+    serviceTypes: ['tenant-finish-outs', 'commercial-interior-painting'],
+    scopeSummary: 'Elective care suite finish-out with guest-facing decorative finishes.',
+    detail: 'experience',
+    art: 'healthcare',
+  },
+  {
+    slug: 'lillibridge-125',
+    name: 'Lillibridge 125',
+    industry: 'healthcare',
+    serviceTypes: ['tenant-finish-outs', 'occupied-renovations'],
+    scopeSummary: 'Medical office building tenant and common-area finish work.',
+    detail: 'experience',
+    art: 'healthcare',
+  },
+
+  /* ------------------------------------------------- SPORTS & ENTERTAINMENT */
+  {
+    slug: 'kansas-city-chiefs-stadium',
+    name: 'Kansas City Chiefs Stadium',
+    industry: 'sports-entertainment',
+    serviceTypes: ['commercial-interior-painting', 'high-performance-coatings', 'surface-preparation'],
+    scopeSummary:
+      'Stadium concourse and structural coatings executed within between-event and off-season windows.',
+    detail: 'experience',
+    art: 'sports',
+    featured: true,
+  },
+  {
+    slug: 'kansas-city-royals-stadium',
+    name: 'Kansas City Royals Stadium',
+    industry: 'sports-entertainment',
+    serviceTypes: ['commercial-interior-painting', 'high-performance-coatings', 'surface-preparation'],
+    scopeSummary:
+      'Ballpark public-area and structural coatings scheduled around the season calendar.',
+    detail: 'experience',
+    art: 'sports',
+    featured: true,
+  },
+
+  /* ------------------------------------------------------------- INDUSTRIAL */
+  {
+    slug: 'georgia-pacific',
+    name: 'Georgia-Pacific',
+    industry: 'industrial',
+    serviceTypes: ['high-performance-coatings', 'surface-preparation', 'commercial-exterior-painting'],
+    scopeSummary:
+      'Manufacturing facility coatings — structural silver, equipment, and process-area systems.',
+    detail: 'experience',
+    art: 'industrial',
+    featured: true,
+  },
+  {
+    slug: 'ecolab',
+    name: 'Ecolab',
+    industry: 'industrial',
+    serviceTypes: ['high-performance-coatings', 'surface-preparation'],
+    scopeSummary:
+      'Processing facility coatings selected against chemical exposure and washdown conditions.',
+    detail: 'experience',
+    art: 'industrial',
+  },
+  {
+    slug: 'phillips-66',
+    name: 'Phillips 66',
+    industry: 'industrial',
+    serviceTypes: ['high-performance-coatings', 'surface-preparation', 'commercial-exterior-painting'],
+    scopeSummary:
+      'Industrial protective coatings over silver and concrete in an operating facility.',
+    detail: 'experience',
+    art: 'industrial',
+    featured: true,
+  },
+  {
+    slug: 'ranews',
+    name: 'Ranews',
+    industry: 'industrial',
+    serviceTypes: ['high-performance-coatings', 'surface-preparation'],
+    scopeSummary: 'Industrial facility coatings and structural silver protection.',
+    detail: 'experience',
+    art: 'industrial',
+  },
+
+  /* ------------------------------------------------------------------ OFFICE */
+  {
+    slug: '4041-central',
+    name: '4041 Central',
+    industry: 'office',
+    serviceTypes: ['tenant-finish-outs', 'occupied-renovations'],
+    scopeSummary: 'Multi-tenant office building common areas and suite finish work.',
+    detail: 'experience',
+    art: 'office',
+  },
+  {
+    slug: 'forbes-73rd',
+    name: 'Forbes 73rd',
+    industry: 'office',
+    serviceTypes: ['tenant-finish-outs', 'commercial-interior-painting'],
+    scopeSummary: 'Commercial office tenant improvement finishes.',
+    detail: 'experience',
+    art: 'office',
+  },
+  {
+    slug: 'office-tenant-split',
+    name: 'Office Tenant Split',
+    industry: 'tenant-improvements',
+    serviceTypes: ['tenant-finish-outs', 'commercial-interior-painting'],
+    scopeSummary:
+      'Demising and re-tenanting scope dividing an existing suite into separate tenancies.',
+    detail: 'experience',
+    art: 'tenant',
+  },
+  {
+    slug: 'triten-real-4950-stilwell',
+    name: 'Triten Real — 4950 Stilwell',
+    industry: 'office',
+    serviceTypes: ['tenant-finish-outs', 'commercial-interior-painting'],
+    scopeSummary: 'Commercial property finish-out and common-area work.',
+    detail: 'experience',
+    art: 'office',
+  },
+
+  /* -------------------------------------------------------------- GOVERNMENT */
+  {
+    slug: 'pleasant-hill-police-department',
+    name: 'Pleasant Hill Police Department',
+    industry: 'government',
+    serviceTypes: ['commercial-interior-painting', 'occupied-renovations'],
+    scopeSummary:
+      'Public safety facility interiors phased around 24-hour operations and secure areas.',
+    detail: 'experience',
+    art: 'government',
+    featured: true,
+  },
+  {
+    slug: 'osawatomie-memorial-hall',
+    name: 'Osawatomie Memorial Hall',
+    industry: 'government',
+    serviceTypes: ['commercial-interior-painting', 'commercial-exterior-painting', 'surface-preparation'],
+    scopeSummary: 'Civic assembly building interior and exterior coatings.',
+    detail: 'experience',
+    art: 'government',
+  },
+  {
+    slug: 'transfer-station-olathe',
+    name: 'Transfer Station — Olathe',
+    industry: 'government',
+    serviceTypes: ['high-performance-coatings', 'surface-preparation'],
+    scopeSummary: 'Municipal public works facility coatings in a heavy-service environment.',
+    detail: 'experience',
+    art: 'industrial',
+  },
+
+  /* --------------------------------------------------------------- EDUCATION */
+  {
+    slug: 'blue-valley-school-district',
+    name: 'Blue Valley School District',
+    industry: 'education',
+    serviceTypes: ['commercial-interior-painting', 'commercial-exterior-painting', 'occupied-renovations'],
+    scopeSummary:
+      'District-wide painting program across elementary, middle, and high school campuses, executed within the summer window.',
+    detail: 'experience',
+    art: 'education',
+    featured: true,
+  },
+  {
+    slug: 'shawnee-mission-school-district',
+    name: 'Shawnee Mission School District',
+    industry: 'education',
+    serviceTypes: ['commercial-interior-painting', 'commercial-exterior-painting', 'occupied-renovations'],
+    scopeSummary:
+      'District-wide painting program across elementary, middle, and high school campuses on the academic calendar.',
+    detail: 'experience',
+    art: 'education',
+    featured: true,
+  },
+  {
+    slug: 'jccc-regnier',
+    name: 'JCCC Regnier',
+    industry: 'education',
+    serviceTypes: ['commercial-interior-painting', 'occupied-renovations'],
+    scopeSummary: 'Higher-education building interiors phased around the academic schedule.',
+    detail: 'experience',
+    art: 'education',
+  },
+
+  /* ---------------------------------------------------------------- AVIATION */
+  {
+    slug: 'kansas-city-airport',
+    name: 'Kansas City International Airport',
+    industry: 'aviation',
+    serviceTypes: ['occupied-renovations', 'commercial-interior-painting', 'tenant-finish-outs'],
+    scopeSummary:
+      'Terminal and concession finish work performed under badging and escort requirements, in overnight windows around live passenger operations.',
+    detail: 'experience',
+    art: 'aviation',
+    featured: true,
+  },
+  {
+    slug: 'meat-mitch-bbq-kc-airport',
+    name: 'Meat Mitch BBQ — KC Airport',
+    industry: 'aviation',
+    serviceTypes: ['tenant-finish-outs', 'high-performance-coatings'],
+    scopeSummary:
+      'Airport concession restaurant finish-out with kitchen-rated coatings, delivered in overnight access windows.',
+    detail: 'experience',
+    art: 'restaurant',
   },
 ];
 
+/* ------------------------------------------------------------------ helpers */
+
 export const getProject = (slug: string) => projects.find((p) => p.slug === slug);
 export const projectSlugs = projects.map((p) => p.slug);
+
+export const projectsByIndustry = (industry: string) =>
+  projects.filter((p) => p.industry === industry);
+
 export const featuredProjects = projects.filter((p) => p.featured);
-export const projectsByMarket = (market: string) =>
-  projects.filter((p) => p.market === market);
-export const projectsByService = (service: string) =>
-  projects.filter((p) => p.serviceTypes.includes(service));
+
+/** Projects sharing an industry, excluding the current one. */
+export const relatedProjects = (slug: string, limit = 3) => {
+  const current = getProject(slug);
+  if (!current) return [];
+  const sameIndustry = projects.filter((p) => p.industry === current.industry && p.slug !== slug);
+  if (sameIndustry.length >= limit) return sameIndustry.slice(0, limit);
+  const others = projects.filter(
+    (p) => p.industry !== current.industry && p.slug !== slug,
+  );
+  return [...sameIndustry, ...others].slice(0, limit);
+};
+
+/** Counts used by the projects index. Computed — never hard-coded. */
+export const projectCountByIndustry = projects.reduce<Record<string, number>>((acc, p) => {
+  acc[p.industry] = (acc[p.industry] ?? 0) + 1;
+  return acc;
+}, {});

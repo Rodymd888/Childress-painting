@@ -1,81 +1,80 @@
 import Link from 'next/link';
 import { ArrowUpRight, MapPin } from 'lucide-react';
+import { MediaFrame } from '@/components/ui/MediaFrame';
+import { getIndustry } from '@/lib/industries';
 import type { Project } from '@/lib/projects';
-import { SectorArt, type ArtKey } from '@/components/ui/SectorArt';
-import { getMarket } from '@/lib/markets';
-import { getService } from '@/lib/services';
 
 /**
- * Project tile. v2 shows the scope performed on the card face, because that is
- * what a general contractor scans for — not the project name.
+ * PROJECT CARD
+ * ---------------------------------------------------------------------------
+ * Renders whatever the record actually has. A project marked `detail:
+ * 'experience'` shows the sector and scope category; one marked
+ * 'case-study' additionally shows location and completion date.
+ *
+ * The media slot is a MediaFrame — populate `featuredImage` on the project and
+ * a photograph replaces the drawn artwork with no change here.
  */
-export function ProjectCard({ project, priority = false }: { project: Project; priority?: boolean }) {
-  const market = getMarket(project.market);
-  const services = project.serviceTypes
-    .map((slug) => getService(slug)?.shortTitle)
-    .filter(Boolean) as string[];
+export function ProjectCard({
+  project,
+  priority = false,
+}: {
+  project: Project;
+  priority?: boolean;
+}) {
+  const industry = getIndustry(project.industry);
+  const isCaseStudy = project.detail === 'case-study';
 
   return (
-    <Link href={`/projects/${project.slug}`} className="group flex flex-col">
-      <div className="sheen relative aspect-4/3 overflow-hidden bg-navy">
-        {project.featuredImage ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={project.featuredImage.src}
-            alt={project.featuredImage.alt}
-            width={project.featuredImage.width}
-            height={project.featuredImage.height}
-            loading={priority ? 'eager' : 'lazy'}
-            className="size-full object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06]"
-          />
-        ) : (
-          <SectorArt
-            art={project.art as ArtKey}
-            className="size-full transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06]"
-          />
-        )}
+    <Link
+      href={`/projects/${project.slug}`}
+      className="group lift sweep relative flex flex-col overflow-hidden border border-line bg-white"
+    >
+      <MediaFrame
+        image={project.featuredImage}
+        art={project.art}
+        label={project.name}
+        ratio="landscape"
+        priority={priority}
+      />
 
-        <span className="absolute left-4 top-4 z-10 bg-white/95 px-2.5 py-1.5 font-mono text-[0.5625rem] uppercase tracking-[0.18em] text-navy backdrop-blur-sm">
-          {market?.shortTitle ?? project.market}
-        </span>
-
-        {/* Sample records stay labeled so nothing reads as verified work. */}
-        {project.sample && (
-          <span className="absolute right-4 top-4 z-10 bg-red px-2.5 py-1.5 font-mono text-[0.5625rem] uppercase tracking-[0.18em] text-white">
-            Sample layout
+      <div className="flex flex-1 flex-col p-6 md:p-7">
+        <div className="flex items-center justify-between gap-3">
+          <span className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-red">
+            {industry?.title ?? project.industry}
           </span>
-        )}
-
-        {/* Scope strip rises over the image on hover. */}
-        <div className="absolute inset-x-0 bottom-0 z-10 translate-y-full bg-navy/95 px-4 py-3 backdrop-blur-sm transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0 motion-reduce:hidden">
-          <span className="block font-mono text-[0.5rem] uppercase tracking-[0.2em] text-white/60">
-            Scope performed
-          </span>
-          <span className="mt-1 block font-mono text-[0.625rem] uppercase tracking-[0.14em] text-white">
-            {services.join(' · ')}
-          </span>
-        </div>
-      </div>
-
-      <div className="relative flex flex-1 flex-col border-b border-line pb-6 pt-5">
-        <span
-          aria-hidden="true"
-          className="absolute inset-x-0 bottom-0 h-[2px] origin-left scale-x-0 bg-red transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100"
-        />
-        <div className="flex items-center gap-2 font-mono text-[0.625rem] uppercase tracking-[0.16em] text-red">
-          <MapPin aria-hidden="true" className="size-3" />
-          {project.location}
+          {isCaseStudy && (
+            <span className="font-mono text-[0.625rem] uppercase tracking-[0.14em] text-ink/40">
+              Case study
+            </span>
+          )}
         </div>
 
-        <div className="mt-3 flex items-start justify-between gap-4">
-          <h3 className="text-h4 leading-tight text-navy">{project.name}</h3>
+        <h3 className="mt-3 text-h4 text-ink transition-colors duration-300 group-hover:text-red">
+          {project.name}
+        </h3>
+
+        {isCaseStudy && project.location && (
+          <p className="mt-2 flex items-center gap-1.5 text-[0.8125rem] text-ink/55">
+            <MapPin aria-hidden="true" className="size-3.5 text-red" />
+            {project.location}
+            {project.completionDate && <span className="text-ink/35">· {project.completionDate}</span>}
+          </p>
+        )}
+
+        <p className="mt-3 flex-1 text-[0.9375rem] leading-relaxed text-body">
+          {project.scopeSummary}
+        </p>
+
+        <span className="mt-6 flex items-center justify-between border-t border-line pt-4 font-mono text-[0.625rem] uppercase tracking-[0.16em] text-ink/55">
+          <span>
+            {project.serviceTypes.length}{' '}
+            {project.serviceTypes.length === 1 ? 'service' : 'services'} performed
+          </span>
           <ArrowUpRight
             aria-hidden="true"
-            className="size-5 shrink-0 text-navy/60 transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-red"
+            className="size-4 text-red transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
           />
-        </div>
-
-        <p className="mt-3 text-[0.9375rem] leading-relaxed text-body">{project.scopeSummary}</p>
+        </span>
       </div>
     </Link>
   );

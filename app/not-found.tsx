@@ -9,7 +9,7 @@ export const metadata = {
 
 export default function NotFound() {
   return (
-    <section className="relative overflow-hidden bg-navy text-white">
+    <section className="relative overflow-hidden bg-ink text-white">
       <div className="sheet-grid absolute inset-0" aria-hidden="true" />
 
       <div className="container-site relative py-32 md:py-40 lg:py-48">
@@ -19,7 +19,7 @@ export default function NotFound() {
           That page is not on the drawing set.
         </h1>
 
-        <p className="mt-6 max-w-xl text-lg leading-relaxed text-steel-light">
+        <p className="mt-6 max-w-xl text-lg leading-relaxed text-ash">
           The link may be out of date, or the page may have moved. Everything below is current.
         </p>
 
@@ -41,7 +41,7 @@ export default function NotFound() {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="inline-flex min-h-11 items-center border border-white/25 px-5 font-mono text-[0.625rem] uppercase tracking-[0.16em] text-white transition-colors hover:bg-white hover:text-navy"
+                  className="inline-flex min-h-11 items-center border border-white/25 px-5 font-mono text-[0.625rem] uppercase tracking-[0.16em] text-white transition-colors hover:bg-white hover:text-ink"
                 >
                   {item.label}
                 </Link>

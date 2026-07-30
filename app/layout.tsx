@@ -3,17 +3,22 @@ import './globals.css';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { JsonLd } from '@/components/ui/JsonLd';
-import { organizationSchema, professionalServiceSchema, websiteSchema } from '@/lib/schema';
+import {
+  organizationSchema,
+  professionalServiceSchema,
+  websiteSchema,
+  officeSchemas,
+} from '@/lib/schema';
 import { company, siteUrl } from '@/lib/site';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Childress Painting | Commercial Painting Contractor — Dallas–Fort Worth',
+    default: 'Childress Painting | Commercial Painting Contractor — Since 1984',
     template: '%s | Childress Painting',
   },
   description:
-    'Commercial painting, industrial coatings, new construction, and facility repaint programs across Dallas–Fort Worth and Texas. Built for general contractors, developers, and facility teams.',
+    'Commercial-only painting contractor since 1984. Interior and exterior painting, tenant finish-outs, occupied renovations, and high-performance coatings across Texas, Kansas, and Missouri. Two-year workmanship warranty.',
   applicationName: company.name,
   authors: [{ name: company.name }],
   creator: company.name,
@@ -30,7 +35,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#0d1b2a',
+  themeColor: '#0a0a0b',
   colorScheme: 'light',
   width: 'device-width',
   initialScale: 1,
@@ -46,7 +51,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           the swap does not shift layout.
 
           If you prefer zero third-party requests, self-host instead:
-            import { Archivo, IBM_Plex_Sans, IBM_Plex_Mono } from 'next/font/google';
+            import { Archivo, Inter, JetBrains_Mono } from 'next/font/google';
           then apply the generated className to <html> and delete these tags.
         */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -57,7 +62,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             whole site rather than per page. */}
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
         />
       </head>
       <body className="antialiased">
@@ -74,7 +79,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         <Footer />
 
-        <JsonLd data={[organizationSchema(), professionalServiceSchema(), websiteSchema()]} />
+        <JsonLd
+          data={[
+            organizationSchema(),
+            professionalServiceSchema(),
+            websiteSchema(),
+            ...officeSchemas(),
+          ]}
+        />
       </body>
     </html>
   );

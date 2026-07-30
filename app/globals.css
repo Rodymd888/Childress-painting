@@ -1,74 +1,83 @@
 @import 'tailwindcss';
 
 /* ==========================================================================
-   CHILDRESS PAINTING — DESIGN SYSTEM  v2
-   Palette: navy / red / white / gray.
-   Type:    Archivo (variable width display) + IBM Plex Sans + IBM Plex Mono.
-   Motif:   drawing-sheet "title block" — mono labels, CSI codes, red rules.
+   CHILDRESS PAINTING — DESIGN SYSTEM  v3
+   ---------------------------------------------------------------------------
+   Palette derived from the official logo: signal red, true black, white.
+   The previous navy has been retired — it did not match the brand mark.
 
-   v2 changes:
-   - Fluid type scale as tokens, so headings stay proportional 375px → 1920px
-   - Editorial rhythm tokens; section padding no longer hand-tuned per page
-   - Motion primitives: lift, sweep, sheen, reveal — CSS-driven, JS-free
-   - Elevation via hairlines and shadow tokens rather than ad-hoc borders
+   Type:  Archivo (variable-width display) + Inter (text) + JetBrains Mono
+          (labels, codes, and title-block devices).
+
+   Motif: the construction drawing sheet. Mono labels, CSI codes, red
+          dimension rules, hairline grids. Restrained, technical, expensive.
    ========================================================================== */
 
 @theme {
-  /* --- Brand color ------------------------------------------------------ */
-  --color-navy: #0d1b2a;
-  --color-navy-900: #0a1522;
-  --color-navy-800: #142639;
-  --color-navy-700: #1c3349;
-  --color-navy-600: #27455f;
-  --color-steel: #64798f;
-  --color-steel-light: #9aabbc;
+  /* --- Brand ------------------------------------------------------------- */
+  --color-ink: #0a0a0b;
+  --color-ink-900: #121214;
+  --color-ink-800: #1c1c20;
+  --color-ink-700: #26262c;
+  --color-ink-600: #34343c;
+  --color-graphite: #5c5c66;
+  --color-silver: #8f8f9a;
+  --color-ash: #b8b8c0;
 
-  --color-red: #d72638;
-  --color-red-dark: #ad1b2a;
-  --color-red-light: #f04252;
+  --color-red: #d81f26;
+  --color-red-dark: #a8151b;
+  --color-red-light: #f0343b;
 
-  --color-ink: #111827;
-  --color-body: #46536b;
-  --color-mist: #f4f5f7;
-  --color-concrete: #e6e9ee;
-  --color-line: #dfe3e9;
+  --color-body: #4a4a55;
+  --color-mist: #f6f6f7;
+  --color-concrete: #ebebee;
+  --color-line: #dedee3;
 
-  /* --- Fluid type scale -------------------------------------------------
-     Every heading pulls from these so proportions hold at any width. */
-  --text-display: clamp(2.75rem, 8vw, 6.75rem);
+  /* --- Fluid type scale --------------------------------------------------
+     Every heading pulls from these so proportions hold 375px → 1920px. */
+  --text-display: clamp(2.85rem, 8.2vw, 7rem);
   --text-h1: clamp(2.25rem, 6.2vw, 4.75rem);
   --text-h2: clamp(1.875rem, 4.4vw, 3.5rem);
   --text-h3: clamp(1.375rem, 2.6vw, 2rem);
   --text-h4: clamp(1.125rem, 1.8vw, 1.375rem);
   --text-lead: clamp(1.0625rem, 1.6vw, 1.3125rem);
 
-  /* --- Vertical rhythm --------------------------------------------------- */
-  --space-section: clamp(4.5rem, 9vw, 8.5rem);
+  /* --- Vertical rhythm ---------------------------------------------------- */
+  --space-section: clamp(4.5rem, 9vw, 9rem);
   --space-section-sm: clamp(3.5rem, 6vw, 5.5rem);
 
-  /* --- Type families ----------------------------------------------------- */
+  /* --- Type families ------------------------------------------------------ */
   --font-display: 'Archivo', 'Archivo Fallback', 'Helvetica Neue', Arial, sans-serif;
-  --font-sans: 'IBM Plex Sans', 'Segoe UI', system-ui, -apple-system, sans-serif;
-  --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --font-sans: 'Inter', 'Inter Fallback', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
 
-  /* --- Motion ------------------------------------------------------------ */
+  /* --- Motion ------------------------------------------------------------- */
   --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-spring: cubic-bezier(0.34, 1.36, 0.64, 1);
 
-  /* --- Elevation --------------------------------------------------------- */
-  --shadow-card: 0 1px 2px rgb(13 27 42 / 0.04), 0 12px 32px -12px rgb(13 27 42 / 0.16);
-  --shadow-lift: 0 2px 4px rgb(13 27 42 / 0.05), 0 28px 56px -20px rgb(13 27 42 / 0.28);
-  --shadow-menu: 0 24px 60px -16px rgb(13 27 42 / 0.35);
+  /* --- Elevation ---------------------------------------------------------- */
+  --shadow-card: 0 1px 2px rgb(10 10 11 / 0.04), 0 12px 32px -12px rgb(10 10 11 / 0.14);
+  --shadow-lift: 0 2px 4px rgb(10 10 11 / 0.05), 0 30px 60px -20px rgb(10 10 11 / 0.26);
+  --shadow-menu: 0 24px 60px -16px rgb(10 10 11 / 0.32);
 }
 
-/* Metric-adjusted fallback so swapping in the webfont does not shift layout. */
+/* Metric-adjusted fallbacks so the webfont swap does not shift layout. */
 @font-face {
   font-family: 'Archivo Fallback';
   src: local('Arial');
   size-adjust: 102%;
   ascent-override: 92%;
   descent-override: 24%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial');
+  size-adjust: 107%;
+  ascent-override: 90%;
+  descent-override: 22%;
   line-gap-override: 0%;
 }
 
@@ -92,7 +101,6 @@
     font-size: 1rem;
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
-    /* Stops iOS Safari from bouncing past the fixed header background. */
     overscroll-behavior-y: none;
   }
 
@@ -102,40 +110,28 @@
   h4 {
     font-family: var(--font-display);
     font-weight: 800;
-    letter-spacing: -0.028em;
-    line-height: 1.01;
+    letter-spacing: -0.03em;
+    line-height: 1.0;
     text-wrap: balance;
     margin: 0;
   }
 
-  /* Widen the variable display face for a monumental, architectural set.
-     Larger sizes get more width; small headings stay closer to normal. */
-  h1 {
-    font-variation-settings: 'wdth' 114;
-  }
-
-  h2 {
-    font-variation-settings: 'wdth' 110;
-  }
-
-  h3,
-  h4 {
+  /* Widen the variable display face for a monumental, architectural set. */
+  h1 { font-variation-settings: 'wdth' 112; }
+  h2 { font-variation-settings: 'wdth' 108; }
+  h3, h4 {
     font-variation-settings: 'wdth' 104;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.022em;
   }
 
-  p {
-    text-wrap: pretty;
-  }
+  p { text-wrap: pretty; }
 
   a {
     color: inherit;
     text-decoration: none;
   }
 
-  img,
-  svg,
-  video {
+  img, svg, video {
     display: block;
     max-width: 100%;
   }
@@ -151,13 +147,11 @@
     color: #fff;
   }
 
-  :target {
-    scroll-margin-top: 7rem;
-  }
+  :target { scroll-margin-top: 7rem; }
 }
 
 @layer components {
-  /* --- Layout ------------------------------------------------------------ */
+  /* --- Layout ------------------------------------------------------------- */
   .container-site {
     width: 100%;
     max-width: 84rem;
@@ -166,27 +160,18 @@
   }
 
   @media (min-width: 768px) {
-    .container-site {
-      padding-inline: 2rem;
-    }
+    .container-site { padding-inline: 2rem; }
   }
 
   @media (min-width: 1280px) {
-    .container-site {
-      padding-inline: 3rem;
-    }
+    .container-site { padding-inline: 3rem; }
   }
 
-  .section {
-    padding-block: var(--space-section);
-  }
+  .section { padding-block: var(--space-section); }
+  .section-sm { padding-block: var(--space-section-sm); }
 
-  .section-sm {
-    padding-block: var(--space-section-sm);
-  }
-
-  /* --- Title block: the signature device ---------------------------------
-     Mono label + red dimension rule, from drawing-sheet title blocks. */
+  /* --- Title block: the signature device -----------------------------------
+     Mono label + red dimension rule, borrowed from drawing title blocks. */
   .title-block {
     display: inline-flex;
     align-items: center;
@@ -206,11 +191,9 @@
     transition: width 0.5s var(--ease-out-quint);
   }
 
-  /* Sections grow their rule as they enter — a small, quiet flourish. */
-  .reveal.is-visible .title-block::before {
-    width: 2.75rem;
-  }
+  .reveal.is-visible .title-block::before { width: 2.75rem; }
 
+  /* Hairline drawing grids. */
   .sheet-grid {
     background-image:
       linear-gradient(to right, rgb(255 255 255 / 0.045) 1px, transparent 1px),
@@ -220,35 +203,36 @@
 
   .sheet-grid-dark {
     background-image:
-      linear-gradient(to right, rgb(13 27 42 / 0.045) 1px, transparent 1px),
-      linear-gradient(to bottom, rgb(13 27 42 / 0.045) 1px, transparent 1px);
+      linear-gradient(to right, rgb(10 10 11 / 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(10 10 11 / 0.05) 1px, transparent 1px);
     background-size: 88px 88px;
   }
 
-  /* --- Motion primitives -------------------------------------------------
-     Scroll reveal. A tiny IntersectionObserver adds .is-visible; all the
-     animation itself is CSS, so no animation library ships on these pages. */
+  /* Fine diagonal hatch used behind stat and quote blocks. */
+  .hatch {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      rgb(255 255 255 / 0.05) 0 1px,
+      transparent 1px 9px
+    );
+  }
+
+  /* --- Motion primitives ---------------------------------------------------
+     A shared IntersectionObserver adds .is-visible; the animation is pure CSS,
+     so no animation library ships on ordinary content pages. */
   .reveal {
     opacity: 0;
     transform: translate3d(0, 22px, 0);
     transition:
-      opacity 0.7s var(--ease-out-quint),
-      transform 0.7s var(--ease-out-quint);
+      opacity 0.75s var(--ease-out-quint),
+      transform 0.75s var(--ease-out-quint);
     transition-delay: var(--reveal-delay, 0ms);
     will-change: opacity, transform;
   }
 
-  .reveal-left {
-    transform: translate3d(-22px, 0, 0);
-  }
-
-  .reveal-right {
-    transform: translate3d(22px, 0, 0);
-  }
-
-  .reveal-scale {
-    transform: scale(0.97);
-  }
+  .reveal-left { transform: translate3d(-24px, 0, 0); }
+  .reveal-right { transform: translate3d(24px, 0, 0); }
+  .reveal-scale { transform: scale(0.97); }
 
   .reveal.is-visible {
     opacity: 1;
@@ -256,7 +240,22 @@
     will-change: auto;
   }
 
-  /* Card lift on hover — used across every card type for consistency. */
+  /* Masked line reveal for editorial headings. */
+  .line-mask { display: block; overflow: hidden; padding-bottom: 0.06em; }
+
+  .line-mask > span {
+    display: block;
+    transform: translateY(110%);
+    transition: transform 0.9s var(--ease-out-expo);
+    transition-delay: var(--line-delay, 0ms);
+  }
+
+  .reveal.is-visible .line-mask > span,
+  .line-mask.is-visible > span {
+    transform: translateY(0);
+  }
+
+  /* Card lift — consistent across every card type on the site. */
   .lift {
     transition:
       transform 0.45s var(--ease-out-quint),
@@ -286,9 +285,7 @@
 
   @media (hover: hover) {
     .sweep:hover::after,
-    .sweep:focus-visible::after {
-      transform: scaleX(1);
-    }
+    .sweep:focus-visible::after { transform: scaleX(1); }
   }
 
   /* Diagonal light pass over imagery on hover. */
@@ -297,21 +294,14 @@
     position: absolute;
     inset: 0;
     z-index: 2;
-    background: linear-gradient(
-      105deg,
-      transparent 35%,
-      rgb(255 255 255 / 0.13) 48%,
-      transparent 62%
-    );
+    background: linear-gradient(105deg, transparent 35%, rgb(255 255 255 / 0.14) 48%, transparent 62%);
     transform: translateX(-100%);
     transition: transform 0.9s var(--ease-out-expo);
     pointer-events: none;
   }
 
   @media (hover: hover) {
-    .group:hover .sheen::before {
-      transform: translateX(100%);
-    }
+    .group:hover .sheen::before { transform: translateX(100%); }
   }
 
   /* Link underline that draws in from the left. */
@@ -325,31 +315,27 @@
   }
 
   @media (hover: hover) {
-    .underline-sweep:hover {
-      background-size: 100% 2px;
-    }
+    .underline-sweep:hover { background-size: 100% 2px; }
   }
 
-  /* --- Prose -------------------------------------------------------------- */
+  /* --- Prose ---------------------------------------------------------------- */
   .prose-site p {
     color: var(--color-body);
     margin-block: 0 1.15rem;
   }
 
-  .prose-site p:last-child {
-    margin-bottom: 0;
-  }
+  .prose-site p:last-child { margin-bottom: 0; }
 
   .prose-site h2 {
     font-size: var(--text-h3);
     margin-block: 2.75rem 1rem;
-    color: var(--color-navy);
+    color: var(--color-ink);
   }
 
   .prose-site h3 {
     font-size: var(--text-h4);
     margin-block: 2rem 0.75rem;
-    color: var(--color-navy);
+    color: var(--color-ink);
   }
 
   .prose-site ul {
@@ -358,9 +344,7 @@
     color: var(--color-body);
   }
 
-  .prose-site li {
-    margin-block: 0.4rem;
-  }
+  .prose-site li { margin-block: 0.4rem; }
 
   .prose-site a {
     color: var(--color-red-dark);
@@ -368,27 +352,40 @@
     text-underline-offset: 3px;
   }
 
-  /* --- Industry marquee ---------------------------------------------------
+  /* --- Marquee --------------------------------------------------------------
      Duplicated track scrolls one full copy then resets, so the loop is
      seamless without cloning nodes in JavaScript. */
-  .marquee-track {
-    animation: marquee 42s linear infinite;
-  }
+  .marquee-track { animation: marquee var(--marquee-duration, 46s) linear infinite; }
+  .marquee-track-reverse { animation: marquee-reverse var(--marquee-duration, 46s) linear infinite; }
 
   @media (hover: hover) {
-    .marquee:hover .marquee-track {
-      animation-play-state: paused;
-    }
+    .marquee:hover .marquee-track,
+    .marquee:hover .marquee-track-reverse { animation-play-state: paused; }
   }
 
   @keyframes marquee {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(-50%);
-    }
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
   }
+
+  @keyframes marquee-reverse {
+    from { transform: translateX(-50%); }
+    to { transform: translateX(0); }
+  }
+
+  /* Edge fade for marquee bands. */
+  .marquee-mask {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  }
+
+  /* Scroll-driven hero indicator. */
+  @keyframes scroll-hint {
+    0%, 100% { transform: translateY(0); opacity: 0.5; }
+    50% { transform: translateY(7px); opacity: 1; }
+  }
+
+  .scroll-hint { animation: scroll-hint 2.1s var(--ease-out-quint) infinite; }
 }
 
 @layer utilities {
@@ -404,32 +401,23 @@
     border: 0;
   }
 
-  .text-display {
-    font-size: var(--text-display);
-  }
-  .text-h1 {
-    font-size: var(--text-h1);
-  }
-  .text-h2 {
-    font-size: var(--text-h2);
-  }
-  .text-h3 {
-    font-size: var(--text-h3);
-  }
-  .text-h4 {
-    font-size: var(--text-h4);
-  }
-  .text-lead {
-    font-size: var(--text-lead);
+  .text-display { font-size: var(--text-display); }
+  .text-h1 { font-size: var(--text-h1); }
+  .text-h2 { font-size: var(--text-h2); }
+  .text-h3 { font-size: var(--text-h3); }
+  .text-h4 { font-size: var(--text-h4); }
+  .text-lead { font-size: var(--text-lead); }
+
+  /* Balanced multi-column list used for long client / school rosters. */
+  .roster-columns {
+    column-gap: 2.5rem;
+    column-rule: 1px solid var(--color-line);
   }
 }
 
-/* Respect the OS reduced-motion setting everywhere. Reveals resolve to their
-   final state immediately rather than animating faster. */
+/* Respect the OS reduced-motion setting everywhere. */
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
+  html { scroll-behavior: auto; }
 
   .reveal {
     opacity: 1 !important;
@@ -437,9 +425,11 @@
     transition: none !important;
   }
 
-  .marquee-track {
-    animation: none !important;
-  }
+  .line-mask > span { transform: none !important; transition: none !important; }
+
+  .marquee-track,
+  .marquee-track-reverse,
+  .scroll-hint { animation: none !important; }
 
   *,
   *::before,

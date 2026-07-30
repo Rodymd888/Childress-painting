@@ -1,162 +1,183 @@
-import { Clock, FileText, MessageSquare, Phone } from 'lucide-react';
+import type { Metadata } from 'next';
+import { Phone, Mail, Clock, FileCheck2, ShieldCheck, Send } from 'lucide-react';
 
-import { PageHero } from '@/components/ui/PageHero';
+import { BidForm } from '@/components/forms/BidForm';
+import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { Reveal } from '@/components/ui/Reveal';
 import { JsonLd } from '@/components/ui/JsonLd';
-import { BidForm } from '@/components/forms/BidForm';
 
 import { company } from '@/lib/site';
-import { buildMetadata } from '@/lib/seo';
-import { breadcrumbSchema, faqSchema } from '@/lib/schema';
+import { processSteps } from '@/lib/content';
+import { breadcrumbSchema } from '@/lib/schema';
 
-export const metadata = buildMetadata({
-  title: 'Request a Bid | Commercial Painting Estimates',
+export const metadata: Metadata = {
+  title: 'Request a Bid | Commercial Painting Bid Portal',
   description:
-    'Invite Childress Painting to bid your commercial painting or industrial coatings package. Send plans, specifications, and the due date — you get a bid or a no-bid.',
-  path: '/request-bid',
-});
+    'Submit a commercial painting bid request. Company details, project address, project type, bid due date, budget, plans upload, and scope of work — bid or no-bid, you get an answer.',
+  alternates: { canonical: '/request-bid' },
+};
 
-const crumbs = [
-  { name: 'Home', href: '/' },
-  { name: 'Request a Bid', href: '/request-bid' },
-];
-
-const faqs = [
-  {
-    question: 'What do you need to price a project?',
-    answer:
-      'The current drawing set, the relevant specification sections, all addenda, and the bid due date. If the documents are on a plan room or invitation-to-bid platform, a link is enough.',
-  },
-  {
-    question: 'Will you tell me if you are not bidding?',
-    answer:
-      'Yes, and quickly. A fast no-bid is more useful to an estimator than a late maybe, so we confirm receipt and give you a bid or no-bid answer rather than going quiet.',
-  },
-  {
-    question: 'Do you provide a written scope letter?',
-    answer:
-      'Every bid includes one, listing inclusions, exclusions, clarifications, and assumptions so you can level our number against the other bidders without a round of phone calls.',
-  },
-];
-
-const expectations = [
-  {
-    icon: MessageSquare,
-    title: 'Receipt confirmed',
-    body: 'We acknowledge the invitation so you know it landed with a person, not an inbox.',
-  },
-  {
-    icon: FileText,
-    title: 'Bid or no-bid',
-    body: 'You get a clear answer either way. We do not hold a slot on your bid list and then go quiet.',
-  },
+const ASSURANCES = [
   {
     icon: Clock,
-    title: 'Priced to the due date',
-    body: 'The bid arrives ahead of your deadline, or we tell you early that we cannot make it.',
+    title: 'Receipt confirmed',
+    body: 'We acknowledge every invitation so you know it landed and is not sitting in a spam folder on bid day.',
   },
   {
-    icon: Phone,
-    title: 'A person to call',
-    body: 'Questions during levelling go to the estimator who priced it, not to a general line.',
+    icon: FileCheck2,
+    title: 'Bid or no-bid, you get an answer',
+    body: 'If we are not the right fit for the scope or the schedule, we say so early rather than leaving a gap on your bid tab.',
+  },
+  {
+    icon: ShieldCheck,
+    title: 'Assumptions in writing',
+    body: 'Every proposal states what is included, what is assumed, and what is excluded — so scope gaps surface before award.',
   },
 ];
 
 export default function RequestBidPage() {
+  const crumbs = [
+    { name: 'Home', href: '/' },
+    { name: 'Request a Bid', href: '/request-bid' },
+  ];
+
   return (
     <>
-      <PageHero
-        label="Bid invitations"
-        title="Invite us to bid."
-        intro="Send the plans, the specification sections, and the due date. We confirm receipt and give you a bid or a no-bid — so you are never left waiting."
-        crumbs={crumbs}
-        meta={[
-          { label: 'Response', value: 'Bid or no-bid, always' },
-          { label: 'Included', value: 'Written scope letter' },
-          { label: 'Delivery', value: 'GC subcontract and direct' },
-          { label: 'Coverage', value: 'DFW base, Texas statewide' },
-        ]}
-      />
+      {/* ================================================================= HERO */}
+      <section className="relative overflow-hidden bg-ink text-white">
+        <div className="sheet-grid absolute inset-0" aria-hidden="true" />
+        <div
+          aria-hidden="true"
+          className="absolute -right-40 -top-40 size-[34rem] rounded-full bg-red/12 blur-3xl"
+        />
 
-      <section className="bg-white py-16 md:py-20 lg:py-24">
-        <div className="container-site">
-          <div className="grid gap-12 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,0.65fr)] lg:gap-16">
+        <div className="container-site relative pb-14 pt-32 md:pb-16 md:pt-40">
+          <Breadcrumbs crumbs={crumbs} />
+
+          <div className="mt-8 grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-end lg:gap-20">
             <div>
-              <BidForm />
+              <span className="title-block text-white/70">Bid portal</span>
+              <h1 className="mt-5 max-w-4xl text-[clamp(2.5rem,6.4vw,4.75rem)]">
+                Send us the drawings.
+              </h1>
+              <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ash md:text-xl">
+                Four short steps. Attach plans and specification sections, tell us the due date,
+                and we will confirm receipt and tell you whether we are bidding.
+              </p>
             </div>
 
-            <Reveal delay={0.08} className="lg:sticky lg:top-32 lg:self-start">
-              <h2 className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-navy/60">
-                What happens next
-              </h2>
-
-              <ul className="mt-7 space-y-7">
-                {expectations.map((item) => (
-                  <li key={item.title} className="border-t border-line pt-6">
-                    <div className="flex items-center gap-3">
-                      <item.icon aria-hidden="true" className="size-4 shrink-0 text-red" />
-                      <h3 className="text-lg text-navy">{item.title}</h3>
-                    </div>
-                    <p className="mt-2.5 text-[0.9375rem] leading-relaxed text-body">
-                      {item.body}
-                    </p>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="mt-10 border-t-4 border-red bg-mist p-6">
-                <h3 className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-navy/60">
-                  Bid due today?
-                </h3>
-                <p className="mt-3 text-[0.9375rem] leading-relaxed text-body">
-                  Call the office directly rather than using the form. Tight deadlines get handled
-                  faster on the phone.
-                </p>
+            <div className="border border-white/15 bg-white/[0.03] p-6 backdrop-blur-sm md:p-7">
+              <p className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-red-light">
+                Bidding today?
+              </p>
+              <p className="mt-3 text-[0.9375rem] leading-relaxed text-ash">
+                If the due date is inside 48 hours, call rather than submitting the form.
+              </p>
+              <div className="mt-6 space-y-3">
                 <a
                   href={`tel:${company.phoneHref}`}
-                  className="mt-5 inline-flex min-h-12 items-center gap-2.5 bg-navy px-5 font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-white transition-colors hover:bg-navy-700"
+                  className="group flex items-center gap-3 font-mono text-sm uppercase tracking-[0.14em] text-white transition-colors hover:text-red-light"
                 >
-                  <Phone aria-hidden="true" className="size-3.5" />
+                  <Phone aria-hidden="true" className="size-4 shrink-0 text-red" />
                   {company.phone}
                 </a>
-                <p className="mt-4 break-all font-mono text-[0.625rem] uppercase tracking-[0.14em] text-body">
-                  <a href={`mailto:${company.email}`} className="hover:text-red">
-                    {company.email}
-                  </a>
-                </p>
+                <a
+                  href={`mailto:${company.estimatingEmail}`}
+                  className="group flex items-center gap-3 font-mono text-[0.75rem] uppercase tracking-[0.12em] text-white transition-colors hover:text-red-light"
+                >
+                  <Mail aria-hidden="true" className="size-4 shrink-0 text-red" />
+                  <span className="break-all">{company.estimatingEmail}</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Assurance strip */}
+          <dl className="mt-14 grid grid-cols-1 gap-px border-t border-white/15 bg-white/10 md:grid-cols-3">
+            {ASSURANCES.map((item) => (
+              <div key={item.title} className="bg-ink py-6 md:px-6 md:first:pl-0">
+                <dt className="flex items-center gap-2.5 font-mono text-[0.625rem] uppercase tracking-[0.18em] text-white">
+                  <item.icon aria-hidden="true" className="size-3.5 text-red" />
+                  {item.title}
+                </dt>
+                <dd className="mt-2.5 text-[0.875rem] leading-relaxed text-ash">{item.body}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
+
+      {/* ================================================================= FORM */}
+      <section className="section bg-mist">
+        <div className="container-site">
+          <div className="grid gap-12 lg:grid-cols-[minmax(0,1.55fr)_minmax(0,0.45fr)] lg:gap-16">
+            <Reveal>
+              <BidForm />
+            </Reveal>
+
+            {/* --------------------------------------------------- SIDEBAR */}
+            <Reveal delay={0.1} from="right">
+              <div className="space-y-6 lg:sticky lg:top-28">
+                <div className="border border-line bg-white p-6 md:p-7">
+                  <span className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-red">
+                    What to send
+                  </span>
+                  <ul className="mt-5 space-y-3">
+                    {[
+                      'Architectural drawings — finish plans and schedules',
+                      'Specification sections (Division 09)',
+                      'Bid due date and time',
+                      'Anticipated start and substantial completion',
+                      'Any prototype or brand finish standard',
+                      'Prevailing wage or special conditions, if applicable',
+                    ].map((item) => (
+                      <li
+                        key={item}
+                        className="flex items-start gap-2.5 text-[0.875rem] leading-snug text-ink/80"
+                      >
+                        <span aria-hidden="true" className="mt-1.5 size-1 shrink-0 bg-red" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="border border-line bg-white p-6 md:p-7">
+                  <span className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-red">
+                    What happens next
+                  </span>
+                  <ol className="mt-5 space-y-4">
+                    {processSteps.slice(0, 3).map((step) => (
+                      <li key={step.number} className="flex gap-3.5">
+                        <span className="font-mono text-[0.6875rem] text-red">{step.number}</span>
+                        <span>
+                          <span className="block text-[0.875rem] font-semibold text-ink">
+                            {step.title}
+                          </span>
+                          <span className="mt-0.5 block text-[0.8125rem] leading-snug text-body">
+                            {step.short}
+                          </span>
+                        </span>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+
+                <div className="border border-line bg-ink p-6 text-white md:p-7">
+                  <Send aria-hidden="true" className="size-5 text-red" />
+                  <p className="mt-4 text-[0.9375rem] leading-relaxed text-ash">
+                    Files too large for the form? Send a share link (Dropbox, Box, SharePoint,
+                    Procore, BuildingConnected) in the plan-link field and we will pull them
+                    down.
+                  </p>
+                </div>
               </div>
             </Reveal>
           </div>
         </div>
       </section>
 
-      <section className="border-t border-line bg-mist py-16 md:py-20">
-        <div className="container-site">
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-20">
-            <Reveal>
-              <span className="title-block text-navy/60">Before you send</span>
-              <h2 className="mt-5 text-[clamp(1.75rem,3.4vw,2.5rem)] text-navy">
-                Three things worth knowing.
-              </h2>
-            </Reveal>
-
-            <Reveal delay={0.06}>
-              <dl className="border-t border-line">
-                {faqs.map((faq) => (
-                  <div key={faq.question} className="border-b border-line py-6">
-                    <dt className="text-lg text-navy md:text-xl">{faq.question}</dt>
-                    <dd className="mt-2.5 text-[0.9375rem] leading-relaxed text-body">
-                      {faq.answer}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      <JsonLd data={[breadcrumbSchema(crumbs), faqSchema(faqs)]} />
+      <JsonLd data={breadcrumbSchema(crumbs)} />
     </>
   );
 }

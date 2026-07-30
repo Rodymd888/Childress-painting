@@ -47,14 +47,14 @@ export function SectionHeading({
         .join(' ')}
     >
       <div>
-        <span className={['title-block', light ? 'text-white/70' : 'text-navy/60'].join(' ')}>
+        <span className={['title-block', light ? 'text-white/70' : 'text-ink/60'].join(' ')}>
           {label}
         </span>
         <Tag
           className={[
             'mt-5 max-w-3xl',
             titleSize,
-            light ? 'text-white' : 'text-navy',
+            light ? 'text-white' : 'text-ink',
           ].join(' ')}
         >
           {title}
@@ -67,7 +67,7 @@ export function SectionHeading({
             <div
               className={[
                 'text-[1.0625rem] leading-relaxed',
-                light ? 'text-steel-light' : 'text-body',
+                light ? 'text-ash' : 'text-body',
               ].join(' ')}
             >
               {intro}

@@ -8,7 +8,7 @@
  * Those require verified data and Google penalises self-serving review markup.
  */
 
-import { company, siteUrl, serviceAreas } from './site';
+import { company, siteUrl, serviceAreas, offices } from './site';
 import type { Service } from './services';
 
 const orgId = `${siteUrl}/#organization`;
@@ -40,7 +40,7 @@ export function professionalServiceSchema() {
     url: siteUrl,
     image: `${siteUrl}/opengraph-image`,
     description:
-      'Commercial painting contractor and industrial coatings applicator serving Dallas–Fort Worth and Texas.',
+      'Commercial painting contractor and high-performance coatings applicator serving Dallas–Fort Worth and Texas since 1984.',
     telephone: company.phone,
     email: company.email,
     priceRange: '$$',
@@ -55,19 +55,46 @@ export function professionalServiceSchema() {
     },
     openingHours: company.hours,
     areaServed: serviceAreas.flatMap((area) =>
-      area.cities.map((city) => ({
-        '@type': 'City',
-        name: city,
-        containedInPlace: { '@type': 'State', name: 'Texas' },
-      })),
+      area.cities.map((city) => ({ '@type': 'City', name: city })),
     ),
     knowsAbout: [
       'Commercial painting',
-      'Industrial coatings',
+      'Commercial interior painting',
+      'Commercial exterior painting',
+      'Tenant finish-outs',
+      'Occupied renovations',
       'New construction painting',
-      'Facility repaint programs',
+      'Surface preparation',
+      'High-performance and industrial coatings',
     ],
   };
+}
+
+/**
+ * One LocalBusiness node per operating office, so each location can rank for
+ * its own metro rather than competing under a single address.
+ */
+export function officeSchemas() {
+  return offices.map((office) => ({
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    '@id': `${siteUrl}/#office-${office.id}`,
+    name: `${company.name} — ${office.label}`,
+    url: siteUrl,
+    telephone: office.phone,
+    email: office.email,
+    priceRange: '$$',
+    parentOrganization: { '@id': orgId },
+    openingHours: company.hours,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: office.street,
+      addressLocality: office.city,
+      addressRegion: office.region,
+      postalCode: office.postalCode,
+      addressCountry: office.country,
+    },
+  }));
 }
 
 export function serviceSchema(service: Service) {

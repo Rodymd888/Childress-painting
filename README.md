@@ -1,57 +1,7 @@
 # Childress Painting — Website
 
-Commercial contractor website built with Next.js App Router, TypeScript, Tailwind CSS v4,
-Framer Motion, and Lucide icons. Deploys to Vercel with no configuration.
-
----
-
-## v2 — design and performance pass
-
-A full redesign pass over the live site. Structure, routes, and branding were preserved;
-everything else was reworked. Nothing was rebuilt from scratch.
-
-**Visual**
-- Purpose-drawn architectural artwork (`components/ui/SectorArt.tsx`) replaces the gradient
-  image placeholders. Fourteen scenes — hospital corridor, hangar truss, curtain wall, slab
-  section, tower crane — drawn in the brand palette. Vector, ~1 KB each, no layout shift.
-- Fluid type scale as design tokens (`--text-display` → `--text-lead`), so headings hold
-  their proportions from 375px to 1920px instead of being tuned per component.
-- Hero rebuilt: masked line reveal, Ken Burns drift on the plate, a "Since 1984" standing
-  seal, and trust indicators moved above the fold.
-- Motion primitives in CSS (`.lift`, `.sweep`, `.sheen`, `.underline-sweep`) replace the
-  single red top-bar effect that had been reused on six different card types.
-- Process timeline redesigned as a connected sequence with visible stage connectors.
-- Testimonial placeholders no longer render as red warning boxes — an unapproved reference
-  is a reserved slot, not an error state.
-
-**Performance**
-- Framer Motion removed from all content pages. Scroll reveals now use one shared
-  IntersectionObserver plus CSS transitions. Motion is retained only where it earns its
-  weight: the hero load sequence and the mobile drawer.
-- **First Load JS on content pages: 143 kB → 104 kB (−27%).**
-
-**Content and structure**
-- Services expanded 4 → 6: added Epoxy & Resinous Flooring and Specialty Coatings.
-- Markets expanded 6 → 8: added Government & Civic and Commercial Office.
-- Interior and exterior painting are covered as sub-scopes inside Commercial Painting, with
-  their own anchors, rather than as separate top-level services. Splitting them apart is a
-  residential convention that makes a Division 09 package harder to level, not easier — the
-  services index links to both anchors explicitly.
-- Process expanded from 4 stages to the 6 a buyer recognises, each still tied to a
-  deliverable.
-- Homepage gained a scrolling sector band and a dedicated Why Childress section.
-
-**Request a bid**
-- Rebuilt as a four-step wizard with per-step validation, a real progress indicator, and
-  keyboard/assistive-tech support. All steps stay mounted, so one native submit carries every
-  field and autofill behaves normally.
-- Added Estimated Budget, Additional Notes, and a drag-and-drop plan upload.
-
-**Accessibility**
-- Every text colour re-checked against WCAG AA; all pass 4.5:1.
-- Wizard progress is a real `<ol>` with `aria-current="step"`.
-- All 27 pages verified: unique titles and descriptions, canonicals, OG and Twitter tags,
-  exactly one `<h1>`, valid JSON-LD, no image missing `alt`.
+Commercial painting contractor site for **Childress Painting DFW LLC**.
+Next.js 15 (App Router) · React 19 · Tailwind CSS v4 · TypeScript.
 
 ---
 
@@ -59,18 +9,114 @@ everything else was reworked. Nothing was rebuilt from scratch.
 
 ```bash
 npm install
-npm run dev          # http://localhost:3000
+npm run dev        # http://localhost:3000
+npm run build      # production build
+npm start          # serve the production build
+npm run typecheck  # tsc --noEmit
+npm run lint
 ```
 
-| Script | Does |
-| --- | --- |
-| `npm run dev` | Development server |
-| `npm run build` | Production build |
-| `npm run start` | Serve the production build locally |
-| `npm run lint` | ESLint |
-| `npm run typecheck` | TypeScript, no emit |
+Node 18.18+ required.
 
-Run `npm run typecheck && npm run lint && npm run build` before every deploy.
+### Environment
+
+| Variable               | Required | Purpose                                                     |
+| ---------------------- | -------- | ----------------------------------------------------------- |
+| `NEXT_PUBLIC_SITE_URL` | No       | Canonical origin. Defaults to `https://www.childresspaintingtx.com` |
+
+Set it in Vercel → Project → Settings → Environment Variables if the production
+domain ever changes. It drives canonicals, the sitemap, and structured data.
+
+---
+
+## The one thing to understand
+
+**Content lives in `lib/`. Pages read from it.** Adding a service, industry,
+project, or client is a single array entry — navigation, the sitemap,
+structured data, related-content links, filters, and counts all derive from it
+automatically. You should almost never need to edit a page component to publish
+new content.
+
+```
+lib/
+├── site.ts        Company facts, both offices, navigation, service areas
+├── clients.ts     Representative clients by industry + education partners
+├── services.ts    The 7 services (drives /services and /services/[slug])
+├── industries.ts  The 12 sectors (drives /industries and /industries/[slug])
+├── projects.ts    Project portfolio (drives /projects and /projects/[slug])
+├── content.ts     Process steps, differentiators, values, timeline, safety, QC
+├── schema.ts      JSON-LD builders
+├── seo.ts         Metadata helper
+├── validation.ts  Server-side form schemas
+└── submissions.ts Form delivery
+```
+
+---
+
+## Common tasks
+
+### Add a project
+
+Append to `projects` in `lib/projects.ts`:
+
+```ts
+{
+  slug: 'new-project',
+  name: 'Client Name',
+  industry: 'retail',              // must match a slug in lib/industries.ts
+  serviceTypes: ['commercial-interior-painting'],  // slugs from lib/services.ts
+  scopeSummary: 'One or two sentences describing the scope.',
+  detail: 'experience',
+  art: 'retail',                   // key from components/ui/SectorArt.tsx
+}
+```
+
+It appears immediately on `/projects`, in the sector filter, on the matching
+industry page, in related-projects rails, and in the sitemap.
+
+### Publish a full case study
+
+Projects carry a `detail` flag that controls how much the page claims:
+
+- **`'experience'`** — the client relationship and scope category are confirmed,
+  but specifics are not. The template renders a clean capability page and
+  invents nothing. Every project ships this way by default.
+- **`'case-study'`** — fully verified and released. Unlocks the hero image,
+  overview, challenges/approach/outcome, fact strip, gallery, and video.
+
+To upgrade one:
+
+1. Get written permission from the owner or GC to name and photograph it.
+2. Fill in `location`, `completionDate`, `completionISO`, `overview`,
+   `challenges`, `solution`, `results`, and `facts`.
+3. Add photography per `public/images/README.md`.
+4. Change `detail` to `'case-study'`.
+
+Do not add contract values, square footage, or statistics that have not been
+confirmed by the company.
+
+### Add project photography
+
+See **`public/images/README.md`**. Short version: every image slot renders
+through `components/ui/MediaFrame.tsx`, which prefers a photograph and falls
+back to drawn artwork. Populating an image field is all that is needed — no
+layout changes anywhere.
+
+### Add the homepage drone video
+
+See **`public/video/README.md`**. Drop `hero-drone.mp4` in that folder and the
+hero upgrades itself. Until then it renders the poster still, correctly.
+
+### Add a service or industry
+
+Append to `services` in `lib/services.ts` or `industries` in
+`lib/industries.ts`, then add the nav entry in `lib/site.ts` (`primaryNav` and
+`footerNav`). Everything else is automatic.
+
+### Change company facts
+
+`lib/site.ts` only. Phone numbers, both office addresses, email, service areas,
+and navigation all live there and propagate everywhere.
 
 ---
 
@@ -78,289 +124,108 @@ Run `npm run typecheck && npm run lint && npm run build` before every deploy.
 
 ```
 app/
-  layout.tsx                Root shell: fonts, metadata, nav, footer, site-wide JSON-LD
-  page.tsx                  Homepage
-  globals.css               Design system — colors, type, the title-block motif
-  about/                    Company story and positioning
-  services/                 Index + [slug] template (4 statically generated pages)
-  markets/                  Index + [slug] template (6 statically generated pages)
-  projects/                 Index + [slug] template (6 sample records)
-  safety-quality/           Safety and QC practice, closeout package
-  service-areas/            DFW coverage and North Texas conditions
-  request-bid/              Bid invitation form
-  subcontractors/           Trade partner prequalification form
-  careers/                  Job application form
-  contact/                  General contact form
-  privacy/                  Privacy notice (draft — needs legal review)
-  api/                      bid · contact · subcontractor · careers
-  sitemap.ts robots.ts not-found.tsx opengraph-image.tsx icon.svg
-
+├── layout.tsx              Root shell, fonts, org + per-office JSON-LD
+├── page.tsx                Homepage
+├── about/ process/ why-childress/ safety-quality/
+├── services/ + [slug]/     Index and detail template
+├── industries/ + [slug]/   Index and detail template
+├── projects/ + [slug]/     Filterable portfolio + case-study template
+├── clients/                Representative clients + education partners
+├── request-bid/            Four-step bid portal
+├── contact/ careers/ subcontractors/ service-areas/ privacy/
+├── api/{bid,contact,careers,subcontractor}/  Form handlers
+├── sitemap.ts robots.ts opengraph-image.tsx icon.svg
 components/
-  layout/                   Navbar, MobileMenu, Footer, Logo
-  ui/                       PageHero, SectionHeading, Breadcrumbs, CtaBanner,
-                            ProcessTimeline, Reveal, Button, JsonLd, ImagePlaceholder
-  cards/                    ServiceCard, MarketCard, ProjectCard, TestimonialCard
-  forms/                    Fields, FormShell, useFormSubmit, and the four forms
-
-lib/
-  site.ts                   Company details, navigation, service areas, testimonials
-  services.ts               Service definitions and page content
-  markets.ts                Market sector definitions and page content
-  projects.ts               Project data structure and sample records
-  content.ts                Shared copy: process, differentiators, safety, history
-  seo.ts                    Metadata builder used by every page
-  schema.ts                 JSON-LD builders
-  validation.ts             Field rules and option lists
-  submissions.ts            Server-only form pipeline (validation, rate limit, delivery)
+├── layout/    Navbar, Footer, Logo, MobileMenu
+├── home/      Hero (video), TrustedBy, StatsBand
+├── cards/     ServiceCard, IndustryCard, ProjectCard
+├── projects/  ProjectPortfolio (client-side sector filter)
+├── forms/     Bid, Contact, Careers, Subcontractor + shared field primitives
+└── ui/        MediaFrame, SectorArt, ProcessTimeline, Reveal, Button,
+               SectionHeading, PageHero, Breadcrumbs, CtaBanner, JsonLd
 ```
 
-### Why the routes are dynamic
+### Design system
 
-`/services/[slug]`, `/markets/[slug]`, and `/projects/[slug]` use `generateStaticParams`
-with `dynamicParams = false`. Every URL is pre-rendered to static HTML at build time —
-identical output to hand-written page files — but adding a service or a project is a data
-edit rather than a new page. Any slug not in the data files returns a 404.
+`app/globals.css` holds the whole system as Tailwind v4 `@theme` tokens.
 
-### Editing content
+- **Palette** — signal red `#d81f26`, true black `#0a0a0b`, white, with an ink
+  and graphite scale. Taken directly from the logo.
+- **Type** — Archivo (variable-width display) / Inter (text) / JetBrains Mono
+  (labels and codes). Metric-adjusted fallbacks prevent layout shift on swap.
+- **Motif** — the construction drawing sheet: mono labels, CSI references, red
+  dimension rules, hairline grids. The `.title-block` class is the signature
+  device and appears on every section.
+- **Motion** — `.reveal`, `.lift`, `.sweep`, `.sheen`, `.line-mask`,
+  `.marquee-track`. All CSS. Fully disabled under `prefers-reduced-motion`.
 
-Almost all copy lives in `lib/`. Add a fifth service by appending to the `services` array
-in `lib/services.ts`: the page, the navigation entry, the footer link, the sitemap entry,
-and the `Service` structured data all follow automatically.
+### Performance notes
 
----
+- Framer Motion was removed from ordinary content. Scroll reveals use one
+  shared `IntersectionObserver` plus CSS; the hero uses React state and CSS
+  transitions. The library remains only in the mobile drawer.
+- Placeholder artwork is inline SVG (~1–2 KB each) — no image requests, no
+  layout shift.
+- All content routes are statically prerendered (84 pages).
+- Brand and video assets get a one-year immutable cache header.
 
-## Design system
+### Accessibility
 
-| Token | Value | Used for |
-| --- | --- | --- |
-| Navy | `#0D1B2A` | Primary dark surface, headings |
-| Red | `#D72638` | Accent, rules, calls to action |
-| White | `#FFFFFF` | Primary light surface |
-| Mist | `#F4F5F7` | Secondary light surface |
-| Ink | `#111827` | Body text on light |
-| Body | `#46536B` | Secondary text on light |
+- Process timeline is a real tablist with roving tabindex and arrow-key support.
+- Skip link, visible focus rings, `aria-current` on active nav.
+- Portfolio filter announces result counts via `aria-live`.
+- Drawn artwork carries descriptive `role="img"` labels.
+- Full reduced-motion support.
 
-Type: **Archivo** (variable-width display, set at `wdth 112` for a monumental,
-architectural feel), **IBM Plex Sans** (body), **IBM Plex Mono** (labels and data).
+### SEO
 
-The signature device is the **title block** — a mono label with a red dimension rule,
-borrowed from construction drawing sheets. It introduces every major section, and service
-pages carry real CSI MasterFormat section numbers.
-
-### Fonts
-
-Fonts load from Google Fonts via a `<link>` in `app/layout.tsx`, with `preconnect` and a
-metric-matched `@font-face` fallback in `globals.css` so the swap does not shift layout.
-
-To eliminate the third-party request, switch to self-hosting:
-
-```ts
-// app/layout.tsx
-import { Archivo, IBM_Plex_Sans, IBM_Plex_Mono } from 'next/font/google';
-```
-
-Apply the generated `className` to `<html>` and delete the three `<link>` tags.
+- Per-page canonicals, Open Graph, and Twitter cards.
+- JSON-LD: Organization, ProfessionalService, WebSite, one LocalBusiness per
+  office, BreadcrumbList on every page, Service and FAQPage on service pages.
+- Sitemap generated from the data layer.
+- 301 redirects in `next.config.ts` preserve the retired `/markets/*` and
+  legacy service URLs.
 
 ---
 
 ## Forms
 
-Four forms post JSON to four API routes. All validation runs **server-side** in
-`lib/validation.ts`, so it cannot be bypassed by disabling JavaScript. Field-level errors
-come back and attach to the correct inputs.
+Four endpoints under `app/api/`. Each validates server-side against a schema in
+`lib/validation.ts` — client validation is a usability layer, never a security
+boundary.
 
-Also built in: a honeypot field, in-memory rate limiting (5 submissions per minute per IP),
-control-character stripping, and a human-readable reference number returned on success.
-
-### Connecting a real destination
-
-Submissions are currently logged server-side and acknowledged. One function needs changing:
-`deliver()` in **`lib/submissions.ts`**. Worked examples for Resend, HubSpot, and Airtable
-are in the comments directly above it.
-
-```ts
-// lib/submissions.ts
-async function deliver(type, data, ref) {
-  const { Resend } = await import('resend');
-  const resend = new Resend(process.env.RESEND_API_KEY);
-  await resend.emails.send({ /* ... */ });
-}
-```
-
-Throw on failure — the caller converts it to a 502 and tells the visitor to phone instead of
-assuming the message arrived.
-
-**Secrets**: `lib/submissions.ts` is imported only by route handlers, so it never reaches the
-browser bundle. Read every API key from `process.env` inside that file. Never prefix a secret
-with `NEXT_PUBLIC_`.
-
-### Plan uploads
-
-The bid wizard has a real drag-and-drop file picker with type and size validation
-(25 MB per file, 10 files). **The transport is not connected yet** — the browser collects the
-files and sends the filenames with the enquiry, and the UI says so plainly rather than
-implying the drawings arrived.
-
-To finish it, pick a storage provider and wire it up in three places:
-
-1. `components/forms/BidForm.tsx` — post as `FormData` instead of JSON when `files.length > 0`.
-2. `app/api/bid/route.ts` — read the multipart body.
-3. `lib/submissions.ts` — stream each file to storage inside `deliver()`.
-
-Vercel Blob is the shortest path on this stack:
-
-```ts
-import { put } from '@vercel/blob';
-const { url } = await put(`bids/${ref}/${file.name}`, file, { access: 'private' });
-```
-
-Enforce the size limit server-side as well as in the browser, and note that Vercel's
-serverless request body cap applies — for very large plan sets, prefer a client-direct upload
-to storage, or keep using the plan-room link field, which is how most GCs share drawings
-anyway.
-
-### Rate limiting in production
-
-The in-memory limiter resets per serverless instance. For real protection use Vercel KV or
-Upstash Redis, or put the routes behind Vercel's WAF.
+**Delivery is not configured yet.** `lib/submissions.ts` currently logs
+submissions. Wire it to an email provider (Resend, Postmark, SendGrid) or a CRM
+before launch, or bid requests will be lost. That file is the only place to
+change.
 
 ---
 
-## SEO
+## Deployment
 
-Every page has a unique title and meta description, a canonical URL, Open Graph and Twitter
-metadata, one `<h1>`, and breadcrumbs. `lib/seo.ts` builds all of it — pass a title,
-description, and path.
+Vercel, connected to the GitHub repo. Push to the production branch and it
+deploys — no configuration change is required for this update.
 
-Structured data (`lib/schema.ts`): Organization, ProfessionalService, WebSite, BreadcrumbList,
-Service, and FAQPage. **No `aggregateRating` or review markup** — that requires verified data,
-and self-serving review markup is penalised.
+Before launch:
 
-Sample projects set `noIndex` and are excluded from the sitemap. Both clear automatically when
-`sample` is set to `false`.
-
----
-
-## Accessibility and performance
-
-Verified in the build: skip link, `lang` attribute, labelled landmarks, one `<h1>` per page,
-every form control associated with a `<label>` (radios in `fieldset` + `legend`), `aria-invalid`
-and `aria-describedby` on errors, `role="alert"` live regions, 44px minimum touch targets,
-Escape-to-close and focus return on the mobile drawer, and 3px red focus rings throughout.
-
-All text colors meet WCAG AA (4.5:1). Reduced motion is respected in CSS and in every Framer
-Motion component — `useReducedMotion` returns a static render rather than a faster animation.
-
-Layout stability: the hero image uses `next/image` with `fill` and `priority`; placeholders
-reserve space with aspect ratios; the font fallback is metric-matched. Reveal animations
-change only opacity and transform, never layout.
-
-Breakpoints reviewed at **375 / 768 / 1024 / 1440**. Navigation collapses to a drawer below
-1280px; every multi-column grid starts at one or two columns on mobile.
+- [ ] Wire form delivery in `lib/submissions.ts`
+- [ ] Drop `hero-drone.mp4` into `public/video/`
+- [ ] Confirm `NEXT_PUBLIC_SITE_URL` matches the live domain
+- [ ] Name the actual processors in `app/privacy/page.tsx`
+- [ ] Replace `public/images/hero-poster.jpg` with the video's first frame
 
 ---
 
-## Deploying to Vercel
+## Content policy
 
-1. **Push to Git**
+The site deliberately does not publish anything that cannot be substantiated:
 
-   ```bash
-   git init && git add -A
-   git commit -m "Childress Painting website"
-   git remote add origin git@github.com:YOUR-ORG/childress-painting.git
-   git push -u origin main
-   ```
+- No invented statistics, contract values, or square footage.
+- No testimonials until the quote, name, title, and company are confirmed in
+  writing by the person quoted.
+- Client names are set in type, never reproduced as logos, and every surface
+  that names them carries a descriptive-use disclaimer.
+- Project pages default to the honest `'experience'` state rather than
+  fabricating case-study detail.
 
-2. **Import into Vercel** — <https://vercel.com/new>. Framework preset, build command, and
-   output directory are all detected automatically. No overrides needed.
-
-3. **Set the environment variable**
-
-   | Name | Value | Environments |
-   | --- | --- | --- |
-   | `NEXT_PUBLIC_SITE_URL` | `https://www.childresspainting.com` | Production |
-
-   This drives canonical URLs, Open Graph URLs, the sitemap, and structured data. Without it
-   the site falls back to the default in `lib/site.ts`. Set it before the first production
-   deploy so search engines never see the wrong canonical.
-
-   Add secrets here too (`RESEND_API_KEY`, `HUBSPOT_TOKEN`, `AIRTABLE_TOKEN`) once forms are
-   connected — never commit them.
-
-4. **Add the domain** — Project → Settings → Domains. Add both `childresspainting.com` and
-   `www.childresspainting.com` and set one to redirect to the other. Point DNS at Vercel as
-   instructed; TLS is issued automatically.
-
-5. **After the first deploy**
-   - Submit `https://www.childresspainting.com/sitemap.xml` in Google Search Console.
-   - Test share cards with the LinkedIn Post Inspector and Facebook Sharing Debugger.
-   - Validate structured data at <https://validator.schema.org>.
-   - Run Lighthouse against the production URL, not localhost.
-
----
-
-## Before you publish — replacement checklist
-
-Everything below is either a placeholder or unverified. **Nothing on this site claims a
-licence, certification, award, client name, contract value, safety statistic, or completed
-project**, because none of it has been confirmed.
-
-### Blocking — do not launch without these
-
-| # | Item | Where |
-| --- | --- | --- |
-| 1 | **Phone number** — `(214) 555-1984` is fictional | `lib/site.ts` → `company.phone`, `phoneHref` |
-| 2 | **Email addresses** — confirm both inboxes exist and are monitored | `lib/site.ts` → `company.email`, `careersEmail` |
-| 3 | **Office address** — or delete the street line and stay service-area only | `lib/site.ts` → `company.address` |
-| 4 | **Business hours** — currently Mo–Fr 07:00–17:00 | `lib/site.ts` → `company.hours` |
-| 5 | **Production domain** | Vercel env var `NEXT_PUBLIC_SITE_URL` |
-| 6 | **Connect the forms** — they log and acknowledge but deliver nowhere | `lib/submissions.ts` → `deliver()` |
-| 7 | **Privacy notice** — draft, needs Texas counsel review; name the actual processors | `app/privacy/page.tsx` |
-
-### Brand and imagery
-
-| # | Item | Where |
-| --- | --- | --- |
-| 8 | **Logo** — currently a typographic stand-in; supply transparent SVG or PNG | `components/layout/Logo.tsx` |
-| 9 | **Favicon** — placeholder mark | `app/icon.svg` |
-| 10 | **Hero image** — existing file is 1188×888, too small for full-bleed. Supply ~2400px wide, ideally a Childress project or DFW commercial site | `public/images/dallas-hero.jpg` |
-| 11 | **Market photography** — 6 sectors show labeled gradient placeholders | `lib/markets.ts` → set `image` on each |
-| 12 | **Project photography** — featured image + gallery per project | `lib/projects.ts` → `featuredImage`, `gallery` |
-
-### Content
-
-| # | Item | Where |
-| --- | --- | --- |
-| 13 | **Real projects** — all 6 records are samples carrying a visible "Sample layout" badge and `noIndex`. Get written permission from the owner or GC, replace the content, set `sample: false` | `lib/projects.ts` |
-| 14 | **Testimonials** — 3 placeholders, rendered with an "awaiting approval" notice. Get the quote approved in writing, then set `verified: true` | `lib/site.ts` → `testimonials` |
-| 15 | **Company history** — deliberately general. Add founding details and the year the business moved into commercial work | `lib/content.ts` → `historyMilestones` |
-| 16 | **Social profiles** — empty; add real URLs or delete the unused keys | `lib/site.ts` → `company.social` |
-| 17 | **EEO statement** — placeholder on the careers page, confirm with counsel | `app/careers/page.tsx` |
-
-### Held back on purpose — add only when verified
-
-These are **absent by design**. Publishing them unverified is worse than publishing nothing,
-and prequalification departments check every one.
-
-- Licence numbers and state registrations
-- Insurance limits, bonding capacity, and surety
-- EMR and OSHA incident rates
-- Safety certifications and training credentials
-- Trade association memberships and manufacturer approvals
-- Awards, client logos, and named references
-- Employee headcount, revenue, and years-in-business figures for the current entity
-- Any project value or square footage
-
-The site currently tells visitors these are supplied on request as part of prequalification,
-which is both honest and how commercial buyers expect to receive them. When you have verified
-figures, the natural home for them is `/safety-quality` and `/about`.
-
----
-
-## Notes
-
-- `output: 'standalone'` was removed from `next.config.ts` — Vercel does not need it.
-- Security headers (`X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`,
-  `Permissions-Policy`) are set in `next.config.ts`.
-- No analytics, advertising pixels, or cookie banners are installed. If you add any, update
-  the privacy notice and check whether consent is required.
+Keep it that way. A general contractor running a prequalification will check.

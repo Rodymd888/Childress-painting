@@ -15,10 +15,10 @@ const sizes: Record<Size, string> = {
 
 const variants: Record<Variant, string> = {
   primary: 'bg-red text-white hover:bg-red-dark',
-  dark: 'bg-navy text-white hover:bg-navy-700',
-  light: 'bg-white text-navy hover:bg-concrete',
-  outline: 'border border-navy/25 text-navy hover:border-navy hover:bg-navy hover:text-white',
-  outlineLight: 'border border-white/35 text-white hover:bg-white hover:text-navy',
+  dark: 'bg-ink text-white hover:bg-ink-700',
+  light: 'bg-white text-ink hover:bg-concrete',
+  outline: 'border border-ink/25 text-ink hover:border-ink hover:bg-ink hover:text-white',
+  outlineLight: 'border border-white/35 text-white hover:bg-white hover:text-ink',
 };
 
 function classes(variant: Variant, size: Size, className?: string) {
@@ -87,7 +87,7 @@ export function TextLink({
       href={href}
       className={[
         'group inline-flex items-center gap-2 border-b-2 border-red pb-1.5 font-mono text-[0.6875rem] font-medium uppercase tracking-[0.16em] transition-colors',
-        light ? 'text-white hover:text-red-light' : 'text-navy hover:text-red',
+        light ? 'text-white hover:text-red-light' : 'text-ink hover:text-red',
         className,
       ]
         .filter(Boolean)

@@ -23,7 +23,7 @@ export function CtaBanner({
   secondary = { href: '/contact', text: 'Talk to estimating' },
 }: Props) {
   return (
-    <section className="relative overflow-hidden bg-navy text-white">
+    <section className="relative overflow-hidden bg-ink text-white">
       <div className="sheet-grid absolute inset-0" aria-hidden="true" />
       <div
         aria-hidden="true"
@@ -35,7 +35,7 @@ export function CtaBanner({
           <div>
             <span className="title-block text-white/70">{label}</span>
             <h2 className="mt-5 max-w-3xl text-[clamp(2.25rem,5.4vw,4.25rem)]">{title}</h2>
-            <p className="mt-6 max-w-xl text-[1.0625rem] leading-relaxed text-steel-light">
+            <p className="mt-6 max-w-xl text-[1.0625rem] leading-relaxed text-ash">
               {body}
             </p>
           </div>

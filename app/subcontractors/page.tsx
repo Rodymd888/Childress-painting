@@ -13,7 +13,7 @@ import { breadcrumbSchema, faqSchema } from '@/lib/schema';
 export const metadata = buildMetadata({
   title: 'Subcontractors & Suppliers | Prequalification',
   description:
-    'Painting subcontractors, coatings applicators, and suppliers can submit for prequalification with Childress Painting across Dallas–Fort Worth and Texas.',
+    'Painting subcontractors, coatings applicators, and suppliers can submit for prequalification with Childress Painting across Texas, Kansas, and Missouri.',
   path: '/subcontractors',
 });
 
@@ -54,7 +54,7 @@ const faqs = [
   {
     question: 'Do I need to be based in Dallas–Fort Worth?',
     answer:
-      'No. Our core work is in the metroplex, but we take projects across Texas and regularly need trade partners with reliable coverage in Austin, Houston, San Antonio, and other markets. Tell us where you can genuinely work rather than where you would like to.',
+      'No. Our core work runs from Dallas and Grandview, MO, but we take projects across Texas, Kansas, and Missouri and regularly need trade partners with reliable coverage in Austin, Houston, San Antonio, and the Kansas City metro. Tell us where you can genuinely work rather than where you would like to.',
   },
   {
     question: 'How long does prequalification take?',
@@ -109,7 +109,7 @@ export default function SubcontractorsPage() {
                   className="absolute inset-x-0 top-0 h-0.5 w-0 bg-red transition-all duration-500 group-hover:w-full"
                 />
                 <item.icon aria-hidden="true" className="size-5 text-red" />
-                <h3 className="mt-5 text-[1.375rem] leading-tight text-navy lg:text-2xl">
+                <h3 className="mt-5 text-[1.375rem] leading-tight text-ink lg:text-2xl">
                   {item.title}
                 </h3>
                 <p className="mt-3.5 text-[0.9375rem] leading-relaxed text-body">{item.body}</p>
@@ -124,8 +124,8 @@ export default function SubcontractorsPage() {
           <div className="grid gap-12 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,0.65fr)] lg:gap-16">
             <div>
               <Reveal>
-                <span className="title-block text-navy/60">Prequalification</span>
-                <h2 className="mt-5 text-[clamp(1.75rem,3.6vw,2.75rem)] text-navy">
+                <span className="title-block text-ink/60">Prequalification</span>
+                <h2 className="mt-5 text-[clamp(1.75rem,3.6vw,2.75rem)] text-ink">
                   Submit your company.
                 </h2>
                 <p className="mt-5 max-w-2xl text-[1.0625rem] leading-relaxed text-body">
@@ -140,14 +140,14 @@ export default function SubcontractorsPage() {
             </div>
 
             <Reveal delay={0.08} className="lg:sticky lg:top-32 lg:self-start">
-              <h2 className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-navy/60">
+              <h2 className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-ink/60">
                 Questions
               </h2>
 
               <dl className="mt-7 border-t border-line">
                 {faqs.map((faq) => (
                   <div key={faq.question} className="border-b border-line py-6">
-                    <dt className="text-lg text-navy">{faq.question}</dt>
+                    <dt className="text-lg text-ink">{faq.question}</dt>
                     <dd className="mt-2.5 text-[0.9375rem] leading-relaxed text-body">
                       {faq.answer}
                     </dd>

@@ -1,249 +1,251 @@
-import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import type { Metadata } from 'next';
 
 import { PageHero } from '@/components/ui/PageHero';
-import { CtaBanner } from '@/components/ui/CtaBanner';
 import { SectionHeading } from '@/components/ui/SectionHeading';
+import { CtaBanner } from '@/components/ui/CtaBanner';
 import { Reveal, RevealGroup, RevealItem } from '@/components/ui/Reveal';
-import { ProcessTimeline } from '@/components/ui/ProcessTimeline';
+import { ButtonLink, TextLink } from '@/components/ui/Button';
+import { MediaFrame } from '@/components/ui/MediaFrame';
 import { JsonLd } from '@/components/ui/JsonLd';
-import { TextLink } from '@/components/ui/Button';
 
-import { company } from '@/lib/site';
-import { differentiators, historyMilestones, processSteps } from '@/lib/content';
-import { services } from '@/lib/services';
-import { buildMetadata } from '@/lib/seo';
+import { timeline, values, capabilitySnapshot } from '@/lib/content';
+import { company, leadership, companyStats } from '@/lib/site';
+import { totalClients, totalSchools } from '@/lib/clients';
 import { breadcrumbSchema } from '@/lib/schema';
 
-export const metadata = buildMetadata({
-  title: 'About Childress Painting | Commercial Contractor, DFW',
+export const metadata: Metadata = {
+  title: 'About Childress Painting | Commercial Painting Since 1984',
   description:
-    'Childress Painting is a commercial painting and industrial coatings contractor serving Dallas–Fort Worth and Texas, built on family painting experience dating to 1984.',
-  path: '/about',
-});
-
-const crumbs = [
-  { name: 'Home', href: '/' },
-  { name: 'About', href: '/about' },
-];
+    'Childress Painting has performed commercial-only painting work since 1984. Based in Dallas, serving Texas with continued Kansas and Missouri coverage. Meet the leadership team.',
+  alternates: { canonical: '/about' },
+};
 
 export default function AboutPage() {
   return (
     <>
       <PageHero
-        label="About the company"
-        title="A painting trade, run like a commercial subcontractor."
-        intro="Childress Painting bids, staffs, and closes out Division 09 work for general contractors, developers, and facility teams across Texas — built on family painting experience dating to 1984."
-        crumbs={crumbs}
-        meta={[
-          { label: 'Entity', value: company.legalName },
-          { label: 'Base', value: 'Dallas–Fort Worth' },
-          { label: 'Coverage', value: 'Texas statewide' },
-          { label: 'Experience since', value: String(company.heritageYear) },
+        label="About Childress"
+        title="Four decades of commercial-only work."
+        intro="Since 1984, one operating premise: make the superintendent's job easier. Show up when the schedule says we will, communicate problems before they become delays, and leave the site cleaner than a paint crew is expected to."
+        crumbs={[
+          { name: 'Home', href: '/' },
+          { name: 'About', href: '/about' },
         ]}
-      />
+        meta={companyStats.map((s) => ({ label: s.label, value: s.value }))}
+      >
+        <ButtonLink href="/request-bid" variant="primary" size="lg" withArrow>
+          Request a bid
+        </ButtonLink>
+        <ButtonLink href="/why-childress" variant="outlineLight" size="lg">
+          Why choose Childress
+        </ButtonLink>
+      </PageHero>
 
-      {/* Positioning ------------------------------------------------------- */}
-      <section className="bg-white py-20 md:py-24 lg:py-28">
+      {/* ================================================================ STORY */}
+      <section className="section bg-white">
         <div className="container-site">
-          <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-20">
+          <div className="grid gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-20">
             <Reveal>
-              <span className="title-block text-navy/60">Who we are</span>
-              <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.25rem)] text-navy">
-                Painting is the trade. Commercial construction is the business.
+              <span className="title-block text-ink/60">The company</span>
+              <h2 className="mt-6 text-h2 text-ink">
+                A dependable subcontractor,
+                <br />
+                <span className="text-red">by design.</span>
               </h2>
+
+              <div className="prose-site mt-8">
+                <p className="text-lead leading-relaxed text-ink/80">
+                  Childress Painting is a commercial painting contractor operating as{' '}
+                  {company.legalName} from {company.address.city}, {company.address.region}. We
+                  work for general contractors, developers, property groups, and facility teams
+                  — and we work in commercial buildings only.
+                </p>
+                <p>
+                  That focus matters more than it sounds. A contractor splitting attention
+                  between residential and commercial carries a learning curve on prevailing
+                  wage, submittals, multi-trade sequencing, and what a superintendent actually
+                  needs from a subcontractor on a Tuesday morning. We do not have that curve.
+                </p>
+                <p>
+                  We coordinate directly with drywall, flooring, and finish-carpentry crews to
+                  sequence around live construction and occupied spaces. We run our own
+                  quality-control inspections ahead of the general contractor&rsquo;s
+                  walkthrough. We staff every project with a dedicated project manager from
+                  preconstruction through closeout. The result is fewer punch list items, faster
+                  sign-off, and a Sherwin-Williams coating system backed by a two-year
+                  workmanship warranty.
+                </p>
+                <p>
+                  Across four decades that work has covered national retail and restaurant
+                  rollouts, district-wide school programs, stadiums, surgery centers, industrial
+                  plants, airport terminals, and public safety facilities — {totalClients}{' '}
+                  representative clients and {totalSchools} school campuses on the record.
+                </p>
+              </div>
+
+              <div className="mt-9 flex flex-wrap gap-3">
+                <ButtonLink href="/clients" variant="dark" withArrow>
+                  Representative clients
+                </ButtonLink>
+                <ButtonLink href="/projects" variant="outline">
+                  Project portfolio
+                </ButtonLink>
+              </div>
             </Reveal>
 
-            <Reveal delay={0.08} className="prose-site lg:pt-3">
-              <p className="text-[1.0625rem]">
-                Plenty of contractors can paint a wall well. Far fewer can price a Division 09
-                package from a drawing set, write a scope letter an estimator can level against
-                three other bids, staff a job to a CPM schedule that keeps moving, and turn over a
-                closeout package that does not hold up substantial completion.
-              </p>
-              <p>
-                That second set of skills is what general contractors are actually buying, and it
-                is what Childress Painting is organised around. The craft came first — four
-                decades of family painting experience — and the estimating, scheduling, safety,
-                and documentation discipline that commercial work demands was built on top of it.
-              </p>
-              <p>
-                We work as a subcontractor on ground-up construction and renovation, and directly
-                with owners, property managers, and facility teams on planned repaint and coatings
-                programs.
-              </p>
+            <Reveal delay={0.1} from="right">
+              <div className="lg:sticky lg:top-28">
+                <MediaFrame
+                  art="construction"
+                  label="Childress Painting commercial work"
+                  ratio="tall"
+                  overlay={false}
+                  priority
+                  sizes="(min-width: 1024px) 36vw, 100vw"
+                />
+                <div className="mt-8 border-l-2 border-red pl-6">
+                  <p className="font-display text-[1.375rem] font-bold leading-snug tracking-tight text-ink">
+                    &ldquo;Commercial work only. No residential distractions.&rdquo;
+                  </p>
+                  <p className="mt-3 font-mono text-[0.625rem] uppercase tracking-[0.18em] text-ink/50">
+                    Since {company.heritageYear}
+                  </p>
+                </div>
+              </div>
             </Reveal>
           </div>
         </div>
       </section>
 
-      {/* History ----------------------------------------------------------- */}
-      <section className="bg-navy py-20 md:py-24 lg:py-28">
-        <div className="container-site">
+      {/* ============================================================= TIMELINE */}
+      <section className="relative overflow-hidden bg-ink py-20 md:py-24 lg:py-28">
+        <div className="sheet-grid absolute inset-0 opacity-60" aria-hidden="true" />
+        <div className="container-site relative">
           <SectionHeading
-            layout="split"
             light
-            label={`Since ${company.heritageYear}`}
-            title="Where the standard came from."
-            intro={
-              <p>
-                Deliberately general. Specific founding details, dates, and named projects are
-                added to this page only once the company confirms them — the same standard we
-                apply to certifications and safety statistics.
-              </p>
-            }
-          />
-
-          <RevealGroup as="ol" className="mt-14 border-t border-white/12">
-            {historyMilestones.map((milestone) => (
-              <RevealItem
-                as="li"
-                key={milestone.period}
-                className="grid gap-5 border-b border-white/12 py-9 md:grid-cols-[minmax(0,14rem)_minmax(0,1fr)] md:gap-12 lg:py-11"
-              >
-                <span className="font-mono text-[0.6875rem] uppercase tracking-[0.2em] text-red">
-                  {milestone.period}
-                </span>
-                <div>
-                  <h3 className="text-[clamp(1.375rem,2.6vw,1.875rem)] text-white">
-                    {milestone.title}
-                  </h3>
-                  <p className="mt-4 max-w-3xl text-[1.0625rem] leading-relaxed text-steel-light">
-                    {milestone.body}
-                  </p>
-                  {milestone.note && (
-                    <p className="mt-4 inline-block border border-white/20 px-3 py-2 font-mono text-[0.5625rem] uppercase tracking-[0.16em] text-white/60">
-                      {milestone.note}
-                    </p>
-                  )}
-                </div>
-              </RevealItem>
-            ))}
-          </RevealGroup>
-        </div>
-      </section>
-
-      {/* What we're built for --------------------------------------------- */}
-      <section className="bg-mist py-20 md:py-24 lg:py-28">
-        <div className="container-site">
-          <SectionHeading
+            label="Company timeline"
             layout="split"
-            label="How we work"
-            title="What a general contractor is actually buying."
+            title="How the record was built."
             intro={
               <p>
-                Not a number on a page. A subcontractor who responds, prices what is on the
-                drawings, brings the crew that was promised, and does not create work for the
-                project team.
+                Not a marketing history — the actual arc of the work, from a family trade to a
+                twelve-sector commercial contractor.
               </p>
             }
           />
 
-          <RevealGroup className="mt-14 grid gap-px bg-line md:grid-cols-2 xl:grid-cols-3">
-            {differentiators.map((item, i) => (
+          <RevealGroup className="mt-16 grid gap-px bg-white/12 lg:grid-cols-4" stagger={0.08}>
+            {timeline.map((entry) => (
               <RevealItem
-                key={item.title}
-                className="group relative bg-mist p-7 transition-colors hover:bg-white lg:p-8"
+                key={entry.year}
+                className="group relative bg-ink p-7 transition-colors duration-300 hover:bg-ink-800 md:p-8"
               >
                 <span
                   aria-hidden="true"
-                  className="absolute inset-x-0 top-0 h-0.5 w-0 bg-red transition-all duration-500 group-hover:w-full"
+                  className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-red transition-transform duration-500 group-hover:scale-x-100"
                 />
-                <span className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-navy/60">
-                  {String(i + 1).padStart(2, '0')}
+                <span className="block font-display text-[1.75rem] font-black leading-none text-red">
+                  {entry.year}
                 </span>
-                <h3 className="mt-4 text-[1.375rem] leading-tight text-navy lg:text-2xl">
-                  {item.title}
+                <h3 className="mt-5 font-display text-[1.125rem] font-bold leading-tight tracking-tight text-white">
+                  {entry.title}
                 </h3>
-                <p className="mt-3.5 text-[0.9375rem] leading-relaxed text-body">{item.body}</p>
+                <p className="mt-3.5 text-[0.875rem] leading-relaxed text-ash">{entry.body}</p>
               </RevealItem>
             ))}
           </RevealGroup>
         </div>
       </section>
 
-      {/* Process ----------------------------------------------------------- */}
-      <section className="bg-white py-20 md:py-24 lg:py-28">
+      {/* =========================================================== LEADERSHIP */}
+      <section className="section bg-white">
         <div className="container-site">
           <SectionHeading
+            label="Leadership"
             layout="split"
-            label="Process"
-            title="From bid invitation to warranty package."
+            title="Who you will actually deal with."
             intro={
               <p>
-                Four stages, in order, each producing something you can point to. If a stage has
-                no deliverable, it is not a process — it is a promise.
+                A small leadership team means the person who prices your job is reachable
+                during it. No account layer between the estimator and the field.
               </p>
             }
           />
-          <ProcessTimeline steps={processSteps} />
+
+          <RevealGroup
+            className="mt-14 grid gap-px border border-line bg-line md:grid-cols-3"
+            stagger={0.07}
+          >
+            {leadership.map((person) => (
+              <RevealItem
+                key={person.name}
+                className="group relative bg-white p-7 transition-colors duration-300 hover:bg-mist md:p-8"
+              >
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-red transition-transform duration-500 group-hover:scale-x-100"
+                />
+                <h3 className="text-h4 text-ink">{person.name}</h3>
+                <p className="mt-2 font-mono text-[0.625rem] uppercase tracking-[0.18em] text-red">
+                  {person.role}
+                </p>
+                <p className="mt-5 leading-relaxed text-body">{person.focus}</p>
+              </RevealItem>
+            ))}
+          </RevealGroup>
         </div>
       </section>
 
-      {/* Credentials honesty ------------------------------------------------ */}
-      <section className="bg-mist py-20 md:py-24">
-        <div className="container-site">
-          <div className="grid gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-20">
-            <Reveal>
-              <span className="title-block text-navy/60">Credentials</span>
-              <h2 className="mt-5 text-[clamp(1.75rem,3.6vw,2.75rem)] text-navy">
-                What is not on this website, and why.
-              </h2>
-            </Reveal>
-
-            <Reveal delay={0.08} className="prose-site lg:pt-3">
-              <p>
-                You will not find licence numbers, insurance limits, bonding capacity,
-                certifications, safety statistics, awards, or client logos on this site. That is
-                deliberate. Those items are checked by real prequalification departments, and
-                publishing anything unverified would be worse than publishing nothing.
-              </p>
-              <p>
-                All of it is provided on request, in the form your prequalification process
-                requires — certificates of insurance, W-9, references, EMR documentation, and
-                safety program materials.
-              </p>
-              <p>
-                <Link href="/contact">Ask us for the prequalification package</Link> and we will
-                send what you need.
-              </p>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* Services cross-link ------------------------------------------------ */}
-      <section className="border-t border-line bg-white py-16 md:py-20">
+      {/* =============================================================== VALUES */}
+      <section className="section bg-mist">
         <div className="container-site">
           <SectionHeading
-            as="h2"
+            label="How we operate"
             layout="split"
-            label="Capabilities"
-            title="What we self-perform."
-            action={<TextLink href="/services">All services</TextLink>}
+            title="Four things we will not trade away."
+            intro={
+              <p>
+                These are the positions that occasionally cost us a job. We hold them anyway,
+                because the alternative costs the client more later.
+              </p>
+            }
+            action={<TextLink href="/why-childress">Why general contractors choose us</TextLink>}
           />
 
-          <RevealGroup as="ul" className="mt-10 grid gap-px bg-line sm:grid-cols-2 xl:grid-cols-4">
-            {services.map((service) => (
-              <RevealItem as="li" key={service.slug}>
-                <Link
-                  href={`/services/${service.slug}`}
-                  className="group flex h-full flex-col bg-white p-6 transition-colors hover:bg-mist lg:p-7"
-                >
-                  <span className="font-mono text-[0.5625rem] uppercase tracking-[0.2em] text-navy/60">
-                    {service.csi}
-                  </span>
-                  <span className="mt-3 font-display text-xl font-extrabold uppercase tracking-tight text-navy transition-colors group-hover:text-red">
-                    {service.shortTitle}
-                  </span>
-                  <span className="mt-2 text-[0.875rem] leading-relaxed text-body">
-                    {service.kicker}
-                  </span>
-                  <ArrowRight
-                    aria-hidden="true"
-                    className="mt-auto size-4 pt-6 text-navy/30 transition-transform group-hover:translate-x-1 group-hover:text-red"
-                  />
-                </Link>
+          <RevealGroup className="mt-14 grid gap-px bg-line sm:grid-cols-2" stagger={0.06}>
+            {values.map((value, i) => (
+              <RevealItem key={value.title} className="bg-white p-7 md:p-9">
+                <span className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-red">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <h3 className="mt-4 text-h4 text-ink">{value.title}</h3>
+                <p className="mt-4 leading-relaxed text-body">{value.body}</p>
+              </RevealItem>
+            ))}
+          </RevealGroup>
+        </div>
+      </section>
+
+      {/* =================================================== CAPABILITY SNAPSHOT */}
+      <section className="section bg-white">
+        <div className="container-site">
+          <SectionHeading
+            label="Capability snapshot"
+            title="The short version, for a prequal form."
+          />
+
+          <RevealGroup
+            className="mt-12 grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-4"
+            stagger={0.04}
+          >
+            {capabilitySnapshot.map((item) => (
+              <RevealItem key={item.label} className="bg-white p-6 md:p-7">
+                <dt className="font-mono text-[0.625rem] uppercase tracking-[0.18em] text-ink/50">
+                  {item.label}
+                </dt>
+                <dd className="mt-3 text-[0.9375rem] font-semibold leading-snug text-ink">
+                  {item.value}
+                </dd>
               </RevealItem>
             ))}
           </RevealGroup>
@@ -252,7 +254,12 @@ export default function AboutPage() {
 
       <CtaBanner />
 
-      <JsonLd data={breadcrumbSchema(crumbs)} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: 'Home', href: '/' },
+          { name: 'About', href: '/about' },
+        ])}
+      />
     </>
   );
 }

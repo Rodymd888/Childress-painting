@@ -14,7 +14,7 @@ export function Breadcrumbs({ crumbs, light = true }: { crumbs: Crumb[]; light?:
       <ol
         className={[
           'flex flex-wrap items-center gap-x-1.5 gap-y-1 font-mono text-[0.625rem] uppercase tracking-[0.16em]',
-          light ? 'text-white/60' : 'text-navy/60',
+          light ? 'text-white/60' : 'text-ink/60',
         ].join(' ')}
       >
         {crumbs.map((crumb, i) => {
@@ -25,7 +25,7 @@ export function Breadcrumbs({ crumbs, light = true }: { crumbs: Crumb[]; light?:
                 <ChevronRight aria-hidden="true" className="size-3 shrink-0 opacity-60" />
               )}
               {isLast ? (
-                <span aria-current="page" className={light ? 'text-white' : 'text-navy'}>
+                <span aria-current="page" className={light ? 'text-white' : 'text-ink'}>
                   {crumb.name}
                 </span>
               ) : (

@@ -1,419 +1,411 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ShieldCheck, ClipboardCheck, Building2, Wrench, ArrowRight } from 'lucide-react';
+import {
+  ArrowRight,
+  CalendarCheck,
+  Radio,
+  UserCheck,
+  CheckCircle2,
+  Sparkles,
+  ListChecks,
+  Link2,
+  ShieldCheck,
+  GraduationCap,
+} from 'lucide-react';
 
 import { Hero } from '@/components/home/Hero';
-import { IndustryMarquee } from '@/components/home/IndustryMarquee';
-import { WhyChoose } from '@/components/home/WhyChoose';
+import { TrustedBy } from '@/components/home/TrustedBy';
+import { StatsBand } from '@/components/home/StatsBand';
+import { ServiceCard } from '@/components/cards/ServiceCard';
+import { IndustryCard } from '@/components/cards/IndustryCard';
+import { ProjectCard } from '@/components/cards/ProjectCard';
 import { SectionHeading } from '@/components/ui/SectionHeading';
+import { ProcessTimeline } from '@/components/ui/ProcessTimeline';
+import { CtaBanner } from '@/components/ui/CtaBanner';
 import { Reveal, RevealGroup, RevealItem } from '@/components/ui/Reveal';
 import { TextLink, ButtonLink } from '@/components/ui/Button';
-import { CtaBanner } from '@/components/ui/CtaBanner';
-import { ProcessTimeline } from '@/components/ui/ProcessTimeline';
-import { ServiceCard } from '@/components/cards/ServiceCard';
-import { MarketCard } from '@/components/cards/MarketCard';
-import { ProjectCard } from '@/components/cards/ProjectCard';
-import { TestimonialCard } from '@/components/cards/TestimonialCard';
 import { JsonLd } from '@/components/ui/JsonLd';
 
 import { services } from '@/lib/services';
-import { markets } from '@/lib/markets';
-import { featuredProjects } from '@/lib/projects';
-import { company, testimonials } from '@/lib/site';
-import {
-  processSteps,
-  safetyCommitments,
-  qualityPractices,
-  historyMilestones,
-  credibilityPoints,
-} from '@/lib/content';
-import { buildMetadata } from '@/lib/seo';
-import { faqSchema } from '@/lib/schema';
+import { industries } from '@/lib/industries';
+import { featuredProjects, projectCountByIndustry } from '@/lib/projects';
+import { differentiators, capabilitySnapshot } from '@/lib/content';
+import { educationDistricts, totalSchools } from '@/lib/clients';
+import { company } from '@/lib/site';
+import { breadcrumbSchema } from '@/lib/schema';
 
-export const metadata = buildMetadata({
-  title: 'Commercial Painting Contractor | Dallas–Fort Worth & Texas',
+export const metadata: Metadata = {
+  title: 'Commercial Painting Contractor in Dallas–Fort Worth | Since 1984',
   description:
-    'Childress Painting delivers commercial painting, industrial coatings, new construction packages, and facility repaint programs across Dallas–Fort Worth and Texas. Request a bid.',
-  path: '/',
-});
+    'Childress Painting is a commercial-only painting contractor serving Texas since 1984. Retail, restaurant, healthcare, education, industrial, and government work for general contractors. Two-year workmanship warranty.',
+  alternates: { canonical: '/' },
+  openGraph: {
+    title: 'Childress Painting | Commercial Painting Specialists Since 1984',
+    description:
+      'Commercial painting and coatings for general contractors, developers, and facility teams across Texas.',
+    url: '/',
+  },
+};
 
-const homeFaqs = [
-  {
-    question: 'What areas does Childress Painting serve?',
-    answer:
-      'We are based in Dallas–Fort Worth and work across the metroplex — Dallas, Fort Worth, Plano, Frisco, Arlington, Irving, McKinney, Denton, and the surrounding counties — and travel statewide in Texas for projects and repaint programs that justify it.',
-  },
-  {
-    question: 'Do you work directly for owners or only as a subcontractor?',
-    answer:
-      'Both. On new construction we normally work as a subcontractor to the general contractor. On repaint and maintenance programs we contract directly with owners, property managers, and facility teams.',
-  },
-  {
-    question: 'How do I invite Childress Painting to bid?',
-    answer:
-      'Use the request-a-bid form or email estimating directly. Send the drawings, the relevant specification sections, all addenda, and the bid due date. We confirm receipt and tell you whether we are bidding.',
-  },
-  {
-    question: 'Can you work nights and weekends?',
-    answer:
-      'Yes. Occupied buildings — hospitals, schools, retail centers, terminals, and operating plants — routinely require night, weekend, or shutdown scheduling. Tell us the available working hours when you request pricing so the estimate reflects the real productive time.',
-  },
-];
+const ICONS: Record<string, typeof CalendarCheck> = {
+  calendar: CalendarCheck,
+  radio: Radio,
+  user: UserCheck,
+  check: CheckCircle2,
+  broom: Sparkles,
+  list: ListChecks,
+  link: Link2,
+  shield: ShieldCheck,
+};
 
 export default function HomePage() {
+  const homeIndustries = industries.slice(0, 6);
+  const homeProjects = featuredProjects.slice(0, 6);
+
   return (
     <>
       <Hero />
+      <TrustedBy />
 
-      <IndustryMarquee />
-
-      {/* ── Commercial credibility strip ──────────────────────────────── */}
-      <section className="border-b border-line bg-mist">
-        <div className="container-site py-10 md:py-12">
-          <RevealGroup className="grid gap-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,2fr)] lg:items-center lg:gap-16">
-            <RevealItem>
-              <p className="font-mono text-[0.625rem] uppercase leading-relaxed tracking-[0.18em] text-navy/60">
-                Built for commercial
-                <br />
-                construction buyers
-              </p>
-            </RevealItem>
-
-            <RevealItem>
-              <dl className="grid grid-cols-2 gap-x-6 gap-y-7 lg:grid-cols-4">
-                {credibilityPoints.map((point) => (
-                  <div key={point.label} className="border-l-2 border-red pl-4">
-                    <dt className="font-mono text-[0.5625rem] uppercase tracking-[0.2em] text-navy/60">
-                      {point.label}
-                    </dt>
-                    <dd className="mt-2 text-[0.9375rem] font-semibold leading-snug text-navy">
-                      {point.value}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </RevealItem>
-          </RevealGroup>
-        </div>
-      </section>
-
-      {/* ── Positioning ───────────────────────────────────────────────── */}
-      <section className="bg-white py-20 md:py-24 lg:py-28">
+      {/* ================================================= POSITIONING STATEMENT */}
+      <section className="section bg-white">
         <div className="container-site">
-          <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-20">
+          <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-20">
             <Reveal>
-              <span className="title-block text-navy/60">Positioning</span>
-              <h2 className="mt-5 text-[clamp(2rem,4.6vw,3.5rem)] text-navy">
-                The finish is the last thing anyone sees — and the first thing they judge.
+              <span className="title-block text-ink/60">Who we are</span>
+              <h2 className="mt-6 text-h2 text-ink">
+                A dependable subcontractor,
+                <br />
+                <span className="text-red">by design.</span>
               </h2>
-            </Reveal>
 
-            <Reveal delay={0.1} className="lg:pt-3">
-              <div className="prose-site text-[1.0625rem]">
-                <p>
-                  By the time a painting contractor mobilizes, the schedule has usually already
-                  been spent. Areas release late, other trades run long, and the turnover date has
-                  not moved. What separates contractors at that point is not brush technique — it
-                  is estimating that held up, manpower that matched the plan, and paperwork that
-                  did not become the reason substantial completion slipped.
+              <div className="mt-10 border-l-2 border-red pl-6">
+                <p className="font-display text-[1.375rem] font-bold leading-snug tracking-tight text-ink">
+                  &ldquo;Make the superintendent&rsquo;s job easier.&rdquo;
                 </p>
-                <p>
-                  Childress Painting is built around that reality. We price from the documents,
-                  write down what we included, staff to the sequence the job actually runs on, and
-                  close out area by area so the punch list is short when the owner walks it.
+                <p className="mt-3 font-mono text-[0.625rem] uppercase tracking-[0.18em] text-ink/50">
+                  The operating premise since 1984
                 </p>
               </div>
+            </Reveal>
 
-              <div className="mt-9 flex flex-wrap gap-x-8 gap-y-4">
-                <TextLink href="/about">About Childress</TextLink>
-                <TextLink href="/safety-quality">Safety &amp; quality</TextLink>
+            <Reveal delay={0.1} className="prose-site">
+              <p className="text-lead leading-relaxed text-ink/80">
+                Since {company.heritageYear}, Childress Painting has built its reputation on a
+                simple premise: show up when the schedule says we will, communicate problems
+                before they become delays, and leave a jobsite cleaner than other trades expect
+                from a paint crew.
+              </p>
+              <p>
+                We coordinate directly with drywall, flooring, and finish-carpentry crews to
+                sequence around live construction and occupied spaces. We run our own
+                quality-control inspections ahead of the general contractor&rsquo;s walkthrough,
+                and staff every project with a dedicated project manager from preconstruction
+                through closeout. The result is fewer punch list items, faster sign-off, and a
+                Sherwin-Williams coating system backed by a two-year workmanship warranty.
+              </p>
+              <p>
+                Commercial work only. No residential distractions, no learning curve on
+                prevailing wage or multi-trade sequencing — just a crew that has done this on
+                retail, restaurant, healthcare, government, industrial, and education projects
+                for four decades.
+              </p>
+
+              <div className="mt-8 flex flex-wrap gap-3">
+                <ButtonLink href="/about" variant="dark" withArrow>
+                  About Childress
+                </ButtonLink>
+                <ButtonLink href="/why-childress" variant="outline">
+                  Why general contractors choose us
+                </ButtonLink>
               </div>
             </Reveal>
           </div>
         </div>
       </section>
 
-      {/* ── Core services ─────────────────────────────────────────────── */}
-      <section className="bg-navy py-20 md:py-24 lg:py-28">
+      <StatsBand />
+
+      {/* ============================================================== SERVICES */}
+      <section className="section bg-white">
         <div className="container-site">
           <SectionHeading
+            label="Commercial capabilities"
             layout="split"
-            light
-            label="Capabilities"
-            title="Six scopes. One accountable contractor."
+            title={
+              <>
+                Seven scopes. One
+                <br className="hidden sm:block" /> subcontractor.
+              </>
+            }
             intro={
               <p>
-                We self-perform painting, coatings, and resinous flooring, take on complete
-                Division 09 packages on ground-up construction, and run planned repaint programs
-                for owners between capital cycles. Interior and exterior are both covered under
-                commercial painting.
+                Interior and exterior finishes, tenant finish-outs, occupied renovations, new
+                construction packages, surface preparation, and high-performance coatings —
+                priced, staffed, and closed out by the same team.
               </p>
             }
-            action={<TextLink href="/services" light>All services</TextLink>}
+            action={<TextLink href="/services">All services</TextLink>}
+          />
+
+          <RevealGroup className="mt-14 grid gap-px bg-line md:grid-cols-2" stagger={0.06}>
+            {services.map((service, i) => (
+              <RevealItem key={service.slug}>
+                <ServiceCard service={service} index={i} />
+              </RevealItem>
+            ))}
+          </RevealGroup>
+        </div>
+      </section>
+
+      {/* ============================================================ INDUSTRIES */}
+      <section className="section bg-mist">
+        <div className="container-site">
+          <SectionHeading
+            label="Markets we serve"
+            layout="split"
+            title="Twelve sectors, each with its own constraint."
+            intro={
+              <p>
+                The coating rarely changes. What changes is what governs the schedule —
+                infection control in a hospital, an opening date in retail, a dark night in a
+                stadium, badging at an airport. We plan for the constraint, not just the scope.
+              </p>
+            }
+            action={<TextLink href="/industries">All industries</TextLink>}
+          />
+
+          <RevealGroup className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" stagger={0.06}>
+            {homeIndustries.map((industry, i) => (
+              <RevealItem key={industry.slug}>
+                <IndustryCard
+                  industry={industry}
+                  projectCount={projectCountByIndustry[industry.slug]}
+                  priority={i < 3}
+                />
+              </RevealItem>
+            ))}
+          </RevealGroup>
+
+          <Reveal className="mt-10">
+            <ButtonLink href="/industries" variant="dark" withArrow>
+              View all twelve sectors
+            </ButtonLink>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* =============================================================== PROCESS */}
+      <section className="relative overflow-hidden bg-ink py-20 md:py-24 lg:py-28">
+        <div className="sheet-grid absolute inset-0 opacity-60" aria-hidden="true" />
+        <div className="container-site relative">
+          <SectionHeading
+            label="Our process"
+            light
+            layout="split"
+            title="Eight steps from drawings to closeout."
+            intro={
+              <p>
+                Every project runs the same sequence, and every step has something you receive
+                at the end of it. Select a step to see what it covers.
+              </p>
+            }
+          />
+
+          <Reveal className="mt-14">
+            <ProcessTimeline variant="dark" />
+          </Reveal>
+
+          <Reveal className="mt-10">
+            <ButtonLink href="/process" variant="outlineLight" withArrow>
+              The full process
+            </ButtonLink>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ========================================================= WHY CHILDRESS */}
+      <section className="section bg-white">
+        <div className="container-site">
+          <SectionHeading
+            label="Why general contractors choose Childress"
+            layout="split"
+            title="What you are actually buying."
+            intro={
+              <p>
+                A paint subcontractor is not bought on price alone. It is bought on whether the
+                crew shows up, whether problems arrive early or late, and how long the punch
+                list is. These are the eight things superintendents tell us matter.
+              </p>
+            }
           />
 
           <RevealGroup
-            stagger={0.06}
-            className="mt-14 grid gap-px bg-white/12 sm:grid-cols-2 xl:grid-cols-3"
+            className="mt-14 grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-4"
+            stagger={0.05}
           >
-            {services.map((service, i) => (
-              <RevealItem key={service.slug} className={i === 0 ? 'sm:col-span-2' : ''}>
-                <ServiceCard service={service} index={i} featured={i === 0} />
-              </RevealItem>
-            ))}
+            {differentiators.map((item) => {
+              const Icon = ICONS[item.icon] ?? CheckCircle2;
+              return (
+                <RevealItem
+                  key={item.title}
+                  className="group relative bg-white p-6 transition-colors duration-300 hover:bg-mist md:p-7"
+                >
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-red transition-transform duration-500 group-hover:scale-x-100"
+                  />
+                  <Icon aria-hidden="true" className="size-6 text-red" />
+                  <h3 className="mt-5 font-display text-[1.0625rem] font-bold tracking-tight text-ink">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2.5 text-[0.875rem] leading-relaxed text-body">{item.body}</p>
+                </RevealItem>
+              );
+            })}
           </RevealGroup>
         </div>
       </section>
 
-      {/* ── Markets served ────────────────────────────────────────────── */}
-      <section className="bg-white py-20 md:py-24 lg:py-28">
+      {/* ============================================================== PROJECTS */}
+      <section className="section bg-mist">
         <div className="container-site">
           <SectionHeading
+            label="Selected experience"
             layout="split"
-            label="Markets"
-            title="Eight sectors. Eight different reasons the schedule is hard."
+            title="Work across twelve market sectors."
             intro={
               <p>
-                An infection control barrier, a badging queue, the first day of class, a plant
-                that never shuts down. The coating is rarely the hard part — knowing what governs
-                the job before you price it is.
+                National retail and restaurant rollouts, district-wide school programs,
+                stadiums, surgery centers, industrial plants, and public safety facilities.
               </p>
             }
-            action={<TextLink href="/markets">All markets</TextLink>}
+            action={<TextLink href="/projects">The full portfolio</TextLink>}
           />
 
-          <RevealGroup stagger={0.05} className="mt-14 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
-            {markets.map((market) => (
-              <RevealItem key={market.slug}>
-                <MarketCard market={market} />
-              </RevealItem>
-            ))}
-          </RevealGroup>
-        </div>
-      </section>
-
-      <WhyChoose />
-
-      {/* ── Featured projects ─────────────────────────────────────────── */}
-      <section className="bg-white py-20 md:py-24 lg:py-28">
-        <div className="container-site">
-          <SectionHeading
-            layout="split"
-            label="Selected work"
-            title="Scope profiles from the kind of work we bid."
-            intro={
-              <p>
-                Every record below is a{' '}
-                <strong className="font-semibold text-navy">sample layout</strong> shown so the
-                project pages can be reviewed before real photography and verified project
-                details are supplied. They are not presented as completed Childress projects.
-              </p>
-            }
-            action={<TextLink href="/projects">All projects</TextLink>}
-          />
-
-          <RevealGroup className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
-            {featuredProjects.map((project) => (
+          <RevealGroup className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" stagger={0.06}>
+            {homeProjects.map((project, i) => (
               <RevealItem key={project.slug}>
-                <ProjectCard project={project} />
+                <ProjectCard project={project} priority={i < 3} />
               </RevealItem>
             ))}
           </RevealGroup>
         </div>
       </section>
 
-      {/* ── Safety and quality ────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-navy py-20 md:py-24 lg:py-28">
-        <div className="sheet-grid absolute inset-0" aria-hidden="true" />
+      {/* ===================================================== EDUCATION SPOTLIGHT */}
+      <section className="relative overflow-hidden bg-ink-900 py-20 md:py-24">
+        <div className="hatch absolute inset-0 opacity-60" aria-hidden="true" />
+        <div
+          aria-hidden="true"
+          className="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l from-red/10 to-transparent"
+        />
 
         <div className="container-site relative">
-          <SectionHeading
-            layout="split"
-            light
-            label="Safety & quality"
-            title="Two systems, run the same way on every job."
-            intro={
-              <p>
-                We publish practices rather than statistics. Incident rates, EMR, and
-                certifications belong on this site only once they are verified and current — so
-                what follows is how the work is actually run.
-              </p>
-            }
-            action={<TextLink href="/safety-quality" light>Safety &amp; quality</TextLink>}
-          />
-
-          <div className="mt-14 grid gap-px bg-white/12 lg:grid-cols-2">
-            {[
-              { icon: ShieldCheck, title: 'Safety', items: safetyCommitments.slice(0, 3) },
-              { icon: ClipboardCheck, title: 'Quality control', items: qualityPractices.slice(0, 3) },
-            ].map((column) => (
-              <Reveal key={column.title} className="bg-navy p-8 lg:p-10">
-                <div className="flex items-center gap-3">
-                  <column.icon aria-hidden="true" className="size-5 text-red" />
-                  <h3 className="font-mono text-[0.6875rem] uppercase tracking-[0.2em] text-white">
-                    {column.title}
-                  </h3>
-                </div>
-
-                <ul className="mt-8 space-y-7">
-                  {column.items.map((item) => (
-                    <li key={item.title} className="border-t border-white/12 pt-6">
-                      <h4 className="text-lg text-white">{item.title}</h4>
-                      <p className="mt-2.5 text-[0.9375rem] leading-relaxed text-steel-light">
-                        {item.body}
-                      </p>
-                    </li>
-                  ))}
-                </ul>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Project process ───────────────────────────────────────────── */}
-      <section className="bg-white py-20 md:py-24 lg:py-28">
-        <div className="container-site">
-          <SectionHeading
-            layout="split"
-            label="Process"
-            title="From bid invitation to warranty package."
-            intro={
-              <p>
-                These four stages run in order on every project, and each one produces something
-                you can point to. If a stage has no deliverable, it is not a process — it is a
-                promise.
-              </p>
-            }
-          />
-          <ProcessTimeline steps={processSteps} />
-        </div>
-      </section>
-
-      {/* ── Company history ───────────────────────────────────────────── */}
-      <section className="bg-mist py-20 md:py-24 lg:py-28">
-        <div className="container-site">
-          <div className="grid gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-20">
+          <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] lg:items-center lg:gap-20">
             <Reveal>
-              <span className="title-block text-navy/60">Since {company.heritageYear}</span>
-              <h2 className="mt-5 text-[clamp(2rem,4.6vw,3.5rem)] text-navy">
-                Four decades of painting experience behind a commercial contractor.
+              <span className="title-block text-white/60">Education partners</span>
+              <h2 className="mt-6 text-h2 text-white">
+                {totalSchools} schools.
+                <br />
+                <span className="text-red">One summer window.</span>
               </h2>
-              <p className="mt-6 max-w-md text-[1.0625rem] leading-relaxed text-body">
-                Childress Painting is a commercial contractor built on family painting experience
-                that dates to {company.heritageYear}. The trade came first; the estimating,
-                scheduling, and documentation that commercial construction demands were built on
-                top of it.
+              <p className="mt-6 max-w-xl text-lead leading-relaxed text-ash">
+                District-level painting partnerships across two Kansas City-area school
+                districts — elementary, middle, and high school campuses, all delivered between
+                the last day of class and staff return.
               </p>
               <div className="mt-9">
-                <ButtonLink href="/about" variant="dark" withArrow>
-                  Read the full story
+                <ButtonLink href="/clients#education" variant="primary" withArrow>
+                  See the campus list
                 </ButtonLink>
               </div>
             </Reveal>
 
-            <RevealGroup as="ol" className="space-y-px bg-line">
-              {historyMilestones.map((milestone) => (
-                <RevealItem as="li" key={milestone.period} className="bg-mist py-7 first:pt-0">
-                  <span className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-red">
-                    {milestone.period}
-                  </span>
-                  <h3 className="mt-3 text-[1.375rem] leading-tight text-navy lg:text-2xl">
-                    {milestone.title}
-                  </h3>
-                  <p className="mt-3 text-[0.9375rem] leading-relaxed text-body">
-                    {milestone.body}
-                  </p>
-                  {milestone.note && (
-                    <p className="mt-3 font-mono text-[0.5625rem] uppercase tracking-[0.16em] text-navy/60">
-                      {/* Placeholder marker — remove once the detail is confirmed. */}
-                      {milestone.note}
-                    </p>
-                  )}
-                </RevealItem>
-              ))}
-            </RevealGroup>
+            <Reveal delay={0.1}>
+              <div className="grid gap-px bg-white/12 sm:grid-cols-2">
+                {educationDistricts.map((district) => {
+                  const count = district.levels.reduce((s, l) => s + l.schools.length, 0);
+                  return (
+                    <div key={district.name} className="bg-ink-900 p-7 md:p-8">
+                      <GraduationCap aria-hidden="true" className="size-6 text-red" />
+                      <h3 className="mt-5 font-display text-[1.125rem] font-bold leading-tight tracking-tight text-white">
+                        {district.name}
+                      </h3>
+                      <p className="mt-4 font-display text-[2.5rem] font-black leading-none text-white">
+                        {count}
+                      </p>
+                      <p className="mt-1.5 font-mono text-[0.625rem] uppercase tracking-[0.16em] text-white/50">
+                        Campuses
+                      </p>
+                      <ul className="mt-5 space-y-1.5 border-t border-white/12 pt-4">
+                        {district.levels.map((level) => (
+                          <li
+                            key={level.label}
+                            className="flex items-center justify-between font-mono text-[0.6875rem] uppercase tracking-[0.12em] text-ash"
+                          >
+                            <span>{level.label}</span>
+                            <span className="text-white">{level.schools.length}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  );
+                })}
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>
 
-      {/* ── Testimonials ──────────────────────────────────────────────── */}
-      <section className="bg-white py-20 md:py-24 lg:py-28">
+      {/* ==================================================== CAPABILITY SNAPSHOT */}
+      <section className="section bg-white">
         <div className="container-site">
           <SectionHeading
+            label="Capability snapshot"
             layout="split"
-            label="References"
-            title="References, once they are approved in writing."
+            title="The facts a prequalification form asks for."
             intro={
               <p>
-                We would rather show three placeholders than one invented quote. Each card below
-                is a slot waiting on a real reference — the person quoted approves the wording
-                before anything is published.
+                Everything below is verifiable. Send us your prequalification packet and we
+                will return it completed, with certificates of insurance and references.
               </p>
             }
+            action={<TextLink href="/request-bid">Start a bid request</TextLink>}
           />
 
-          <RevealGroup className="mt-14 grid gap-6 md:grid-cols-3">
-            {testimonials.map((testimonial) => (
-              <RevealItem key={testimonial.id}>
-                <TestimonialCard testimonial={testimonial} />
+          <RevealGroup
+            className="mt-14 grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-4"
+            stagger={0.04}
+          >
+            {capabilitySnapshot.map((item) => (
+              <RevealItem key={item.label} className="bg-white p-6 md:p-7">
+                <dt className="font-mono text-[0.625rem] uppercase tracking-[0.18em] text-ink/50">
+                  {item.label}
+                </dt>
+                <dd className="mt-3 text-[0.9375rem] font-semibold leading-snug text-ink">
+                  {item.value}
+                </dd>
               </RevealItem>
             ))}
           </RevealGroup>
-        </div>
-      </section>
 
-      {/* ── Quick paths ───────────────────────────────────────────────── */}
-      <section className="border-t border-line bg-mist py-16 md:py-20">
-        <div className="container-site">
-          <RevealGroup className="grid gap-px bg-line md:grid-cols-3">
-            {[
-              {
-                icon: Building2,
-                title: 'Invite us to bid',
-                body: 'Send plans, specs, and a due date. You get a bid or a no-bid — never silence.',
-                href: '/request-bid',
-                cta: 'Request a bid',
-              },
-              {
-                icon: Wrench,
-                title: 'Work with us',
-                body: 'Subcontractors and suppliers can submit for prequalification any time.',
-                href: '/subcontractors',
-                cta: 'Subcontractor prequalification',
-              },
-              {
-                icon: ClipboardCheck,
-                title: 'Join the crew',
-                body: 'Painters, applicators, foremen, and office staff — field experience counts most.',
-                href: '/careers',
-                cta: 'Careers',
-              },
-            ].map((item) => (
-              <RevealItem key={item.href}>
-                <Link
-                  href={item.href}
-                  className="group flex h-full flex-col bg-mist p-8 transition-colors hover:bg-white"
-                >
-                  <item.icon aria-hidden="true" className="size-6 text-red" />
-                  <h3 className="mt-6 text-[1.375rem] leading-tight text-navy">{item.title}</h3>
-                  <p className="mt-3 text-[0.9375rem] leading-relaxed text-body">{item.body}</p>
-                  <span className="mt-auto flex items-center gap-2 pt-7 font-mono text-[0.625rem] uppercase tracking-[0.16em] text-navy transition-colors group-hover:text-red">
-                    {item.cta}
-                    <ArrowRight
-                      aria-hidden="true"
-                      className="size-3.5 transition-transform group-hover:translate-x-1"
-                    />
-                  </span>
-                </Link>
-              </RevealItem>
-            ))}
-          </RevealGroup>
+          <Reveal className="mt-10">
+            <p className="max-w-2xl text-sm leading-relaxed text-body">
+              Based in {company.address.city}, {company.address.region}. Primary service area is
+              Texas, with continued coverage in Kansas and Missouri.{' '}
+              <Link href="/service-areas" className="text-red-dark underline underline-offset-4">
+                See the full service area
+              </Link>
+              .
+            </p>
+          </Reveal>
         </div>
       </section>
 
       <CtaBanner />
 
-      <JsonLd data={faqSchema(homeFaqs)} />
+      <JsonLd data={breadcrumbSchema([{ name: 'Home', href: '/' }])} />
     </>
   );
 }

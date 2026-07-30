@@ -151,8 +151,8 @@ export function BidForm() {
                           done
                             ? 'bg-red text-white'
                             : current
-                              ? 'bg-navy text-white'
-                              : 'bg-concrete text-navy/60',
+                              ? 'bg-ink text-white'
+                              : 'bg-concrete text-ink/60',
                         ].join(' ')}
                       >
                         {done ? <Check aria-hidden="true" className="size-2.5" /> : i + 1}
@@ -160,7 +160,7 @@ export function BidForm() {
                       <span
                         className={[
                           'hidden font-mono text-[0.5625rem] uppercase tracking-[0.14em] sm:block',
-                          current ? 'text-navy' : 'text-navy/60',
+                          current ? 'text-ink' : 'text-ink/60',
                         ].join(' ')}
                       >
                         {item.label}
@@ -193,7 +193,7 @@ export function BidForm() {
               <button
                 type="button"
                 onClick={back}
-                className="inline-flex min-h-12 items-center gap-2 border border-navy/25 px-5 font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-navy transition-colors hover:border-navy hover:bg-navy hover:text-white"
+                className="inline-flex min-h-12 items-center gap-2 border border-ink/25 px-5 font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-ink transition-colors hover:border-ink hover:bg-ink hover:text-white"
               >
                 <ChevronLeft aria-hidden="true" className="size-4" />
                 Back
@@ -204,7 +204,7 @@ export function BidForm() {
               <button
                 type="button"
                 onClick={next}
-                className="group inline-flex min-h-12 items-center gap-2 bg-navy px-6 font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-white transition-colors hover:bg-navy-700"
+                className="group inline-flex min-h-12 items-center gap-2 bg-ink px-6 font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-white transition-colors hover:bg-ink-700"
               >
                 Continue
                 <ChevronRight
@@ -308,7 +308,7 @@ export function BidForm() {
 
             {/* Plan upload ---------------------------------------------------- */}
             <div className="sm:col-span-2">
-              <span className="block font-mono text-[0.625rem] font-medium uppercase tracking-[0.16em] text-navy">
+              <span className="block font-mono text-[0.625rem] font-medium uppercase tracking-[0.16em] text-ink">
                 Upload plans
                 <span className="ml-2 normal-case tracking-normal text-body/60">optional</span>
               </span>
@@ -326,7 +326,7 @@ export function BidForm() {
                 ].join(' ')}
               >
                 <Upload aria-hidden="true" className="mx-auto size-5 text-red" />
-                <p className="mt-3 text-[0.9375rem] text-navy">
+                <p className="mt-3 text-[0.9375rem] text-ink">
                   Drag drawings here, or{' '}
                   <button
                     type="button"
@@ -365,8 +365,8 @@ export function BidForm() {
                       key={`${file.name}-${i}`}
                       className="flex items-center gap-3 border border-line bg-white px-4 py-2.5"
                     >
-                      <FileText aria-hidden="true" className="size-4 shrink-0 text-navy/60" />
-                      <span className="min-w-0 flex-1 truncate text-[0.875rem] text-navy">
+                      <FileText aria-hidden="true" className="size-4 shrink-0 text-ink/60" />
+                      <span className="min-w-0 flex-1 truncate text-[0.875rem] text-ink">
                         {file.name}
                       </span>
                       <span className="shrink-0 font-mono text-[0.625rem] text-body">
@@ -375,7 +375,7 @@ export function BidForm() {
                       <button
                         type="button"
                         onClick={() => setFiles((c) => c.filter((_, index) => index !== i))}
-                        className="shrink-0 text-navy/60 transition-colors hover:text-red"
+                        className="shrink-0 text-ink/60 transition-colors hover:text-red"
                       >
                         <X aria-hidden="true" className="size-4" />
                         <span className="sr-only">Remove {file.name}</span>

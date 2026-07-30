@@ -41,11 +41,11 @@ export function FormShell({
     return (
       <div className="border-t-4 border-red bg-mist p-8 md:p-12">
         <CheckCircle2 aria-hidden="true" className="size-9 text-red" />
-        <h2 className="mt-6 text-[clamp(1.75rem,3.5vw,2.5rem)] text-navy">{successTitle}</h2>
+        <h2 className="mt-6 text-[clamp(1.75rem,3.5vw,2.5rem)] text-ink">{successTitle}</h2>
         <p className="mt-4 max-w-xl text-[1.0625rem] leading-relaxed text-body">{successBody}</p>
 
         {state.reference && (
-          <p className="mt-6 inline-block border border-line bg-white px-4 py-3 font-mono text-xs uppercase tracking-[0.16em] text-navy">
+          <p className="mt-6 inline-block border border-line bg-white px-4 py-3 font-mono text-xs uppercase tracking-[0.16em] text-ink">
             Reference {state.reference}
           </p>
         )}
@@ -58,7 +58,7 @@ export function FormShell({
           )}
           <a
             href={`tel:${company.phoneHref}`}
-            className="font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-navy underline decoration-red decoration-2 underline-offset-4"
+            className="font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-ink underline decoration-red decoration-2 underline-offset-4"
           >
             Or call {company.phone}
           </a>
@@ -84,7 +84,7 @@ export function FormShell({
           >
             <AlertTriangle aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-red-dark" />
             <div>
-              <p className="text-[0.9375rem] font-semibold text-navy">{state.message}</p>
+              <p className="text-[0.9375rem] font-semibold text-ink">{state.message}</p>
               {Object.keys(state.errors).length > 0 && (
                 <ul className="mt-2 space-y-1 text-[0.8125rem] text-body">
                   {Object.entries(state.errors).map(([field, error]) => (

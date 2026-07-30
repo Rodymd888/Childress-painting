@@ -99,10 +99,12 @@ export function validate<T extends Record<string, string>>(
 
 export const PROJECT_TYPES = [
   'New construction',
-  'Tenant improvement',
-  'Renovation',
-  'Repaint / maintenance program',
-  'Industrial coatings',
+  'Tenant finish-out',
+  'Occupied renovation',
+  'Exterior repaint',
+  'Interior repaint',
+  'High-performance / industrial coatings',
+  'Multi-site program',
   'Other',
 ] as const;
 

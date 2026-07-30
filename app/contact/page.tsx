@@ -1,161 +1,173 @@
-import { Phone, Mail, MapPin, Building2, HardHat, Users } from 'lucide-react';
-import Link from 'next/link';
+import type { Metadata } from 'next';
+import { Phone, Mail, MapPin, Clock, Linkedin } from 'lucide-react';
 
-import { PageHero } from '@/components/ui/PageHero';
-import { Reveal, RevealGroup, RevealItem } from '@/components/ui/Reveal';
-import { JsonLd } from '@/components/ui/JsonLd';
 import { ContactForm } from '@/components/forms/ContactForm';
+import { PageHero } from '@/components/ui/PageHero';
+import { Reveal } from '@/components/ui/Reveal';
+import { ButtonLink } from '@/components/ui/Button';
+import { JsonLd } from '@/components/ui/JsonLd';
 
-import { company } from '@/lib/site';
-import { buildMetadata } from '@/lib/seo';
+import { company, offices } from '@/lib/site';
 import { breadcrumbSchema } from '@/lib/schema';
 
-export const metadata = buildMetadata({
-  title: 'Contact | Childress Painting, Dallas–Fort Worth',
-  description:
-    'Contact Childress Painting for commercial painting and industrial coatings in Dallas–Fort Worth and Texas. Estimating, prequalification, and project enquiries.',
-  path: '/contact',
-});
-
-const crumbs = [
-  { name: 'Home', href: '/' },
-  { name: 'Contact', href: '/contact' },
-];
-
-const routes = [
-  {
-    icon: Building2,
-    title: 'Bid invitations',
-    body: 'Sending plans and a due date? The bid form captures everything estimating needs in one pass.',
-    href: '/request-bid',
-    cta: 'Request a bid',
-  },
-  {
-    icon: HardHat,
-    title: 'Subcontractors',
-    body: 'Trade partners and suppliers can submit for prequalification at any time.',
-    href: '/subcontractors',
-    cta: 'Prequalification form',
-  },
-  {
-    icon: Users,
-    title: 'Careers',
-    body: 'Painters, applicators, foremen, estimators, and office staff.',
-    href: '/careers',
-    cta: 'Open applications',
-  },
-];
+export const metadata: Metadata = {
+  title: 'Contact Childress Painting | Dallas, Texas',
+  description: `Contact Childress Painting — ${company.phone}, ${company.email}. Commercial painting contractor based at ${company.address.street}, ${company.address.city}, ${company.address.region}.`,
+  alternates: { canonical: '/contact' },
+};
 
 export default function ContactPage() {
+  const crumbs = [
+    { name: 'Home', href: '/' },
+    { name: 'Contact', href: '/contact' },
+  ];
+
   return (
     <>
       <PageHero
         label="Contact"
-        title="Talk to a person who knows the work."
-        intro="Estimating questions, prequalification requests, project issues, or a building you need looked at — it all reaches someone who can actually answer."
+        title="Talk to someone who prices the work."
+        intro="A small leadership team means the person who estimates your project is reachable while it is running. No account layer in between."
         crumbs={crumbs}
         meta={[
-          { label: 'Phone', value: company.phone },
-          { label: 'Email', value: company.email },
-          { label: 'Base', value: `${company.address.city}, ${company.address.region}` },
-          { label: 'Hours', value: 'Mon–Fri, 7:00–17:00' },
+          { label: 'Dallas – Fort Worth', value: offices[0].phone },
+          { label: 'Kansas City', value: offices[1].phone },
+          { label: 'Hours', value: 'Mon–Fri, 7am–5pm CT' },
+          { label: 'Bidding today?', value: 'Call, do not email' },
         ]}
-      />
+      >
+        <ButtonLink href="/request-bid" variant="primary" size="lg" withArrow>
+          Request a bid instead
+        </ButtonLink>
+      </PageHero>
 
-      <section className="bg-white py-16 md:py-20 lg:py-24">
+      <section className="section bg-white">
         <div className="container-site">
-          <div className="grid gap-12 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)] lg:gap-16">
-            <div>
-              <ContactForm />
-            </div>
+          <div className="grid gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-20">
+            {/* ------------------------------------------------------- DETAILS */}
+            <Reveal>
+              <span className="title-block text-ink/60">Direct contact</span>
+              <h2 className="mt-6 text-h3 text-ink">Two offices. One team.</h2>
 
-            <Reveal delay={0.08} className="lg:sticky lg:top-32 lg:self-start">
-              <h2 className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-navy/60">
-                Direct contact
-              </h2>
+              {/* One block per operating location — driven by lib/site.ts. */}
+              <div className="mt-9 space-y-8">
+                {offices.map((office) => (
+                  <address key={office.id} className="not-italic">
+                    <div className="flex flex-wrap items-baseline justify-between gap-3 border-b-2 border-ink pb-3">
+                      <h3 className="font-display text-[1.25rem] font-bold tracking-tight text-ink">
+                        {office.label}
+                      </h3>
+                      <span className="font-mono text-[0.625rem] uppercase tracking-[0.18em] text-red">
+                        {office.role}
+                      </span>
+                    </div>
 
-              <address className="mt-7 space-y-6 not-italic">
-                <div className="border-t border-line pt-6">
-                  <span className="font-mono text-[0.5625rem] uppercase tracking-[0.2em] text-navy/60">
-                    Phone
-                  </span>
-                  <a
-                    href={`tel:${company.phoneHref}`}
-                    className="mt-2 flex items-center gap-3 text-lg font-semibold text-navy transition-colors hover:text-red"
-                  >
-                    <Phone aria-hidden="true" className="size-4 shrink-0 text-red" />
-                    {company.phone}
-                  </a>
-                </div>
+                    <div className="space-y-px border-x border-b border-line">
+                      <a
+                        href={`tel:${office.phoneHref}`}
+                        className="group flex items-start gap-4 border-b border-line p-5 transition-colors hover:bg-mist"
+                      >
+                        <Phone aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-red" />
+                        <span>
+                          <span className="block font-mono text-[0.625rem] uppercase tracking-[0.18em] text-ink/50">
+                            Phone
+                          </span>
+                          <span className="mt-1.5 block font-display text-[1.1875rem] font-bold tracking-tight text-ink transition-colors group-hover:text-red">
+                            {office.phone}
+                          </span>
+                        </span>
+                      </a>
 
-                <div className="border-t border-line pt-6">
-                  <span className="font-mono text-[0.5625rem] uppercase tracking-[0.2em] text-navy/60">
-                    Estimating
-                  </span>
+                      <div className="flex items-start gap-4 p-5">
+                        <MapPin aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-red" />
+                        <span>
+                          <span className="block font-mono text-[0.625rem] uppercase tracking-[0.18em] text-ink/50">
+                            Address
+                          </span>
+                          <span className="mt-1.5 block text-[0.9375rem] font-semibold leading-snug text-ink">
+                            {office.street}
+                            <br />
+                            {office.city}, {office.region} {office.postalCode}
+                          </span>
+                          <span className="mt-1.5 block text-[0.8125rem] text-body">
+                            Covers {office.covers}
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </address>
+                ))}
+
+                {/* Shared across both offices. */}
+                <div className="space-y-px border border-line">
                   <a
                     href={`mailto:${company.email}`}
-                    className="mt-2 flex items-start gap-3 break-all font-semibold text-navy transition-colors hover:text-red"
+                    className="group flex items-start gap-4 border-b border-line p-5 transition-colors hover:bg-mist"
                   >
-                    <Mail aria-hidden="true" className="mt-1 size-4 shrink-0 text-red" />
-                    {company.email}
+                    <Mail aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-red" />
+                    <span className="min-w-0">
+                      <span className="block font-mono text-[0.625rem] uppercase tracking-[0.18em] text-ink/50">
+                        Email
+                      </span>
+                      <span className="mt-1.5 block break-all text-[0.9375rem] font-semibold text-ink transition-colors group-hover:text-red">
+                        {company.email}
+                      </span>
+                    </span>
                   </a>
-                </div>
 
-                <div className="border-t border-line pt-6">
-                  <span className="font-mono text-[0.5625rem] uppercase tracking-[0.2em] text-navy/60">
-                    Careers
-                  </span>
-                  <a
-                    href={`mailto:${company.careersEmail}`}
-                    className="mt-2 flex items-start gap-3 break-all font-semibold text-navy transition-colors hover:text-red"
-                  >
-                    <Mail aria-hidden="true" className="mt-1 size-4 shrink-0 text-red" />
-                    {company.careersEmail}
-                  </a>
+                  <div className="flex items-start gap-4 p-5">
+                    <Clock aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-red" />
+                    <span>
+                      <span className="block font-mono text-[0.625rem] uppercase tracking-[0.18em] text-ink/50">
+                        Hours
+                      </span>
+                      <span className="mt-1.5 block text-[0.9375rem] font-semibold text-ink">
+                        Monday – Friday, 7:00am – 5:00pm CT
+                      </span>
+                      <span className="mt-1 block text-[0.8125rem] text-body">
+                        Field crews also run night and weekend shifts.
+                      </span>
+                    </span>
+                  </div>
                 </div>
+              </div>
 
-                <div className="border-t border-line pt-6">
-                  <span className="font-mono text-[0.5625rem] uppercase tracking-[0.2em] text-navy/60">
-                    Based in
-                  </span>
-                  <p className="mt-2 flex items-start gap-3 font-semibold text-navy">
-                    <MapPin aria-hidden="true" className="mt-1 size-4 shrink-0 text-red" />
-                    {/* REPLACE — confirm the office address before launch. */}
-                    {company.address.city}, {company.address.region}
-                  </p>
-                  <p className="mt-2 text-[0.8125rem] leading-relaxed text-body">
-                    Serving the Dallas–Fort Worth metroplex, with statewide coverage across Texas.
-                  </p>
+              {company.social.linkedin && (
+                <a
+                  href={company.social.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group mt-8 inline-flex items-center gap-3 border border-line px-5 py-3.5 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-ink transition-colors hover:border-ink hover:bg-ink hover:text-white"
+                >
+                  <Linkedin
+                    aria-hidden="true"
+                    className="size-4 text-red transition-colors group-hover:text-white"
+                  />
+                  Childress Painting on LinkedIn
+                </a>
+              )}
+
+              <div className="mt-10 border-l-2 border-red bg-mist p-6">
+                <p className="font-mono text-[0.625rem] uppercase tracking-[0.18em] text-ink/55">
+                  Bidding a project?
+                </p>
+                <p className="mt-2.5 text-[0.9375rem] leading-relaxed text-body">
+                  Use the bid portal instead — it collects the drawings, due date, and scope in
+                  one submission so estimating can start immediately.
+                </p>
+                <div className="mt-5">
+                  <ButtonLink href="/request-bid" variant="dark" withArrow>
+                    Request a bid
+                  </ButtonLink>
                 </div>
-              </address>
+              </div>
+            </Reveal>
+
+            {/* ---------------------------------------------------------- FORM */}
+            <Reveal delay={0.1} from="right">
+              <ContactForm />
             </Reveal>
           </div>
-        </div>
-      </section>
-
-      <section className="border-t border-line bg-mist py-16 md:py-20">
-        <div className="container-site">
-          <h2 className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-navy/60">
-            Faster routes
-          </h2>
-
-          <RevealGroup className="mt-8 grid gap-px bg-line md:grid-cols-3">
-            {routes.map((route) => (
-              <RevealItem key={route.href}>
-                <Link
-                  href={route.href}
-                  className="group flex h-full flex-col bg-mist p-7 transition-colors hover:bg-white lg:p-8"
-                >
-                  <route.icon aria-hidden="true" className="size-5 text-red" />
-                  <h3 className="mt-5 text-[1.375rem] leading-tight text-navy">{route.title}</h3>
-                  <p className="mt-3 text-[0.9375rem] leading-relaxed text-body">{route.body}</p>
-                  <span className="mt-auto pt-7 font-mono text-[0.625rem] uppercase tracking-[0.16em] text-navy transition-colors group-hover:text-red">
-                    {route.cta} →
-                  </span>
-                </Link>
-              </RevealItem>
-            ))}
-          </RevealGroup>
         </div>
       </section>
 

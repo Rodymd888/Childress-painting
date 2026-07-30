@@ -1,252 +1,179 @@
-import { ShieldCheck, ClipboardCheck, FileCheck, AlertTriangle } from 'lucide-react';
+import type { Metadata } from 'next';
+import { HardHat, ClipboardCheck, ShieldCheck } from 'lucide-react';
 
 import { PageHero } from '@/components/ui/PageHero';
-import { CtaBanner } from '@/components/ui/CtaBanner';
 import { SectionHeading } from '@/components/ui/SectionHeading';
+import { CtaBanner } from '@/components/ui/CtaBanner';
 import { Reveal, RevealGroup, RevealItem } from '@/components/ui/Reveal';
+import { ButtonLink } from '@/components/ui/Button';
 import { JsonLd } from '@/components/ui/JsonLd';
-import { TextLink } from '@/components/ui/Button';
 
 import { safetyCommitments, qualityPractices } from '@/lib/content';
-import { buildMetadata } from '@/lib/seo';
-import { breadcrumbSchema, faqSchema } from '@/lib/schema';
+import { company } from '@/lib/site';
+import { breadcrumbSchema } from '@/lib/schema';
 
-export const metadata = buildMetadata({
-  title: 'Safety & Quality | Commercial Painting Standards',
+export const metadata: Metadata = {
+  title: 'Safety & Quality | OSHA-Compliant Crews and QC Inspections',
   description:
-    'How Childress Painting runs safety and quality control on commercial and industrial coating projects: site-specific planning, daily hazard review, mockups, and documented closeout.',
-  path: '/safety-quality',
-});
-
-const crumbs = [
-  { name: 'Home', href: '/' },
-  { name: 'Safety & Quality', href: '/safety-quality' },
-];
-
-const closeoutPackage = [
-  'Approved submittals and product data sheets',
-  'Safety data sheets for every system applied',
-  'Colour schedule with formulas by area or elevation',
-  'Coating records — preparation, conditions, and thickness where specified',
-  'Punch list with area-by-area completion sign-off',
-  'Attic stock, labeled and delivered to the agreed location',
-  'Warranty documentation from the manufacturer and from us',
-  'Photographic record where the scope or the owner requires it',
-];
-
-const faqs = [
-  {
-    question: 'Do you carry a written safety program?',
-    answer:
-      'Yes, and it is provided as part of prequalification. We do not publish program documents, EMR figures, or incident rates on this website — those are supplied directly to your prequalification department so you receive current, verifiable information rather than a marketing summary.',
-  },
-  {
-    question: 'Who supervises the crew on site?',
-    answer:
-      'A supervisor is assigned to the project and stays on site during production. Field questions get answered the same day rather than waiting on a return call, and quality checks happen before an area is offered for inspection.',
-  },
-  {
-    question: 'What happens if an area fails inspection?',
-    answer:
-      'It gets corrected, logged, and re-offered. More importantly, we look at why it failed — usually the standard was never agreed, or a substrate condition was accepted that should not have been. Both are preventable with a mockup and a substrate check before production starts.',
-  },
-  {
-    question: 'How do you handle hazardous materials and older coatings?',
-    answer:
-      'Suspected lead-based or otherwise hazardous existing coatings are not disturbed until they have been tested and the appropriate abatement scope has been established. That work is identified separately and coordinated with a qualified specialist rather than absorbed into a painting scope.',
-  },
-];
+    'How Childress Painting manages safety and quality: OSHA-compliant crews, site-specific planning, access and fall protection, mockups, substrate acceptance, and our own QC walk before the GC walkthrough.',
+  alternates: { canonical: '/safety-quality' },
+};
 
 export default function SafetyQualityPage() {
   return (
     <>
       <PageHero
         label="Safety & quality"
-        title="Practices, not statistics."
-        intro="Safety records and certifications belong in a prequalification package where they can be verified — not on a marketing page. What follows is how the work is actually run."
-        crumbs={crumbs}
-        meta={[
-          { label: 'Planning', value: 'Site-specific, before mobilization' },
-          { label: 'Field', value: 'Daily task hazard review' },
-          { label: 'QC', value: 'Supervisor walk before inspection' },
-          { label: 'Records', value: 'Assembled during production' },
+        title="Two things that are never a line item to cut."
+        intro="Safety is how a crew goes home. Quality control is why our punch lists are short. Both are planned before mobilization rather than managed after a problem."
+        crumbs={[
+          { name: 'Home', href: '/' },
+          { name: 'Safety & Quality', href: '/safety-quality' },
         ]}
-      />
+        meta={[
+          { label: 'Safety standard', value: company.safety },
+          { label: 'Coating systems', value: company.coatingSystems },
+          { label: 'Warranty', value: company.warranty },
+          { label: 'QC walk', value: 'Before the GC walkthrough' },
+        ]}
+      >
+        <ButtonLink href="/request-bid" variant="primary" size="lg" withArrow>
+          Request a bid
+        </ButtonLink>
+        <ButtonLink href="/contact" variant="outlineLight" size="lg">
+          Request our prequal packet
+        </ButtonLink>
+      </PageHero>
 
-      {/* Why no numbers ----------------------------------------------------- */}
-      <section className="border-b border-line bg-mist">
-        <div className="container-site py-9 md:py-11">
-          <Reveal>
-            <div className="flex flex-col gap-4 border-l-4 border-red bg-white p-6 sm:flex-row sm:items-start sm:gap-5 md:p-7">
-              <AlertTriangle aria-hidden="true" className="size-5 shrink-0 text-red" />
-              <div>
-                <h2 className="text-lg text-navy md:text-xl">
-                  You will not find an EMR or an incident rate on this page.
-                </h2>
-                <p className="mt-2.5 max-w-3xl text-[0.9375rem] leading-relaxed text-body">
-                  Those figures change annually and mean nothing without the documentation behind
-                  them. Ours are supplied directly to your prequalification department, along with
-                  our written safety program, certificates of insurance, and references — current
-                  and verifiable, which is the only form in which they are worth anything.
-                </p>
-              </div>
+      {/* =============================================================== SAFETY */}
+      <section className="section bg-white">
+        <div className="container-site">
+          <SectionHeading
+            label="Safety"
+            layout="split"
+            title={
+              <>
+                <HardHat aria-hidden="true" className="mb-4 size-9 text-red" />
+                Planned at bid, not after an incident.
+              </>
+            }
+            intro={
+              <p>
+                We describe conduct rather than publishing incident statistics we would not
+                stand behind in an audit. Training records, certificates of insurance, and our
+                completed prequalification packet are available on request.
+              </p>
+            }
+          />
+
+          <RevealGroup
+            className="mt-14 grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-3"
+            stagger={0.05}
+          >
+            {safetyCommitments.map((item, i) => (
+              <RevealItem
+                key={item.title}
+                className="group relative bg-white p-7 transition-colors duration-300 hover:bg-mist md:p-8"
+              >
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-red transition-transform duration-500 group-hover:scale-x-100"
+                />
+                <span className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-red">
+                  S-{String(i + 1).padStart(2, '0')}
+                </span>
+                <h2 className="mt-4 text-h4 text-ink">{item.title}</h2>
+                <p className="mt-3.5 leading-relaxed text-body">{item.body}</p>
+              </RevealItem>
+            ))}
+          </RevealGroup>
+        </div>
+      </section>
+
+      {/* ============================================================== QUALITY */}
+      <section className="relative overflow-hidden bg-ink py-20 md:py-24 lg:py-28">
+        <div className="sheet-grid absolute inset-0 opacity-60" aria-hidden="true" />
+        <div className="container-site relative">
+          <SectionHeading
+            light
+            label="Quality control"
+            layout="split"
+            title={
+              <>
+                <ClipboardCheck aria-hidden="true" className="mb-4 size-9 text-red" />
+                We inspect our work before you do.
+              </>
+            }
+            intro={
+              <p>
+                Coverage, film build, sheen uniformity, cut lines, and adjacent-surface
+                condition — checked and corrected before anyone else is asked to look at it.
+              </p>
+            }
+          />
+
+          <RevealGroup
+            className="mt-14 grid gap-px bg-white/12 sm:grid-cols-2 lg:grid-cols-3"
+            stagger={0.05}
+          >
+            {qualityPractices.map((item, i) => (
+              <RevealItem
+                key={item.title}
+                className="group relative bg-ink p-7 transition-colors duration-300 hover:bg-ink-800 md:p-8"
+              >
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-red transition-transform duration-500 group-hover:scale-x-100"
+                />
+                <span className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-red-light">
+                  Q-{String(i + 1).padStart(2, '0')}
+                </span>
+                <h2 className="mt-4 text-h4 text-white">{item.title}</h2>
+                <p className="mt-3.5 leading-relaxed text-ash">{item.body}</p>
+              </RevealItem>
+            ))}
+          </RevealGroup>
+        </div>
+      </section>
+
+      {/* ============================================================= WARRANTY */}
+      <section className="section bg-white">
+        <div className="container-site">
+          <Reveal className="mx-auto max-w-3xl text-center">
+            <ShieldCheck aria-hidden="true" className="mx-auto size-9 text-red" />
+            <h2 className="mt-7 text-h2 text-ink">Backed in writing.</h2>
+            <p className="mt-6 text-lead leading-relaxed text-body">
+              Every project carries a two-year workmanship warranty from substantial completion,
+              in addition to the coating manufacturer&rsquo;s material warranty. We apply{' '}
+              {company.coatingSystems} systems and issue the warranty at closeout with attic
+              stock and the approved color schedule.
+            </p>
+            <div className="mt-9 flex flex-wrap justify-center gap-3">
+              <ButtonLink href="/request-bid" variant="primary" withArrow>
+                Request a bid
+              </ButtonLink>
+              <ButtonLink href="/process" variant="outline">
+                See our process
+              </ButtonLink>
             </div>
           </Reveal>
         </div>
       </section>
 
-      {/* Safety -------------------------------------------------------------- */}
-      <section className="bg-white py-20 md:py-24 lg:py-28">
-        <div className="container-site">
-          <SectionHeading
-            layout="split"
-            label="Safety"
-            title="Six things that happen on every job."
-            intro={
-              <p>
-                Painting and coating work carries a specific hazard profile — height, solvent
-                exposure, confined spaces, and constant proximity to other trades. These are the
-                controls we run regardless of the project size.
-              </p>
-            }
-          />
-
-          <RevealGroup className="mt-14 grid gap-px bg-line md:grid-cols-2 xl:grid-cols-3">
-            {safetyCommitments.map((item) => (
-              <RevealItem
-                key={item.title}
-                className="group relative bg-white p-7 transition-colors hover:bg-mist lg:p-8"
-              >
-                <span
-                  aria-hidden="true"
-                  className="absolute inset-x-0 top-0 h-0.5 w-0 bg-red transition-all duration-500 group-hover:w-full"
-                />
-                <ShieldCheck aria-hidden="true" className="size-5 text-red" />
-                <h3 className="mt-5 text-[1.375rem] leading-tight text-navy lg:text-2xl">
-                  {item.title}
-                </h3>
-                <p className="mt-3.5 text-[0.9375rem] leading-relaxed text-body">{item.body}</p>
-              </RevealItem>
-            ))}
-          </RevealGroup>
-        </div>
-      </section>
-
-      {/* Quality ------------------------------------------------------------- */}
-      <section className="bg-navy py-20 md:py-24 lg:py-28">
-        <div className="container-site">
-          <SectionHeading
-            layout="split"
-            light
-            label="Quality control"
-            title="The standard is agreed before it is inspected."
-            intro={
-              <p>
-                Most finish disputes are not disagreements about workmanship. They are
-                disagreements about what was acceptable — and they happen because nobody defined
-                it in writing before production started.
-              </p>
-            }
-          />
-
-          <RevealGroup className="mt-14 grid gap-px bg-white/12 md:grid-cols-2 xl:grid-cols-3">
-            {qualityPractices.map((item) => (
-              <RevealItem
-                key={item.title}
-                className="group relative bg-navy p-7 transition-colors hover:bg-navy-800 lg:p-8"
-              >
-                <span
-                  aria-hidden="true"
-                  className="absolute inset-x-0 top-0 h-0.5 w-0 bg-red transition-all duration-500 group-hover:w-full"
-                />
-                <ClipboardCheck aria-hidden="true" className="size-5 text-red" />
-                <h3 className="mt-5 text-[1.375rem] leading-tight text-white lg:text-2xl">
-                  {item.title}
-                </h3>
-                <p className="mt-3.5 text-[0.9375rem] leading-relaxed text-steel-light">
-                  {item.body}
-                </p>
-              </RevealItem>
-            ))}
-          </RevealGroup>
-        </div>
-      </section>
-
-      {/* Closeout package ---------------------------------------------------- */}
-      <section className="bg-mist py-20 md:py-24 lg:py-28">
-        <div className="container-site">
-          <div className="grid gap-12 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-20">
-            <Reveal>
-              <span className="title-block text-navy/60">Closeout</span>
-              <h2 className="mt-5 text-[clamp(1.75rem,3.6vw,2.75rem)] text-navy">
-                What lands on the project manager&rsquo;s desk at the end.
-              </h2>
-              <p className="mt-6 max-w-md text-[1.0625rem] leading-relaxed text-body">
-                Closeout is not a phase — it is the byproduct of doing the rest properly.
-                Everything below is assembled while the work is happening, so handover is a
-                delivery rather than a search.
-              </p>
-              <div className="mt-8">
-                <TextLink href="/services/new-construction">New construction scope</TextLink>
-              </div>
-            </Reveal>
-
-            <Reveal delay={0.08}>
-              <div className="border-t-4 border-red bg-white p-7 lg:p-9">
-                <div className="flex items-center gap-3">
-                  <FileCheck aria-hidden="true" className="size-4 text-red" />
-                  <h3 className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-navy/60">
-                    Turnover package
-                  </h3>
-                </div>
-                <ul className="mt-6">
-                  {closeoutPackage.map((item) => (
-                    <li
-                      key={item}
-                      className="border-b border-line py-3.5 text-[0.9375rem] leading-snug text-navy last:border-b-0"
-                    >
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ ------------------------------------------------------------------ */}
-      <section className="bg-white py-20 md:py-24">
-        <div className="container-site">
-          <div className="grid gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-20">
-            <Reveal>
-              <span className="title-block text-navy/60">Common questions</span>
-              <h2 className="mt-5 text-[clamp(1.75rem,3.6vw,2.75rem)] text-navy">
-                Safety and quality, asked directly.
-              </h2>
-            </Reveal>
-
-            <RevealGroup as="dl" className="border-t border-line">
-              {faqs.map((faq) => (
-                <RevealItem key={faq.question} className="border-b border-line py-7">
-                  <dt className="text-xl text-navy lg:text-[1.375rem]">{faq.question}</dt>
-                  <dd className="mt-3 text-[0.9375rem] leading-relaxed text-body">{faq.answer}</dd>
-                </RevealItem>
-              ))}
-            </RevealGroup>
-          </div>
-        </div>
-      </section>
-
       <CtaBanner
         label="Prequalification"
-        title="Need our prequalification package?"
-        body="Certificates of insurance, W-9, written safety program, EMR documentation, and references — sent in the format your process requires."
-        primary={{ href: '/contact', text: 'Request the package' }}
-        secondary={{ href: '/request-bid', text: 'Invite us to bid' }}
+        title="Need our packet completed?"
+        body={`Send your prequalification forms and we will return them completed with certificates of insurance, safety documentation, and references. Call ${company.phone}.`}
+        primary={{ href: '/contact', text: 'Send prequal forms' }}
+        secondary={{ href: '/request-bid', text: 'Request a bid' }}
       />
 
-      <JsonLd data={[breadcrumbSchema(crumbs), faqSchema(faqs)]} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: 'Home', href: '/' },
+          { name: 'Safety & Quality', href: '/safety-quality' },
+        ])}
+      />
     </>
   );
 }
