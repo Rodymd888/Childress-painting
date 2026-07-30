@@ -520,6 +520,19 @@ export const relatedProjects = (slug: string, limit = 3) => {
   return [...sameIndustry, ...others].slice(0, limit);
 };
 
+/**
+ * @deprecated Use `projectsByIndustry`.
+ *
+ * The v2 data layer keyed projects by `market`; v3 keys them by `industry`.
+ * This alias is kept so that a lingering import from a previous version — most
+ * commonly `app/markets/[slug]/page.tsx` — resolves and compiles rather than
+ * failing the build with "has no exported member 'projectsByMarket'".
+ *
+ * The seven surviving v2 market slugs are identical to their v3 industry
+ * slugs, so this is a straight pass-through, not a lossy mapping.
+ */
+export const projectsByMarket = projectsByIndustry;
+
 /** Counts used by the projects index. Computed — never hard-coded. */
 export const projectCountByIndustry = projects.reduce<Record<string, number>>((acc, p) => {
   acc[p.industry] = (acc[p.industry] ?? 0) + 1;

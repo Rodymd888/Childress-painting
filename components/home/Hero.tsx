@@ -9,20 +9,28 @@ import { company } from '@/lib/site';
 /**
  * HOMEPAGE HERO — cinematic video
  * ===========================================================================
- * DROP YOUR DRONE FOOTAGE HERE
+ * SHIPPED ASSETS
  * ---------------------------------------------------------------------------
- *   /public/video/hero-drone.mp4     H.264 · 1920×1080 · ~8–12 Mbps · muted
- *   /public/video/hero-drone.webm    (optional) VP9 — smaller, served first
- *   /public/images/hero-poster.jpg   first frame, 1920px wide
+ *   /public/video/hero-drone.mp4    H.264 · 1920×1080 · 7.93s · 3.1 MB · muted
+ *   /public/video/hero-drone.webm   VP9  · 1920×1080 · 7.93s · 2.6 MB (served first)
+ *   /public/images/hero-poster.jpg  First frame, 1920px — poster + fallback
  *
- * The component degrades gracefully at every step:
- *   • No video file present  → the poster image renders as a still hero.
- *   • Video errors or stalls → falls back to the poster automatically.
- *   • Reduced-motion enabled → video never plays; poster is used.
- *   • Slow connection        → poster shows until the video can play through.
+ * The clip is a seamless loop: the source's final second was crossfaded over
+ * its opening second, so the wrap-around is invisible rather than a visible
+ * jump every eight seconds.
  *
- * That means the page is correct today, before the footage is added, and
- * upgrades itself the moment the file lands in /public/video.
+ * TO REPLACE THE FOOTAGE
+ * Overwrite the three files above, keeping the same names. Encoding commands
+ * are in /public/video/README.md. Nothing in this component needs to change.
+ *
+ * GRACEFUL DEGRADATION
+ * The poster is always mounted underneath and the video cross-fades over it
+ * only once it can actually play, so every failure path lands somewhere valid:
+ *   • Files missing or 404      → poster renders as a still hero
+ *   • Decode error or stall     → falls back to the poster
+ *   • Slow connection           → poster holds until `canplay` fires
+ *   • prefers-reduced-motion    → video never starts; poster only
+ *   • Autoplay blocked          → play() rejection caught; poster only
  * ===========================================================================
  */
 

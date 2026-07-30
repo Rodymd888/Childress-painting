@@ -1,9 +1,42 @@
 # Homepage hero video
 
-Drop your drone footage here. The hero looks for these files and upgrades
-itself automatically — no code change required.
+**The drone footage is already encoded and shipped here.** This file documents
+how it was produced, so it can be replaced later with the same treatment.
 
-## Required files
+## Shipped files
+
+| File                          | Codec | Size   | Notes                        |
+| ----------------------------- | ----- | ------ | ---------------------------- |
+| `hero-drone.mp4`              | H.264 | 3.1 MB | 1920×1080, 7.93s, no audio   |
+| `hero-drone.webm`             | VP9   | 2.6 MB | Served first where supported |
+| `../images/hero-poster.jpg`   | JPEG  | 279 KB | Poster + no-video fallback   |
+
+## The seamless loop
+
+The 4K source ran 8.91s and its first and last frames differed noticeably, so a
+raw loop visibly jumped every pass. The final clip crossfades the source's last
+second over its first second, producing a 7.93s loop whose seam is effectively
+invisible (mean frame difference at the wrap dropped from 30.0 to 3.1 out of 255).
+
+Reproduce it in two passes — do the downscale first, or the 4K filter graph will
+exhaust memory:
+
+```bash
+# Pass 1 — 4K to 1080p
+ffmpeg -i source.mov -vf "scale=1920:-2" -an \
+  -c:v libx264 -crf 18 -preset veryfast -pix_fmt yuv420p hd.mp4
+
+# Pass 2 — crossfade the tail over the head (D=8.908, fade=1.0)
+ffmpeg -i hd.mp4 -filter_complex "
+[0:v]trim=start=0:end=1,setpts=PTS-STARTPTS[head];
+[0:v]trim=start=7.908:end=8.908,setpts=PTS-STARTPTS[tail];
+[0:v]trim=start=1:end=7.908,setpts=PTS-STARTPTS[mid];
+[tail][head]blend=all_expr='A*(1-(T/1))+B*(T/1)'[xf];
+[xf][mid]concat=n=2:v=1:a=0[v]" -map "[v]" -an \
+  -c:v libx264 -crf 18 -preset veryfast -pix_fmt yuv420p loop.mp4
+```
+
+## Original required files
 
 | File                          | Format | Notes                                    |
 | ----------------------------- | ------ | ---------------------------------------- |

@@ -2,10 +2,9 @@
 
 ## Currently here
 
-| File               | Purpose                                                |
-| ------------------ | ------------------------------------------------------ |
-| `hero-poster.jpg`  | Homepage hero video poster / still fallback            |
-| `dallas-hero.jpg`  | Original source plate, retained as a backup            |
+| File               | Purpose                                                     |
+| ------------------ | ----------------------------------------------------------- |
+| `hero-poster.jpg`  | Homepage hero video poster and no-video fallback (1920×1080) |
 
 ## Adding project photography
 

@@ -102,10 +102,12 @@ through `components/ui/MediaFrame.tsx`, which prefers a photograph and falls
 back to drawn artwork. Populating an image field is all that is needed — no
 layout changes anywhere.
 
-### Add the homepage drone video
+### Replace the homepage drone video
 
-See **`public/video/README.md`**. Drop `hero-drone.mp4` in that folder and the
-hero upgrades itself. Until then it renders the poster still, correctly.
+The footage is already encoded and shipped. To swap it, overwrite the three
+files in `public/video/` and `public/images/hero-poster.jpg` keeping the same
+names — the encoding commands, including the crossfade that makes the clip loop
+seamlessly, are in **`public/video/README.md`**. No code changes needed.
 
 ### Add a service or industry
 
@@ -208,11 +210,11 @@ deploys — no configuration change is required for this update.
 
 Before launch:
 
-- [ ] Wire form delivery in `lib/submissions.ts`
-- [ ] Drop `hero-drone.mp4` into `public/video/`
+- [ ] **Wire form delivery in `lib/submissions.ts`** — it currently only logs.
+      Until this is done, bid requests are not delivered anywhere.
 - [ ] Confirm `NEXT_PUBLIC_SITE_URL` matches the live domain
 - [ ] Name the actual processors in `app/privacy/page.tsx`
-- [ ] Replace `public/images/hero-poster.jpg` with the video's first frame
+- [x] ~~Hero drone video~~ — encoded and shipped in `public/video/`
 
 ---
 
