@@ -16,13 +16,32 @@ const nextConfig: NextConfig = {
    * These 301s preserve any accumulated link equity and stop the old URLs
    * returning 404s to crawlers and bookmarked links.
    */
+  /**
+   * ROUTE MIGRATION — v2 → v3
+   * ---------------------------------------------------------------------------
+   * The /markets section became /industries, and six v2 service slugs were
+   * consolidated into seven scopes drawn from the qualifications document.
+   * These 301s preserve accumulated link equity and stop old URLs — including
+   * anything already indexed or bookmarked — returning 404s.
+   *
+   * ORDER MATTERS. Next.js matches top to bottom and stops at the first hit,
+   * so every specific rule must sit ABOVE the /markets/:slug catch-all.
+   */
   async redirects() {
     return [
-      { source: '/markets', destination: '/industries', permanent: true },
-      { source: '/markets/:slug', destination: '/industries/:slug', permanent: true },
-      { source: '/markets/retail', destination: '/industries/retail', permanent: true },
+      /* --- Specific market rules (must precede the catch-all) ------------- */
+      // Multifamily was retired: it is not in the qualifications record and
+      // Childress works commercial only. Send it to the sector index rather
+      // than a non-existent /industries/multifamily.
       { source: '/markets/multifamily', destination: '/industries', permanent: true },
-      // Legacy service slugs from v2.
+
+      /* --- Market catch-all ---------------------------------------------- */
+      // The remaining seven v2 markets map 1:1 onto v3 industry slugs:
+      // healthcare, aviation, education, industrial, retail, government, office.
+      { source: '/markets/:slug', destination: '/industries/:slug', permanent: true },
+      { source: '/markets', destination: '/industries', permanent: true },
+
+      /* --- Legacy v2 service slugs ---------------------------------------- */
       {
         source: '/services/commercial-painting',
         destination: '/services/commercial-interior-painting',
@@ -48,6 +67,7 @@ const nextConfig: NextConfig = {
         destination: '/services/occupied-renovations',
         permanent: true,
       },
+      // '/services/new-construction' exists in both v2 and v3 — no redirect.
     ];
   },
 
