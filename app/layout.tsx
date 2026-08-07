@@ -70,7 +70,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           href="#main"
           className="sr-only-focusable fixed left-4 top-4 z-[100] bg-red px-5 py-3 font-mono text-xs uppercase tracking-[0.16em] text-white"
         >
-          Skip to main content
+          Skip to Main Content
         </a>
 
         <Navbar />

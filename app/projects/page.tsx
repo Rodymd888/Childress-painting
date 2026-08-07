@@ -33,24 +33,24 @@ export default function ProjectsPage() {
           { name: 'Projects', href: '/projects' },
         ]}
         meta={[
-          { label: 'Projects listed', value: `${projects.length}` },
-          { label: 'Sectors represented', value: `${sectorsRepresented}` },
+          { label: 'Projects Listed', value: `${projects.length}` },
+          { label: 'Sectors Represented', value: `${sectorsRepresented}` },
           { label: 'Experience', value: '40+ years' },
           { label: 'Coverage', value: 'TX · KS · MO' },
         ]}
       >
         <ButtonLink href="/request-bid" variant="primary" size="lg" withArrow>
-          Request a bid
+          Request a Bid
         </ButtonLink>
         <ButtonLink href="/clients" variant="outlineLight" size="lg">
-          Full client list
+          Full Client List
         </ButtonLink>
       </PageHero>
 
       <section className="section bg-white">
         <div className="container-site">
           <SectionHeading
-            label="Filter by sector"
+            label="Filter by Sector"
             layout="split"
             title="Commercial Project Experience."
             intro={
@@ -71,7 +71,7 @@ export default function ProjectsPage() {
       <section className="section-sm bg-mist">
         <div className="container-site">
           <Reveal className="mx-auto max-w-3xl">
-            <span className="title-block text-ink/55">A note on this portfolio</span>
+            <span className="title-block text-ink/55">A Note on This Portfolio</span>
             <h2 className="mt-6 text-h3 text-ink">We Publish What We Can Substantiate.</h2>
             <div className="prose-site mt-5">
               <p>
@@ -88,10 +88,10 @@ export default function ProjectsPage() {
             </div>
             <div className="mt-8 flex flex-wrap gap-3">
               <ButtonLink href="/contact" variant="dark" withArrow>
-                Request references
+                Request References
               </ButtonLink>
               <ButtonLink href="/clients" variant="outline">
-                Representative clients
+                Representative Clients
               </ButtonLink>
             </div>
           </Reveal>

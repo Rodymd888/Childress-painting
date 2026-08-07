@@ -24,7 +24,7 @@ export function WhyChoose() {
         <ul className="grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
           {differentiators.map((item) => (
             <li key={item.title} className="bg-white p-6">
-              <h3 className="font-display text-[1.0625rem] font-bold tracking-tight text-ink">
+              <h3 className="font-display text-h5 font-bold tracking-tight text-ink">
                 {item.title}
               </h3>
               <p className="mt-2.5 text-[0.875rem] leading-relaxed text-body">{item.body}</p>

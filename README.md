@@ -159,8 +159,14 @@ components/
 
 - **Palette** — signal red `#d81f26`, true black `#0a0a0b`, white, with an ink
   and graphite scale. Taken directly from the logo.
-- **Type** — Archivo (variable-width display) / Inter (text) / JetBrains Mono
-  (labels and codes). Metric-adjusted fallbacks prevent layout shift on swap.
+- **Type** — Inter Tight (display) / Inter (text) / JetBrains Mono (labels).
+  ONE fluid scale in `@theme` drives every heading: `--text-display` through
+  `--text-h5`. Size, weight, tracking and leading travel together, so a heading
+  cannot be sized correctly but tracked or weighted inconsistently. No
+  component defines its own font-size.
+- **Title Case** — every visible title-style string (page and section
+  headings, card and CTA titles, nav and footer labels, eyebrows, stat labels)
+  is Title Case. Body copy, descriptions and testimonials stay sentence case.
 - **Motif** — the construction drawing sheet: mono labels, CSI references, red
   dimension rules, hairline grids. The `.title-block` class is the signature
   device and appears on every section.
@@ -176,6 +182,33 @@ components/
   layout shift.
 - All content routes are statically prerendered (84 pages).
 - Brand and video assets get a one-year immutable cache header.
+
+### Mobile
+
+The desktop design is the foundation; mobile is a deliberate translation of it
+rather than a squeeze. Handled with Tailwind breakpoints on the existing
+components — there are no separate mobile pages.
+
+- **Overflow** — `overflow-x: clip` on the body as a safety net, plus
+  `overflow-wrap: break-word` on headings and paragraphs so a long unbroken
+  word can never widen the layout.
+- **Hero** — 32rem tall on phones (48rem+ on desktop), crop biased to
+  `58% 50%` so the skyline stays in frame when the 16:9 footage is cut to a
+  portrait viewport. Video is `preload="none"` and is skipped entirely when the
+  browser reports Data Saver or a 2G connection; the poster is already there.
+- **Navigation** — drawer below `xl`, with collapsible submenus (Services alone
+  has sixteen entries). A tap-to-call button sits next to the hamburger,
+  because the utility strip carrying the phone number is desktop-only.
+- **Galleries** — one column, two from 640px, three from 1024px, each photo at
+  its natural aspect ratio. Tapping opens a full-screen viewer with swipe
+  navigation and controls at thumb height. No carousel library.
+- **Touch targets** — a `.tap` utility guarantees 44×44px on controls sized
+  only by their text; filter chips, footer and breadcrumb links were raised.
+- **Rails** — the project filters and process timeline scroll horizontally with
+  snap on phones instead of wrapping to four rows.
+- **Motion** — blur radius, sheet-grid opacity and marquee speed are all
+  reduced under 768px, and `prefers-reduced-motion` disables animation
+  globally rather than only on scroll reveals.
 
 ### Accessibility
 

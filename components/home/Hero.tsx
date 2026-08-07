@@ -41,10 +41,10 @@ const HEADLINE = [
 ] as const;
 
 const TRUST = [
-  { label: 'Commercial experience', value: 'Since 1984' },
-  { label: 'Coating systems', value: 'Sherwin-Williams' },
-  { label: 'Workmanship warranty', value: 'Two years' },
-  { label: 'Shift capability', value: 'Day · Night · Occupied' },
+  { label: 'Commercial Experience', value: 'Since 1984' },
+  { label: 'Coating Systems', value: 'Sherwin-Williams' },
+  { label: 'Workmanship Warranty', value: 'Two years' },
+  { label: 'Shift Capability', value: 'Day · Night · Occupied' },
 ];
 
 export function Hero() {
@@ -65,6 +65,21 @@ export function Hero() {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduce) return;
 
+    /* Don't spend a phone's data plan on decoration. Where the browser reports
+       Data Saver or a slow connection, the poster is the hero — it is already
+       rendered, so this costs the visitor nothing but a few megabytes saved. */
+    const conn = (
+      navigator as Navigator & {
+        connection?: { saveData?: boolean; effectiveType?: string };
+      }
+    ).connection;
+    if (conn?.saveData || /(^|-)(2g|slow-2g)$/.test(conn?.effectiveType ?? '')) return;
+
+    /* `preload="none"` keeps the video off the critical path entirely; it is
+       only fetched once we have decided this device should play it. */
+    el.preload = 'auto';
+    el.load();
+
     const onReady = () => {
       setVideoReady(true);
       void el.play().catch(() => setVideoReady(false));
@@ -83,7 +98,7 @@ export function Hero() {
     }) as const;
 
   return (
-    <section className="relative isolate flex min-h-[42rem] flex-col justify-end overflow-hidden bg-ink pt-28 md:min-h-[48rem] lg:min-h-[calc(100vh-2.25rem)] lg:pt-36">
+    <section className="relative isolate flex min-h-[32rem] flex-col justify-end overflow-hidden bg-ink pt-24 sm:min-h-[38rem] sm:pt-28 md:min-h-[46rem] lg:min-h-[calc(100vh-2.25rem)] lg:pt-36">
       {/* ---------------------------------------------------------- BACKPLATE */}
       {/* Poster is always mounted. The video fades over it once it can play. */}
       <div className="absolute inset-0 -z-20">
@@ -94,21 +109,21 @@ export function Hero() {
           priority
           sizes="100vw"
           quality={80}
-          className="scale-105 object-cover object-center"
+          className="scale-105 object-cover object-[58%_50%] md:object-center"
         />
       </div>
 
       <video
         ref={videoRef}
         className={[
-          'absolute inset-0 -z-20 size-full object-cover object-center transition-opacity duration-1000',
+          'absolute inset-0 -z-20 size-full object-cover object-[58%_50%] transition-opacity duration-1000 md:object-center',
           videoReady ? 'opacity-100' : 'opacity-0',
         ].join(' ')}
         poster="/images/hero-poster.jpg"
         muted
         loop
         playsInline
-        preload="metadata"
+        preload="none"
         aria-hidden="true"
         tabIndex={-1}
       >
@@ -164,7 +179,7 @@ export function Hero() {
           Commercial painting specialists · Dallas–Fort Worth
         </span>
 
-        <h1 className="mt-7 max-w-[19ch] text-display leading-[0.93] text-white">
+        <h1 className="mt-6 max-w-[19ch] text-display text-white sm:mt-7">
           {HEADLINE.map((line, i) => {
             const text = typeof line === 'string' ? line : line.text;
             const accent = typeof line !== 'string' && line.accent;
@@ -218,7 +233,7 @@ export function Hero() {
               aria-hidden="true"
               className="absolute inset-0 origin-left scale-x-0 bg-red-dark transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100"
             />
-            <span className="relative">Request a bid</span>
+            <span className="relative">Request a Bid</span>
             <ArrowRight
               aria-hidden="true"
               className="relative size-4 transition-transform duration-300 group-hover:translate-x-1"
@@ -266,7 +281,7 @@ export function Hero() {
                 <dt className="font-mono text-[0.5625rem] uppercase tracking-[0.2em] text-white/60">
                   {item.label}
                 </dt>
-                <dd className="mt-1.5 font-display text-[1.0625rem] font-bold text-white">
+                <dd className="mt-1.5 font-display text-h5 font-bold text-white">
                   {item.value}
                 </dd>
               </div>

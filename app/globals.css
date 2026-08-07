@@ -33,18 +33,49 @@
   --color-concrete: #ebebee;
   --color-line: #dedee3;
 
-  /* --- Fluid type scale --------------------------------------------------
-     Every heading pulls from these so proportions hold 375px → 1920px. */
-  --text-display: clamp(2.85rem, 8.2vw, 7rem);
-  --text-h1: clamp(2.25rem, 6.2vw, 4.75rem);
-  --text-h2: clamp(1.875rem, 4.4vw, 3.5rem);
+  /* --- Fluid type scale ---------------------------------------------------
+     ONE scale for the whole site. Every heading uses a token below — no
+     component defines its own font-size. That is what makes the hierarchy
+     read as intentional rather than accidental.
+
+     Minimums are tuned for a 320px viewport: at that width an h1 lands near
+     34px, which fills the line without forcing single-word wraps. Maximums
+     hold the desktop presence unchanged. */
+  --text-display: clamp(2.5rem, 7.6vw, 7rem);
+  --text-h1: clamp(2.125rem, 5.6vw, 4.75rem);
+  --text-h2: clamp(1.75rem, 4.2vw, 3.5rem);
   --text-h3: clamp(1.375rem, 2.6vw, 2rem);
-  --text-h4: clamp(1.125rem, 1.8vw, 1.375rem);
-  --text-lead: clamp(1.0625rem, 1.6vw, 1.3125rem);
+  --text-h4: clamp(1.125rem, 1.7vw, 1.375rem);
+  --text-h5: clamp(1rem, 1.3vw, 1.125rem);
+  --text-lead: clamp(1.0625rem, 1.5vw, 1.3125rem);
+  --text-body: clamp(0.9375rem, 1.05vw, 1rem);
+  --text-small: 0.875rem;
+  --text-eyebrow: clamp(0.625rem, 0.85vw, 0.6875rem);
+
+  /* --- Type rhythm: one weight, tracking, and leading per level ----------- */
+  --tracking-display: -0.042em;
+  --tracking-h1: -0.038em;
+  --tracking-h2: -0.032em;
+  --tracking-h3: -0.024em;
+  --tracking-h4: -0.018em;
+  --tracking-eyebrow: 0.18em;
+
+  --leading-display: 0.92;
+  --leading-h1: 0.96;
+  --leading-h2: 1.03;
+  --leading-h3: 1.14;
+  --leading-h4: 1.28;
+
+  --weight-display: 800;
+  --weight-heading: 700;
+  --weight-sub: 600;
 
   /* --- Vertical rhythm ---------------------------------------------------- */
-  --space-section: clamp(4.5rem, 9vw, 9rem);
-  --space-section-sm: clamp(3.5rem, 6vw, 5.5rem);
+  --space-section: clamp(3.5rem, 8vw, 9rem);
+  --space-section-sm: clamp(2.75rem, 5.5vw, 5.5rem);
+  /* Consistent gaps between eyebrow -> heading -> paragraph. */
+  --gap-eyebrow: clamp(1rem, 1.6vw, 1.5rem);
+  --gap-heading: clamp(1.125rem, 1.8vw, 1.75rem);
 
   /* --- Type families ------------------------------------------------------ */
   --font-display: 'Inter Tight', 'Inter Tight Fallback', 'Helvetica Neue', Arial, sans-serif;
@@ -107,20 +138,85 @@
   h1,
   h2,
   h3,
-  h4 {
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-display);
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    line-height: 1.0;
-    text-wrap: balance;
+    font-weight: var(--weight-heading);
     margin: 0;
+    /* `balance` distributes words evenly across lines, which is what stops a
+       long heading dropping a single orphaned word onto the last line — the
+       most common way a big headline looks broken on a phone. */
+    text-wrap: balance;
+    /* Long unbroken words (URLs, compound product names) can otherwise push
+       the whole layout wider than the viewport. */
+    overflow-wrap: break-word;
   }
 
-  h1 { letter-spacing: -0.038em; }
-  h2 { letter-spacing: -0.032em; }
-  h3, h4 { letter-spacing: -0.022em; }
+  /* Element-level defaults mirror the utility classes, so a bare <h2> and a
+     <h2 class="text-h2"> are identical. */
+  h1 {
+    font-size: var(--text-h1);
+    font-weight: var(--weight-display);
+    letter-spacing: var(--tracking-h1);
+    line-height: var(--leading-h1);
+  }
+  h2 {
+    font-size: var(--text-h2);
+    letter-spacing: var(--tracking-h2);
+    line-height: var(--leading-h2);
+  }
+  h3 {
+    font-size: var(--text-h3);
+    letter-spacing: var(--tracking-h3);
+    line-height: var(--leading-h3);
+  }
+  h4 {
+    font-size: var(--text-h4);
+    font-weight: var(--weight-sub);
+    letter-spacing: var(--tracking-h4);
+    line-height: var(--leading-h4);
+  }
+  h5, h6 {
+    font-size: var(--text-h5);
+    font-weight: var(--weight-sub);
+    line-height: 1.35;
+  }
 
-  p { text-wrap: pretty; }
+  p {
+    text-wrap: pretty;
+    overflow-wrap: break-word;
+  }
+
+  /* ------------------------------------------------------------------------
+     MOBILE SAFETY NET
+     A single decorative element escaping its container is enough to give the
+     whole page a horizontal scrollbar, and on a phone that reads as broken.
+     Root causes are fixed at the component level; this stops any future one
+     from reaching the user.
+     ------------------------------------------------------------------------ */
+  html {
+    overflow-x: hidden;
+    /* Stops iOS Safari inflating type in landscape. */
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    overflow-x: clip;
+    /* Removes the grey flash on tap without disabling focus styles. */
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Media never contributes to horizontal overflow. */
+  img, svg, video, canvas, iframe {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* `fill` images are absolutely positioned and must keep their own height. */
+  img[sizes][srcset], img[data-nimg='fill'] {
+    height: revert-layer;
+  }
 
   a {
     color: inherit;
@@ -397,11 +493,44 @@
     border: 0;
   }
 
-  .text-display { font-size: var(--text-display); }
-  .text-h1 { font-size: var(--text-h1); }
-  .text-h2 { font-size: var(--text-h2); }
-  .text-h3 { font-size: var(--text-h3); }
-  .text-h4 { font-size: var(--text-h4); }
+  /* Size + weight + tracking + leading always travel together, so a heading
+     can never be sized correctly but weighted or tracked inconsistently. */
+  .text-display {
+    font-size: var(--text-display);
+    font-weight: var(--weight-display);
+    letter-spacing: var(--tracking-display);
+    line-height: var(--leading-display);
+  }
+  .text-h1 {
+    font-size: var(--text-h1);
+    font-weight: var(--weight-display);
+    letter-spacing: var(--tracking-h1);
+    line-height: var(--leading-h1);
+  }
+  .text-h2 {
+    font-size: var(--text-h2);
+    font-weight: var(--weight-heading);
+    letter-spacing: var(--tracking-h2);
+    line-height: var(--leading-h2);
+  }
+  .text-h3 {
+    font-size: var(--text-h3);
+    font-weight: var(--weight-heading);
+    letter-spacing: var(--tracking-h3);
+    line-height: var(--leading-h3);
+  }
+  .text-h4 {
+    font-size: var(--text-h4);
+    font-weight: var(--weight-sub);
+    letter-spacing: var(--tracking-h4);
+    line-height: var(--leading-h4);
+  }
+  .text-h5 {
+    font-size: var(--text-h5);
+    font-weight: var(--weight-sub);
+    letter-spacing: -0.012em;
+    line-height: 1.35;
+  }
   .text-lead { font-size: var(--text-lead); }
 
   /* Balanced multi-column list used for long client / school rosters. */
@@ -435,4 +564,67 @@
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+
+/* ==========================================================================
+   MOBILE REFINEMENTS
+   Applied on top of the desktop design rather than replacing it. Nothing here
+   changes behaviour above the breakpoint it targets.
+   ========================================================================== */
+@layer utilities {
+  /* Horizontal rails (the process timeline, filter chips) scroll cleanly on
+     touch without showing a scrollbar, and settle on a whole item. */
+  .rail {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+  }
+  .rail::-webkit-scrollbar { display: none; }
+  .rail > * { scroll-snap-align: start; }
+
+  /* Guarantees a comfortable phone tap target on controls that would
+     otherwise be sized purely by their text. */
+  .tap {
+    min-height: 2.75rem;
+    min-width: 2.75rem;
+  }
+}
+
+@media (max-width: 767px) {
+  /* Large blurred colour washes are the most expensive thing we paint. They
+     are decorative, so on phones they get cheaper rather than removed. */
+  .blur-3xl { filter: blur(40px); }
+
+  /* The drawing-sheet grid is a texture; at phone size it reads as noise and
+     costs a full-viewport repaint on scroll. */
+  .sheet-grid { opacity: 0.4; }
+
+  /* Client marquees run slower on phones: less GPU churn, and legible while
+     scrolling one-handed. */
+  .marquee-track { animation-duration: 64s; }
+}
+
+/* ==========================================================================
+   REDUCED MOTION — honoured everywhere, not just on scroll reveals.
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal,
+  .reveal-item {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .marquee-track { animation: none !important; transform: none !important; }
 }

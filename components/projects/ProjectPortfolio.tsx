@@ -34,7 +34,7 @@ export function ProjectPortfolio({
     }, {});
 
     return [
-      { slug: 'all', label: 'All sectors', count: projects.length },
+      { slug: 'all', label: 'All Sectors', count: projects.length },
       ...industries
         .filter((i) => counts[i.slug])
         .map((i) => ({ slug: i.slug, label: i.shortTitle, count: counts[i.slug] })),
@@ -52,8 +52,11 @@ export function ProjectPortfolio({
       <div className="border-y border-line">
         <div
           role="group"
-          aria-label="Filter projects by market sector"
-          className="flex flex-wrap gap-x-1 gap-y-1 py-4"
+          aria-label="Filter Projects by Market Sector"
+          /* On a phone thirteen chips would wrap to four rows and push the
+             work below the fold, so they become a single swipeable rail.
+             From md they wrap as before. */
+          className="rail -mx-5 flex snap-x gap-1 overflow-x-auto px-5 py-4 md:mx-0 md:flex-wrap md:overflow-visible md:px-0"
         >
           {filters.map((filter) => {
             const selected = filter.slug === active;
@@ -64,7 +67,7 @@ export function ProjectPortfolio({
                 aria-pressed={selected}
                 onClick={() => setActive(filter.slug)}
                 className={[
-                  'group inline-flex items-center gap-2 px-4 py-2.5 font-mono text-[0.6875rem] uppercase tracking-[0.14em] transition-colors duration-200',
+                  'group inline-flex min-h-11 shrink-0 items-center gap-2 px-4 py-2.5 font-mono text-[0.6875rem] uppercase tracking-[0.14em] transition-colors duration-200',
                   selected ? 'bg-ink text-white' : 'text-ink/60 hover:bg-mist hover:text-ink',
                 ].join(' ')}
               >

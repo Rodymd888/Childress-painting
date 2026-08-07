@@ -44,7 +44,7 @@ export function ProjectCard({
           </span>
           {isCaseStudy && (
             <span className="font-mono text-[0.625rem] uppercase tracking-[0.14em] text-ink/40">
-              Case study
+              Case Study
             </span>
           )}
         </div>

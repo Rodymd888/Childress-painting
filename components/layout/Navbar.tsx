@@ -215,8 +215,16 @@ export function Navbar() {
               aria-hidden="true"
               className="absolute inset-0 origin-left scale-x-0 bg-red-dark transition-transform duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100"
             />
-            <span className="relative">Request a bid</span>
+            <span className="relative">Request a Bid</span>
           </Link>
+          <a
+            href={`tel:${company.phoneHref}`}
+            aria-label={`Call Childress Painting on ${company.phone}`}
+            className="tap inline-flex items-center justify-center text-white transition-colors hover:text-red-light xl:hidden"
+          >
+            <Phone aria-hidden="true" className="size-5" />
+          </a>
+
           <MobileMenu />
         </div>
       </div>

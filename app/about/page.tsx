@@ -34,10 +34,10 @@ export default function AboutPage() {
         meta={companyStats.map((s) => ({ label: s.label, value: s.value }))}
       >
         <ButtonLink href="/request-bid" variant="primary" size="lg" withArrow>
-          Request a bid
+          Request a Bid
         </ButtonLink>
         <ButtonLink href="/why-childress" variant="outlineLight" size="lg">
-          Why choose Childress
+          Why Choose Childress
         </ButtonLink>
       </PageHero>
 
@@ -46,7 +46,7 @@ export default function AboutPage() {
         <div className="container-site">
           <div className="grid gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-20">
             <Reveal>
-              <span className="title-block text-ink/60">The company</span>
+              <span className="title-block text-ink/60">The Company</span>
               <h2 className="mt-6 text-h2 text-ink">
                 A Dependable Subcontractor,
                 <br />
@@ -85,10 +85,10 @@ export default function AboutPage() {
 
               <div className="mt-9 flex flex-wrap gap-3">
                 <ButtonLink href="/clients" variant="dark" withArrow>
-                  Representative clients
+                  Representative Clients
                 </ButtonLink>
                 <ButtonLink href="/projects" variant="outline">
-                  Project portfolio
+                  Project Portfolio
                 </ButtonLink>
               </div>
             </Reveal>
@@ -97,14 +97,14 @@ export default function AboutPage() {
               <div className="lg:sticky lg:top-28">
                 <MediaFrame
                   art="construction"
-                  label="Childress Painting commercial work"
+                  label="Childress Painting Commercial Work"
                   ratio="tall"
                   overlay={false}
                   priority
                   sizes="(min-width: 1024px) 36vw, 100vw"
                 />
                 <div className="mt-8 border-l-2 border-red pl-6">
-                  <p className="font-display text-[1.375rem] font-bold leading-snug tracking-tight text-ink">
+                  <p className="font-display text-h3 font-bold leading-snug tracking-tight text-ink">
                     &ldquo;Built around the construction schedule.&rdquo;
                   </p>
                   <p className="mt-3 font-mono text-[0.625rem] uppercase tracking-[0.18em] text-ink/50">
@@ -118,12 +118,12 @@ export default function AboutPage() {
       </section>
 
       {/* ============================================================= TIMELINE */}
-      <section className="relative overflow-hidden bg-ink py-20 md:py-24 lg:py-28">
+      <section className="relative overflow-hidden bg-ink py-14 sm:py-20 md:py-24 lg:py-28">
         <div className="sheet-grid absolute inset-0 opacity-60" aria-hidden="true" />
         <div className="container-site relative">
           <SectionHeading
             light
-            label="Company timeline"
+            label="Company Timeline"
             layout="split"
             title="How the Record Was Built."
             intro={
@@ -134,7 +134,7 @@ export default function AboutPage() {
             }
           />
 
-          <RevealGroup className="mt-16 grid gap-px bg-white/12 lg:grid-cols-4" stagger={0.08}>
+          <RevealGroup className="mt-12 grid gap-px bg-white/12 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4" stagger={0.08}>
             {timeline.map((entry) => (
               <RevealItem
                 key={entry.year}
@@ -144,10 +144,10 @@ export default function AboutPage() {
                   aria-hidden="true"
                   className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-red transition-transform duration-500 group-hover:scale-x-100"
                 />
-                <span className="block font-display text-[1.75rem] font-black leading-none text-red">
+                <span className="block font-display text-h3 font-black leading-none text-red">
                   {entry.year}
                 </span>
-                <h3 className="mt-5 font-display text-[1.125rem] font-bold leading-tight tracking-tight text-white">
+                <h3 className="mt-5 font-display text-h4 font-bold leading-tight tracking-tight text-white">
                   {entry.title}
                 </h3>
                 <p className="mt-3.5 text-[0.875rem] leading-relaxed text-ash">{entry.body}</p>
@@ -173,7 +173,7 @@ export default function AboutPage() {
           />
 
           <RevealGroup
-            className="mt-14 grid gap-px border border-line bg-line md:grid-cols-3"
+            className="mt-10 md:mt-14 grid gap-px border border-line bg-line md:grid-cols-3"
             stagger={0.07}
           >
             {leadership.map((person) => (
@@ -200,7 +200,7 @@ export default function AboutPage() {
       <section className="section bg-mist">
         <div className="container-site">
           <SectionHeading
-            label="How we operate"
+            label="How We Operate"
             layout="split"
             title="Four Things We Will Not Trade Away."
             intro={
@@ -209,10 +209,10 @@ export default function AboutPage() {
                 because the alternative costs the client more later.
               </p>
             }
-            action={<TextLink href="/why-childress">Why general contractors choose us</TextLink>}
+            action={<TextLink href="/why-childress">Why General Contractors Choose Us</TextLink>}
           />
 
-          <RevealGroup className="mt-14 grid gap-px bg-line sm:grid-cols-2" stagger={0.06}>
+          <RevealGroup className="mt-10 md:mt-14 grid gap-px bg-line sm:grid-cols-2" stagger={0.06}>
             {values.map((value, i) => (
               <RevealItem key={value.title} className="bg-white p-7 md:p-9">
                 <span className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-red">
@@ -230,7 +230,7 @@ export default function AboutPage() {
       <section className="section bg-white">
         <div className="container-site">
           <SectionHeading
-            label="Capability snapshot"
+            label="Capability Snapshot"
             title="The Short Version, for a Prequal Form."
           />
 

@@ -20,13 +20,13 @@ export function StatsBand() {
       <div className="container-site relative">
         <Reveal>
           <h2 id="stats" className="sr-only">Company at a Glance</h2>
-          <span className="title-block text-white/55">At a glance</span>
+          <span className="title-block text-white/55">At a Glance</span>
         </Reveal>
 
         <RevealGroup className="mt-10 grid grid-cols-2 gap-px bg-white/12 lg:grid-cols-4" stagger={0.07}>
           {companyStats.map((stat) => (
             <RevealItem key={stat.label} className="group bg-ink p-6 transition-colors duration-300 hover:bg-ink-800 md:p-8">
-              <span className="block font-display text-[2.75rem] font-black leading-none text-white md:text-[3.5rem]">
+              <span className="block font-display text-h2 font-black leading-none text-white md:text-[3.5rem]">
                 {stat.value}
               </span>
               <span

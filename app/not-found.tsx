@@ -3,7 +3,7 @@ import { ButtonLink } from '@/components/ui/Button';
 import { primaryNav } from '@/lib/site';
 
 export const metadata = {
-  title: 'Page not found',
+  title: 'Page Not Found',
   robots: { index: false, follow: true },
 };
 
@@ -15,7 +15,7 @@ export default function NotFound() {
       <div className="container-site relative py-32 md:py-40 lg:py-48">
         <span className="title-block text-white/70">Error 404</span>
 
-        <h1 className="mt-6 max-w-3xl text-[clamp(2.5rem,7vw,5rem)]">That Page Is Not on the Drawing Set.</h1>
+        <h1 className="mt-6 max-w-3xl text-h1">That Page Is Not on the Drawing Set.</h1>
 
         <p className="mt-6 max-w-xl text-lg leading-relaxed text-ash">
           The link may be out of date, or the page may have moved. Everything below is current.
@@ -23,14 +23,14 @@ export default function NotFound() {
 
         <div className="mt-10 flex flex-wrap gap-3">
           <ButtonLink href="/" variant="primary" size="lg" withArrow>
-            Back to home
+            Back to Home
           </ButtonLink>
           <ButtonLink href="/request-bid" variant="outlineLight" size="lg">
-            Request a bid
+            Request a Bid
           </ButtonLink>
         </div>
 
-        <nav aria-label="Site sections" className="mt-16 border-t border-white/15 pt-8">
+        <nav aria-label="Site Sections" className="mt-12 md:mt-16 border-t border-white/15 pt-8">
           <h2 className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-white/60">Main Sections</h2>
           <ul className="mt-6 flex flex-wrap gap-3">
             {primaryNav.map((item) => (

@@ -70,17 +70,17 @@ export default async function IndustryPage({ params }: Params) {
         intro={industry.summary}
         crumbs={crumbs}
         meta={[
-          { label: 'Projects listed', value: `${sectorProjects.length}` },
-          { label: 'Services applied', value: `${relatedServices.length}` },
+          { label: 'Projects Listed', value: `${sectorProjects.length}` },
+          { label: 'Services Applied', value: `${relatedServices.length}` },
           { label: 'Scheduling', value: company.scheduling },
           { label: 'Warranty', value: company.warranty },
         ]}
       >
         <ButtonLink href="/request-bid" variant="primary" size="lg" withArrow>
-          Request a bid
+          Request a Bid
         </ButtonLink>
         <ButtonLink href="/industries" variant="outlineLight" size="lg">
-          All industries
+          All Industries
         </ButtonLink>
       </PageHero>
 
@@ -89,8 +89,8 @@ export default async function IndustryPage({ params }: Params) {
         <div className="container-site">
           <div className="grid gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-20">
             <Reveal>
-              <span className="title-block text-ink/60">The sector</span>
-              <p className="mt-7 text-[clamp(1.25rem,2.4vw,1.75rem)] font-medium leading-snug tracking-tight text-ink">
+              <span className="title-block text-ink/60">The Sector</span>
+              <p className="mt-7 text-h3 font-medium leading-snug tracking-tight text-ink">
                 {industry.intro}
               </p>
 
@@ -130,7 +130,7 @@ export default async function IndustryPage({ params }: Params) {
 
                 <div className="mt-8 border border-line bg-mist p-6 md:p-7">
                   <span className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-red">
-                    Facility &amp; space types
+                    Facility &amp; Space Types
                   </span>
                   <ul className="mt-5 space-y-2.5">
                     {industry.facilities.map((facility) => (
@@ -157,7 +157,7 @@ export default async function IndustryPage({ params }: Params) {
           <div className="container-site relative">
             <SectionHeading
               light
-              label="Representative clients"
+              label="Representative Clients"
               layout="split"
               title={`${industry.title} Experience.`}
               intro={<p>{clients.blurb}</p>}
@@ -172,7 +172,7 @@ export default async function IndustryPage({ params }: Params) {
                   key={client.name}
                   className="bg-ink px-5 py-4 transition-colors duration-300 hover:bg-ink-800"
                 >
-                  <span className="font-display text-[1.0625rem] font-bold tracking-tight text-white">
+                  <span className="font-display text-h5 font-bold tracking-tight text-white">
                     {client.name}
                   </span>
                   {client.note && (
@@ -226,7 +226,7 @@ export default async function IndustryPage({ params }: Params) {
       <section className="section bg-white">
         <div className="container-site">
           <SectionHeading
-            label="Services applied here"
+            label="Services Applied Here"
             title={`What We Typically Bid in ${industry.shortTitle}.`}
             as="h2"
           />
@@ -261,7 +261,7 @@ export default async function IndustryPage({ params }: Params) {
       {/* ========================================================= OTHER SECTORS */}
       <section className="section-sm bg-mist">
         <div className="container-site">
-          <SectionHeading label="Other sectors" title="Also Served." as="h2" />
+          <SectionHeading label="Other Sectors" title="Also Served." as="h2" />
 
           <RevealGroup className="mt-10 flex flex-wrap gap-3" stagger={0.04}>
             {others.map((other) => (
@@ -283,7 +283,7 @@ export default async function IndustryPage({ params }: Params) {
       </section>
 
       <CtaBanner
-        label="Bid invitations"
+        label="Bid Invitations"
         title={`Bidding ${industry.shortTitle} Work?`}
       />
 

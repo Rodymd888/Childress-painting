@@ -32,8 +32,8 @@ export function SectionHeading({
 }: Props) {
   const titleSize =
     Tag === 'h2'
-      ? 'text-[clamp(2rem,4.6vw,3.5rem)]'
-      : 'text-[clamp(1.5rem,3vw,2.25rem)]';
+      ? 'text-h2'
+      : 'text-h3';
 
   return (
     <Reveal

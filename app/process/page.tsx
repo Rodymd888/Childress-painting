@@ -22,7 +22,7 @@ export default function ProcessPage() {
   return (
     <>
       <PageHero
-        label="Our process"
+        label="Our Process"
         title="Eight Steps. Every Project. No Exceptions."
         intro="A process is only worth publishing if it is the one actually followed. This is ours — and every step has something concrete you receive at the end of it."
         crumbs={[
@@ -31,13 +31,13 @@ export default function ProcessPage() {
         ]}
         meta={[
           { label: 'Steps', value: `${processSteps.length}` },
-          { label: 'Starts at', value: 'Takeoff & scope review' },
-          { label: 'Ends at', value: 'Closeout & warranty' },
-          { label: 'Owned by', value: 'A dedicated PM' },
+          { label: 'Starts At', value: 'Takeoff & scope review' },
+          { label: 'Ends At', value: 'Closeout & warranty' },
+          { label: 'Owned By', value: 'A dedicated PM' },
         ]}
       >
         <ButtonLink href="/request-bid" variant="primary" size="lg" withArrow>
-          Start at step one
+          Start at Step One
         </ButtonLink>
       </PageHero>
 
@@ -56,19 +56,19 @@ export default function ProcessPage() {
             }
           />
 
-          <Reveal className="mt-14">
+          <Reveal className="mt-10 md:mt-14">
             <ProcessTimeline />
           </Reveal>
         </div>
       </section>
 
       {/* ============================================================= FULL LIST */}
-      <section className="relative overflow-hidden bg-ink py-20 md:py-24 lg:py-28">
+      <section className="relative overflow-hidden bg-ink py-14 sm:py-20 md:py-24 lg:py-28">
         <div className="sheet-grid absolute inset-0 opacity-60" aria-hidden="true" />
         <div className="container-site relative">
           <SectionHeading
             light
-            label="The full sequence"
+            label="The Full Sequence"
             layout="split"
             title="Everything, in Order."
             intro={
@@ -79,13 +79,13 @@ export default function ProcessPage() {
             }
           />
 
-          <RevealGroup className="mt-16 space-y-px bg-white/12" stagger={0.05}>
+          <RevealGroup className="mt-12 md:mt-16 space-y-px bg-white/12" stagger={0.05}>
             {processSteps.map((step) => (
               <RevealItem
                 key={step.number}
                 className="group grid gap-6 bg-ink p-7 transition-colors duration-300 hover:bg-ink-800 md:grid-cols-[auto_minmax(0,1fr)_minmax(0,1.1fr)] md:gap-10 md:p-9"
               >
-                <span className="font-display text-[3rem] font-black leading-none text-white/12 transition-colors duration-300 group-hover:text-red/40 md:text-[4rem]">
+                <span className="font-display text-h2 font-black leading-none text-white/12 transition-colors duration-300 group-hover:text-red/40 md:text-[4rem]">
                   {step.number}
                 </span>
 
@@ -112,7 +112,7 @@ export default function ProcessPage() {
       </section>
 
       <CtaBanner
-        label="Step one"
+        label="Step One"
         title="Send Us the Drawings."
         body="Preconstruction starts the moment we have the plans and the specification sections. Bid or no-bid, you get an answer — with assumptions and exclusions in writing."
       />

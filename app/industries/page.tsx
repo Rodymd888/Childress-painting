@@ -24,7 +24,7 @@ export default function IndustriesPage() {
   return (
     <>
       <PageHero
-        label="Markets we serve"
+        label="Markets We Serve"
         title={`${industries.length} Sectors. ${industries.length} Different Constraints.`}
         intro="The coating rarely changes. What changes is what governs the schedule — infection control in a hospital, a grand-opening date in retail, a dark night in a stadium, badging at an airport. We plan for the constraint."
         crumbs={[
@@ -32,24 +32,24 @@ export default function IndustriesPage() {
           { name: 'Industries', href: '/industries' },
         ]}
         meta={[
-          { label: 'Market sectors', value: `${industries.length} served` },
-          { label: 'Representative clients', value: `${totalClients} named` },
-          { label: 'Client groups', value: `${clientGroups.length} industries` },
+          { label: 'Market Sectors', value: `${industries.length} served` },
+          { label: 'Representative Clients', value: `${totalClients} named` },
+          { label: 'Client Groups', value: `${clientGroups.length} industries` },
           { label: 'Experience', value: '40+ years, since 1984' },
         ]}
       >
         <ButtonLink href="/request-bid" variant="primary" size="lg" withArrow>
-          Request a bid
+          Request a Bid
         </ButtonLink>
         <ButtonLink href="/clients" variant="outlineLight" size="lg">
-          Representative clients
+          Representative Clients
         </ButtonLink>
       </PageHero>
 
       <section className="section bg-white">
         <div className="container-site">
           <SectionHeading
-            label="Sector index"
+            label="Sector Index"
             layout="split"
             title="Where Childress Works."
             intro={
@@ -58,10 +58,10 @@ export default function IndustriesPage() {
                 facility types we handle, and the services most often bid into it.
               </p>
             }
-            action={<TextLink href="/projects">Browse the portfolio</TextLink>}
+            action={<TextLink href="/projects">Browse the Portfolio</TextLink>}
           />
 
-          <RevealGroup className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" stagger={0.05}>
+          <RevealGroup className="mt-10 md:mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" stagger={0.05}>
             {industries.map((industry, i) => (
               <RevealItem key={industry.slug}>
                 <IndustryCard
@@ -78,7 +78,7 @@ export default function IndustriesPage() {
       <section className="section-sm bg-mist">
         <div className="container-site">
           <Reveal className="mx-auto max-w-3xl text-center">
-            <span className="title-block text-ink/55">Not listed?</span>
+            <span className="title-block text-ink/55">Not Listed?</span>
             <h2 className="mt-6 text-h3 text-ink">If It Is Commercial, It Is Probably Work We Have Done.</h2>
             <p className="mt-4 leading-relaxed text-body">
               Four decades across retail, restaurant, healthcare, government, industrial, and
@@ -87,10 +87,10 @@ export default function IndustriesPage() {
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <ButtonLink href="/request-bid" variant="primary" withArrow>
-                Request a bid
+                Request a Bid
               </ButtonLink>
               <ButtonLink href="/contact" variant="outline">
-                Talk to preconstruction
+                Talk to Preconstruction
               </ButtonLink>
             </div>
           </Reveal>

@@ -73,7 +73,7 @@ export default function HomePage() {
         <div className="container-site">
           <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-20">
             <Reveal>
-              <span className="title-block text-ink/60">Who we are</span>
+              <span className="title-block text-ink/60">Who We Are</span>
               <h2 className="mt-6 text-h2 text-ink">
                 A Dependable Subcontractor,
                 <br />
@@ -81,7 +81,7 @@ export default function HomePage() {
               </h2>
 
               <div className="mt-10 border-l-2 border-red pl-6">
-                <p className="font-display text-[1.375rem] font-bold leading-snug tracking-tight text-ink">
+                <p className="font-display text-h3 font-bold leading-snug tracking-tight text-ink">
                   &ldquo;Make the superintendent&rsquo;s job easier.&rdquo;
                 </p>
                 <p className="mt-3 font-mono text-[0.625rem] uppercase tracking-[0.18em] text-ink/50">
@@ -118,7 +118,7 @@ export default function HomePage() {
                   About Childress
                 </ButtonLink>
                 <ButtonLink href="/why-childress" variant="outline">
-                  Why general contractors choose us
+                  Why General Contractors Choose Us
                 </ButtonLink>
               </div>
             </Reveal>
@@ -132,7 +132,7 @@ export default function HomePage() {
       <section className="section bg-white">
         <div className="container-site">
           <SectionHeading
-            label="Commercial capabilities"
+            label="Commercial Capabilities"
             layout="split"
             title={
               <>
@@ -147,10 +147,10 @@ export default function HomePage() {
                 the same team.
               </p>
             }
-            action={<TextLink href="/services">All services</TextLink>}
+            action={<TextLink href="/services">All Services</TextLink>}
           />
 
-          <RevealGroup className="mt-14 grid gap-px bg-line md:grid-cols-2" stagger={0.06}>
+          <RevealGroup className="mt-10 md:mt-14 grid gap-px bg-line md:grid-cols-2" stagger={0.06}>
             {featuredServices.map((service, i) => (
               <RevealItem key={service.slug}>
                 <ServiceCard service={service} index={i} />
@@ -164,9 +164,9 @@ export default function HomePage() {
       <section className="section bg-mist">
         <div className="container-site">
           <SectionHeading
-            label="Markets we serve"
+            label="Markets We Serve"
             layout="split"
-            title="{industries.length} Sectors, Each With Its Own Constraint."
+            title={`${industries.length} Sectors, Each With Its Own Constraint.`}
             intro={
               <p>
                 The coating rarely changes. What changes is what governs the schedule —
@@ -174,10 +174,10 @@ export default function HomePage() {
                 stadium, badging at an airport. We plan for the constraint, not just the scope.
               </p>
             }
-            action={<TextLink href="/industries">All industries</TextLink>}
+            action={<TextLink href="/industries">All Industries</TextLink>}
           />
 
-          <RevealGroup className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" stagger={0.06}>
+          <RevealGroup className="mt-10 md:mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" stagger={0.06}>
             {homeIndustries.map((industry, i) => (
               <RevealItem key={industry.slug}>
                 <IndustryCard
@@ -191,18 +191,18 @@ export default function HomePage() {
 
           <Reveal className="mt-10">
             <ButtonLink href="/industries" variant="dark" withArrow>
-              View all {industries.length} sectors
+              View All {industries.length} Sectors
             </ButtonLink>
           </Reveal>
         </div>
       </section>
 
       {/* =============================================================== PROCESS */}
-      <section className="relative overflow-hidden bg-ink py-20 md:py-24 lg:py-28">
+      <section className="relative overflow-hidden bg-ink py-14 sm:py-20 md:py-24 lg:py-28">
         <div className="sheet-grid absolute inset-0 opacity-60" aria-hidden="true" />
         <div className="container-site relative">
           <SectionHeading
-            label="Our process"
+            label="Our Process"
             light
             layout="split"
             title="Eight Steps From Drawings to Closeout."
@@ -214,7 +214,7 @@ export default function HomePage() {
             }
           />
 
-          <Reveal className="mt-14">
+          <Reveal className="mt-10 md:mt-14">
             <ProcessTimeline variant="dark" />
           </Reveal>
 
@@ -230,7 +230,7 @@ export default function HomePage() {
       <section className="section bg-white">
         <div className="container-site">
           <SectionHeading
-            label="Why general contractors choose Childress"
+            label="Why General Contractors Choose Childress"
             layout="split"
             title="What You Are Actually Buying."
             intro={
@@ -243,7 +243,7 @@ export default function HomePage() {
           />
 
           <RevealGroup
-            className="mt-14 grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-4"
+            className="mt-10 md:mt-14 grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-4"
             stagger={0.05}
           >
             {differentiators.map((item) => {
@@ -258,7 +258,7 @@ export default function HomePage() {
                     className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-red transition-transform duration-500 group-hover:scale-x-100"
                   />
                   <Icon aria-hidden="true" className="size-6 text-red" />
-                  <h3 className="mt-5 font-display text-[1.0625rem] font-bold tracking-tight text-ink">
+                  <h3 className="mt-5 font-display text-h5 font-bold tracking-tight text-ink">
                     {item.title}
                   </h3>
                   <p className="mt-2.5 text-[0.875rem] leading-relaxed text-body">{item.body}</p>
@@ -275,9 +275,9 @@ export default function HomePage() {
       <section className="section bg-mist">
         <div className="container-site">
           <SectionHeading
-            label="Selected experience"
+            label="Selected Experience"
             layout="split"
-            title="Work Across {industries.length} Market Sectors."
+            title={`Work Across ${industries.length} Market Sectors.`}
             intro={
               <p>
                 National retail and restaurant rollouts, district-wide school programs,
@@ -287,7 +287,7 @@ export default function HomePage() {
             action={<TextLink href="/projects">The full portfolio</TextLink>}
           />
 
-          <RevealGroup className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" stagger={0.06}>
+          <RevealGroup className="mt-10 md:mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" stagger={0.06}>
             {homeProjects.map((project, i) => (
               <RevealItem key={project.slug}>
                 <ProjectCard project={project} priority={i < 3} />
@@ -308,7 +308,7 @@ export default function HomePage() {
         <div className="container-site relative">
           <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] lg:items-center lg:gap-20">
             <Reveal>
-              <span className="title-block text-white/60">Education partners</span>
+              <span className="title-block text-white/60">Education Partners</span>
               <h2 className="mt-6 text-h2 text-white">
                 {totalSchools} schools.
                 <br />
@@ -321,7 +321,7 @@ export default function HomePage() {
               </p>
               <div className="mt-9">
                 <ButtonLink href="/clients#education" variant="primary" withArrow>
-                  See the campus list
+                  See the Campus List
                 </ButtonLink>
               </div>
             </Reveal>
@@ -333,10 +333,10 @@ export default function HomePage() {
                   return (
                     <div key={district.name} className="bg-ink-900 p-7 md:p-8">
                       <GraduationCap aria-hidden="true" className="size-6 text-red" />
-                      <h3 className="mt-5 font-display text-[1.125rem] font-bold leading-tight tracking-tight text-white">
+                      <h3 className="mt-5 font-display text-h4 font-bold leading-tight tracking-tight text-white">
                         {district.name}
                       </h3>
-                      <p className="mt-4 font-display text-[2.5rem] font-black leading-none text-white">
+                      <p className="mt-4 font-display text-h2 font-black leading-none text-white">
                         {count}
                       </p>
                       <p className="mt-1.5 font-mono text-[0.625rem] uppercase tracking-[0.16em] text-white/50">
@@ -366,7 +366,7 @@ export default function HomePage() {
       <section className="section bg-white">
         <div className="container-site">
           <SectionHeading
-            label="Capability snapshot"
+            label="Capability Snapshot"
             layout="split"
             title="The Facts a Prequalification Form Asks For."
             intro={
@@ -375,11 +375,11 @@ export default function HomePage() {
                 will return it completed, with certificates of insurance and references.
               </p>
             }
-            action={<TextLink href="/request-bid">Start a bid request</TextLink>}
+            action={<TextLink href="/request-bid">Start a Bid Request</TextLink>}
           />
 
           <RevealGroup
-            className="mt-14 grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-4"
+            className="mt-10 md:mt-14 grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-4"
             stagger={0.04}
           >
             {capabilitySnapshot.map((item) => (
@@ -399,7 +399,7 @@ export default function HomePage() {
               Based in {company.address.city}, {company.address.region}. Primary service area is
               Texas, with continued coverage in Kansas and Missouri.{' '}
               <Link href="/service-areas" className="text-red-dark underline underline-offset-4">
-                See the full service area
+                See the Full Service Area
               </Link>
               .
             </p>

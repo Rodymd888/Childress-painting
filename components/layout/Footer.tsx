@@ -25,7 +25,7 @@ export function Footer() {
         <div className="container-site relative py-16 md:py-20">
           <div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-2xl">
-              <span className="title-block text-white/60">Ready when you are</span>
+              <span className="title-block text-white/60">Ready When You Are</span>
               <h2 className="mt-6 text-h2 text-white">
                 Send Us the Drawings.
                 <br />
@@ -46,7 +46,7 @@ export function Footer() {
                   aria-hidden="true"
                   className="absolute inset-0 origin-left scale-x-0 bg-red-dark transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100"
                 />
-                <span className="relative">Request a bid</span>
+                <span className="relative">Request a Bid</span>
                 <ArrowRight
                   aria-hidden="true"
                   className="relative size-4 transition-transform duration-300 group-hover:translate-x-1"
@@ -138,7 +138,7 @@ export function Footer() {
                     <li key={link.href}>
                       <Link
                         href={link.href}
-                        className="text-[0.8125rem] leading-snug text-ash transition-colors hover:text-white"
+                        className="inline-block py-1.5 text-[0.8125rem] leading-snug text-ash transition-colors hover:text-white"
                       >
                         {link.label}
                       </Link>

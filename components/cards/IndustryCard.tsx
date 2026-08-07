@@ -60,7 +60,7 @@ export function IndustryCard({
               {projectCount} {projectCount === 1 ? 'project' : 'projects'}
             </span>
           ) : (
-            <span>View sector</span>
+            <span>View Sector</span>
           )}
           <ArrowUpRight
             aria-hidden="true"

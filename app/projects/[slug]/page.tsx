@@ -95,7 +95,7 @@ export default async function ProjectPage({ params }: Params) {
             {industry?.code ?? 'Project'} · {industry?.title ?? project.industry}
           </span>
 
-          <h1 className="mt-5 max-w-4xl text-[clamp(2.5rem,6.4vw,4.75rem)] text-white">
+          <h1 className="mt-5 max-w-4xl text-h1 text-white">
             {project.name}
           </h1>
 
@@ -108,7 +108,7 @@ export default async function ProjectPage({ params }: Params) {
             <div className="bg-ink py-5 sm:px-5 sm:first:pl-0">
               <dt className="flex items-center gap-2 font-mono text-[0.625rem] uppercase tracking-[0.18em] text-white/60">
                 <Layers aria-hidden="true" className="size-3 text-red" />
-                Market sector
+                Market Sector
               </dt>
               <dd className="mt-2 text-[0.9375rem] font-medium text-white">
                 {industry?.title ?? project.industry}
@@ -141,7 +141,7 @@ export default async function ProjectPage({ params }: Params) {
 
             <div className="bg-ink py-5 sm:px-5">
               <dt className="font-mono text-[0.625rem] uppercase tracking-[0.18em] text-white/60">
-                Services performed
+                Services Performed
               </dt>
               <dd className="mt-2 text-[0.9375rem] font-medium text-white">
                 {servicesPerformed.length}
@@ -156,7 +156,7 @@ export default async function ProjectPage({ params }: Params) {
         <div className="container-site">
           <div className="grid gap-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-20">
             <Reveal>
-              <span className="title-block text-ink/60">Project overview</span>
+              <span className="title-block text-ink/60">Project Overview</span>
 
               {isCaseStudy && project.overview ? (
                 <div className="prose-site mt-7">
@@ -164,7 +164,7 @@ export default async function ProjectPage({ params }: Params) {
                 </div>
               ) : (
                 <>
-                  <p className="mt-7 text-[clamp(1.25rem,2.4vw,1.625rem)] font-medium leading-snug tracking-tight text-ink">
+                  <p className="mt-7 text-h3 font-medium leading-snug tracking-tight text-ink">
                     {project.scopeSummary}
                   </p>
 
@@ -185,7 +185,7 @@ export default async function ProjectPage({ params }: Params) {
                       </p>
                       <div className="mt-5 flex flex-wrap gap-3">
                         <ButtonLink href="/contact" variant="dark" withArrow>
-                          Request references
+                          Request References
                         </ButtonLink>
                       </div>
                     </div>
@@ -196,14 +196,14 @@ export default async function ProjectPage({ params }: Params) {
               {/* SCOPE OF WORK — derived from the services performed, so it is
                   substantive without inventing project-specific data. */}
               {!isCaseStudy && servicesPerformed.length > 0 && (
-                <div className="mt-14">
-                  <span className="title-block text-ink/60">Scope of work</span>
+                <div className="mt-10 md:mt-14">
+                  <span className="title-block text-ink/60">Scope of Work</span>
                   <h2 className="mt-5 text-h3 text-ink">What This Engagement Covers.</h2>
                   <div className="mt-8 space-y-px border border-line bg-line">
                     {servicesPerformed.map((service) => (
                       <div key={service.slug} className="bg-white p-6 md:p-7">
                         <div className="flex flex-wrap items-baseline justify-between gap-2">
-                          <h3 className="font-display text-[1.0625rem] font-bold tracking-tight text-ink">
+                          <h3 className="font-display text-h5 font-bold tracking-tight text-ink">
                             {service.title}
                           </h3>
                           <span className="font-mono text-[0.5625rem] uppercase tracking-[0.16em] text-red">
@@ -232,7 +232,7 @@ export default async function ProjectPage({ params }: Params) {
 
               {/* SECTOR CONTEXT — how work in this market actually runs. */}
               {!isCaseStudy && industry && industry.constraints.length > 0 && (
-                <div className="mt-14">
+                <div className="mt-10 md:mt-14">
                   <span className="title-block text-ink/60">
                     How {industry.shortTitle} Work Runs
                   </span>
@@ -295,7 +295,7 @@ export default async function ProjectPage({ params }: Params) {
               <div className="lg:sticky lg:top-28">
                 <div className="border border-line bg-mist p-6 md:p-7">
                   <span className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-red">
-                    Services performed
+                    Services Performed
                   </span>
                   <ul className="mt-5 space-y-px">
                     {servicesPerformed.map((service) => (
@@ -325,7 +325,7 @@ export default async function ProjectPage({ params }: Params) {
                 {project.facts && project.facts.length > 0 && (
                   <div className="mt-6 border border-line bg-white p-6 md:p-7">
                     <span className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-red">
-                      Project facts
+                      Project Facts
                     </span>
                     <dl className="mt-5 divide-y divide-line">
                       {project.facts.map((fact) => (
@@ -352,9 +352,9 @@ export default async function ProjectPage({ params }: Params) {
                   >
                     <span>
                       <span className="block font-mono text-[0.625rem] uppercase tracking-[0.18em] text-ink/50">
-                        Market sector
+                        Market Sector
                       </span>
-                      <span className="mt-1.5 block font-display text-[1.0625rem] font-bold tracking-tight text-ink transition-colors group-hover:text-red">
+                      <span className="mt-1.5 block font-display text-h5 font-bold tracking-tight text-ink transition-colors group-hover:text-red">
                         {industry.title}
                       </span>
                     </span>
@@ -374,7 +374,7 @@ export default async function ProjectPage({ params }: Params) {
       {gallery.length > 0 && (
         <section className="section bg-mist">
           <div className="container-site">
-            <SectionHeading label="Project gallery" title="On Site." as="h2" />
+            <SectionHeading label="Project Gallery" title="On Site." as="h2" />
 
             <Reveal className="mt-12">
               <ProjectGallery images={gallery} />
@@ -387,7 +387,7 @@ export default async function ProjectPage({ params }: Params) {
       {project.video && (
         <section className="section bg-ink">
           <div className="container-site">
-            <SectionHeading label="Project video" title="Walkthrough." as="h2" light />
+            <SectionHeading label="Project Video" title="Walkthrough." as="h2" light />
             <Reveal className="mt-12">
               <video
                 controls
@@ -414,7 +414,7 @@ export default async function ProjectPage({ params }: Params) {
         <section className="section bg-white">
           <div className="container-site">
             <SectionHeading
-              label="Related work"
+              label="Related Work"
               title={
                 industry ? `More ${industry.shortTitle} Projects.` : 'More Projects.'
               }
@@ -433,7 +433,7 @@ export default async function ProjectPage({ params }: Params) {
       )}
 
       <CtaBanner
-        label="Bid invitations"
+        label="Bid Invitations"
         title="Bidding Similar Work?"
         body={`Send the plans and the specification sections. We confirm receipt, tell you whether we are bidding, and state our assumptions and exclusions in writing. Call ${company.phone}.`}
       />

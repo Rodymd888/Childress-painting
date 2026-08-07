@@ -25,7 +25,7 @@ export default function ServicesPage() {
   return (
     <>
       <PageHero
-        label="Commercial capabilities"
+        label="Commercial Capabilities"
         title="Sixteen Services. One Contractor."
         intro="Commercial, residential, and industrial painting — and every trade that supports them — priced, submitted, staffed, inspected, and closed out by the same team."
         crumbs={[
@@ -33,24 +33,24 @@ export default function ServicesPage() {
           { name: 'Services', href: '/services' },
         ]}
         meta={[
-          { label: 'Coating systems', value: company.coatingSystems },
+          { label: 'Coating Systems', value: company.coatingSystems },
           { label: 'Scheduling', value: company.scheduling },
           { label: 'Warranty', value: company.warranty },
           { label: 'Safety', value: company.safety },
         ]}
       >
         <ButtonLink href="/request-bid" variant="primary" size="lg" withArrow>
-          Request a bid
+          Request a Bid
         </ButtonLink>
         <ButtonLink href="/industries" variant="outlineLight" size="lg">
-          Browse by industry
+          Browse by Industry
         </ButtonLink>
       </PageHero>
 
       <section className="section bg-white">
         <div className="container-site">
           <SectionHeading
-            label="What we bid"
+            label="What We Bid"
             layout="split"
             title={`${services.length} Services, Defined Before Award.`}
             intro={
@@ -62,7 +62,7 @@ export default function ServicesPage() {
             }
           />
 
-          <div className="mt-14 space-y-16">
+          <div className="mt-10 md:mt-14 space-y-16">
             {serviceGroups.map((group) => {
               const items = servicesByGroup(group);
               let offset = 0;
@@ -73,14 +73,14 @@ export default function ServicesPage() {
               return (
                 <div key={group}>
                   <div className="flex items-baseline justify-between border-t-2 border-ink pt-6">
-                    <h3 className="font-display text-[1.375rem] font-bold tracking-tight text-ink">
+                    <h3 className="font-display text-h3 font-bold tracking-tight text-ink">
                       {group}
                     </h3>
                     <span className="font-mono text-[0.625rem] uppercase tracking-[0.18em] text-red">
                       {items.length} {items.length === 1 ? 'service' : 'services'}
                     </span>
                   </div>
-                  <RevealGroup className="mt-8 grid gap-px bg-line lg:grid-cols-2" stagger={0.05}>
+                  <RevealGroup className="mt-8 grid gap-px bg-line md:grid-cols-2" stagger={0.05}>
                     {items.map((service, i) => (
                       <RevealItem key={service.slug}>
                         <ServiceCard service={service} index={offset + i} />
@@ -97,7 +97,7 @@ export default function ServicesPage() {
       <section className="section bg-mist">
         <div className="container-site">
           <SectionHeading
-            label="Our process"
+            label="Our Process"
             layout="split"
             title="The Same Eight Steps on Every Project."
             intro={
@@ -109,7 +109,7 @@ export default function ServicesPage() {
             action={<TextLink href="/process">The full process</TextLink>}
           />
 
-          <Reveal className="mt-14">
+          <Reveal className="mt-10 md:mt-14">
             <ProcessTimeline />
           </Reveal>
         </div>
@@ -118,7 +118,7 @@ export default function ServicesPage() {
       <section className="section bg-white">
         <div className="container-site">
           <SectionHeading
-            label="Capability snapshot"
+            label="Capability Snapshot"
             title="The Facts a Prequalification Form Asks For."
           />
 

@@ -35,16 +35,16 @@ export default function ServiceAreasPage() {
         ]}
         meta={[
           { label: 'Offices', value: `${offices.length}` },
-          { label: 'States served', value: '3' },
-          { label: 'Metro areas listed', value: `${cityCount}` },
-          { label: 'Travel crews', value: 'Multi-site programs' },
+          { label: 'States Served', value: '3' },
+          { label: 'Metro Areas Listed', value: `${cityCount}` },
+          { label: 'Travel Crews', value: 'Multi-site programs' },
         ]}
       >
         <ButtonLink href="/request-bid" variant="primary" size="lg" withArrow>
-          Request a bid
+          Request a Bid
         </ButtonLink>
         <ButtonLink href="/contact" variant="outlineLight" size="lg">
-          Contact an office
+          Contact an Office
         </ButtonLink>
       </PageHero>
 
@@ -52,7 +52,7 @@ export default function ServiceAreasPage() {
       <section className="section bg-white">
         <div className="container-site">
           <SectionHeading
-            label="Our offices"
+            label="Our Offices"
             layout="split"
             title="Where the Crews Are Based."
             intro={
@@ -63,7 +63,7 @@ export default function ServiceAreasPage() {
             }
           />
 
-          <RevealGroup className="mt-14 grid gap-px border border-line bg-line md:grid-cols-2" stagger={0.08}>
+          <RevealGroup className="mt-10 md:mt-14 grid gap-px border border-line bg-line md:grid-cols-2" stagger={0.08}>
             {offices.map((office) => (
               <RevealItem
                 key={office.id}
@@ -90,7 +90,7 @@ export default function ServiceAreasPage() {
                   <p>
                     <a
                       href={`tel:${office.phoneHref}`}
-                      className="font-display text-[1.25rem] font-bold tracking-tight text-ink transition-colors hover:text-red"
+                      className="font-display text-h4 font-bold tracking-tight text-ink transition-colors hover:text-red"
                     >
                       {office.phone}
                     </a>
@@ -110,7 +110,7 @@ export default function ServiceAreasPage() {
       <section className="section bg-mist">
         <div className="container-site">
           <SectionHeading
-            label="Coverage detail"
+            label="Coverage Detail"
             layout="split"
             title="Metro Areas We Work In."
             intro={
@@ -121,7 +121,7 @@ export default function ServiceAreasPage() {
             }
           />
 
-          <div className="mt-14 space-y-12">
+          <div className="mt-10 md:mt-14 space-y-12">
             {serviceAreas.map((area) => (
               <Reveal key={area.region}>
                 <div className="grid gap-6 border-t-2 border-ink pt-7 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] lg:gap-14">
@@ -152,7 +152,7 @@ export default function ServiceAreasPage() {
       <section className="section bg-white">
         <div className="container-site">
           <SectionHeading
-            label="What we bid in these markets"
+            label="What We Bid in These Markets"
             title="Every Sector, in Every Area We Serve."
             as="h2"
           />
@@ -181,7 +181,7 @@ export default function ServiceAreasPage() {
       </section>
 
       <CtaBanner
-        label="Outside these areas?"
+        label="Outside These Areas?"
         title="Ask Anyway."
         body={`Multi-site and rollout programs travel. Send the locations and the schedule and we will tell you honestly whether we can staff it. Call ${company.phone}.`}
       />

@@ -61,7 +61,7 @@ export const clientGroups: ClientGroup[] = [
     blurb:
       'Quick-service, fast-casual, and full-service concepts. Tight footprints, hard opening dates, and finishes that have to survive a commercial kitchen.',
     clients: [
-      { name: 'Chipotle', note: 'Multiple locations', marquee: true },
+      { name: 'Chipotle', note: 'Multiple Locations', marquee: true },
       { name: 'Texas Roadhouse', marquee: true },
       { name: "Raising Cane's", marquee: true },
       { name: "Torchy's Tacos", marquee: true },

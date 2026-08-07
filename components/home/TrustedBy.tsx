@@ -43,7 +43,7 @@ function Rail({
             aria-hidden={i >= items.length ? 'true' : undefined}
             className="flex shrink-0 items-center"
           >
-            <span className="whitespace-nowrap px-7 font-display text-[1.375rem] font-bold uppercase tracking-tight text-ink/70 transition-colors duration-300 hover:text-ink md:px-9 md:text-[1.625rem]">
+            <span className="whitespace-nowrap px-7 font-display text-h3 font-bold uppercase tracking-tight text-ink/70 transition-colors duration-300 hover:text-ink md:px-9 md:text-[1.625rem]">
               {name}
             </span>
             <span aria-hidden="true" className="size-1.5 shrink-0 rotate-45 bg-red/60" />
@@ -60,7 +60,7 @@ export function TrustedBy() {
       <div className="container-site">
         <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
-            <span className="title-block text-ink/55">Representative clients</span>
+            <span className="title-block text-ink/55">Representative Clients</span>
             <h2 id="trusted-by" className="mt-5 max-w-[22ch] text-h3 text-ink">The Brands Our Leadership Has Painted For.</h2>
           </div>
           <Link

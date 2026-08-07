@@ -33,10 +33,10 @@ import {
  */
 
 const STEPS = [
-  { id: 'contact', label: 'Your details', hint: 'Who we reply to' },
+  { id: 'contact', label: 'Your Details', hint: 'Who we reply to' },
   { id: 'project', label: 'Project', hint: 'What and where' },
-  { id: 'commercial', label: 'Dates & budget', hint: 'When and how much' },
-  { id: 'scope', label: 'Scope & plans', hint: 'What is in the work' },
+  { id: 'commercial', label: 'Dates & Budget', hint: 'When and how much' },
+  { id: 'scope', label: 'Scope & Plans', hint: 'What is in the work' },
 ] as const;
 
 /* Fields owned by each step, used for per-step validity checks. */
@@ -95,7 +95,7 @@ export function BidForm() {
     <div>
       {/* Progress ---------------------------------------------------------- */}
       {state.status !== 'success' && (
-        <nav aria-label="Bid request progress" className="mb-8">
+        <nav aria-label="Bid Request Progress" className="mb-8">
           <ol className="grid grid-cols-4 gap-2">
             {STEPS.map((item, i) => {
               const done = i < step;

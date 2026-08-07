@@ -45,19 +45,19 @@ const roleAreas = [
 
 const whatMatters = [
   {
-    title: 'Preparation over speed',
+    title: 'Preparation Over Speed',
     body: 'Anyone can move fast over a surface that was not ready. We are looking for people who understand that the preparation decides the result and are willing to say so when a substrate is not right.',
   },
   {
-    title: 'Showing up',
+    title: 'Showing Up',
     body: 'Commercial schedules do not absorb a missing crew. Reliability is worth more here than raw speed, and it is the single thing that turns a good painter into a foreman.',
   },
   {
-    title: 'Leaving it clean',
+    title: 'Leaving It Clean',
     body: 'Occupied buildings, active plants, and schools mean somebody uses that space tonight. Protecting it and cleaning up is part of the work, not a favour.',
   },
   {
-    title: 'Saying something',
+    title: 'Saying Something',
     body: 'If a condition is unsafe or a substrate is wrong, we want to hear about it at 8 a.m. — not in a punch walk three weeks later. Nobody here gets second-guessed for stopping work over a safety concern.',
   },
 ];
@@ -82,7 +82,7 @@ export default function CareersPage() {
         <div className="container-site">
           <SectionHeading
             layout="split"
-            label="Where people work"
+            label="Where People Work"
             title="Three Sides of the Same Business."
             intro={
               <p>
@@ -93,7 +93,7 @@ export default function CareersPage() {
             }
           />
 
-          <RevealGroup className="mt-14 grid gap-px bg-line md:grid-cols-3">
+          <RevealGroup className="mt-10 md:mt-14 grid gap-px bg-line md:grid-cols-3">
             {roleAreas.map((area) => (
               <RevealItem
                 key={area.title}
@@ -124,12 +124,12 @@ export default function CareersPage() {
         </div>
       </section>
 
-      <section className="bg-ink py-20 md:py-24 lg:py-28">
+      <section className="bg-ink py-14 sm:py-20 md:py-24 lg:py-28">
         <div className="container-site">
           <SectionHeading
             layout="split"
             light
-            label="What we look for"
+            label="What We Look For"
             title="Four Things, Ahead of Years on a Resume."
             intro={
               <p>
@@ -140,7 +140,7 @@ export default function CareersPage() {
             }
           />
 
-          <RevealGroup className="mt-14 grid gap-px bg-white/12 md:grid-cols-2">
+          <RevealGroup className="mt-10 md:mt-14 grid gap-px bg-white/12 md:grid-cols-2">
             {whatMatters.map((item, i) => (
               <RevealItem key={item.title} className="bg-ink p-7 lg:p-9">
                 <span className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-red">
@@ -164,7 +164,7 @@ export default function CareersPage() {
             <div>
               <Reveal>
                 <span className="title-block text-ink/60">Apply</span>
-                <h2 className="mt-5 text-[clamp(1.75rem,3.6vw,2.75rem)] text-ink">Tell Us What You Do.</h2>
+                <h2 className="mt-5 text-h2 text-ink">Tell Us What You Do.</h2>
                 <p className="mt-5 max-w-2xl text-[1.0625rem] leading-relaxed text-body">
                   A resume helps for office roles but is not required for field work. Describing
                   the jobs you have worked, the systems you have sprayed, and the equipment you are

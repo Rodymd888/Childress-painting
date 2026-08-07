@@ -35,7 +35,7 @@ export function PageHero({ label, title, intro, crumbs, meta, children }: Props)
 
         <span className="title-block mt-8 text-white/70">{label}</span>
 
-        <h1 className="mt-5 max-w-5xl text-[clamp(2.5rem,7vw,5.25rem)]">{title}</h1>
+        <h1 className="mt-5 max-w-5xl text-h1">{title}</h1>
 
         {intro && (
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ash md:text-xl">

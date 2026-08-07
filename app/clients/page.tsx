@@ -29,7 +29,7 @@ export default function ClientsPage() {
   return (
     <>
       <PageHero
-        label="Representative clients"
+        label="Representative Clients"
         title="Who We Have Painted For."
         intro="Representative commercial project experience of the Childress Painting leadership team, organised by industry. Company names identify project experience only; no endorsement or affiliation is implied."
         crumbs={[
@@ -37,17 +37,17 @@ export default function ClientsPage() {
           { name: 'Clients', href: '/clients' },
         ]}
         meta={[
-          { label: 'Named clients', value: `${totalClients}` },
-          { label: 'Industry groups', value: `${clientGroups.length}` },
-          { label: 'School campuses', value: `${totalSchools}` },
-          { label: 'School districts', value: `${educationDistricts.length}` },
+          { label: 'Named Clients', value: `${totalClients}` },
+          { label: 'Industry Groups', value: `${clientGroups.length}` },
+          { label: 'School Campuses', value: `${totalSchools}` },
+          { label: 'School Districts', value: `${educationDistricts.length}` },
         ]}
       >
         <ButtonLink href="/request-bid" variant="primary" size="lg" withArrow>
-          Request a bid
+          Request a Bid
         </ButtonLink>
         <ButtonLink href="#education" variant="outlineLight" size="lg">
-          Education partners
+          Education Partners
         </ButtonLink>
       </PageHero>
 
@@ -55,7 +55,7 @@ export default function ClientsPage() {
       <section className="section bg-white">
         <div className="container-site">
           <SectionHeading
-            label="By industry"
+            label="By Industry"
             layout="split"
             title="Commercial Clients Across Six Groups."
             intro={
@@ -66,14 +66,14 @@ export default function ClientsPage() {
             }
           />
 
-          <div className="mt-16 space-y-20">
+          <div className="mt-12 md:mt-16 space-y-20">
             {clientGroups.map((group) => (
               <Reveal key={group.slug} as="section" aria-labelledby={`group-${group.slug}`}>
                 <div className="grid gap-8 border-t-2 border-ink pt-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-16">
                   <div>
                     <h2
                       id={`group-${group.slug}`}
-                      className="text-[clamp(1.75rem,3.4vw,2.5rem)] text-ink"
+                      className="text-h2 text-ink"
                     >
                       {group.title}
                     </h2>
@@ -102,7 +102,7 @@ export default function ClientsPage() {
                         key={client.name}
                         className="group bg-white px-5 py-3.5 transition-colors duration-300 hover:bg-mist"
                       >
-                        <span className="font-display text-[1rem] font-bold tracking-tight text-ink">
+                        <span className="font-display text-h5 font-bold tracking-tight text-ink">
                           {client.name}
                         </span>
                         {client.note && (
@@ -123,7 +123,7 @@ export default function ClientsPage() {
       {/* ============================================================= EDUCATION */}
       <section
         id="education"
-        className="relative overflow-hidden bg-ink py-20 md:py-24 lg:py-28"
+        className="relative overflow-hidden bg-ink py-14 sm:py-20 md:py-24 lg:py-28"
       >
         <div className="sheet-grid absolute inset-0 opacity-60" aria-hidden="true" />
         <div
@@ -134,7 +134,7 @@ export default function ClientsPage() {
         <div className="container-site relative">
           <SectionHeading
             light
-            label="Education partners"
+            label="Education Partners"
             layout="split"
             title={`${totalSchools} Campuses Across Two Districts.`}
             intro={
@@ -146,14 +146,14 @@ export default function ClientsPage() {
             }
           />
 
-          <div className="mt-16 space-y-16">
+          <div className="mt-12 md:mt-16 space-y-16">
             {educationDistricts.map((district) => {
               const count = district.levels.reduce((s, l) => s + l.schools.length, 0);
               return (
                 <Reveal key={district.name}>
                   <div className="border-t border-white/20 pt-8">
                     <div className="flex flex-wrap items-baseline justify-between gap-4">
-                      <h3 className="flex items-center gap-3 text-[clamp(1.5rem,3vw,2.25rem)] text-white">
+                      <h3 className="flex items-center gap-3 text-h3 text-white">
                         <GraduationCap aria-hidden="true" className="size-6 shrink-0 text-red" />
                         {district.name}
                       </h3>
@@ -162,7 +162,7 @@ export default function ClientsPage() {
                       </span>
                     </div>
 
-                    <div className="mt-9 grid gap-10 lg:grid-cols-3">
+                    <div className="mt-8 grid gap-8 sm:grid-cols-2 lg:mt-9 lg:grid-cols-3 lg:gap-10">
                       {district.levels.map((level) => (
                         <div key={level.label}>
                           <div className="flex items-baseline justify-between border-b border-white/20 pb-2.5">
@@ -192,7 +192,7 @@ export default function ClientsPage() {
             })}
           </div>
 
-          <Reveal className="mt-14 border-t border-white/20 pt-8">
+          <Reveal className="mt-10 md:mt-14 border-t border-white/20 pt-8">
             <h3 className="font-mono text-[0.6875rem] uppercase tracking-[0.2em] text-red">Additional Education Partners</h3>
             <ul className="mt-5 flex flex-wrap gap-x-3 gap-y-2">
               {additionalEducationPartners.map((partner) => (
@@ -218,7 +218,7 @@ export default function ClientsPage() {
       <section className="section-sm bg-mist">
         <div className="container-site">
           <Reveal className="mx-auto max-w-3xl">
-            <span className="title-block text-ink/55">About this list</span>
+            <span className="title-block text-ink/55">About This List</span>
             <div className="prose-site mt-6">
               <p>
                 The names above represent commercial project experience of the Childress
@@ -234,10 +234,10 @@ export default function ClientsPage() {
             </div>
             <div className="mt-8 flex flex-wrap gap-3">
               <ButtonLink href="/contact" variant="dark" withArrow>
-                Request references
+                Request References
               </ButtonLink>
               <ButtonLink href="/projects" variant="outline">
-                Project portfolio
+                Project Portfolio
               </ButtonLink>
             </div>
           </Reveal>

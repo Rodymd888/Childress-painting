@@ -24,7 +24,7 @@ export type Service = {
   intro: string;
   metaTitle: string;
   metaDescription: string;
-  group: 'Service lines' | 'Painting & finishes' | 'Coatings & floors' | 'Preparation & maintenance';
+  group: 'Service Lines' | 'Painting & Finishes' | 'Coatings & Floors' | 'Preparation & Maintenance';
   featured?: boolean;
   scope: string[];
   systems: { label: string; detail: string }[];
@@ -39,7 +39,7 @@ export const services: Service[] = [
   /* ==================================================== SERVICE LINES ==== */
   {
     slug: 'commercial-painting',
-    group: 'Service lines',
+    group: 'Service Lines',
     featured: true,
     art: 'construction',
     title: 'Commercial Painting',
@@ -63,10 +63,10 @@ export const services: Service[] = [
       'Progressive punch and documented closeout',
     ],
     systems: [
-      { label: 'Gypsum board', detail: 'Primer plus two finish coats per the finish schedule' },
-      { label: 'Hollow metal', detail: 'Rust-inhibitive primer with enamel topcoat' },
-      { label: 'Exposed structure', detail: 'Dryfall applied ahead of MEP close-in' },
-      { label: 'Exterior envelope', detail: 'Manufacturer-specified assembly for the substrate' },
+      { label: 'Gypsum Board', detail: 'Primer plus two finish coats per the finish schedule' },
+      { label: 'Hollow Metal', detail: 'Rust-inhibitive primer with enamel topcoat' },
+      { label: 'Exposed Structure', detail: 'Dryfall applied ahead of MEP close-in' },
+      { label: 'Exterior Envelope', detail: 'Manufacturer-specified assembly for the substrate' },
     ],
     sections: [
       {
@@ -80,12 +80,12 @@ export const services: Service[] = [
     ],
     faqs: [
       {
-        question: 'Do you handle multi-site rollout programs?',
+        question: 'Do You Handle Multi-Site Rollout Programs?',
         answer:
           'Yes — national retail and restaurant rollouts are a core part of our record. The finish schedule is verified against the brand prototype book during preconstruction and substitutions are flagged in writing before material is ordered.',
       },
       {
-        question: 'Can you work while a business stays open?',
+        question: 'Can You Work While a Business Stays Open?',
         answer:
           'Yes. Night shifts, barricaded phasing, and daily return to service are standard. The shift structure is agreed and priced at bid, so there is no premium-time surprise later.',
       },
@@ -94,7 +94,7 @@ export const services: Service[] = [
   },
   {
     slug: 'residential-painting',
-    group: 'Service lines',
+    group: 'Service Lines',
     featured: true,
     art: 'interior',
     title: 'Residential Painting',
@@ -118,8 +118,8 @@ export const services: Service[] = [
       'Written two-year workmanship warranty',
     ],
     systems: [
-      { label: 'Interior walls', detail: 'Premium washable acrylics, sheen matched to the room' },
-      { label: 'Trim and doors', detail: 'Waterborne enamel for a smooth, durable finish' },
+      { label: 'Interior Walls', detail: 'Premium washable acrylics, sheen matched to the room' },
+      { label: 'Trim and Doors', detail: 'Waterborne enamel for a smooth, durable finish' },
       { label: 'Exteriors', detail: 'Cleaned, repaired, and coated to the substrate' },
       { label: 'Cabinets', detail: 'Catalyzed sprayed finish, shop-quality result' },
     ],
@@ -135,12 +135,12 @@ export const services: Service[] = [
     ],
     faqs: [
       {
-        question: 'Do you take small residential projects?',
+        question: 'Do You Take Small Residential Projects?',
         answer:
           'Yes. Single rooms, exteriors, and cabinet projects are all welcome. The written scope and warranty apply regardless of project size.',
       },
       {
-        question: 'How do you protect the home while working?',
+        question: 'How Do You Protect the Home While Working?',
         answer:
           'Floors, fixtures, and furnishings are covered before the first can is opened, work areas are contained, and the space is returned to use each evening. Low-odor products are used in occupied homes.',
       },
@@ -149,7 +149,7 @@ export const services: Service[] = [
   },
   {
     slug: 'industrial-painting',
-    group: 'Service lines',
+    group: 'Service Lines',
     featured: true,
     art: 'industrial',
     title: 'Industrial Painting',
@@ -173,10 +173,10 @@ export const services: Service[] = [
       'Surface preparation to the specified SSPC standard',
     ],
     systems: [
-      { label: 'Structural steel', detail: 'Epoxy primer with aliphatic urethane topcoat' },
-      { label: 'Process areas', detail: 'Novolac or specialty resin matched to exposure' },
-      { label: 'Washdown zones', detail: 'Catalyzed epoxy rated for the cleaning regime' },
-      { label: 'Concrete floors', detail: 'Resinous systems over profiled, tested slabs' },
+      { label: 'Structural Steel', detail: 'Epoxy primer with aliphatic urethane topcoat' },
+      { label: 'Process Areas', detail: 'Novolac or specialty resin matched to exposure' },
+      { label: 'Washdown Zones', detail: 'Catalyzed epoxy rated for the cleaning regime' },
+      { label: 'Concrete Floors', detail: 'Resinous systems over profiled, tested slabs' },
     ],
     sections: [
       {
@@ -190,12 +190,12 @@ export const services: Service[] = [
     ],
     faqs: [
       {
-        question: 'Can you work without shutting the plant down?',
+        question: 'Can You Work Without Shutting the Plant Down?',
         answer:
           'Partially, and we tell you exactly which parts. Some scope runs live behind containment; some genuinely requires the line down for access or cure. The bid separates the two so the decision is yours.',
       },
       {
-        question: 'What preparation standards do you work to?',
+        question: 'What Preparation Standards Do You Work To?',
         answer:
           'SSPC surface preparation standards for steel, and profile, moisture, and pH verification on concrete. The standard is agreed in writing at bid and the substrate is documented before coating.',
       },
@@ -206,7 +206,7 @@ export const services: Service[] = [
   /* ================================================ PAINTING & FINISHES == */
   {
     slug: 'interior-painting',
-    group: 'Painting & finishes',
+    group: 'Painting & Finishes',
     featured: true,
     art: 'interior',
     title: 'Interior Painting',
@@ -230,10 +230,10 @@ export const services: Service[] = [
       'Drywall finish level coordination',
     ],
     systems: [
-      { label: 'Gypsum board', detail: 'Primer plus two finish coats to the specified sheen' },
-      { label: 'Trim and doors', detail: 'Waterborne or alkyd enamel per the schedule' },
-      { label: 'High-touch areas', detail: 'Scrubbable, high-hide washable systems' },
-      { label: 'Occupied spaces', detail: 'Low-VOC systems with minimal cure odor' },
+      { label: 'Gypsum Board', detail: 'Primer plus two finish coats to the specified sheen' },
+      { label: 'Trim and Doors', detail: 'Waterborne or alkyd enamel per the schedule' },
+      { label: 'High-Touch Areas', detail: 'Scrubbable, high-hide washable systems' },
+      { label: 'Occupied Spaces', detail: 'Low-VOC systems with minimal cure odor' },
     ],
     sections: [
       {
@@ -247,12 +247,12 @@ export const services: Service[] = [
     ],
     faqs: [
       {
-        question: 'Commercial and residential?',
+        question: 'Commercial and Residential?',
         answer:
           'Both. The preparation standard, the product quality, and the written warranty are identical — only the scheduling differs.',
       },
       {
-        question: 'How do you handle color and sheen selection?',
+        question: 'How Do You Handle Color and Sheen Selection?',
         answer:
           'Colors are confirmed with samples or mockups before production. On brand-standard projects the schedule is verified against the prototype book; on residential work we offer color consulting before ordering.',
       },
@@ -261,7 +261,7 @@ export const services: Service[] = [
   },
   {
     slug: 'exterior-painting',
-    group: 'Painting & finishes',
+    group: 'Painting & Finishes',
     featured: true,
     art: 'exterior',
     title: 'Exterior Painting',
@@ -285,7 +285,7 @@ export const services: Service[] = [
       'Sealant replacement and crack repair',
     ],
     systems: [
-      { label: 'Tilt-wall / precast', detail: 'Acrylic or elastomeric over cleaned, patched substrate' },
+      { label: 'Tilt-Wall / Precast', detail: 'Acrylic or elastomeric over cleaned, patched substrate' },
       { label: 'Stucco / EIFS', detail: 'Elastomeric or full acrylic with sealant replacement' },
       { label: 'Masonry', detail: 'Breathable masonry coating, efflorescence treated' },
       { label: 'Steel', detail: 'Rust-inhibitive primer with urethane topcoat' },
@@ -302,12 +302,12 @@ export const services: Service[] = [
     ],
     faqs: [
       {
-        question: 'Do you replace sealants as part of a repaint?',
+        question: 'Do You Replace Sealants as Part of a Repaint?',
         answer:
           'Where the joints are failing, yes — and we recommend it. We survey joint condition before bid and carry replacement as a defined line item so it is a decision rather than a surprise.',
       },
       {
-        question: 'Can you work around an operating business?',
+        question: 'Can You Work Around an Operating Business?',
         answer:
           'Yes. Work is sequenced around parking, entrances, deliveries, and pedestrian routes, with protection and traffic control planned before mobilization.',
       },
@@ -316,7 +316,7 @@ export const services: Service[] = [
   },
   {
     slug: 'cabinet-painting-refinishing',
-    group: 'Painting & finishes',
+    group: 'Painting & Finishes',
     art: 'interior',
     title: 'Cabinet Painting & Refinishing',
     shortTitle: 'Cabinet Refinishing',
@@ -341,7 +341,7 @@ export const services: Service[] = [
     systems: [
       { label: 'Preparation', detail: 'Degrease, scuff sand, and bonding primer — every surface' },
       { label: 'Finish', detail: 'Sprayed catalyzed enamel, cured hard for daily use' },
-      { label: 'Doors / drawers', detail: 'Removed and sprayed flat for a level finish' },
+      { label: 'Doors / Drawers', detail: 'Removed and sprayed flat for a level finish' },
       { label: 'Frames', detail: 'Masked and sprayed in place under containment' },
     ],
     sections: [
@@ -356,12 +356,12 @@ export const services: Service[] = [
     ],
     faqs: [
       {
-        question: 'How long does a kitchen take?',
+        question: 'How Long Does a Kitchen Take?',
         answer:
           'Most kitchens run three to five working days, with doors and drawers finishing off-site while frames are completed in place. The kitchen remains usable for most of that time.',
       },
       {
-        question: 'Can you match a specific color or sheen?',
+        question: 'Can You Match a Specific Color or Sheen?',
         answer:
           'Yes — any manufacturer color, with a sample sprayed for approval before production.',
       },
@@ -370,7 +370,7 @@ export const services: Service[] = [
   },
   {
     slug: 'custom-wood-staining',
-    group: 'Painting & finishes',
+    group: 'Painting & Finishes',
     art: 'restaurant',
     title: 'Custom Wood Staining',
     shortTitle: 'Wood Staining',
@@ -393,10 +393,10 @@ export const services: Service[] = [
       'Sealed topcoat systems matched to the exposure',
     ],
     systems: [
-      { label: 'Interior millwork', detail: 'Stain with catalyzed or conversion varnish topcoat' },
+      { label: 'Interior Millwork', detail: 'Stain with catalyzed or conversion varnish topcoat' },
       { label: 'Doors', detail: 'Sprayed transparent system, both faces sealed' },
-      { label: 'Exterior wood', detail: 'Penetrating or film-forming system rated for UV' },
-      { label: 'Color matching', detail: 'Sample boards approved before production' },
+      { label: 'Exterior Wood', detail: 'Penetrating or film-forming system rated for UV' },
+      { label: 'Color Matching', detail: 'Sample boards approved before production' },
     ],
     sections: [
       {
@@ -410,12 +410,12 @@ export const services: Service[] = [
     ],
     faqs: [
       {
-        question: 'Can you match existing woodwork?',
+        question: 'Can You Match Existing Woodwork?',
         answer:
           'Yes. We build custom stain formulas against a control sample and approve the match with you on the actual species before production.',
       },
       {
-        question: 'Do you refinish as well as finish new wood?',
+        question: 'Do You Refinish as Well as Finish New Wood?',
         answer:
           'Yes — stripping, sanding, and refinishing existing doors, trim, and millwork is routine work, priced after we assess the existing finish.',
       },
@@ -424,7 +424,7 @@ export const services: Service[] = [
   },
   {
     slug: 'decorative-finishes',
-    group: 'Painting & finishes',
+    group: 'Painting & Finishes',
     art: 'hospitality',
     title: 'Decorative Finishes',
     shortTitle: 'Decorative Finishes',
@@ -449,7 +449,7 @@ export const services: Service[] = [
     systems: [
       { label: 'Metallics', detail: 'Sprayed or rolled systems with controlled sheen' },
       { label: 'Textures', detail: 'Troweled and applied texture systems' },
-      { label: 'Brand treatments', detail: 'Executed to the prototype or design intent' },
+      { label: 'Brand Treatments', detail: 'Executed to the prototype or design intent' },
       { label: 'Mockups', detail: 'Physical sample approved before production' },
     ],
     sections: [
@@ -464,12 +464,12 @@ export const services: Service[] = [
     ],
     faqs: [
       {
-        question: 'Do you work from a designer specification?',
+        question: 'Do You Work From a Designer Specification?',
         answer:
           'Yes — and where the specification describes an effect rather than a product, we develop the system and confirm it with a mockup before pricing production.',
       },
       {
-        question: 'Can decorative finishes be repaired later?',
+        question: 'Can Decorative Finishes Be Repaired Later?',
         answer:
           'We document the system and retain the formula so future repairs blend rather than patch.',
       },
@@ -478,7 +478,7 @@ export const services: Service[] = [
   },
   {
     slug: 'color-consulting',
-    group: 'Painting & finishes',
+    group: 'Painting & Finishes',
     art: 'office',
     title: 'Color Consulting',
     shortTitle: 'Color Consulting',
@@ -502,7 +502,7 @@ export const services: Service[] = [
     ],
     systems: [
       { label: 'Sampling', detail: 'Large drawdowns evaluated morning and evening light' },
-      { label: 'Sheen map', detail: 'Sheen matched to function, traffic, and lighting' },
+      { label: 'Sheen Map', detail: 'Sheen matched to function, traffic, and lighting' },
       { label: 'Schedule', detail: 'Every room and surface documented by product code' },
       { label: 'Matching', detail: 'Cross-manufacturer matches verified on the wall' },
     ],
@@ -518,12 +518,12 @@ export const services: Service[] = [
     ],
     faqs: [
       {
-        question: 'Is consulting available without the painting?',
+        question: 'Is Consulting Available Without the Painting?',
         answer:
           'It is offered with our painting work, where it removes the most common source of delay and repaint cost — a color decision made too late or re-made after application.',
       },
       {
-        question: 'Can you match a brand color across manufacturers?',
+        question: 'Can You Match a Brand Color Across Manufacturers?',
         answer:
           'Yes. Matches are verified with sprayed or rolled samples on the wall rather than trusted from a formula screen.',
       },
@@ -534,7 +534,7 @@ export const services: Service[] = [
   /* ================================================= COATINGS & FLOORS === */
   {
     slug: 'epoxy-floor-coatings',
-    group: 'Coatings & floors',
+    group: 'Coatings & Floors',
     featured: true,
     art: 'coatings',
     title: 'Epoxy Floor Coatings',
@@ -561,7 +561,7 @@ export const services: Service[] = [
       { label: 'Kitchens', detail: 'Urethane cement or epoxy rated for thermal shock' },
       { label: 'Warehouses', detail: 'High-build epoxy with urethane wear topcoat' },
       { label: 'Showrooms', detail: 'Decorative flake or metallic systems' },
-      { label: 'Slab testing', detail: 'Moisture, RH, and pH verified before install' },
+      { label: 'Slab Testing', detail: 'Moisture, RH, and pH verified before install' },
     ],
     sections: [
       {
@@ -575,12 +575,12 @@ export const services: Service[] = [
     ],
     faqs: [
       {
-        question: 'How long before the floor can be used?',
+        question: 'How Long Before the Floor Can Be Used?',
         answer:
           'It depends on the system — foot traffic typically within a day, wheel traffic and washdown later. The proposal states the return-to-service time for the specific product, and fast-cure systems are available where downtime is expensive.',
       },
       {
-        question: 'What if the slab has moisture problems?',
+        question: 'What If the Slab Has Moisture Problems?',
         answer:
           'We tell you before installing, with the test data — and price a mitigation system if one is needed. Installing over a wet slab and warranting the result is not something we do.',
       },
@@ -589,7 +589,7 @@ export const services: Service[] = [
   },
   {
     slug: 'protective-coatings',
-    group: 'Coatings & floors',
+    group: 'Coatings & Floors',
     featured: true,
     art: 'industrial',
     title: 'Protective Coatings',
@@ -614,7 +614,7 @@ export const services: Service[] = [
     ],
     systems: [
       { label: 'Steel', detail: 'Epoxy primer with aliphatic urethane topcoat' },
-      { label: 'Chemical exposure', detail: 'Novolac or specialty resin matched to the exposure' },
+      { label: 'Chemical Exposure', detail: 'Novolac or specialty resin matched to the exposure' },
       { label: 'Containment', detail: 'Chemical-resistant systems for the stored product' },
       { label: 'Washdown', detail: 'Catalyzed systems rated for the cleaning regime' },
     ],
@@ -630,12 +630,12 @@ export const services: Service[] = [
     ],
     faqs: [
       {
-        question: 'How do you choose between epoxy, urethane, and specialty resins?',
+        question: 'How Do You Choose Between Epoxy, Urethane, and Specialty Resins?',
         answer:
           'By the exposure. Chemistry, temperature, UV, abrasion, and cleaning each rule products in or out — we match the assembly to the conditions and confirm it with the manufacturer.',
       },
       {
-        question: 'Do you handle secondary containment?',
+        question: 'Do You Handle Secondary Containment?',
         answer:
           'Yes — containment coatings are selected against the specific stored product and its concentration, not a generic chemical-resistance claim.',
       },
@@ -644,7 +644,7 @@ export const services: Service[] = [
   },
   {
     slug: 'line-striping',
-    group: 'Coatings & floors',
+    group: 'Coatings & Floors',
     art: 'coatings',
     title: 'Line Striping',
     shortTitle: 'Line Striping',
@@ -667,9 +667,9 @@ export const services: Service[] = [
       'Night and weekend scheduling around operations',
     ],
     systems: [
-      { label: 'Asphalt lots', detail: 'Traffic-rated waterborne or acrylic marking paint' },
-      { label: 'Concrete floors', detail: 'Epoxy or urethane striping for wheel traffic' },
-      { label: 'ADA elements', detail: 'Stalls, aisles, and markings to current standards' },
+      { label: 'Asphalt Lots', detail: 'Traffic-rated waterborne or acrylic marking paint' },
+      { label: 'Concrete Floors', detail: 'Epoxy or urethane striping for wheel traffic' },
+      { label: 'ADA Elements', detail: 'Stalls, aisles, and markings to current standards' },
       { label: 'Layout', detail: 'Measured and snapped before any paint is sprayed' },
     ],
     sections: [
@@ -684,12 +684,12 @@ export const services: Service[] = [
     ],
     faqs: [
       {
-        question: 'Do you verify ADA compliance?',
+        question: 'Do You Verify ADA Compliance?',
         answer:
           'Layouts are marked to current ADA dimensional standards for stalls, access aisles, and signage positions, and we flag existing non-compliant layouts before restriping them.',
       },
       {
-        question: 'How long before traffic can return?',
+        question: 'How Long Before Traffic Can Return?',
         answer:
           'Waterborne lot paint typically accepts traffic within an hour in Texas conditions; floor systems vary by product. The proposal states the cure time for the specific system.',
       },
@@ -700,7 +700,7 @@ export const services: Service[] = [
   /* ======================================== PREPARATION & MAINTENANCE === */
   {
     slug: 'drywall-repair',
-    group: 'Preparation & maintenance',
+    group: 'Preparation & Maintenance',
     art: 'prep',
     title: 'Drywall Repair',
     shortTitle: 'Drywall Repair',
@@ -725,8 +725,8 @@ export const services: Service[] = [
     systems: [
       { label: 'Patches', detail: 'Feathered wide and blended into the field' },
       { label: 'Textures', detail: 'Matched by technique to the existing finish' },
-      { label: 'Critical light', detail: 'Skim to Level 5 where the lighting demands it' },
-      { label: 'Water damage', detail: 'Cut back to sound board, sealed, and refinished' },
+      { label: 'Critical Light', detail: 'Skim to Level 5 where the lighting demands it' },
+      { label: 'Water Damage', detail: 'Cut back to sound board, sealed, and refinished' },
     ],
     sections: [
       {
@@ -740,12 +740,12 @@ export const services: Service[] = [
     ],
     faqs: [
       {
-        question: 'Can you match heavy or unusual textures?',
+        question: 'Can You Match Heavy or Unusual Textures?',
         answer:
           'Yes — orange peel, knockdown, skip trowel, and regional hand textures are matched with sample patches approved before the full repair.',
       },
       {
-        question: 'Do you handle water-damaged drywall?',
+        question: 'Do You Handle Water-Damaged Drywall?',
         answer:
           'Yes, once the source is fixed. Damaged board is cut back to sound material, stains are sealed with the correct blocker, and the surface is refinished to match.',
       },
@@ -754,7 +754,7 @@ export const services: Service[] = [
   },
   {
     slug: 'pressure-washing',
-    group: 'Preparation & maintenance',
+    group: 'Preparation & Maintenance',
     art: 'exterior',
     title: 'Pressure Washing',
     shortTitle: 'Pressure Washing',
@@ -777,10 +777,10 @@ export const services: Service[] = [
       'Scheduled maintenance washing programs',
     ],
     systems: [
-      { label: 'Coating prep', detail: 'Washdown to a paint-ready standard, documented' },
-      { label: 'Soft substrates', detail: 'Low-pressure chemical cleaning, rinsed thoroughly' },
+      { label: 'Coating Prep', detail: 'Washdown to a paint-ready standard, documented' },
+      { label: 'Soft Substrates', detail: 'Low-pressure chemical cleaning, rinsed thoroughly' },
       { label: 'Concrete', detail: 'Surface cleaners for even, streak-free results' },
-      { label: 'Organic growth', detail: 'Treated at the source, not just blasted off' },
+      { label: 'Organic Growth', detail: 'Treated at the source, not just blasted off' },
     ],
     sections: [
       {
@@ -794,12 +794,12 @@ export const services: Service[] = [
     ],
     faqs: [
       {
-        question: 'Will washing damage sealant joints or siding?',
+        question: 'Will Washing Damage Sealant Joints or Siding?',
         answer:
           'Not when the method matches the substrate. Joints and soft materials get low-pressure chemical cleaning; high pressure is reserved for concrete and hard masonry.',
       },
       {
-        question: 'Do you offer recurring maintenance washing?',
+        question: 'Do You Offer Recurring Maintenance Washing?',
         answer:
           'Yes — scheduled programs for retail, restaurant, and office properties, run at night or before opening so the site is clean when customers arrive.',
       },
@@ -808,7 +808,7 @@ export const services: Service[] = [
   },
   {
     slug: 'caulking-sealants',
-    group: 'Preparation & maintenance',
+    group: 'Preparation & Maintenance',
     art: 'prep',
     title: 'Caulking & Sealants',
     shortTitle: 'Caulking & Sealants',
@@ -831,10 +831,10 @@ export const services: Service[] = [
       'Backer rod and correct joint geometry',
     ],
     systems: [
-      { label: 'Moving joints', detail: 'Urethane or hybrid sealant sized to the movement' },
-      { label: 'Panel joints', detail: 'Cut out, backer rod set, tooled to profile' },
+      { label: 'Moving Joints', detail: 'Urethane or hybrid sealant sized to the movement' },
+      { label: 'Panel Joints', detail: 'Cut out, backer rod set, tooled to profile' },
       { label: 'Perimeters', detail: 'Sealed to the adjacent substrate correctly' },
-      { label: 'Wet areas', detail: 'Mildew-resistant sealants tooled clean' },
+      { label: 'Wet Areas', detail: 'Mildew-resistant sealants tooled clean' },
     ],
     sections: [
       {
@@ -848,12 +848,12 @@ export const services: Service[] = [
     ],
     faqs: [
       {
-        question: 'Can sealant color match the finish?',
+        question: 'Can Sealant Color Match the Finish?',
         answer:
           'Yes — sealants are available in standard colors and can be coated where paintable products are specified, so joints read as part of the finish rather than an interruption.',
       },
       {
-        question: 'How long does sealant replacement last?',
+        question: 'How Long Does Sealant Replacement Last?',
         answer:
           'Correctly designed and installed joints deliver the full manufacturer service life — typically well over a decade. Our workmanship warranty covers the installation itself.',
       },
@@ -862,7 +862,7 @@ export const services: Service[] = [
   },
   {
     slug: 'maintenance-painting',
-    group: 'Preparation & maintenance',
+    group: 'Preparation & Maintenance',
     featured: true,
     art: 'occupied',
     title: 'Maintenance Painting',
@@ -886,8 +886,8 @@ export const services: Service[] = [
       'Daily protection, cleanup, and return to service',
     ],
     systems: [
-      { label: 'Occupied interiors', detail: 'Low-odor acrylics with fast return to service' },
-      { label: 'High-traffic areas', detail: 'Scrubbable systems that survive cleaning' },
+      { label: 'Occupied Interiors', detail: 'Low-odor acrylics with fast return to service' },
+      { label: 'High-Traffic Areas', detail: 'Scrubbable systems that survive cleaning' },
       { label: 'Phasing', detail: 'Zones with stated start, finish, and return times' },
       { label: 'Portfolios', detail: 'Consistent specification across properties' },
     ],
@@ -903,12 +903,12 @@ export const services: Service[] = [
     ],
     faqs: [
       {
-        question: 'Do you run recurring programs?',
+        question: 'Do You Run Recurring Programs?',
         answer:
           'Yes — annual and multi-year repaint programs for properties and portfolios, with a documented color schedule so every phase matches the last.',
       },
       {
-        question: 'How do you handle odor complaints?',
+        question: 'How Do You Handle Odor Complaints?',
         answer:
           'By preventing them: low-VOC systems are specified for occupied areas during preconstruction, and building management gets advance notice of every phase.',
       },
@@ -921,5 +921,5 @@ export const getService = (slug: string) => services.find((s) => s.slug === slug
 export const serviceSlugs = services.map((s) => s.slug);
 export const featuredServices = services.filter((s) => s.featured);
 
-export const serviceGroups = ['Service lines', 'Painting & finishes', 'Coatings & floors', 'Preparation & maintenance'] as const;
+export const serviceGroups = ['Service Lines', 'Painting & Finishes', 'Coatings & Floors', 'Preparation & Maintenance'] as const;
 export const servicesByGroup = (group: string) => services.filter((s) => s.group === group);

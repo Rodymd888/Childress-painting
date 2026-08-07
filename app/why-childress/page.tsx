@@ -58,10 +58,10 @@ export default function WhyChildressPage() {
         ]}
       >
         <ButtonLink href="/request-bid" variant="primary" size="lg" withArrow>
-          Request a bid
+          Request a Bid
         </ButtonLink>
         <ButtonLink href="/process" variant="outlineLight" size="lg">
-          See our process
+          See Our Process
         </ButtonLink>
       </PageHero>
 
@@ -81,7 +81,7 @@ export default function WhyChildressPage() {
           />
 
           <RevealGroup
-            className="mt-14 grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-3"
+            className="mt-10 md:mt-14 grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-3"
             stagger={0.05}
           >
             {credentials.map((item) => (
@@ -93,7 +93,7 @@ export default function WhyChildressPage() {
                   aria-hidden="true"
                   className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-red transition-transform duration-500 group-hover:scale-x-100"
                 />
-                <span className="block font-display text-[3rem] font-black leading-none text-ink md:text-[3.5rem]">
+                <span className="block font-display text-h2 font-black leading-none text-ink md:text-[3.5rem]">
                   {item.value}
                 </span>
                 <p className="mt-4 font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-red">
@@ -107,12 +107,12 @@ export default function WhyChildressPage() {
       </section>
 
       {/* ======================================================= DIFFERENTIATORS */}
-      <section className="relative overflow-hidden bg-ink py-20 md:py-24 lg:py-28">
+      <section className="relative overflow-hidden bg-ink py-14 sm:py-20 md:py-24 lg:py-28">
         <div className="sheet-grid absolute inset-0 opacity-60" aria-hidden="true" />
         <div className="container-site relative">
           <SectionHeading
             light
-            label="Why general contractors choose Childress"
+            label="Why General Contractors Choose Childress"
             layout="split"
             title="Eight Things Superintendents Tell Us Matter."
             intro={
@@ -124,7 +124,7 @@ export default function WhyChildressPage() {
           />
 
           <RevealGroup
-            className="mt-16 grid gap-px bg-white/12 sm:grid-cols-2 lg:grid-cols-4"
+            className="mt-12 md:mt-16 grid gap-px bg-white/12 sm:grid-cols-2 lg:grid-cols-4"
             stagger={0.05}
           >
             {differentiators.map((item) => {
@@ -139,7 +139,7 @@ export default function WhyChildressPage() {
                     className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-red transition-transform duration-500 group-hover:scale-x-100"
                   />
                   <Icon aria-hidden="true" className="size-6 text-red" />
-                  <h2 className="mt-5 font-display text-[1.0625rem] font-bold tracking-tight text-white">
+                  <h2 className="mt-5 font-display text-h5 font-bold tracking-tight text-white">
                     {item.title}
                   </h2>
                   <p className="mt-3 text-[0.875rem] leading-relaxed text-ash">{item.body}</p>
@@ -154,7 +154,7 @@ export default function WhyChildressPage() {
       <section className="section bg-mist">
         <div className="container-site">
           <SectionHeading
-            label="How we operate"
+            label="How We Operate"
             layout="split"
             title="Positions We Hold Even When They Cost Us."
             intro={
@@ -163,10 +163,10 @@ export default function WhyChildressPage() {
                 costs the client more two years later.
               </p>
             }
-            action={<TextLink href="/about">More about the company</TextLink>}
+            action={<TextLink href="/about">More About the Company</TextLink>}
           />
 
-          <RevealGroup className="mt-14 grid gap-px bg-line sm:grid-cols-2" stagger={0.06}>
+          <RevealGroup className="mt-10 md:mt-14 grid gap-px bg-line sm:grid-cols-2" stagger={0.06}>
             {values.map((value, i) => (
               <RevealItem key={value.title} className="bg-white p-7 md:p-9">
                 <span className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-red">
@@ -195,10 +195,10 @@ export default function WhyChildressPage() {
             </p>
             <div className="mt-9 flex flex-wrap justify-center gap-3">
               <ButtonLink href="/request-bid" variant="primary" withArrow>
-                Request a bid
+                Request a Bid
               </ButtonLink>
               <ButtonLink href="/safety-quality" variant="outline">
-                Safety &amp; quality
+                Safety &amp; Quality
               </ButtonLink>
             </div>
           </Reveal>

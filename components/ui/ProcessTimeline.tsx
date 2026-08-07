@@ -37,10 +37,10 @@ export function ProcessTimeline({ variant = 'light' }: { variant?: 'light' | 'da
       {/* ------------------------------------------------------------- RAIL */}
       <div
         role="tablist"
-        aria-label="Our process, step by step"
+        aria-label="Our Process, Step by Step"
         onKeyDown={onKeyDown}
         className={[
-          'flex overflow-x-auto border-t',
+          'rail flex overflow-x-auto border-t',
           dark ? 'border-white/15' : 'border-line',
         ].join(' ')}
       >
@@ -117,7 +117,7 @@ export function ProcessTimeline({ variant = 'light' }: { variant?: 'light' | 'da
           <div>
             <span
               className={[
-                'block font-display text-[4.5rem] font-black leading-none md:text-[6rem]',
+                'block font-display text-display font-black leading-none md:text-[6rem]',
                 dark ? 'text-white/12' : 'text-ink/10',
               ].join(' ')}
             >

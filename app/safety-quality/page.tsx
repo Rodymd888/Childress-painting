@@ -23,7 +23,7 @@ export default function SafetyQualityPage() {
   return (
     <>
       <PageHero
-        label="Safety & quality"
+        label="Safety & Quality"
         title="Two Things That Are Never a Line Item to Cut."
         intro="Safety is how a crew goes home. Quality control is why our punch lists are short. Both are planned before mobilization rather than managed after a problem."
         crumbs={[
@@ -31,17 +31,17 @@ export default function SafetyQualityPage() {
           { name: 'Safety & Quality', href: '/safety-quality' },
         ]}
         meta={[
-          { label: 'Safety standard', value: company.safety },
-          { label: 'Coating systems', value: company.coatingSystems },
+          { label: 'Safety Standard', value: company.safety },
+          { label: 'Coating Systems', value: company.coatingSystems },
           { label: 'Warranty', value: company.warranty },
-          { label: 'QC walk', value: 'Before the GC walkthrough' },
+          { label: 'QC Walk', value: 'Before the GC walkthrough' },
         ]}
       >
         <ButtonLink href="/request-bid" variant="primary" size="lg" withArrow>
-          Request a bid
+          Request a Bid
         </ButtonLink>
         <ButtonLink href="/contact" variant="outlineLight" size="lg">
-          Request our prequal packet
+          Request Our Prequal Packet
         </ButtonLink>
       </PageHero>
 
@@ -67,7 +67,7 @@ export default function SafetyQualityPage() {
           />
 
           <RevealGroup
-            className="mt-14 grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-3"
+            className="mt-10 md:mt-14 grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-3"
             stagger={0.05}
           >
             {safetyCommitments.map((item, i) => (
@@ -91,12 +91,12 @@ export default function SafetyQualityPage() {
       </section>
 
       {/* ============================================================== QUALITY */}
-      <section className="relative overflow-hidden bg-ink py-20 md:py-24 lg:py-28">
+      <section className="relative overflow-hidden bg-ink py-14 sm:py-20 md:py-24 lg:py-28">
         <div className="sheet-grid absolute inset-0 opacity-60" aria-hidden="true" />
         <div className="container-site relative">
           <SectionHeading
             light
-            label="Quality control"
+            label="Quality Control"
             layout="split"
             title={
               <>
@@ -113,7 +113,7 @@ export default function SafetyQualityPage() {
           />
 
           <RevealGroup
-            className="mt-14 grid gap-px bg-white/12 sm:grid-cols-2 lg:grid-cols-3"
+            className="mt-10 md:mt-14 grid gap-px bg-white/12 sm:grid-cols-2 lg:grid-cols-3"
             stagger={0.05}
           >
             {qualityPractices.map((item, i) => (
@@ -150,10 +150,10 @@ export default function SafetyQualityPage() {
             </p>
             <div className="mt-9 flex flex-wrap justify-center gap-3">
               <ButtonLink href="/request-bid" variant="primary" withArrow>
-                Request a bid
+                Request a Bid
               </ButtonLink>
               <ButtonLink href="/process" variant="outline">
-                See our process
+                See Our Process
               </ButtonLink>
             </div>
           </Reveal>
@@ -165,7 +165,7 @@ export default function SafetyQualityPage() {
         title="Need Our Packet Completed?"
         body={`Send your prequalification forms and we will return them completed with certificates of insurance, safety documentation, and references. Call ${company.phone}.`}
         primary={{ href: '/contact', text: 'Send prequal forms' }}
-        secondary={{ href: '/request-bid', text: 'Request a bid' }}
+        secondary={{ href: '/request-bid', text: 'Request a Bid' }}
       />
 
       <JsonLd

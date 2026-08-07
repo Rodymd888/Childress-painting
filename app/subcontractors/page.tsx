@@ -25,44 +25,44 @@ const crumbs = [
 const expectations = [
   {
     icon: ShieldCheck,
-    title: 'Insurance stays current',
+    title: 'Insurance Stays Current',
     body: 'General liability and workers’ compensation must be in force for the whole time you are on site, with us named as required by the project. A lapsed certificate stops work the day it expires.',
   },
   {
     icon: FileCheck,
-    title: 'Paperwork before mobilization',
+    title: 'Paperwork Before Mobilization',
     body: 'W-9, certificate of insurance, and a signed subcontract agreement are in place before anyone reaches the site. No purchase order is issued without them.',
   },
   {
     icon: Handshake,
-    title: 'The crew that was quoted',
+    title: 'The Crew That Was Quoted',
     body: 'The manpower on your quote is the manpower we plan the schedule around. If it changes, we need to know before the schedule assumes it, not after.',
   },
   {
     icon: CreditCard,
-    title: 'Clean invoicing',
+    title: 'Clean Invoicing',
     body: 'Invoices reference the purchase order and the work actually completed. Accurate billing gets paid on schedule; guesswork gets returned and delays everyone.',
   },
 ];
 
 const faqs = [
   {
-    question: 'What trades do you subcontract?',
+    question: 'What Trades Do You Subcontract?',
     answer:
       'Most commonly additional painting and coatings crews during peak production, along with related scopes such as drywall finishing, pressure washing, abrasive blasting, specialty flooring, wallcovering, and high-work with lift equipment.',
   },
   {
-    question: 'Do I need to be based in Dallas–Fort Worth?',
+    question: 'Do I Need to Be Based in Dallas–Fort Worth?',
     answer:
       'No. Our core work runs from Dallas and Grandview, MO, but we take projects across Texas, Kansas, and Missouri and regularly need trade partners with reliable coverage in Austin, Houston, San Antonio, and the Kansas City metro. Tell us where you can genuinely work rather than where you would like to.',
   },
   {
-    question: 'How long does prequalification take?',
+    question: 'How Long Does Prequalification Take?',
     answer:
       'It depends on whether your documentation is ready. Submissions with a current certificate of insurance and a completed W-9 move quickly. Submissions missing compliance documents sit until they arrive.',
   },
   {
-    question: 'Will you keep my information on file?',
+    question: 'Will You Keep My Information on File?',
     answer:
       'Yes. We review submissions as capacity requires and reach out when your trades, coverage area, and crew size match an upcoming need. Send an update any time your capabilities or coverage change.',
   },
@@ -72,7 +72,7 @@ export default function SubcontractorsPage() {
   return (
     <>
       <PageHero
-        label="Trade partners"
+        label="Trade Partners"
         title="Work With Childress."
         intro="We prequalify painting subcontractors, coatings applicators, and related trades who can hold a schedule, keep their paperwork current, and leave a site clean."
         crumbs={crumbs}
@@ -88,7 +88,7 @@ export default function SubcontractorsPage() {
         <div className="container-site">
           <SectionHeading
             layout="split"
-            label="What we expect"
+            label="What We Expect"
             title="Four Things, and They Are Not Negotiable."
             intro={
               <p>
@@ -98,7 +98,7 @@ export default function SubcontractorsPage() {
             }
           />
 
-          <RevealGroup className="mt-14 grid gap-px bg-line md:grid-cols-2">
+          <RevealGroup className="mt-10 md:mt-14 grid gap-px bg-line md:grid-cols-2">
             {expectations.map((item) => (
               <RevealItem
                 key={item.title}
@@ -125,7 +125,7 @@ export default function SubcontractorsPage() {
             <div>
               <Reveal>
                 <span className="title-block text-ink/60">Prequalification</span>
-                <h2 className="mt-5 text-[clamp(1.75rem,3.6vw,2.75rem)] text-ink">Submit Your Company.</h2>
+                <h2 className="mt-5 text-h2 text-ink">Submit Your Company.</h2>
                 <p className="mt-5 max-w-2xl text-[1.0625rem] leading-relaxed text-body">
                   Fill this in once. We keep it on file and come back to you when the work matches
                   what you do.

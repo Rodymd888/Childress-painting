@@ -34,6 +34,7 @@ export function Logo({
         alt=""
         width={420}
         height={219}
+        sizes="(min-width: 1024px) 36px, 32px"
         priority
         className="h-8 w-auto transition-transform duration-500 group-hover:scale-[1.04] lg:h-9"
       />
@@ -41,7 +42,7 @@ export function Logo({
       <span className="hidden leading-none sm:block">
         <span
           className={[
-            'block font-display text-[1.0625rem] font-extrabold uppercase tracking-tight',
+            'block font-display text-h5 font-extrabold uppercase tracking-tight',
             light ? 'text-white' : 'text-ink',
           ].join(' ')}
         >

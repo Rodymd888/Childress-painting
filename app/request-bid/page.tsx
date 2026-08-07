@@ -20,17 +20,17 @@ export const metadata: Metadata = {
 const ASSURANCES = [
   {
     icon: Clock,
-    title: 'Receipt confirmed',
+    title: 'Receipt Confirmed',
     body: 'We acknowledge every invitation so you know it landed and is not sitting in a spam folder on bid day.',
   },
   {
     icon: FileCheck2,
-    title: 'Bid or no-bid, you get an answer',
+    title: 'Bid or No-Bid, You Get an Answer',
     body: 'If we are not the right fit for the scope or the schedule, we say so early rather than leaving a gap on your bid tab.',
   },
   {
     icon: ShieldCheck,
-    title: 'Assumptions in writing',
+    title: 'Assumptions in Writing',
     body: 'Every proposal states what is included, what is assumed, and what is excluded — so scope gaps surface before award.',
   },
 ];
@@ -56,8 +56,8 @@ export default function RequestBidPage() {
 
           <div className="mt-8 grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-end lg:gap-20">
             <div>
-              <span className="title-block text-white/70">Bid portal</span>
-              <h1 className="mt-5 max-w-4xl text-[clamp(2.5rem,6.4vw,4.75rem)]">Send Us the Drawings.</h1>
+              <span className="title-block text-white/70">Bid Portal</span>
+              <h1 className="mt-5 max-w-4xl text-h1">Send Us the Drawings.</h1>
               <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ash md:text-xl">
                 Four short steps. Attach plans and specification sections, tell us the due date,
                 and we will confirm receipt and tell you whether we are bidding.
@@ -91,7 +91,7 @@ export default function RequestBidPage() {
           </div>
 
           {/* Assurance strip */}
-          <dl className="mt-14 grid grid-cols-1 gap-px border-t border-white/15 bg-white/10 md:grid-cols-3">
+          <dl className="mt-10 md:mt-14 grid grid-cols-1 gap-px border-t border-white/15 bg-white/10 md:grid-cols-3">
             {ASSURANCES.map((item) => (
               <div key={item.title} className="bg-ink py-6 md:px-6 md:first:pl-0">
                 <dt className="flex items-center gap-2.5 font-mono text-[0.625rem] uppercase tracking-[0.18em] text-white">
@@ -118,7 +118,7 @@ export default function RequestBidPage() {
               <div className="space-y-6 lg:sticky lg:top-28">
                 <div className="border border-line bg-white p-6 md:p-7">
                   <span className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-red">
-                    What to send
+                    What to Send
                   </span>
                   <ul className="mt-5 space-y-3">
                     {[
@@ -142,7 +142,7 @@ export default function RequestBidPage() {
 
                 <div className="border border-line bg-white p-6 md:p-7">
                   <span className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-red">
-                    What happens next
+                    What Happens Next
                   </span>
                   <ol className="mt-5 space-y-4">
                     {processSteps.slice(0, 3).map((step) => (

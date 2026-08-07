@@ -69,16 +69,16 @@ export default async function ServicePage({ params }: Params) {
         crumbs={crumbs}
         meta={[
           { label: 'Scope', value: service.kicker },
-          { label: 'Coating systems', value: company.coatingSystems },
+          { label: 'Coating Systems', value: company.coatingSystems },
           { label: 'Scheduling', value: company.scheduling },
           { label: 'Warranty', value: company.warranty },
         ]}
       >
         <ButtonLink href="/request-bid" variant="primary" size="lg" withArrow>
-          Request a bid
+          Request a Bid
         </ButtonLink>
         <ButtonLink href="/services" variant="outlineLight" size="lg">
-          All services
+          All Services
         </ButtonLink>
       </PageHero>
 
@@ -88,7 +88,7 @@ export default async function ServicePage({ params }: Params) {
           <div className="grid gap-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-20">
             <Reveal>
               <span className="title-block text-ink/60">Overview</span>
-              <p className="mt-7 text-[clamp(1.25rem,2.4vw,1.75rem)] font-medium leading-snug tracking-tight text-ink">
+              <p className="mt-7 text-h3 font-medium leading-snug tracking-tight text-ink">
                 {service.intro}
               </p>
 
@@ -124,7 +124,7 @@ export default async function ServicePage({ params }: Params) {
 
                 <div className="mt-8 border border-line bg-mist p-6 md:p-7">
                   <span className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-red">
-                    Systems &amp; substrates
+                    Systems &amp; Substrates
                   </span>
                   <dl className="mt-5 divide-y divide-line">
                     {service.systems.map((system) => (
@@ -151,7 +151,7 @@ export default async function ServicePage({ params }: Params) {
         <div className="container-site relative">
           <SectionHeading
             light
-            label="Included in a bid"
+            label="Included in a Bid"
             layout="split"
             title="What This Scope Actually Covers."
             intro={
@@ -184,7 +184,7 @@ export default async function ServicePage({ params }: Params) {
         <section className="section-sm bg-white">
           <div className="container-site">
             <SectionHeading
-              label="Where this scope runs"
+              label="Where This Scope Runs"
               title="Sectors That Buy This Service Most."
               as="h2"
             />
@@ -214,7 +214,7 @@ export default async function ServicePage({ params }: Params) {
         <section className="section bg-mist">
           <div className="container-site">
             <SectionHeading
-              label="Selected experience"
+              label="Selected Experience"
               title={`Where We Have Performed ${service.shortTitle}.`}
             />
 
@@ -234,7 +234,7 @@ export default async function ServicePage({ params }: Params) {
         <div className="container-site">
           <div className="grid gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-20">
             <Reveal>
-              <span className="title-block text-ink/60">Common questions</span>
+              <span className="title-block text-ink/60">Common Questions</span>
               <h2 className="mt-6 text-h2 text-ink">Before You Bid It Out.</h2>
             </Reveal>
 
@@ -255,7 +255,7 @@ export default async function ServicePage({ params }: Params) {
       {/* ============================================================ RELATED SVC */}
       <section className="section-sm bg-mist">
         <div className="container-site">
-          <SectionHeading label="Related scopes" title="Often Bid Together." as="h2" />
+          <SectionHeading label="Related Scopes" title="Often Bid Together." as="h2" />
 
           <RevealGroup className="mt-10 grid gap-px bg-line md:grid-cols-3" stagger={0.05}>
             {related.map((item) => (
@@ -285,7 +285,7 @@ export default async function ServicePage({ params }: Params) {
       </section>
 
       <CtaBanner
-        label="Bid invitations"
+        label="Bid Invitations"
         title={`Add ${service.shortTitle} to Your Next Bid List.`}
       />
 

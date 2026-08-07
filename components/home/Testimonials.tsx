@@ -12,7 +12,7 @@ import { featuredTestimonials } from '@/lib/testimonials';
  */
 export function Testimonials() {
   return (
-    <section className="relative overflow-hidden bg-ink py-20 md:py-24 lg:py-28">
+    <section className="relative overflow-hidden bg-ink py-14 sm:py-20 md:py-24 lg:py-28">
       <div className="sheet-grid absolute inset-0 opacity-60" aria-hidden="true" />
       <div
         aria-hidden="true"
@@ -22,7 +22,7 @@ export function Testimonials() {
       <div className="container-site relative">
         <SectionHeading
           light
-          label="What clients say"
+          label="What Clients Say"
           layout="split"
           title="Judged by the People Who Hire Painters for a Living."
           intro={
@@ -35,7 +35,7 @@ export function Testimonials() {
         />
 
         <RevealGroup
-          className="mt-14 grid gap-px bg-white/12 md:grid-cols-2 lg:grid-cols-3"
+          className="mt-10 md:mt-14 grid gap-px bg-white/12 md:grid-cols-2 lg:grid-cols-3"
           stagger={0.06}
         >
           {featuredTestimonials.map((t) => (
@@ -52,7 +52,7 @@ export function Testimonials() {
                 {t.quote}
               </blockquote>
               <footer className="mt-6 border-t border-white/12 pt-4">
-                <p className="font-display text-[1rem] font-bold tracking-tight text-white">
+                <p className="font-display text-h5 font-bold tracking-tight text-white">
                   {t.name}
                 </p>
                 <p className="mt-1 font-mono text-[0.625rem] uppercase tracking-[0.16em] text-red-light">

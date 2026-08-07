@@ -41,7 +41,7 @@ export function FormShell({
     return (
       <div className="border-t-4 border-red bg-mist p-8 md:p-12">
         <CheckCircle2 aria-hidden="true" className="size-9 text-red" />
-        <h2 className="mt-6 text-[clamp(1.75rem,3.5vw,2.5rem)] text-ink">{successTitle}</h2>
+        <h2 className="mt-6 text-h2 text-ink">{successTitle}</h2>
         <p className="mt-4 max-w-xl text-[1.0625rem] leading-relaxed text-body">{successBody}</p>
 
         {state.reference && (

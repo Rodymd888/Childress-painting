@@ -31,11 +31,10 @@ export function Breadcrumbs({ crumbs, light = true }: { crumbs: Crumb[]; light?:
               ) : (
                 <Link
                   href={crumb.href}
-                  className={
-                    light
-                      ? 'transition-colors hover:text-white'
-                      : 'transition-colors hover:text-red'
-                  }
+                  className={[
+                    'inline-block py-1.5 transition-colors',
+                    light ? 'hover:text-white' : 'hover:text-red',
+                  ].join(' ')}
                 >
                   {crumb.name}
                 </Link>

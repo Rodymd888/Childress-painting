@@ -33,11 +33,11 @@ export default function ContactPage() {
           { label: 'Dallas – Fort Worth', value: offices[0].phone },
           { label: 'Kansas City', value: offices[1].phone },
           { label: 'Hours', value: 'Mon–Fri, 7am–5pm CT' },
-          { label: 'Bidding today?', value: 'Call, do not email' },
+          { label: 'Bidding Today?', value: 'Call, do not email' },
         ]}
       >
         <ButtonLink href="/request-bid" variant="primary" size="lg" withArrow>
-          Request a bid instead
+          Request a Bid Instead
         </ButtonLink>
       </PageHero>
 
@@ -46,7 +46,7 @@ export default function ContactPage() {
           <div className="grid gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-20">
             {/* ------------------------------------------------------- DETAILS */}
             <Reveal>
-              <span className="title-block text-ink/60">Direct contact</span>
+              <span className="title-block text-ink/60">Direct Contact</span>
               <h2 className="mt-6 text-h3 text-ink">Two Offices. One Team.</h2>
 
               {/* One block per operating location — driven by lib/site.ts. */}
@@ -54,7 +54,7 @@ export default function ContactPage() {
                 {offices.map((office) => (
                   <address key={office.id} className="not-italic">
                     <div className="flex flex-wrap items-baseline justify-between gap-3 border-b-2 border-ink pb-3">
-                      <h3 className="font-display text-[1.25rem] font-bold tracking-tight text-ink">
+                      <h3 className="font-display text-h4 font-bold tracking-tight text-ink">
                         {office.label}
                       </h3>
                       <span className="font-mono text-[0.625rem] uppercase tracking-[0.18em] text-red">
@@ -72,7 +72,7 @@ export default function ContactPage() {
                           <span className="block font-mono text-[0.625rem] uppercase tracking-[0.18em] text-ink/50">
                             Phone
                           </span>
-                          <span className="mt-1.5 block font-display text-[1.1875rem] font-bold tracking-tight text-ink transition-colors group-hover:text-red">
+                          <span className="mt-1.5 block font-display text-h4 font-bold tracking-tight text-ink transition-colors group-hover:text-red">
                             {office.phone}
                           </span>
                         </span>
@@ -157,7 +157,7 @@ export default function ContactPage() {
                 </p>
                 <div className="mt-5">
                   <ButtonLink href="/request-bid" variant="dark" withArrow>
-                    Request a bid
+                    Request a Bid
                   </ButtonLink>
                 </div>
               </div>

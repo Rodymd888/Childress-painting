@@ -82,7 +82,7 @@ export const offices = [
   {
     id: 'kansas-city',
     label: 'Kansas City',
-    role: 'Regional office',
+    role: 'Regional Office',
     street: '14000 Century Lane',
     city: 'Grandview',
     region: 'MO',
@@ -97,10 +97,10 @@ export const offices = [
 
 /** Headline figures from the capability statement. Verified — do not inflate. */
 export const companyStats = [
-  { value: '40+', label: 'Years leadership experience', detail: 'Commercial painting since 1984' },
-  { value: '3', label: 'States served', detail: 'Texas primary · Kansas & Missouri' },
-  { value: '12', label: 'Market sectors', detail: 'Retail through sports & entertainment' },
-  { value: '2yr', label: 'Workmanship warranty', detail: 'Written, on every project' },
+  { value: '40+', label: 'Years Leadership Experience', detail: 'Commercial painting since 1984' },
+  { value: '3', label: 'States Served', detail: 'Texas primary · Kansas & Missouri' },
+  { value: '13', label: 'Market Sectors', detail: 'Retail through sports & entertainment' },
+  { value: '2yr', label: 'Workmanship Warranty', detail: 'Written, on every project' },
 ] as const;
 
 /** Leadership, per the qualifications document. */
