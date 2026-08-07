@@ -27,7 +27,7 @@ export default function ServiceAreasPage() {
     <>
       <PageHero
         label="Coverage"
-        title="Two offices. Three states."
+        title="Two Offices. Three States."
         intro="Texas is the primary market, worked from our Dallas headquarters. Kansas and Missouri are served from Grandview — the base for four decades of Kansas City-area retail, restaurant, school district, and stadium work."
         crumbs={[
           { name: 'Home', href: '/' },
@@ -54,7 +54,7 @@ export default function ServiceAreasPage() {
           <SectionHeading
             label="Our offices"
             layout="split"
-            title="Where the crews are based."
+            title="Where the Crews Are Based."
             intro={
               <p>
                 Both offices run the same process, the same coating systems, and the same
@@ -112,7 +112,7 @@ export default function ServiceAreasPage() {
           <SectionHeading
             label="Coverage detail"
             layout="split"
-            title="Metro areas we work in."
+            title="Metro Areas We Work In."
             intro={
               <p>
                 Not an exhaustive list. If a project is outside these areas but part of a
@@ -153,7 +153,7 @@ export default function ServiceAreasPage() {
         <div className="container-site">
           <SectionHeading
             label="What we bid in these markets"
-            title="Every sector, in every area we serve."
+            title="Every Sector, in Every Area We Serve."
             as="h2"
           />
 
@@ -182,7 +182,7 @@ export default function ServiceAreasPage() {
 
       <CtaBanner
         label="Outside these areas?"
-        title="Ask anyway."
+        title="Ask Anyway."
         body={`Multi-site and rollout programs travel. Send the locations and the schedule and we will tell you honestly whether we can staff it. Call ${company.phone}.`}
       />
 

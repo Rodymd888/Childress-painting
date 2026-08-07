@@ -31,19 +31,19 @@ export function SubcontractorForm() {
       >
         <TextField
           name="companyName"
-          label="Company name"
+          label="Company Name"
           required
           autoComplete="organization"
           error={err.companyName}
         />
         <TextField
           name="yearsInBusiness"
-          label="Years in business"
+          label="Years in Business"
           required
           placeholder="e.g. 12"
           error={err.yearsInBusiness}
         />
-        <TextField name="name" label="Contact name" required autoComplete="name" error={err.name} />
+        <TextField name="name" label="Contact Name" required autoComplete="name" error={err.name} />
         <TextField
           name="email"
           label="Email"
@@ -62,7 +62,7 @@ export function SubcontractorForm() {
         />
         <SelectField
           name="crewSize"
-          label="Crew size"
+          label="Crew Size"
           required
           options={CREW_SIZES}
           hint="Number of field personnel you can put on a job."
@@ -77,7 +77,7 @@ export function SubcontractorForm() {
       >
         <TextField
           name="serviceAreas"
-          label="Service areas"
+          label="Service Areas"
           required
           className="sm:col-span-2"
           placeholder="e.g. Dallas–Fort Worth, Waco, Tyler — will travel statewide"
@@ -85,7 +85,7 @@ export function SubcontractorForm() {
         />
         <TextareaField
           name="trades"
-          label="Trades and specialties"
+          label="Trades and Specialties"
           required
           rows={4}
           className="sm:col-span-2"
@@ -94,7 +94,7 @@ export function SubcontractorForm() {
         />
         <TextareaField
           name="experience"
-          label="Relevant project experience"
+          label="Relevant Project Experience"
           required
           rows={6}
           className="sm:col-span-2"
@@ -110,7 +110,7 @@ export function SubcontractorForm() {
       >
         <SelectField
           name="insurance"
-          label="Insurance status"
+          label="Insurance Status"
           required
           options={INSURANCE_STATUSES}
           className="sm:col-span-2"
@@ -124,7 +124,7 @@ export function SubcontractorForm() {
         />
         <FileLinkField
           name="coiLink"
-          label="Certificate of insurance"
+          label="Certificate of Insurance"
           hint="Paste a link to a current COI showing general liability and workers' compensation."
           error={err.coiLink}
         />

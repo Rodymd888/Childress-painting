@@ -30,7 +30,7 @@ export default function ClientsPage() {
     <>
       <PageHero
         label="Representative clients"
-        title="Who we have painted for."
+        title="Who We Have Painted For."
         intro="Representative commercial project experience of the Childress Painting leadership team, organised by industry. Company names identify project experience only; no endorsement or affiliation is implied."
         crumbs={[
           { name: 'Home', href: '/' },
@@ -57,7 +57,7 @@ export default function ClientsPage() {
           <SectionHeading
             label="By industry"
             layout="split"
-            title="Commercial clients across six groups."
+            title="Commercial Clients Across Six Groups."
             intro={
               <p>
                 Retail and restaurant rollouts make up the largest share of the record, with
@@ -136,7 +136,7 @@ export default function ClientsPage() {
             light
             label="Education partners"
             layout="split"
-            title={`${totalSchools} campuses across two districts.`}
+            title={`${totalSchools} Campuses Across Two Districts.`}
             intro={
               <p>
                 District-level painting partnerships across two Kansas City-area school
@@ -193,9 +193,7 @@ export default function ClientsPage() {
           </div>
 
           <Reveal className="mt-14 border-t border-white/20 pt-8">
-            <h3 className="font-mono text-[0.6875rem] uppercase tracking-[0.2em] text-red">
-              Additional education partners
-            </h3>
+            <h3 className="font-mono text-[0.6875rem] uppercase tracking-[0.2em] text-red">Additional Education Partners</h3>
             <ul className="mt-5 flex flex-wrap gap-x-3 gap-y-2">
               {additionalEducationPartners.map((partner) => (
                 <li

@@ -16,7 +16,7 @@ import { breadcrumbSchema } from '@/lib/schema';
 export const metadata: Metadata = {
   title: 'Industries We Serve | Commercial Painting Market Sectors',
   description:
-    'Commercial painting across twelve market sectors: retail, restaurants, healthcare, education, industrial, government, office, hospitality, sports, aviation, tenant improvements, and new construction.',
+    'Painting across thirteen market sectors: retail, restaurants, healthcare, education, industrial, government, office, hospitality, sports, aviation, tenant improvements, new construction, and residential.',
   alternates: { canonical: '/industries' },
 };
 
@@ -25,7 +25,7 @@ export default function IndustriesPage() {
     <>
       <PageHero
         label="Markets we serve"
-        title="Twelve sectors. Twelve different constraints."
+        title={`${industries.length} Sectors. ${industries.length} Different Constraints.`}
         intro="The coating rarely changes. What changes is what governs the schedule — infection control in a hospital, a grand-opening date in retail, a dark night in a stadium, badging at an airport. We plan for the constraint."
         crumbs={[
           { name: 'Home', href: '/' },
@@ -51,7 +51,7 @@ export default function IndustriesPage() {
           <SectionHeading
             label="Sector index"
             layout="split"
-            title="Where Childress works."
+            title="Where Childress Works."
             intro={
               <p>
                 Each sector page covers the constraints that actually define the work, the
@@ -79,9 +79,7 @@ export default function IndustriesPage() {
         <div className="container-site">
           <Reveal className="mx-auto max-w-3xl text-center">
             <span className="title-block text-ink/55">Not listed?</span>
-            <h2 className="mt-6 text-h3 text-ink">
-              If it is commercial, it is probably work we have done.
-            </h2>
+            <h2 className="mt-6 text-h3 text-ink">If It Is Commercial, It Is Probably Work We Have Done.</h2>
             <p className="mt-4 leading-relaxed text-body">
               Four decades across retail, restaurant, healthcare, government, industrial, and
               education construction covers most commercial building types. Send the drawings

@@ -61,9 +61,7 @@ export function TrustedBy() {
         <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
             <span className="title-block text-ink/55">Representative clients</span>
-            <h2 id="trusted-by" className="mt-5 max-w-[22ch] text-h3 text-ink">
-              The brands our leadership has painted for.
-            </h2>
+            <h2 id="trusted-by" className="mt-5 max-w-[22ch] text-h3 text-ink">The Brands Our Leadership Has Painted For.</h2>
           </div>
           <Link
             href="/clients"

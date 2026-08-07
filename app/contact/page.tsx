@@ -26,7 +26,7 @@ export default function ContactPage() {
     <>
       <PageHero
         label="Contact"
-        title="Talk to someone who prices the work."
+        title="Talk to Someone Who Prices the Work."
         intro="A small leadership team means the person who estimates your project is reachable while it is running. No account layer in between."
         crumbs={crumbs}
         meta={[
@@ -47,7 +47,7 @@ export default function ContactPage() {
             {/* ------------------------------------------------------- DETAILS */}
             <Reveal>
               <span className="title-block text-ink/60">Direct contact</span>
-              <h2 className="mt-6 text-h3 text-ink">Two offices. One team.</h2>
+              <h2 className="mt-6 text-h3 text-ink">Two Offices. One Team.</h2>
 
               {/* One block per operating location — driven by lib/site.ts. */}
               <div className="mt-9 space-y-8">

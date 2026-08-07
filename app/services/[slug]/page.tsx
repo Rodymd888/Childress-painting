@@ -153,7 +153,7 @@ export default async function ServicePage({ params }: Params) {
             light
             label="Included in a bid"
             layout="split"
-            title="What this scope actually covers."
+            title="What This Scope Actually Covers."
             intro={
               <p>
                 Listed so there is no ambiguity at award. Anything not on this list is either
@@ -185,7 +185,7 @@ export default async function ServicePage({ params }: Params) {
           <div className="container-site">
             <SectionHeading
               label="Where this scope runs"
-              title="Sectors that buy this service most."
+              title="Sectors That Buy This Service Most."
               as="h2"
             />
 
@@ -215,7 +215,7 @@ export default async function ServicePage({ params }: Params) {
           <div className="container-site">
             <SectionHeading
               label="Selected experience"
-              title={`Where we have performed ${service.shortTitle.toLowerCase()}.`}
+              title={`Where We Have Performed ${service.shortTitle}.`}
             />
 
             <RevealGroup className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" stagger={0.06}>
@@ -235,7 +235,7 @@ export default async function ServicePage({ params }: Params) {
           <div className="grid gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-20">
             <Reveal>
               <span className="title-block text-ink/60">Common questions</span>
-              <h2 className="mt-6 text-h2 text-ink">Before you bid it out.</h2>
+              <h2 className="mt-6 text-h2 text-ink">Before You Bid It Out.</h2>
             </Reveal>
 
             <Reveal delay={0.08}>
@@ -255,7 +255,7 @@ export default async function ServicePage({ params }: Params) {
       {/* ============================================================ RELATED SVC */}
       <section className="section-sm bg-mist">
         <div className="container-site">
-          <SectionHeading label="Related scopes" title="Often bid together." as="h2" />
+          <SectionHeading label="Related scopes" title="Often Bid Together." as="h2" />
 
           <RevealGroup className="mt-10 grid gap-px bg-line md:grid-cols-3" stagger={0.05}>
             {related.map((item) => (
@@ -286,7 +286,7 @@ export default async function ServicePage({ params }: Params) {
 
       <CtaBanner
         label="Bid invitations"
-        title={`Add ${service.shortTitle.toLowerCase()} to your next bid list.`}
+        title={`Add ${service.shortTitle} to Your Next Bid List.`}
       />
 
       <JsonLd data={[breadcrumbSchema(crumbs), serviceSchema(service), faqSchema(service.faqs)]} />

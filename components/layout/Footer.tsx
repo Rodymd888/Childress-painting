@@ -27,9 +27,9 @@ export function Footer() {
             <div className="max-w-2xl">
               <span className="title-block text-white/60">Ready when you are</span>
               <h2 className="mt-6 text-h2 text-white">
-                Send us the drawings.
+                Send Us the Drawings.
                 <br />
-                <span className="text-red">We&rsquo;ll send you a number.</span>
+                <span className="text-red">We&rsquo;ll Send You a Number.</span>
               </h2>
               <p className="mt-5 max-w-xl text-lead leading-relaxed text-ash">
                 Bid or no-bid, you get an answer. Scope, assumptions, and exclusions in

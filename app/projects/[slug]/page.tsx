@@ -9,6 +9,7 @@ import { SectionHeading } from '@/components/ui/SectionHeading';
 import { CtaBanner } from '@/components/ui/CtaBanner';
 import { ProjectCard } from '@/components/cards/ProjectCard';
 import { MediaFrame } from '@/components/ui/MediaFrame';
+import { ProjectGallery } from '@/components/projects/ProjectGallery';
 import { SectorArt } from '@/components/ui/SectorArt';
 import { Reveal, RevealGroup, RevealItem } from '@/components/ui/Reveal';
 import { ButtonLink } from '@/components/ui/Button';
@@ -196,7 +197,7 @@ export default async function ProjectPage({ params }: Params) {
               {!isCaseStudy && servicesPerformed.length > 0 && (
                 <div className="mt-14">
                   <span className="title-block text-ink/60">Scope of work</span>
-                  <h2 className="mt-5 text-h3 text-ink">What this engagement covers.</h2>
+                  <h2 className="mt-5 text-h3 text-ink">What This Engagement Covers.</h2>
                   <div className="mt-8 space-y-px border border-line bg-line">
                     {servicesPerformed.map((service) => (
                       <div key={service.slug} className="bg-white p-6 md:p-7">
@@ -232,7 +233,7 @@ export default async function ProjectPage({ params }: Params) {
               {!isCaseStudy && industry && industry.constraints.length > 0 && (
                 <div className="mt-14">
                   <span className="title-block text-ink/60">
-                    How {industry.shortTitle.toLowerCase()} work runs
+                    How {industry.shortTitle} Work Runs
                   </span>
                   <div className="mt-7 space-y-8">
                     {industry.constraints.slice(0, 2).map((c) => (
@@ -261,7 +262,7 @@ export default async function ProjectPage({ params }: Params) {
 
               {isCaseStudy && project.solution && project.solution.length > 0 && (
                 <div className="mt-12">
-                  <h2 className="text-h3 text-ink">Our approach</h2>
+                  <h2 className="text-h3 text-ink">Our Approach</h2>
                   <ul className="mt-5 space-y-3">
                     {project.solution.map((item) => (
                       <li key={item} className="flex items-start gap-3 leading-relaxed text-body">
@@ -372,30 +373,11 @@ export default async function ProjectPage({ params }: Params) {
       {gallery.length > 0 && (
         <section className="section bg-mist">
           <div className="container-site">
-            <SectionHeading label="Project gallery" title="On site." as="h2" />
+            <SectionHeading label="Project gallery" title="On Site." as="h2" />
 
-            <RevealGroup className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" stagger={0.05}>
-              {gallery.map((image) => (
-                <RevealItem key={image.src} className="group">
-                  <figure>
-                    <div className="sheen relative overflow-hidden">
-                      <MediaFrame
-                        image={image}
-                        art={project.art}
-                        label={project.name}
-                        ratio="landscape"
-                        overlay={false}
-                      />
-                    </div>
-                    {image.caption && (
-                      <figcaption className="mt-3 font-mono text-[0.625rem] uppercase tracking-[0.14em] text-ink/55">
-                        {image.caption}
-                      </figcaption>
-                    )}
-                  </figure>
-                </RevealItem>
-              ))}
-            </RevealGroup>
+            <Reveal className="mt-12">
+              <ProjectGallery images={gallery} />
+            </Reveal>
           </div>
         </section>
       )}
@@ -433,7 +415,7 @@ export default async function ProjectPage({ params }: Params) {
             <SectionHeading
               label="Related work"
               title={
-                industry ? `More ${industry.shortTitle.toLowerCase()} projects.` : 'More projects.'
+                industry ? `More ${industry.shortTitle} Projects.` : 'More Projects.'
               }
               as="h2"
             />
@@ -451,7 +433,7 @@ export default async function ProjectPage({ params }: Params) {
 
       <CtaBanner
         label="Bid invitations"
-        title="Bidding similar work?"
+        title="Bidding Similar Work?"
         body={`Send the plans and the specification sections. We confirm receipt, tell you whether we are bidding, and state our assumptions and exclusions in writing. Call ${company.phone}.`}
       />
 

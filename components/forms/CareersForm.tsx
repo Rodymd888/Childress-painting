@@ -24,7 +24,7 @@ export function CareersForm() {
       successBody="We keep applications on file and review them as crews are built for upcoming work. If your experience matches an opening, we will reach out to arrange a conversation."
       onReset={() => window.location.reload()}
     >
-      <FieldGroup step="01" title="About you">
+      <FieldGroup step="01" title="About You">
         <TextField name="name" label="Name" required autoComplete="name" error={err.name} />
         <TextField
           name="email"
@@ -44,31 +44,31 @@ export function CareersForm() {
         />
         <TextField
           name="location"
-          label="Where you are based"
+          label="Where You Are Based"
           required
           placeholder="City, state"
           error={err.location}
         />
       </FieldGroup>
 
-      <FieldGroup step="02" title="The work">
+      <FieldGroup step="02" title="The Work">
         <SelectField
           name="role"
-          label="Role you are applying for"
+          label="Role You Are Applying For"
           required
           options={CAREER_ROLES}
           error={err.role}
         />
         <SelectField
           name="experience"
-          label="Years of experience"
+          label="Years of Experience"
           required
           options={EXPERIENCE_LEVELS}
           error={err.experience}
         />
         <TextareaField
           name="message"
-          label="Tell us about your experience"
+          label="Tell Us About Your Experience"
           required
           rows={7}
           className="sm:col-span-2"

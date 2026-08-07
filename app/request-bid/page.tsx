@@ -57,9 +57,7 @@ export default function RequestBidPage() {
           <div className="mt-8 grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-end lg:gap-20">
             <div>
               <span className="title-block text-white/70">Bid portal</span>
-              <h1 className="mt-5 max-w-4xl text-[clamp(2.5rem,6.4vw,4.75rem)]">
-                Send us the drawings.
-              </h1>
+              <h1 className="mt-5 max-w-4xl text-[clamp(2.5rem,6.4vw,4.75rem)]">Send Us the Drawings.</h1>
               <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ash md:text-xl">
                 Four short steps. Attach plans and specification sections, tell us the due date,
                 and we will confirm receipt and tell you whether we are bidding.

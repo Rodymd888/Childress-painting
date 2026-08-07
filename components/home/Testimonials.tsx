@@ -24,7 +24,7 @@ export function Testimonials() {
           light
           label="What clients say"
           layout="split"
-          title="Judged by the people who hire painters for a living."
+          title="Judged by the People Who Hire Painters for a Living."
           intro={
             <p>
               Superintendents, construction managers, facility teams — and homeowners who got

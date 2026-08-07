@@ -67,8 +67,11 @@ export function ProjectCard({
 
         <span className="mt-6 flex items-center justify-between border-t border-line pt-4 font-mono text-[0.625rem] uppercase tracking-[0.16em] text-ink/55">
           <span>
-            {project.serviceTypes.length}{' '}
-            {project.serviceTypes.length === 1 ? 'service' : 'services'} performed
+            {project.serviceTypes.length > 0
+              ? `${project.serviceTypes.length} ${
+                  project.serviceTypes.length === 1 ? 'service' : 'services'
+                } performed`
+              : 'View project'}
           </span>
           <ArrowUpRight
             aria-hidden="true"

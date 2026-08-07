@@ -50,15 +50,15 @@ export const industries: Industry[] = [
       'Commercial painting for retail: national chains, big-box, and specialty stores. Prototype color compliance, night work, and grand-opening schedules across Texas.',
     constraints: [
       {
-        title: 'Prototype compliance',
+        title: 'Prototype Compliance',
         body: 'Most national retailers publish a finish standard down to the manufacturer and product code. We verify the schedule against the prototype book during preconstruction and flag substitutions in writing before anything is ordered — not after a district manager walks the store.',
       },
       {
-        title: 'Fixed opening dates',
+        title: 'Fixed Opening Dates',
         body: 'A retail opening is a marketing event with advertising already bought. Paint sits between drywall and fixture install, and it absorbs upstream delay. We plan manpower for the compressed version of the schedule, because that is usually the one that happens.',
       },
       {
-        title: 'Remodels around trading hours',
+        title: 'Remodels Around Trading Hours',
         body: 'Remodels in a store that stays open run at night, behind barricade, with the sales floor returned each morning. Containment, dust control, and low-odor systems are agreed with the store manager before mobilization.',
       },
     ],
@@ -94,15 +94,15 @@ export const industries: Industry[] = [
       'Commercial painting for restaurants across Texas: quick-service, fast-casual, and full-service. Kitchen-rated coatings, decorative front-of-house finishes, and opening-date schedules.',
     constraints: [
       {
-        title: 'Two buildings in one',
+        title: 'Two Buildings in One',
         body: 'Dining rooms get decorative and accent finishes under close visual scrutiny. Kitchens, prep, and dish get epoxy or scrubbable systems rated for washdown. We specify them separately and price them separately, so neither gets value-engineered into the wrong product.',
       },
       {
-        title: 'Small site, many trades',
+        title: 'Small Site, Many Trades',
         body: 'A 3,000 SF restaurant can have six trades working at once in the last two weeks. We coordinate directly with millwork, equipment, and flooring so painting happens in the right order and does not get damaged the day after it is finished.',
       },
       {
-        title: 'Opening day is fixed',
+        title: 'Opening Day Is Fixed',
         body: 'Training, hiring, and soft-open dates are set before construction finishes. Where the schedule compresses, we add shifts rather than move the date.',
       },
     ],
@@ -139,15 +139,15 @@ export const industries: Industry[] = [
       'Painting and coatings for surgery centers, clinics, and medical office buildings. Infection-control-aware planning, low-odor systems, and department-by-department phasing.',
     constraints: [
       {
-        title: 'Infection control',
+        title: 'Infection Control',
         body: 'Work in and adjacent to patient care areas is planned around the facility infection control risk assessment. Containment, negative air, and traffic routes are agreed with the facility before mobilization, not improvised on the first day.',
       },
       {
-        title: 'Odor and air quality',
+        title: 'Odor and Air Quality',
         body: 'Low-VOC and low-odor systems are specified in preconstruction wherever the coating is applied near occupied clinical space. Where a high-performance system is required, the schedule is built around ventilation and cure windows.',
       },
       {
-        title: 'Department uptime',
+        title: 'Department Uptime',
         body: 'Clinical departments run on appointment schedules booked weeks out. Work is phased room by room, or after hours, so the department loses the minimum number of rooms at any one time.',
       },
     ],
@@ -183,15 +183,15 @@ export const industries: Industry[] = [
       'District-level school painting programs across elementary, middle, and high school campuses. Summer-window scheduling, low-VOC systems, and multi-campus manpower planning.',
     constraints: [
       {
-        title: 'The summer window',
+        title: 'The Summer Window',
         body: 'Between the last day of school and staff return, there are roughly ten workable weeks. Multi-campus programs are staffed to run in parallel, with a per-campus completion date rather than one program-wide finish line.',
       },
       {
-        title: 'Occupied-building standards',
+        title: 'Occupied-Building Standards',
         body: 'Buildings that host summer programs, athletics, and administration are never fully empty. Zoning, low-odor systems, and daily cleanup are planned as though students are present, because some of them are.',
       },
       {
-        title: 'Durability over decoration',
+        title: 'Durability Over Decoration',
         body: 'Corridors, gyms, and cafeterias take physical abuse for a decade between repaints. Product selection favors scrubbable, high-hide systems that survive lockers, carts, and cleaning chemicals.',
       },
     ],
@@ -228,15 +228,15 @@ export const industries: Industry[] = [
       'Industrial painting and high-performance coatings for manufacturing plants, processing facilities, and distribution centers. Substrate preparation, shutdown scheduling, and containment.',
     constraints: [
       {
-        title: 'Service environment drives the system',
+        title: 'Service Environment Drives the System',
         body: 'Chemical exposure, washdown, thermal cycling, and abrasion each rule out different products. The system is selected against the actual service conditions and confirmed with the manufacturer before it is priced.',
       },
       {
-        title: 'Shutdown windows',
+        title: 'Shutdown Windows',
         body: 'Work that requires a line to stop is planned to the hour. Scope is broken into what can be done live, what needs the line down, and what needs the area fully cleared — priced separately so the plant can decide.',
       },
       {
-        title: 'Preparation is the scope',
+        title: 'Preparation Is the Scope',
         body: 'Most industrial coating failures trace to preparation, not product. Profile, cleanliness, and moisture are verified before application, and the standard is agreed in writing at bid.',
       },
     ],
@@ -273,15 +273,15 @@ export const industries: Industry[] = [
       'Painting for municipal, civic, and public safety facilities. Procurement documentation, prevailing-wage familiarity, inspection coordination, and phased work in occupied buildings.',
     constraints: [
       {
-        title: 'Procurement and documentation',
+        title: 'Procurement and Documentation',
         body: 'Bid forms, submittals, certified payroll where required, and closeout documentation are handled as scope items with their own deadlines — not as an afterthought once the painting is done.',
       },
       {
-        title: 'Facilities that stay open',
+        title: 'Facilities That Stay Open',
         body: 'Police departments, city halls, and community facilities operate through construction. Work is zoned and scheduled around public access, staff shifts, and secure areas.',
       },
       {
-        title: 'Inspection sign-off',
+        title: 'Inspection Sign-Off',
         body: 'Work is presented for inspection at the right stage rather than at the end, so a rejected substrate does not require tearing out finished work.',
       },
     ],
@@ -317,15 +317,15 @@ export const industries: Industry[] = [
       'Painting for multi-tenant office buildings, corporate interiors, and tenant improvements. Lease-date delivery, after-hours work, and coordination with building management.',
     constraints: [
       {
-        title: 'Lease commencement dates',
+        title: 'Lease Commencement Dates',
         body: 'Delivery dates are contractual. Painting is one of the last scopes in a TI and absorbs upstream delay, so manpower is planned against the compressed schedule from the start.',
       },
       {
-        title: 'Occupied buildings',
+        title: 'Occupied Buildings',
         body: 'Work happens in buildings full of other tenants. Freight elevator windows, after-hours access, noise limits, and common-area protection are confirmed with building management before mobilization.',
       },
       {
-        title: 'Base building versus tenant scope',
+        title: 'Base Building Versus Tenant Scope',
         body: 'The line between landlord work and tenant work causes more disputes than any finish issue. We define it in the bid rather than discovering it during construction.',
       },
     ],
@@ -360,15 +360,15 @@ export const industries: Industry[] = [
       'Painting for hotels, entertainment venues, and guest-facing environments. Floor-by-floor phasing, decorative and specialty finishes, and fast return to service.',
     constraints: [
       {
-        title: 'Rooms out of service',
+        title: 'Rooms Out of Service',
         body: 'Work is blocked by floor or wing so the property keeps the maximum number of keys sellable. Each block has a firm return date the property can book against.',
       },
       {
-        title: 'Finish quality is the product',
+        title: 'Finish Quality Is the Product',
         body: 'Guest-facing surfaces are inspected from two feet away in good light. Mockups are approved before production, and the quality-control walk happens before the property is asked to look at it.',
       },
       {
-        title: 'Guests are always present',
+        title: 'Guests Are Always Present',
         body: 'Odor, noise, and corridor traffic are managed for people who are sleeping and paying. Low-odor systems and controlled work hours are planned, not negotiated on site.',
       },
     ],
@@ -405,15 +405,15 @@ export const industries: Industry[] = [
       'Painting for stadiums, arenas, and entertainment venues. Between-event and off-season scheduling, concourse and structural coatings, and hard event-date deadlines.',
     constraints: [
       {
-        title: 'Event calendars are immovable',
+        title: 'Event Calendars Are Immovable',
         body: 'Work is scheduled into dark days and off-season windows. Scope is sized to the window it actually fits in, with the balance deferred rather than rushed into an event day.',
       },
       {
-        title: 'Public assembly standards',
+        title: 'Public Assembly Standards',
         body: 'Venues are inspected for life safety, egress, and finish compliance before a crowd is admitted. Coatings are selected and documented with that inspection in mind.',
       },
       {
-        title: 'Scale and access',
+        title: 'Scale and Access',
         body: 'Concourses, structure, and seating bowls need lifts, scaffold, and staged access planned before mobilization — often through loading docks shared with every other trade in the building.',
       },
     ],
@@ -449,15 +449,15 @@ export const industries: Industry[] = [
       'Painting for airport terminals and aviation facilities. Badging and escort compliance, overnight access windows, concession finish-outs, and work around live passenger operations.',
     constraints: [
       {
-        title: 'Badging and security',
+        title: 'Badging and Security',
         body: 'Crews are badged, escorted where required, and tool and material lists are cleared in advance. Lead time for credentialing is treated as part of the schedule, because it is.',
       },
       {
-        title: 'Live passenger operations',
+        title: 'Live Passenger Operations',
         body: 'Terminals do not close. Work happens overnight or behind barricade, with the area returned clean and open before the first bank of departures.',
       },
       {
-        title: 'Concession and tenant fit-outs',
+        title: 'Concession and Tenant Fit-Outs',
         body: 'Airport retail and food tenants have the same brand standards as their street locations but half the access. Deliveries, staging, and waste removal are planned around the same overnight window as the work.',
       },
     ],
@@ -493,15 +493,15 @@ export const industries: Industry[] = [
       'Tenant improvement painting for shell-to-suite build-outs and re-tenanting. Lease-date delivery, landlord versus tenant scope definition, and fast punch closeout.',
     constraints: [
       {
-        title: 'The date is in a lease',
+        title: 'The Date Is in a Lease',
         body: 'Delivery dates carry financial consequences for the landlord. We commit manpower against the date rather than the ideal duration.',
       },
       {
-        title: 'Scope moves late',
+        title: 'Scope Moves Late',
         body: 'Tenant-driven changes arrive after the bid. Changes are priced and turned around quickly so a decision is not waiting on a number.',
       },
       {
-        title: 'Punch drives occupancy',
+        title: 'Punch Drives Occupancy',
         body: 'A tenant will not accept a suite with an open punch list. We run our own quality walk before the general contractor\'s, so the list handed over is short.',
       },
     ],
@@ -522,6 +522,52 @@ export const industries: Industry[] = [
     ],
   },
   {
+    slug: 'residential',
+    art: 'interior',
+    title: 'Residential',
+    shortTitle: 'Residential',
+    code: 'SEC / RES',
+    summary:
+      'Interior and exterior work in private homes, delivered with the protection, communication, and cleanliness standards our commercial crews already work to.',
+    intro:
+      'A home is an occupied building with an owner living in it, which makes it the strictest version of the occupied-site problem we solve every week on commercial projects. The coatings are ordinary. Protecting the house, keeping it livable each evening, and finishing when we said we would is the work.',
+    metaTitle: 'Residential Painting Contractor | Interior & Exterior Homes',
+    metaDescription:
+      'Residential interior and exterior painting, cabinet refinishing, and custom wood staining with commercial-grade preparation, daily cleanup, and a written workmanship warranty.',
+    constraints: [
+      {
+        title: 'Someone Lives Here',
+        body: 'Floors, fixtures, and furnishings are protected before the first can is opened, and the house is returned to use every evening. Low-odor systems are specified for occupied rooms rather than substituted after a complaint.',
+      },
+      {
+        title: 'Finish Quality Is Inspected Closely',
+        body: 'Residential work is examined from two feet away, in daylight, by the person paying for it. Cut lines, sheen uniformity, and trim finishing carry more weight here than on any commercial punch walk.',
+      },
+      {
+        title: 'One Crew, Start to Finish',
+        body: 'The same crew works the project through, so nobody has to re-explain the scope. A written scope up front means the final walk is measured against a document rather than a memory.',
+      },
+    ],
+    facilities: [
+      'Interior walls, ceilings, and trim',
+      'Kitchen and bathroom cabinetry',
+      'Stain-grade doors and millwork',
+      'Exterior siding, stucco, and brick',
+      'Fascia, soffit, and exterior trim',
+      'Garages and utility spaces',
+      'Feature walls and specialty finishes',
+      'Drywall repair and texture matching',
+    ],
+    relatedServices: [
+      'residential-painting',
+      'interior-painting',
+      'exterior-painting',
+      'cabinet-painting-refinishing',
+      'custom-wood-staining',
+      'drywall-repair',
+    ],
+  },
+  {
     slug: 'new-construction',
     art: 'construction',
     title: 'New Construction',
@@ -536,15 +582,15 @@ export const industries: Industry[] = [
       'Ground-up commercial construction painting. Division 09 packages, CPM schedule sequencing, submittals and mockups, and documented punch closeout for general contractors.',
     constraints: [
       {
-        title: 'Sequence, not duration',
+        title: 'Sequence, Not Duration',
         body: 'The question is never how long painting takes — it is which areas are released, in what order, and whether drywall is actually finished. We plan against the release sequence and hold manpower to it.',
       },
       {
-        title: 'Submittals and mockups first',
+        title: 'Submittals and Mockups First',
         body: 'Product data, color schedules, and mockups are submitted early so approval is not on the critical path when production starts.',
       },
       {
-        title: 'Closeout is scope',
+        title: 'Closeout Is Scope',
         body: 'Attic stock, warranty documentation, touch-up, and final cleaning are planned line items, delivered with the punch list rather than chased afterwards.',
       },
     ],

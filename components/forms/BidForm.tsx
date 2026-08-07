@@ -193,11 +193,11 @@ export function BidForm() {
         <div hidden={step !== 0}>
           <FieldGroup
             step="01"
-            title="Who is inviting the bid"
+            title="Who Is Inviting the Bid"
             description="We reply to this contact directly with a confirmation and a bid/no-bid answer."
           >
-            <TextField name="name" label="Contact person" required autoComplete="name" error={err.name} />
-            <TextField name="company" label="Company name" required autoComplete="organization" error={err.company} />
+            <TextField name="name" label="Contact Person" required autoComplete="name" error={err.name} />
+            <TextField name="company" label="Company Name" required autoComplete="organization" error={err.company} />
             <TextField name="email" label="Email" type="email" required autoComplete="email" error={err.email} />
             <TextField name="phone" label="Phone" type="tel" required autoComplete="tel" error={err.phone} />
           </FieldGroup>
@@ -207,33 +207,33 @@ export function BidForm() {
         <div hidden={step !== 1}>
           <FieldGroup
             step="02"
-            title="The project"
+            title="The Project"
             description="Enough detail for us to identify the job and pull the right documents."
           >
             <TextField
               name="projectName"
-              label="Project name"
+              label="Project Name"
               required
               placeholder="e.g. Westside Medical Plaza — Phase 2"
               error={err.projectName}
             />
             <TextField
               name="projectAddress"
-              label="Project address"
+              label="Project Address"
               required
               placeholder="Street, city, state"
               error={err.projectAddress}
             />
             <SelectField
               name="projectType"
-              label="Project type"
+              label="Project Type"
               required
               options={PROJECT_TYPES}
               error={err.projectType}
             />
             <SelectField
               name="projectSize"
-              label="Estimated project size"
+              label="Estimated Project Size"
               options={PROJECT_SIZES}
               hint="Approximate is fine — it tells us how to staff the estimate."
               error={err.projectSize}
@@ -245,14 +245,14 @@ export function BidForm() {
         <div hidden={step !== 2}>
           <FieldGroup
             step="03"
-            title="Dates and budget"
+            title="Dates and Budget"
             description="The bid due date drives everything on our side. Give us the real one."
           >
-            <TextField name="bidDueDate" label="Bid due date" type="date" error={err.bidDueDate} />
-            <TextField name="startDate" label="Estimated start date" type="date" error={err.startDate} />
+            <TextField name="bidDueDate" label="Bid Due Date" type="date" error={err.bidDueDate} />
+            <TextField name="startDate" label="Estimated Start Date" type="date" error={err.startDate} />
             <SelectField
               name="budget"
-              label="Estimated budget"
+              label="Estimated Budget"
               options={PROJECT_BUDGETS}
               className="sm:col-span-2"
               hint="A range is enough. It tells us whether the scope and the budget are in the same conversation — worth knowing before either of us spends a day on it."
@@ -265,12 +265,12 @@ export function BidForm() {
         <div hidden={step !== 3}>
           <FieldGroup
             step="04"
-            title="Scope and documents"
+            title="Scope and Documents"
             description="Tell us what is in the paint scope and attach or link the drawings."
           >
             <TextareaField
               name="scope"
-              label="Scope of work"
+              label="Scope of Work"
               required
               rows={7}
               className="sm:col-span-2"
@@ -281,7 +281,7 @@ export function BidForm() {
 
             <TextField
               name="planLink"
-              label="Link to your plans"
+              label="Link to Your Plans"
               type="url"
               className="sm:col-span-2"
               placeholder="https://"
@@ -291,7 +291,7 @@ export function BidForm() {
 
             <TextareaField
               name="notes"
-              label="Additional notes"
+              label="Additional Notes"
               rows={4}
               className="sm:col-span-2"
               placeholder="Anything else we should know — prevailing wage, bonding, prequalification paperwork, site access, or a hard constraint we have not asked about."
@@ -300,7 +300,7 @@ export function BidForm() {
 
             <RadioGroupField
               name="contactMethod"
-              label="Preferred contact method"
+              label="Preferred Contact Method"
               required
               options={CONTACT_METHODS}
               className="sm:col-span-2"

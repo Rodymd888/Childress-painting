@@ -24,7 +24,7 @@ export default function SafetyQualityPage() {
     <>
       <PageHero
         label="Safety & quality"
-        title="Two things that are never a line item to cut."
+        title="Two Things That Are Never a Line Item to Cut."
         intro="Safety is how a crew goes home. Quality control is why our punch lists are short. Both are planned before mobilization rather than managed after a problem."
         crumbs={[
           { name: 'Home', href: '/' },
@@ -54,7 +54,7 @@ export default function SafetyQualityPage() {
             title={
               <>
                 <HardHat aria-hidden="true" className="mb-4 size-9 text-red" />
-                Planned at bid, not after an incident.
+                Planned at Bid, Not After an Incident.
               </>
             }
             intro={
@@ -101,7 +101,7 @@ export default function SafetyQualityPage() {
             title={
               <>
                 <ClipboardCheck aria-hidden="true" className="mb-4 size-9 text-red" />
-                We inspect our work before you do.
+                We Inspect Our Work Before You Do.
               </>
             }
             intro={
@@ -141,7 +141,7 @@ export default function SafetyQualityPage() {
         <div className="container-site">
           <Reveal className="mx-auto max-w-3xl text-center">
             <ShieldCheck aria-hidden="true" className="mx-auto size-9 text-red" />
-            <h2 className="mt-7 text-h2 text-ink">Backed in writing.</h2>
+            <h2 className="mt-7 text-h2 text-ink">Backed in Writing.</h2>
             <p className="mt-6 text-lead leading-relaxed text-body">
               Every project carries a two-year workmanship warranty from substantial completion,
               in addition to the coating manufacturer&rsquo;s material warranty. We apply{' '}
@@ -162,7 +162,7 @@ export default function SafetyQualityPage() {
 
       <CtaBanner
         label="Prequalification"
-        title="Need our packet completed?"
+        title="Need Our Packet Completed?"
         body={`Send your prequalification forms and we will return them completed with certificates of insurance, safety documentation, and references. Call ${company.phone}.`}
         primary={{ href: '/contact', text: 'Send prequal forms' }}
         secondary={{ href: '/request-bid', text: 'Request a bid' }}

@@ -67,7 +67,7 @@ export default function CareersPage() {
     <>
       <PageHero
         label="Careers"
-        title="Field experience counts most."
+        title="Field Experience Counts Most."
         intro="We hire commercial painters, coatings applicators, foremen, estimators, and office staff. Applications stay open year-round and are reviewed as crews are built for upcoming work."
         crumbs={crumbs}
         meta={[
@@ -83,7 +83,7 @@ export default function CareersPage() {
           <SectionHeading
             layout="split"
             label="Where people work"
-            title="Three sides of the same business."
+            title="Three Sides of the Same Business."
             intro={
               <p>
                 We do not maintain a live list of vacancies on this page — postings go stale faster
@@ -130,7 +130,7 @@ export default function CareersPage() {
             layout="split"
             light
             label="What we look for"
-            title="Four things, ahead of years on a resume."
+            title="Four Things, Ahead of Years on a Resume."
             intro={
               <p>
                 Compensation, benefits, and specific requirements are discussed directly rather
@@ -164,9 +164,7 @@ export default function CareersPage() {
             <div>
               <Reveal>
                 <span className="title-block text-ink/60">Apply</span>
-                <h2 className="mt-5 text-[clamp(1.75rem,3.6vw,2.75rem)] text-ink">
-                  Tell us what you do.
-                </h2>
+                <h2 className="mt-5 text-[clamp(1.75rem,3.6vw,2.75rem)] text-ink">Tell Us What You Do.</h2>
                 <p className="mt-5 max-w-2xl text-[1.0625rem] leading-relaxed text-body">
                   A resume helps for office roles but is not required for field work. Describing
                   the jobs you have worked, the systems you have sprayed, and the equipment you are
@@ -183,9 +181,7 @@ export default function CareersPage() {
               <div className="border-t-4 border-red bg-white p-7">
                 <div className="flex items-center gap-3">
                   <MapPin aria-hidden="true" className="size-4 shrink-0 text-red" />
-                  <h2 className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-ink/60">
-                    Where the work is
-                  </h2>
+                  <h2 className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-ink/60">Where the Work Is</h2>
                 </div>
                 <p className="mt-5 text-[0.9375rem] leading-relaxed text-body">
                   Most work is inside the Dallas–Fort Worth metroplex, with travel across Texas on

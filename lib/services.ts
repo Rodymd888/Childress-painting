@@ -45,7 +45,7 @@ export const services: Service[] = [
     title: 'Commercial Painting',
     shortTitle: 'Commercial Painting',
     csi: 'CSI 09 91 00',
-    kicker: 'Our core business since 1984',
+    kicker: 'Our Core Business Since 1984',
     summary:
       'Full commercial painting packages for general contractors, developers, and owners — new construction, tenant finish-outs, and remodels held to the construction schedule.',
     intro:
@@ -70,11 +70,11 @@ export const services: Service[] = [
     ],
     sections: [
       {
-        heading: 'Built around the schedule',
+        heading: 'Built Around the Schedule',
         body: 'Painting sits behind drywall and ahead of flooring, casework, and equipment, so it absorbs every upstream delay. We plan the compressed version of the schedule from day one, add shifts rather than move dates, and tell the superintendent early when something upstream is going to move us.',
       },
       {
-        heading: 'One subcontractor, closeout included',
+        heading: 'One Subcontractor, Closeout Included',
         body: 'Attic stock, the approved color schedule, product data, and a written two-year workmanship warranty are delivered as a package at turnover. Our own quality walk happens before the general contractor walkthrough, which is why the punch list handed over is short.',
       },
     ],
@@ -100,7 +100,7 @@ export const services: Service[] = [
     title: 'Residential Painting',
     shortTitle: 'Residential Painting',
     csi: 'SVC / RES',
-    kicker: 'Commercial discipline, brought home',
+    kicker: 'Commercial Discipline, Brought Home',
     summary:
       'Interior and exterior residential painting delivered with the same preparation standards, clean job sites, and written warranty we bring to commercial construction.',
     intro:
@@ -125,11 +125,11 @@ export const services: Service[] = [
     ],
     sections: [
       {
-        heading: 'The same standard as a jobsite',
+        heading: 'The Same Standard as a Jobsite',
         body: 'A home gets the same sequence a commercial project does: surfaces inspected and repaired before coating, a written scope so nothing is assumed, protection of everything adjacent, and a walk-through at the end against that scope rather than against memory.',
       },
       {
-        heading: 'Communication you can plan around',
+        heading: 'Communication You Can Plan Around',
         body: 'You get a start date, a duration, and a daily update if anything changes. Crews arrive when scheduled, and the house is left livable every evening — floors clear, furniture back, no open paint left behind.',
       },
     ],
@@ -155,7 +155,7 @@ export const services: Service[] = [
     title: 'Industrial Painting',
     shortTitle: 'Industrial Painting',
     csi: 'CSI 09 97 00',
-    kicker: 'Plants, steel & heavy-service environments',
+    kicker: 'Plants, Steel & Heavy-Service Environments',
     summary:
       'Industrial painting and coatings for manufacturing plants, distribution centers, and processing facilities — specified against the actual service conditions.',
     intro:
@@ -180,11 +180,11 @@ export const services: Service[] = [
     ],
     sections: [
       {
-        heading: 'The service environment drives the system',
+        heading: 'The Service Environment Drives the System',
         body: 'Chemical exposure, thermal cycling, washdown, and abrasion each rule out different products. We collect the actual conditions during preconstruction and confirm the assembly with the manufacturer before it is priced — a product correct for a warehouse and wrong for a wash bay looks identical on a submittal.',
       },
       {
-        heading: 'Planned to the hour',
+        heading: 'Planned to the Hour',
         body: 'Scope is broken into what can be done live, what needs a line down, and what needs an area fully cleared — priced separately so the plant can decide how much downtime the result is worth.',
       },
     ],
@@ -212,7 +212,7 @@ export const services: Service[] = [
     title: 'Interior Painting',
     shortTitle: 'Interior Painting',
     csi: 'CSI 09 91 23',
-    kicker: 'Walls · ceilings · trim · doors',
+    kicker: 'Walls · Ceilings · Trim · Doors',
     summary:
       'Interior painting for commercial and residential spaces — clean lines, uniform finishes, and work sequenced around the people using the building.',
     intro:
@@ -237,11 +237,11 @@ export const services: Service[] = [
     ],
     sections: [
       {
-        heading: 'Working around occupants',
+        heading: 'Working Around Occupants',
         body: 'Most interior work happens in buildings still in use. We zone the work, agree containment and protection before starting, and run night or weekend shifts where the space must be returned each morning — clean, clear, and usable.',
       },
       {
-        heading: 'Finish level matters more than paint',
+        heading: 'Finish Level Matters More Than Paint',
         body: 'A Level 4 wall under critical lighting will telegraph joints no matter what is applied over it. We confirm the specified drywall finish level against the lighting design during preconstruction and flag mismatches in writing before anyone is standing in a finished room disputing ownership.',
       },
     ],
@@ -267,7 +267,7 @@ export const services: Service[] = [
     title: 'Exterior Painting',
     shortTitle: 'Exterior Painting',
     csi: 'CSI 09 91 13',
-    kicker: 'Tilt-wall · stucco · masonry · siding · steel',
+    kicker: 'Tilt-Wall · Stucco · Masonry · Siding · Steel',
     summary:
       'Exterior painting over tilt-wall, stucco, EIFS, masonry, siding, and steel — bought on how long it lasts, which is decided by preparation.',
     intro:
@@ -292,11 +292,11 @@ export const services: Service[] = [
     ],
     sections: [
       {
-        heading: 'Preparation determines the warranty',
+        heading: 'Preparation Determines the Warranty',
         body: 'Chalking, mildew, efflorescence, and failed sealant all defeat an otherwise correct system. Every exterior scope starts with cleaning, moisture assessment, and a written sealant condition report — and if the substrate needs repair beyond the coating scope, we say so at bid rather than coating over it.',
       },
       {
-        heading: 'Weather is part of the schedule',
+        heading: 'Weather Is Part of the Schedule',
         body: 'Texas exterior work is governed by dew point, surface temperature, and wind. We build float in for the days that are not workable and communicate early when a weather window moves a date — rather than applying product outside its specified conditions to hold one.',
       },
     ],
@@ -321,7 +321,7 @@ export const services: Service[] = [
     title: 'Cabinet Painting & Refinishing',
     shortTitle: 'Cabinet Refinishing',
     csi: 'SVC / CAB',
-    kicker: 'Shop-quality sprayed finishes',
+    kicker: 'Shop-Quality Sprayed Finishes',
     summary:
       'Cabinet painting and refinishing with a sprayed, catalyzed finish — a factory-quality result at a fraction of replacement cost.',
     intro:
@@ -346,11 +346,11 @@ export const services: Service[] = [
     ],
     sections: [
       {
-        heading: 'Why sprayed and catalyzed',
+        heading: 'Why Sprayed and Catalyzed',
         body: 'Brushed wall paint on cabinets shows every stroke and never cures hard enough for daily handling. A sprayed catalyzed enamel levels flat and cures to a furniture-grade hardness that survives fingernails, cleaners, and grease.',
       },
       {
-        heading: 'Preparation is the whole job',
+        heading: 'Preparation Is the Whole Job',
         body: 'Kitchen cabinets carry years of cooking residue that defeats adhesion. Every surface is degreased, sanded, and primed with a bonding primer before color — skip any one of those steps and the finish fails, which is why we never do.',
       },
     ],
@@ -375,7 +375,7 @@ export const services: Service[] = [
     title: 'Custom Wood Staining',
     shortTitle: 'Wood Staining',
     csi: 'CSI 09 93 00',
-    kicker: 'Stain-grade finishing & transparent systems',
+    kicker: 'Stain-Grade Finishing & Transparent Systems',
     summary:
       'Stain-grade finishing for doors, trim, millwork, beams, and feature elements — color-matched samples first, sealed systems built for the exposure.',
     intro:
@@ -400,11 +400,11 @@ export const services: Service[] = [
     ],
     sections: [
       {
-        heading: 'Samples before production',
+        heading: 'Samples Before Production',
         body: 'The same stain reads differently on every species and every veneer lot. We produce sample boards on the actual material, adjust until approved, and lock the formula — so the five-hundredth linear foot matches the first.',
       },
       {
-        heading: 'Built for where the wood lives',
+        heading: 'Built for Where the Wood Lives',
         body: 'A restaurant tabletop, an exterior gate in Texas sun, and a residential stair rail need three different topcoat systems. We match the system to the exposure and say so on the proposal, because a beautiful finish that fails in a year is not a finish.',
       },
     ],
@@ -429,7 +429,7 @@ export const services: Service[] = [
     title: 'Decorative Finishes',
     shortTitle: 'Decorative Finishes',
     csi: 'CSI 09 94 00',
-    kicker: 'Specialty & feature-wall systems',
+    kicker: 'Specialty & Feature-Wall Systems',
     summary:
       'Specialty and decorative finish systems — textures, metallics, and feature treatments executed from approved mockups.',
     intro:
@@ -454,11 +454,11 @@ export const services: Service[] = [
     ],
     sections: [
       {
-        heading: 'The mockup is the contract',
+        heading: 'The Mockup Is the Contract',
         body: 'A decorative finish approved on a two-foot board is a defined product; one described in an email is an argument waiting to happen. We build the sample, adjust it with the designer or owner, and production matches the approved board.',
       },
       {
-        heading: 'Durability is part of the design',
+        heading: 'Durability Is Part of the Design',
         body: 'A feature wall in a restaurant entry gets touched, scuffed, and cleaned. We build decorative systems with topcoats that survive the traffic they will actually see, so the finish still looks intentional a year in.',
       },
     ],
@@ -483,7 +483,7 @@ export const services: Service[] = [
     title: 'Color Consulting',
     shortTitle: 'Color Consulting',
     csi: 'SVC / CLR',
-    kicker: 'Decide once, on the wall',
+    kicker: 'Decide Once, on the Wall',
     summary:
       'Color selection support for owners, designers, and facility teams — large drawdown samples on the actual walls, under the actual light.',
     intro:
@@ -508,11 +508,11 @@ export const services: Service[] = [
     ],
     sections: [
       {
-        heading: 'Decide on the wall, not the chip',
+        heading: 'Decide on the Wall, Not the Chip',
         body: 'Light direction, ceiling height, floor color, and adjacent surfaces all shift how a color reads. Large samples on the actual walls, viewed at different times of day, turn the decision from a guess into an observation.',
       },
       {
-        heading: 'The schedule outlives the project',
+        heading: 'The Schedule Outlives the Project',
         body: 'The deliverable is a documented color schedule — every surface, product, color, and sheen — so touch-ups and future phases match without archaeology.',
       },
     ],
@@ -540,7 +540,7 @@ export const services: Service[] = [
     title: 'Epoxy Floor Coatings',
     shortTitle: 'Epoxy Floors',
     csi: 'CSI 09 67 00',
-    kicker: 'Resinous flooring over tested slabs',
+    kicker: 'Resinous Flooring Over Tested Slabs',
     summary:
       'Epoxy and resinous floor systems for kitchens, plants, warehouses, and showrooms — over profiled, moisture-tested concrete.',
     intro:
@@ -565,11 +565,11 @@ export const services: Service[] = [
     ],
     sections: [
       {
-        heading: 'The slab decides everything',
+        heading: 'The Slab Decides Everything',
         body: 'Profile, moisture, and contamination determine whether a resinous system bonds or delaminates. We mechanically profile to the specified CSP, test moisture and pH, and share the results — including when they say the slab needs mitigation before any floor should go down.',
       },
       {
-        heading: 'Downtime, planned honestly',
+        heading: 'Downtime, Planned Honestly',
         body: 'Cure windows are chemistry, not negotiation. We break installation into phases the operation can live with, state the return-to-service time for each, and hold to it — rather than promising a cure time the product cannot deliver.',
       },
     ],
@@ -595,7 +595,7 @@ export const services: Service[] = [
     title: 'Protective Coatings',
     shortTitle: 'Protective Coatings',
     csi: 'CSI 09 96 00',
-    kicker: 'High-performance systems for hard service',
+    kicker: 'High-Performance Systems for Hard Service',
     summary:
       'High-performance protective coatings for steel, concrete, and equipment — selected against chemical exposure, washdown, abrasion, and weather.',
     intro:
@@ -620,11 +620,11 @@ export const services: Service[] = [
     ],
     sections: [
       {
-        heading: 'Specified against conditions',
+        heading: 'Specified Against Conditions',
         body: 'We collect the actual exposure during preconstruction and confirm the system with the manufacturer before it is priced. Where testing on existing coatings or substrates is warranted, we carry it in the bid and share the results.',
       },
       {
-        heading: 'Preparation is not optional here',
+        heading: 'Preparation Is Not Optional Here',
         body: 'High-performance systems are less forgiving than architectural paint. Profile, cleanliness, and moisture are verified before application to the standard agreed in writing at bid — because most failures in this category trace to preparation, not product.',
       },
     ],
@@ -649,7 +649,7 @@ export const services: Service[] = [
     title: 'Line Striping',
     shortTitle: 'Line Striping',
     csi: 'CSI 32 17 23',
-    kicker: 'Parking lots · warehouses · safety marking',
+    kicker: 'Parking Lots · Warehouses · Safety Marking',
     summary:
       'Parking lot striping, warehouse floor marking, and safety line work — laid out square, sprayed sharp, and compliant.',
     intro:
@@ -674,11 +674,11 @@ export const services: Service[] = [
     ],
     sections: [
       {
-        heading: 'Layout before paint',
+        heading: 'Layout Before Paint',
         body: 'A striping job is won or lost before the rig starts: stall counts, ADA positions, fire lanes, and flow are measured and snapped first. Restripes are trued up rather than blindly traced, because copying a crooked layout preserves the crooked layout.',
       },
       {
-        heading: 'Scheduled around the operation',
+        heading: 'Scheduled Around the Operation',
         body: 'Lots and warehouses cannot close for striping. Work is phased by section, run at night or on weekends where needed, and returned to service on a stated cure time.',
       },
     ],
@@ -705,7 +705,7 @@ export const services: Service[] = [
     title: 'Drywall Repair',
     shortTitle: 'Drywall Repair',
     csi: 'CSI 09 21 16',
-    kicker: 'Patches that disappear',
+    kicker: 'Patches That Disappear',
     summary:
       'Drywall repair, texture matching, and finish-level correction — the difference between a patch you can find and one you cannot.',
     intro:
@@ -730,11 +730,11 @@ export const services: Service[] = [
     ],
     sections: [
       {
-        heading: 'The patch you cannot find',
+        heading: 'The Patch You Cannot Find',
         body: 'A repair that reads through paint was feathered too tight or textured wrong. We blend repairs wide, match texture by technique rather than by product, and check the result under raking light before any paint goes on.',
       },
       {
-        heading: 'One trade, no gap',
+        heading: 'One Trade, No Gap',
         body: 'Carrying drywall repair inside the painting scope removes the most common finger-pointing gap on a repaint — the wall is our responsibility from substrate to final coat.',
       },
     ],
@@ -759,7 +759,7 @@ export const services: Service[] = [
     title: 'Pressure Washing',
     shortTitle: 'Pressure Washing',
     csi: 'SVC / PW',
-    kicker: 'Cleaning matched to the substrate',
+    kicker: 'Cleaning Matched to the Substrate',
     summary:
       'Commercial pressure washing for buildings, concrete, and site elements — pressure and chemistry matched to the surface, not maxed out.',
     intro:
@@ -784,11 +784,11 @@ export const services: Service[] = [
     ],
     sections: [
       {
-        heading: 'Pressure is a tool, not a setting',
+        heading: 'Pressure Is a Tool, Not a Setting',
         body: 'EIFS, wood, and aged masonry are destroyed by the pressure that concrete shrugs off. We match pressure, tip, distance, and chemistry to each surface — soft washing where the substrate requires it — because the goal is a clean surface, not a scarred one.',
       },
       {
-        heading: 'As preparation or as maintenance',
+        heading: 'As Preparation or as Maintenance',
         body: 'Washing is built into every exterior coating scope, and it stands alone as scheduled maintenance for storefronts, drive-throughs, and common areas that are judged on how clean they look.',
       },
     ],
@@ -813,7 +813,7 @@ export const services: Service[] = [
     title: 'Caulking & Sealants',
     shortTitle: 'Caulking & Sealants',
     csi: 'CSI 07 92 00',
-    kicker: 'The joints that keep water out',
+    kicker: 'The Joints That Keep Water Out',
     summary:
       'Joint sealant replacement and installation — the scope that decides whether an exterior coating lasts and a building stays dry.',
     intro:
@@ -838,11 +838,11 @@ export const services: Service[] = [
     ],
     sections: [
       {
-        heading: 'Joint geometry is the specification',
+        heading: 'Joint Geometry Is the Specification',
         body: 'A sealant bead without backer rod, bonded on three sides, tears itself apart with the first thermal cycle regardless of product quality. Joints are cut out, sized, and tooled to the geometry the sealant is designed for — which is the difference between a five-year joint and a twenty-year joint.',
       },
       {
-        heading: 'Surveyed before every exterior coat',
+        heading: 'Surveyed Before Every Exterior Coat',
         body: 'Coating over failed sealant guarantees water behind a new finish. Every exterior scope includes a written joint condition survey so replacement is a deliberate decision, made before the coating rather than after the leak.',
       },
     ],
@@ -868,7 +868,7 @@ export const services: Service[] = [
     title: 'Maintenance Painting',
     shortTitle: 'Maintenance Painting',
     csi: 'SVC / MNT',
-    kicker: 'Repaints & occupied-building programs',
+    kicker: 'Repaints & Occupied-Building Programs',
     summary:
       'Repaint and maintenance programs for occupied buildings — phased, off-hours, and returned to service every morning.',
     intro:
@@ -893,11 +893,11 @@ export const services: Service[] = [
     ],
     sections: [
       {
-        heading: 'Zoning is the whole plan',
+        heading: 'Zoning Is the Whole Plan',
         body: 'Before anything is opened, the building is divided into zones with a defined start, finish, and return-to-service time the facility can plan around — which is what lets a hotel keep keys sellable, a school keep summer programs running, and an office keep tenants undisturbed.',
       },
       {
-        heading: 'The standard facility managers remember',
+        heading: 'The Standard Facility Managers Remember',
         body: 'The space should look untouched apart from the finish: floors protected, furniture returned, corridors clear, no tape residue or overspray. It is the single thing facility managers remember about a contractor, and it is why maintenance work becomes repeat work.',
       },
     ],

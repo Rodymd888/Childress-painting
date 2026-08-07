@@ -26,7 +26,7 @@ export default function ProjectsPage() {
     <>
       <PageHero
         label="Portfolio"
-        title="Work, organised the way you look for it."
+        title="Work, Organised the Way You Look for It."
         intro="By market sector — because a general contractor bidding a surgery center wants to see healthcare experience, not a photo gallery."
         crumbs={[
           { name: 'Home', href: '/' },
@@ -52,7 +52,7 @@ export default function ProjectsPage() {
           <SectionHeading
             label="Filter by sector"
             layout="split"
-            title="Commercial project experience."
+            title="Commercial Project Experience."
             intro={
               <p>
                 Each entry names the sector and the scope categories performed. Detailed case
@@ -72,9 +72,7 @@ export default function ProjectsPage() {
         <div className="container-site">
           <Reveal className="mx-auto max-w-3xl">
             <span className="title-block text-ink/55">A note on this portfolio</span>
-            <h2 className="mt-6 text-h3 text-ink">
-              We publish what we can substantiate.
-            </h2>
+            <h2 className="mt-6 text-h3 text-ink">We Publish What We Can Substantiate.</h2>
             <div className="prose-site mt-5">
               <p>
                 The entries above represent commercial project experience of the Childress

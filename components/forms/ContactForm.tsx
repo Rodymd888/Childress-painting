@@ -18,7 +18,7 @@ export function ContactForm() {
       successBody="We read every message that comes through here and route it to the right person. If your question is about an active bid or a job in progress, call the office — it will be faster."
       onReset={() => window.location.reload()}
     >
-      <FieldGroup step="01" title="Your details">
+      <FieldGroup step="01" title="Your Details">
         <TextField name="name" label="Name" required autoComplete="name" error={err.name} />
         <TextField
           name="company"
@@ -37,7 +37,7 @@ export function ContactForm() {
         <TextField name="phone" label="Phone" type="tel" autoComplete="tel" error={err.phone} />
       </FieldGroup>
 
-      <FieldGroup step="02" title="How can we help?">
+      <FieldGroup step="02" title="How Can We Help?">
         <TextField
           name="subject"
           label="Subject"
@@ -56,7 +56,7 @@ export function ContactForm() {
         />
         <RadioGroupField
           name="contactMethod"
-          label="Preferred contact method"
+          label="Preferred Contact Method"
           options={CONTACT_METHODS}
           className="sm:col-span-2"
           error={err.contactMethod}

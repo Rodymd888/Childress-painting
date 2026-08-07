@@ -25,7 +25,7 @@ export default function AboutPage() {
     <>
       <PageHero
         label="About Childress"
-        title="Four decades of professional painting."
+        title="Four Decades of Professional Painting."
         intro="Since 1984, one operating premise: make the superintendent's job easier. Show up when the schedule says we will, communicate problems before they become delays, and leave the site cleaner than a paint crew is expected to."
         crumbs={[
           { name: 'Home', href: '/' },
@@ -48,9 +48,9 @@ export default function AboutPage() {
             <Reveal>
               <span className="title-block text-ink/60">The company</span>
               <h2 className="mt-6 text-h2 text-ink">
-                A dependable subcontractor,
+                A Dependable Subcontractor,
                 <br />
-                <span className="text-red">by design.</span>
+                <span className="text-red">by Design.</span>
               </h2>
 
               <div className="prose-site mt-8">
@@ -125,11 +125,11 @@ export default function AboutPage() {
             light
             label="Company timeline"
             layout="split"
-            title="How the record was built."
+            title="How the Record Was Built."
             intro={
               <p>
                 Not a marketing history — the actual arc of the work, from a family trade to a
-                twelve-sector commercial contractor.
+                multi-sector painting contractor.
               </p>
             }
           />
@@ -163,7 +163,7 @@ export default function AboutPage() {
           <SectionHeading
             label="Leadership"
             layout="split"
-            title="Who you will actually deal with."
+            title="Who You Will Actually Deal With."
             intro={
               <p>
                 A small leadership team means the person who prices your job is reachable
@@ -202,7 +202,7 @@ export default function AboutPage() {
           <SectionHeading
             label="How we operate"
             layout="split"
-            title="Four things we will not trade away."
+            title="Four Things We Will Not Trade Away."
             intro={
               <p>
                 These are the positions that occasionally cost us a job. We hold them anyway,
@@ -231,7 +231,7 @@ export default function AboutPage() {
         <div className="container-site">
           <SectionHeading
             label="Capability snapshot"
-            title="The short version, for a prequal form."
+            title="The Short Version, for a Prequal Form."
           />
 
           <RevealGroup

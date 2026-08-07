@@ -44,7 +44,7 @@ export default function WhyChildressPage() {
     <>
       <PageHero
         label="Why Childress"
-        title="What a general contractor is actually buying."
+        title="What a General Contractor Is Actually Buying."
         intro="Not paint. A subcontractor who shows up, raises problems early, coordinates with the trades around them, and hands over a short punch list. Price is how bids are compared; this is how they are remembered."
         crumbs={[
           { name: 'Home', href: '/' },
@@ -71,7 +71,7 @@ export default function WhyChildressPage() {
           <SectionHeading
             label="Credentials"
             layout="split"
-            title="Verifiable, not aspirational."
+            title="Verifiable, Not Aspirational."
             intro={
               <p>
                 Every figure below appears on our capability statement and survives a
@@ -114,7 +114,7 @@ export default function WhyChildressPage() {
             light
             label="Why general contractors choose Childress"
             layout="split"
-            title="Eight things superintendents tell us matter."
+            title="Eight Things Superintendents Tell Us Matter."
             intro={
               <p>
                 Collected from four decades of debriefs. None of them are about the coating —
@@ -156,7 +156,7 @@ export default function WhyChildressPage() {
           <SectionHeading
             label="How we operate"
             layout="split"
-            title="Positions we hold even when they cost us."
+            title="Positions We Hold Even When They Cost Us."
             intro={
               <p>
                 Occasionally these lose us a job on price. We hold them because the alternative
@@ -185,7 +185,7 @@ export default function WhyChildressPage() {
         <div className="container-site">
           <Reveal className="mx-auto max-w-3xl text-center">
             <ShieldCheck aria-hidden="true" className="mx-auto size-9 text-red" />
-            <h2 className="mt-7 text-h2 text-ink">A written two-year warranty.</h2>
+            <h2 className="mt-7 text-h2 text-ink">A Written Two-Year Warranty.</h2>
             <p className="mt-6 text-lead leading-relaxed text-body">
               Our workmanship warranty runs for two years from substantial completion, in
               addition to whatever the coating manufacturer provides on the material. It is

@@ -75,9 +75,9 @@ export default function HomePage() {
             <Reveal>
               <span className="title-block text-ink/60">Who we are</span>
               <h2 className="mt-6 text-h2 text-ink">
-                A dependable subcontractor,
+                A Dependable Subcontractor,
                 <br />
-                <span className="text-red">by design.</span>
+                <span className="text-red">by Design.</span>
               </h2>
 
               <div className="mt-10 border-l-2 border-red pl-6">
@@ -136,8 +136,8 @@ export default function HomePage() {
             layout="split"
             title={
               <>
-                Sixteen services.
-                <br className="hidden sm:block" /> One contractor.
+                Sixteen Services.
+                <br className="hidden sm:block" /> One Contractor.
               </>
             }
             intro={
@@ -166,7 +166,7 @@ export default function HomePage() {
           <SectionHeading
             label="Markets we serve"
             layout="split"
-            title="Twelve sectors, each with its own constraint."
+            title="{industries.length} Sectors, Each With Its Own Constraint."
             intro={
               <p>
                 The coating rarely changes. What changes is what governs the schedule —
@@ -191,7 +191,7 @@ export default function HomePage() {
 
           <Reveal className="mt-10">
             <ButtonLink href="/industries" variant="dark" withArrow>
-              View all twelve sectors
+              View all {industries.length} sectors
             </ButtonLink>
           </Reveal>
         </div>
@@ -205,7 +205,7 @@ export default function HomePage() {
             label="Our process"
             light
             layout="split"
-            title="Eight steps from drawings to closeout."
+            title="Eight Steps From Drawings to Closeout."
             intro={
               <p>
                 Every project runs the same sequence, and every step has something you receive
@@ -232,7 +232,7 @@ export default function HomePage() {
           <SectionHeading
             label="Why general contractors choose Childress"
             layout="split"
-            title="What you are actually buying."
+            title="What You Are Actually Buying."
             intro={
               <p>
                 A paint subcontractor is not bought on price alone. It is bought on whether the
@@ -277,7 +277,7 @@ export default function HomePage() {
           <SectionHeading
             label="Selected experience"
             layout="split"
-            title="Work across twelve market sectors."
+            title="Work Across {industries.length} Market Sectors."
             intro={
               <p>
                 National retail and restaurant rollouts, district-wide school programs,
@@ -368,7 +368,7 @@ export default function HomePage() {
           <SectionHeading
             label="Capability snapshot"
             layout="split"
-            title="The facts a prequalification form asks for."
+            title="The Facts a Prequalification Form Asks For."
             intro={
               <p>
                 Everything below is verifiable. Send us your prequalification packet and we

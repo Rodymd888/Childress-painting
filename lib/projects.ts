@@ -37,6 +37,9 @@
  * ===========================================================================
  */
 
+import { projectMedia, discoveredProjects } from './project-media.generated';
+import { projectOverrides } from './project-overrides';
+
 export type ProjectImage = {
   /** Public path, e.g. '/images/projects/my-project/01.jpg' */
   src: string;
@@ -86,7 +89,7 @@ export type Project = {
   featured?: boolean;
 };
 
-export const projects: Project[] = [
+const baseProjects: Project[] = [
   /* ---------------------------------------------------------------- RETAIL */
   {
     slug: 'cvs-pharmacy-program',
@@ -499,6 +502,45 @@ export const projects: Project[] = [
 ];
 
 /* ------------------------------------------------------------------ helpers */
+
+/**
+ * MERGE: hand-authored records + ingested photography + discovered folders.
+ * ---------------------------------------------------------------------------
+ * `baseProjects` above is the curated record and stays the source of truth for
+ * anything factual. The generated module supplies only photography plus any
+ * project folders that matched nothing here.
+ *
+ * Everything downstream — the index, sector filters, industry pages, related
+ * rails, counts, and the sitemap — reads `projects`, so ingesting photos or
+ * discovering a new folder updates every surface at once.
+ */
+const photographed: Project[] = baseProjects.map((p) => {
+  const media = projectMedia[p.slug];
+  const withMedia = media ? { ...p, featuredImage: media.hero, gallery: media.gallery } : p;
+  return { ...withMedia, ...projectOverrides[p.slug] };
+});
+
+/** Folders with no match become projects, with no invented detail. */
+const fromFolders: Project[] = discoveredProjects
+  .filter((d) => !photographed.some((p) => p.slug === d.slug))
+  .map((d) => {
+    const media = projectMedia[d.slug];
+    return {
+      slug: d.slug,
+      name: d.name,
+      industry: d.industry,
+      serviceTypes: [],
+      scopeSummary: 'Project details and scope information will be added soon.',
+      detail: 'experience' as const,
+      location: d.location,
+      art: d.art,
+      ...(media ? { featuredImage: media.hero, gallery: media.gallery } : {}),
+      // The curated layer always wins over anything inferred from a folder name.
+      ...projectOverrides[d.slug],
+    };
+  });
+
+export const projects: Project[] = [...photographed, ...fromFolders];
 
 export const getProject = (slug: string) => projects.find((p) => p.slug === slug);
 export const projectSlugs = projects.map((p) => p.slug);

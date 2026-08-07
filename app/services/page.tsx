@@ -26,7 +26,7 @@ export default function ServicesPage() {
     <>
       <PageHero
         label="Commercial capabilities"
-        title="Seven scopes. One subcontractor."
+        title="Sixteen Services. One Contractor."
         intro="Commercial, residential, and industrial painting — and every trade that supports them — priced, submitted, staffed, inspected, and closed out by the same team."
         crumbs={[
           { name: 'Home', href: '/' },
@@ -52,7 +52,7 @@ export default function ServicesPage() {
           <SectionHeading
             label="What we bid"
             layout="split"
-            title={`${services.length} services, defined before award.`}
+            title={`${services.length} Services, Defined Before Award.`}
             intro={
               <p>
                 Every proposal states what is included, what is assumed, and what is excluded.
@@ -99,7 +99,7 @@ export default function ServicesPage() {
           <SectionHeading
             label="Our process"
             layout="split"
-            title="The same eight steps on every project."
+            title="The Same Eight Steps on Every Project."
             intro={
               <p>
                 From takeoff to closeout documentation. Select a step to see what it covers and
@@ -119,7 +119,7 @@ export default function ServicesPage() {
         <div className="container-site">
           <SectionHeading
             label="Capability snapshot"
-            title="The facts a prequalification form asks for."
+            title="The Facts a Prequalification Form Asks For."
           />
 
           <RevealGroup

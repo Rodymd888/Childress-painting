@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation';
  * LEGACY ROUTE — /markets
  * ===========================================================================
  * The /markets section was replaced by /industries in the v3 redesign, which
- * expanded eight markets into twelve sectors.
+ * expanded eight markets into the current sector list.
  *
  * WHY THIS FILE STILL EXISTS
  * next.config.ts issues a 301 for /markets before routing reaches this file,

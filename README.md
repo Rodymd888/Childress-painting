@@ -46,6 +46,7 @@ lib/
 ├── projects.ts    Project portfolio (drives /projects and /projects/[slug])
 ├── content.ts     Process steps, differentiators, values, timeline, safety, QC
 ├── testimonials.ts Client reviews (names supplied by the company)
+├── project-media.generated.ts  GENERATED photos + folder-discovered projects
 ├── schema.ts      JSON-LD builders
 ├── seo.ts         Metadata helper
 ├── validation.ts  Server-side form schemas
@@ -98,10 +99,16 @@ confirmed by the company.
 
 ### Add project photography
 
-See **`public/images/README.md`**. Short version: every image slot renders
-through `components/ui/MediaFrame.tsx`, which prefers a photograph and falls
-back to drawn artwork. Populating an image field is all that is needed — no
-layout changes anywhere.
+**See `PROJECT-PHOTOS.md`.** Short version: drop a `Projects/` folder in the
+repo root with one folder per project, named
+`Torchy's Tacos - Fort Worth, TX`, and push. Photos are converted to WebP,
+compressed, matched to existing projects (tolerantly — case, punctuation,
+apostrophes and city/state suffixes are all ignored), and published. Folders
+that match nothing become new projects automatically, with neutral placeholder
+wording rather than invented scope.
+
+Ingestion runs on every build via the `prebuild` script, so there is no command
+to remember.
 
 ### Replace the homepage drone video
 
@@ -214,6 +221,7 @@ Before launch:
 - [ ] **Wire form delivery in `lib/submissions.ts`** — it currently only logs.
       Until this is done, bid requests are not delivered anywhere.
 - [ ] Confirm `NEXT_PUBLIC_SITE_URL` matches the live domain
+- [ ] Drop in `Projects/` photo folders (see `PROJECT-PHOTOS.md`)
 - [ ] Name the actual processors in `app/privacy/page.tsx`
 - [x] ~~Hero drone video~~ — encoded and shipped in `public/video/`
 

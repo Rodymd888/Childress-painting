@@ -19,9 +19,7 @@ export function StatsBand() {
 
       <div className="container-site relative">
         <Reveal>
-          <h2 id="stats" className="sr-only">
-            Company at a glance
-          </h2>
+          <h2 id="stats" className="sr-only">Company at a Glance</h2>
           <span className="title-block text-white/55">At a glance</span>
         </Reveal>
 

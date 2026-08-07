@@ -159,7 +159,7 @@ export default async function IndustryPage({ params }: Params) {
               light
               label="Representative clients"
               layout="split"
-              title={`${industry.title} experience.`}
+              title={`${industry.title} Experience.`}
               intro={<p>{clients.blurb}</p>}
             />
 
@@ -202,7 +202,7 @@ export default async function IndustryPage({ params }: Params) {
             <SectionHeading
               label="Portfolio"
               layout="split"
-              title={`${industry.title} projects.`}
+              title={`${industry.title} Projects.`}
               intro={
                 <p>
                   {sectorProjects.length}{' '}
@@ -227,7 +227,7 @@ export default async function IndustryPage({ params }: Params) {
         <div className="container-site">
           <SectionHeading
             label="Services applied here"
-            title={`What we typically bid in ${industry.shortTitle.toLowerCase()}.`}
+            title={`What We Typically Bid in ${industry.shortTitle}.`}
             as="h2"
           />
 
@@ -261,7 +261,7 @@ export default async function IndustryPage({ params }: Params) {
       {/* ========================================================= OTHER SECTORS */}
       <section className="section-sm bg-mist">
         <div className="container-site">
-          <SectionHeading label="Other sectors" title="Also served." as="h2" />
+          <SectionHeading label="Other sectors" title="Also Served." as="h2" />
 
           <RevealGroup className="mt-10 flex flex-wrap gap-3" stagger={0.04}>
             {others.map((other) => (
@@ -284,7 +284,7 @@ export default async function IndustryPage({ params }: Params) {
 
       <CtaBanner
         label="Bid invitations"
-        title={`Bidding ${industry.shortTitle.toLowerCase()} work?`}
+        title={`Bidding ${industry.shortTitle} Work?`}
       />
 
       <JsonLd data={breadcrumbSchema(crumbs)} />

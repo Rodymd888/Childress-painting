@@ -73,7 +73,7 @@ export default function SubcontractorsPage() {
     <>
       <PageHero
         label="Trade partners"
-        title="Work with Childress."
+        title="Work With Childress."
         intro="We prequalify painting subcontractors, coatings applicators, and related trades who can hold a schedule, keep their paperwork current, and leave a site clean."
         crumbs={crumbs}
         meta={[
@@ -89,7 +89,7 @@ export default function SubcontractorsPage() {
           <SectionHeading
             layout="split"
             label="What we expect"
-            title="Four things, and they are not negotiable."
+            title="Four Things, and They Are Not Negotiable."
             intro={
               <p>
                 We would rather set this out plainly now than discover a mismatch on the first
@@ -125,9 +125,7 @@ export default function SubcontractorsPage() {
             <div>
               <Reveal>
                 <span className="title-block text-ink/60">Prequalification</span>
-                <h2 className="mt-5 text-[clamp(1.75rem,3.6vw,2.75rem)] text-ink">
-                  Submit your company.
-                </h2>
+                <h2 className="mt-5 text-[clamp(1.75rem,3.6vw,2.75rem)] text-ink">Submit Your Company.</h2>
                 <p className="mt-5 max-w-2xl text-[1.0625rem] leading-relaxed text-body">
                   Fill this in once. We keep it on file and come back to you when the work matches
                   what you do.
@@ -140,9 +138,7 @@ export default function SubcontractorsPage() {
             </div>
 
             <Reveal delay={0.08} className="lg:sticky lg:top-32 lg:self-start">
-              <h2 className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-ink/60">
-                Questions
-              </h2>
+              <h2 className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-ink/60">Questions</h2>
 
               <dl className="mt-7 border-t border-line">
                 {faqs.map((faq) => (

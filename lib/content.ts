@@ -123,22 +123,22 @@ export const credentials = [
 export const timeline = [
   {
     year: '1984',
-    title: 'The trade begins',
+    title: 'The Trade Begins',
     body: 'Childress Painting starts commercial work with a simple operating premise: make the superintendent\'s job easier. Show up on schedule, communicate problems before they become delays, and leave the site cleaner than a paint crew is expected to.',
   },
   {
     year: '1990s–2000s',
-    title: 'National retail and restaurant work',
+    title: 'National Retail and Restaurant Work',
     body: 'The company builds a base in national chain retail and restaurant construction — prototype-standard finishes, hard opening dates, and multi-site rollouts where the same result has to be repeated store after store.',
   },
   {
     year: '2010s',
-    title: 'Institutional and district programs',
+    title: 'Institutional and District Programs',
     body: 'District-level school painting programs, healthcare facilities, municipal buildings, and stadium work broaden the portfolio into sectors where documentation, phasing, and inspection matter as much as the finish.',
   },
   {
     year: 'Today',
-    title: 'Dallas–Fort Worth and beyond',
+    title: 'Dallas–Fort Worth and Beyond',
     body: 'Operating from Dallas as Childress Painting DFW LLC, serving Texas as the primary market with continued Kansas and Missouri coverage — commercial construction at the core, with residential and industrial painting delivered to the same standard.',
   },
 ] as const;
@@ -146,19 +146,19 @@ export const timeline = [
 /** Company values. */
 export const values = [
   {
-    title: 'Construction discipline first',
+    title: 'Construction Discipline First',
     body: 'Commercial construction is where our habits were formed — prevailing wage, multi-trade sequencing, and what a superintendent actually needs from a subcontractor. Every project we touch, commercial or residential, inherits that discipline.',
   },
   {
-    title: 'Say it early',
+    title: 'Say It Early',
     body: 'A problem raised in week two is a scheduling conversation. The same problem raised at the punch walk is a delay claim. We would rather deliver bad news early than manage a surprise late.',
   },
   {
-    title: 'Preparation over product',
+    title: 'Preparation Over Product',
     body: 'Most coating failures are preparation failures. We price preparation as its own line so it stays visible, and we say when a substrate is not ready rather than coating over it.',
   },
   {
-    title: 'Inspect our own work first',
+    title: 'Inspect Our Own Work First',
     body: 'The quality-control walk happens before the general contractor\'s, not after. That is the difference between a short punch list and a long one.',
   },
 ] as const;
@@ -178,27 +178,27 @@ export const capabilitySnapshot = [
 /** Safety practices. Deliberately describes conduct, not unverified metrics. */
 export const safetyCommitments = [
   {
-    title: 'OSHA-compliant crews',
+    title: 'OSHA-Compliant Crews',
     body: 'Crews work to OSHA standards for the task and the environment — fall protection, respiratory protection, ladder and lift operation, and hazard communication. Training records are available on request for prequalification.',
   },
   {
-    title: 'Site-specific planning',
+    title: 'Site-Specific Planning',
     body: 'Before mobilization we review the general contractor\'s site safety plan and identify what our scope adds to it: lift operation, solvent storage, spray containment, and confined or elevated work.',
   },
   {
-    title: 'Access and fall protection',
+    title: 'Access and Fall Protection',
     body: 'Lift type, tie-off points, ground conditions, and pedestrian protection are planned at bid rather than improvised on site. Most exterior schedule surprises trace back to access that was never properly planned.',
   },
   {
-    title: 'Material handling and storage',
+    title: 'Material Handling and Storage',
     body: 'Coatings, solvents, and rags are stored and disposed of per the safety data sheet and local requirements. SDS documentation is kept on site and provided with submittals.',
   },
   {
-    title: 'Containment and air quality',
+    title: 'Containment and Air Quality',
     body: 'Where work happens near occupants, containment and ventilation are agreed with the facility before the first day. Low-VOC systems are specified in preconstruction, not substituted after a complaint.',
   },
   {
-    title: 'Housekeeping as a safety control',
+    title: 'Housekeeping as a Safety Control',
     body: 'Clear corridors, protected floors, and staged material are safety measures before they are a courtesy. A clean paint area is a jobsite with fewer trip hazards for every other trade.',
   },
 ] as const;
@@ -206,27 +206,27 @@ export const safetyCommitments = [
 /** Quality control practices. */
 export const qualityPractices = [
   {
-    title: 'Mockups before production',
+    title: 'Mockups Before Production',
     body: 'A control sample is approved before production begins, so the standard being applied is one everybody has already seen and signed off on.',
   },
   {
-    title: 'Substrate acceptance',
+    title: 'Substrate Acceptance',
     body: 'We inspect and accept the substrate before coating. Where a surface is not ready — moisture, contamination, an unfinished drywall level — we raise it in writing rather than coating over it.',
   },
   {
-    title: 'In-process checks',
+    title: 'In-Process Checks',
     body: 'Coverage, film build, sheen uniformity, and cut lines are checked during production, area by area, rather than discovered at the end.',
   },
   {
-    title: 'Our walk before yours',
+    title: 'Our Walk Before Yours',
     body: 'We run our own quality-control inspection ahead of the general contractor\'s walkthrough, and correct what we find first. This is the single largest reason our punch lists are short.',
   },
   {
-    title: 'Progressive punch',
+    title: 'Progressive Punch',
     body: 'Areas are punched as they are released rather than all at the end, so the final list is a formality instead of a fire drill.',
   },
   {
-    title: 'Documented closeout',
+    title: 'Documented Closeout',
     body: 'Attic stock, approved color schedule, product data, and the written two-year workmanship warranty are delivered as a package at turnover.',
   },
 ] as const;

@@ -23,7 +23,7 @@ export default function ProcessPage() {
     <>
       <PageHero
         label="Our process"
-        title="Eight steps. Every project. No exceptions."
+        title="Eight Steps. Every Project. No Exceptions."
         intro="A process is only worth publishing if it is the one actually followed. This is ours — and every step has something concrete you receive at the end of it."
         crumbs={[
           { name: 'Home', href: '/' },
@@ -47,7 +47,7 @@ export default function ProcessPage() {
           <SectionHeading
             label="Interactive"
             layout="split"
-            title="Select a step."
+            title="Select a Step."
             intro={
               <p>
                 Use the rail below, or arrow keys once a step has focus. Each panel covers what
@@ -70,7 +70,7 @@ export default function ProcessPage() {
             light
             label="The full sequence"
             layout="split"
-            title="Everything, in order."
+            title="Everything, in Order."
             intro={
               <p>
                 The same eight steps whether it is a 3,000 SF restaurant finish-out or a
@@ -113,7 +113,7 @@ export default function ProcessPage() {
 
       <CtaBanner
         label="Step one"
-        title="Send us the drawings."
+        title="Send Us the Drawings."
         body="Preconstruction starts the moment we have the plans and the specification sections. Bid or no-bid, you get an answer — with assumptions and exclusions in writing."
       />
 

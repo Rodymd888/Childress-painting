@@ -25,7 +25,7 @@ export default function PrivacyPage() {
     <>
       <PageHero
         label="Legal"
-        title="Privacy notice"
+        title="Privacy Notice"
         intro="What this website collects, why, and what happens to it."
         crumbs={crumbs}
       />
@@ -36,7 +36,7 @@ export default function PrivacyPage() {
             <div className="flex flex-col gap-4 border-l-4 border-red bg-mist p-6 sm:flex-row sm:items-start sm:gap-5">
               <AlertTriangle aria-hidden="true" className="size-5 shrink-0 text-red" />
               <div>
-                <h2 className="text-lg text-ink">Draft — requires legal review</h2>
+                <h2 className="text-lg text-ink">Draft — Requires Legal Review</h2>
                 <p className="mt-2 max-w-3xl text-[0.9375rem] leading-relaxed text-body">
                   This notice is a starting point written to match how the website currently
                   works. It has not been reviewed by an attorney and does not yet reflect the
@@ -55,7 +55,7 @@ export default function PrivacyPage() {
               publication.
             </p>
 
-            <h2>What we collect</h2>
+            <h2>What We Collect</h2>
             <p>
               We collect the information you type into the forms on this site — the bid request
               form, the contact form, the subcontractor prequalification form, and the careers
@@ -68,7 +68,7 @@ export default function PrivacyPage() {
               limiting and reduce automated spam.
             </p>
 
-            <h2>Why we collect it</h2>
+            <h2>Why We Collect It</h2>
             <p>
               To respond to you. Bid invitations go to estimating so we can confirm receipt and
               provide a bid or no-bid answer. Contact messages are routed to whoever can answer
@@ -80,7 +80,7 @@ export default function PrivacyPage() {
               We do not sell your information, and we do not use it for unrelated marketing.
             </p>
 
-            <h2>File uploads and links</h2>
+            <h2>File Uploads and Links</h2>
             <p>
               This site does not accept direct file uploads. Where a form asks for plans, a W-9,
               a certificate of insurance, or a resume, it collects a link you provide to a
@@ -88,7 +88,7 @@ export default function PrivacyPage() {
               controls of the service hosting it — check those settings before sharing a link.
             </p>
 
-            <h2>Who sees it</h2>
+            <h2>Who Sees It</h2>
             <p>
               Submissions are received by Childress Painting personnel. Where a third-party
               service is used to deliver, store, or manage submissions — for example an email
@@ -103,7 +103,7 @@ export default function PrivacyPage() {
               </em>
             </p>
 
-            <h2>How long we keep it</h2>
+            <h2>How Long We Keep It</h2>
             <p>
               Bid and project correspondence is retained as part of normal business records.
               Subcontractor and career submissions are retained so we can reach out when relevant
@@ -111,7 +111,7 @@ export default function PrivacyPage() {
               details below.
             </p>
 
-            <h2>Cookies and analytics</h2>
+            <h2>Cookies and Analytics</h2>
             <p>
               {/* REPLACE — update once analytics or marketing tags are added. */}
               As currently built, this site does not set advertising or tracking cookies and does
@@ -121,7 +121,7 @@ export default function PrivacyPage() {
               updated and a cookie consent mechanism may be required.
             </p>
 
-            <h2>Your choices</h2>
+            <h2>Your Choices</h2>
             <p>
               You can ask us what information we hold about you, ask us to correct it, or ask us
               to delete it. Depending on where you live, you may have additional rights under
