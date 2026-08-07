@@ -25,7 +25,7 @@ export default function SafetyQualityPage() {
       <PageHero
         label="Safety & Quality"
         title="Two Things That Are Never a Line Item to Cut."
-        intro="Safety is how a crew goes home. Quality control is why our punch lists are short. Both are planned before mobilization rather than managed after a problem."
+        intro="Safety is how a crew goes home. Quality control is why our punch lists are short. Both are planned before mobilization not managed after a problem."
         crumbs={[
           { name: 'Home', href: '/' },
           { name: 'Safety & Quality', href: '/safety-quality' },

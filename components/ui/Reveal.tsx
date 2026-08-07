@@ -30,7 +30,7 @@ import {
  * state immediately, so content is never hidden from anyone.
  */
 
-/* One observer for the whole document rather than one per element. */
+/* One observer for the whole document and not one per element. */
 let observer: IntersectionObserver | null = null;
 const registry = new WeakMap<Element, () => void>();
 
@@ -169,7 +169,7 @@ export function RevealGroup({
 
 /**
  * A child of RevealGroup. Reads the delay the group assigned to it, so a grid
- * animates as one coordinated block rather than a scatter of separate fades.
+ * animates as one coordinated block instead of a scatter of separate fades.
  */
 export function RevealItem({
   children,

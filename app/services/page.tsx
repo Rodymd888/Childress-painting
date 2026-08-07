@@ -27,7 +27,7 @@ export default function ServicesPage() {
       <PageHero
         label="Commercial Capabilities"
         title="Sixteen Services. One Contractor."
-        intro="Commercial, residential, and industrial painting — and every trade that supports them — priced, submitted, staffed, inspected, and closed out by the same team."
+        intro="Commercial, residential, and industrial painting, and every trade that supports them, priced, submitted, staffed, inspected, and closed out by the same team."
         crumbs={[
           { name: 'Home', href: '/' },
           { name: 'Services', href: '/services' },

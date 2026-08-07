@@ -13,7 +13,7 @@ import { breadcrumbSchema } from '@/lib/schema';
 export const metadata: Metadata = {
   title: 'Request a Bid | Commercial Painting Bid Portal',
   description:
-    'Submit a commercial painting bid request. Company details, project address, project type, bid due date, budget, plans upload, and scope of work — bid or no-bid, you get an answer.',
+    'Submit a commercial painting bid request. Company details, project address, project type, bid due date, budget, plans upload, and scope of work, bid or no-bid, you get an answer.',
   alternates: { canonical: '/request-bid' },
 };
 
@@ -26,12 +26,12 @@ const ASSURANCES = [
   {
     icon: FileCheck2,
     title: 'Bid or No-Bid, You Get an Answer',
-    body: 'If we are not the right fit for the scope or the schedule, we say so early rather than leaving a gap on your bid tab.',
+    body: 'If we are not the right fit for the scope or the schedule, we say so early instead of leaving a gap on your bid tab.',
   },
   {
     icon: ShieldCheck,
     title: 'Assumptions in Writing',
-    body: 'Every proposal states what is included, what is assumed, and what is excluded — so scope gaps surface before award.',
+    body: 'Every proposal states what is included, what is assumed, and what is excluded, so scope gaps surface before award.',
   },
 ];
 
@@ -69,7 +69,7 @@ export default function RequestBidPage() {
                 Bidding today?
               </p>
               <p className="mt-3 text-[0.9375rem] leading-relaxed text-ash">
-                If the due date is inside 48 hours, call rather than submitting the form.
+                If the due date is inside 48 hours, call instead of submitting the form.
               </p>
               <div className="mt-6 space-y-3">
                 <a
@@ -122,7 +122,7 @@ export default function RequestBidPage() {
                   </span>
                   <ul className="mt-5 space-y-3">
                     {[
-                      'Architectural drawings — finish plans and schedules',
+                      'Architectural drawings, finish plans and schedules',
                       'Specification sections (Division 09)',
                       'Bid due date and time',
                       'Anticipated start and substantial completion',

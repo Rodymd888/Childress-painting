@@ -80,7 +80,7 @@ export function SubcontractorForm() {
           label="Service Areas"
           required
           className="sm:col-span-2"
-          placeholder="e.g. Dallas–Fort Worth, Waco, Tyler — will travel statewide"
+          placeholder="e.g. Dallas–Fort Worth, Waco, Tyler, will travel statewide"
           error={err.serviceAreas}
         />
         <TextareaField

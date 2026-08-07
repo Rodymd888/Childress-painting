@@ -36,7 +36,7 @@ export const clientGroups: ClientGroup[] = [
     title: 'Retail',
     industry: 'retail',
     blurb:
-      'National chains and regional operators — new stores, remodels, and rollouts held to a brand standard and a grand-opening date.',
+      'National chains and regional operators, new stores, remodels, and rollouts held to a brand standard and a grand-opening date.',
     clients: [
       { name: 'CVS', marquee: true },
       { name: 'Walgreens', marquee: true },
@@ -124,7 +124,7 @@ export const clientGroups: ClientGroup[] = [
     title: 'Commercial & Industrial',
     industry: 'industrial',
     blurb:
-      'Plants, distribution facilities, and multi-tenant commercial properties — coatings selected for the substrate and the service environment.',
+      'Plants, distribution facilities, and multi-tenant commercial properties, coatings selected for the substrate and the service environment.',
     clients: [
       { name: 'Georgia-Pacific', marquee: true },
       { name: 'Ecolab', marquee: true },

@@ -179,7 +179,7 @@ const baseProjects: Project[] = [
     industry: 'restaurants',
     serviceTypes: ['interior-painting', 'commercial-painting', 'protective-coatings'],
     scopeSummary:
-      'Fast-casual restaurant finish-outs — decorative front-of-house and washdown-rated kitchen systems.',
+      'Fast-casual restaurant finish-outs, decorative front-of-house and washdown-rated kitchen systems.',
     detail: 'experience',
     art: 'restaurant',
     featured: true,
@@ -190,7 +190,7 @@ const baseProjects: Project[] = [
     industry: 'restaurants',
     serviceTypes: ['interior-painting', 'commercial-painting', 'protective-coatings'],
     scopeSummary:
-      'Multiple locations — prototype-standard restaurant interiors and kitchen coatings.',
+      'Multiple locations, prototype-standard restaurant interiors and kitchen coatings.',
     detail: 'experience',
     art: 'restaurant',
     featured: true,
@@ -221,7 +221,7 @@ const baseProjects: Project[] = [
     industry: 'restaurants',
     serviceTypes: ['interior-painting', 'commercial-painting', 'protective-coatings'],
     scopeSummary:
-      'Quick-service restaurant new builds — dining room, kitchen, and drive-through canopy.',
+      'Quick-service restaurant new builds, dining room, kitchen, and drive-through canopy.',
     detail: 'experience',
     art: 'restaurant',
     featured: true,
@@ -273,7 +273,7 @@ const baseProjects: Project[] = [
     industry: 'healthcare',
     serviceTypes: ['interior-painting', 'maintenance-painting', 'commercial-painting'],
     scopeSummary:
-      'Specialty eye care clinic interiors — exam, procedure, and public areas phased around patient schedules.',
+      'Specialty eye care clinic interiors, exam, procedure, and public areas phased around patient schedules.',
     detail: 'experience',
     art: 'healthcare',
     featured: true,
@@ -338,7 +338,7 @@ const baseProjects: Project[] = [
     industry: 'industrial',
     serviceTypes: ['protective-coatings', 'pressure-washing', 'exterior-painting'],
     scopeSummary:
-      'Manufacturing facility coatings — structural silver, equipment, and process-area systems.',
+      'Manufacturing facility coatings, structural silver, equipment, and process-area systems.',
     detail: 'experience',
     art: 'industrial',
     featured: true,
@@ -405,7 +405,7 @@ const baseProjects: Project[] = [
   },
   {
     slug: 'triten-real-4950-stilwell',
-    name: 'Triten Real — 4950 Stilwell',
+    name: 'Triten Real, 4950 Stilwell',
     industry: 'office',
     serviceTypes: ['commercial-painting', 'interior-painting'],
     scopeSummary: 'Commercial property finish-out and common-area work.',
@@ -436,7 +436,7 @@ const baseProjects: Project[] = [
   },
   {
     slug: 'transfer-station-olathe',
-    name: 'Transfer Station — Olathe',
+    name: 'Transfer Station, Olathe',
     industry: 'government',
     serviceTypes: ['protective-coatings', 'pressure-washing'],
     scopeSummary: 'Municipal public works facility coatings in a heavy-service environment.',
@@ -491,7 +491,7 @@ const baseProjects: Project[] = [
   },
   {
     slug: 'meat-mitch-bbq-kc-airport',
-    name: 'Meat Mitch BBQ — KC Airport',
+    name: 'Meat Mitch BBQ, KC Airport',
     industry: 'aviation',
     serviceTypes: ['commercial-painting', 'protective-coatings'],
     scopeSummary:

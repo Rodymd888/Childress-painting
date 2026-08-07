@@ -42,7 +42,7 @@ export const industries: Industry[] = [
     code: 'SEC / RTL',
     clientGroup: 'retail',
     summary:
-      'National chains, big-box, and specialty stores — new builds, remodels, and multi-site rollouts held to a brand standard.',
+      'National chains, big-box, and specialty stores, new builds, remodels, and multi-site rollouts held to a brand standard.',
     intro:
       'Retail painting is measured against two things that rarely move: the brand standard and the grand-opening date. The colors, sheens, and manufacturers are usually dictated by a corporate prototype book, and the store opens on the day the marketing calendar says it opens. Our job is to hit both without a punch list that follows the store into business.',
     metaTitle: 'Retail Painting Contractor | National Chains & Big-Box',
@@ -51,7 +51,7 @@ export const industries: Industry[] = [
     constraints: [
       {
         title: 'Prototype Compliance',
-        body: 'Most national retailers publish a finish standard down to the manufacturer and product code. We verify the schedule against the prototype book during preconstruction and flag substitutions in writing before anything is ordered — not after a district manager walks the store.',
+        body: 'Most national retailers publish a finish standard down to the manufacturer and product code. We verify the schedule against the prototype book during preconstruction and flag substitutions in writing before anything is ordered. Not after a district manager walks the store.',
       },
       {
         title: 'Fixed Opening Dates',
@@ -86,7 +86,7 @@ export const industries: Industry[] = [
     code: 'SEC / RST',
     clientGroup: 'restaurants',
     summary:
-      'Quick-service, fast-casual, and full-service concepts — tight footprints, hard opening dates, and finishes built for a commercial kitchen.',
+      'Quick-service, fast-casual, and full-service concepts, tight footprints, hard opening dates, and finishes built for a commercial kitchen.',
     intro:
       'Restaurants pack a great deal of finish into a small building, and much of it has to survive heat, grease, steam, and daily scrubbing. Front-of-house is a design statement; back-of-house is a maintenance problem. The two need different systems, and getting that wrong shows up within a year.',
     metaTitle: 'Restaurant Painting Contractor | QSR, Fast-Casual & Full-Service',
@@ -103,7 +103,7 @@ export const industries: Industry[] = [
       },
       {
         title: 'Opening Day Is Fixed',
-        body: 'Training, hiring, and soft-open dates are set before construction finishes. Where the schedule compresses, we add shifts rather than move the date.',
+        body: 'Training, hiring, and soft-open dates are set before construction finishes. Where the schedule compresses, we add shifts and not move the date.',
       },
     ],
     facilities: [
@@ -175,7 +175,7 @@ export const industries: Industry[] = [
     shortTitle: 'Education',
     code: 'SEC / EDU',
     summary:
-      'District-level painting programs across elementary, middle, and high school campuses — planned around the academic calendar.',
+      'District-level painting programs across elementary, middle, and high school campuses, planned around the academic calendar.',
     intro:
       'School work is a summer business. A district hands over a list of campuses in May and expects every one of them ready for staff before August. That is a manpower and logistics problem more than a painting problem: multiple buildings running at once, each with its own access, storage, and sign-off.',
     metaTitle: 'School & Education Painting Contractor | District Programs',
@@ -184,7 +184,7 @@ export const industries: Industry[] = [
     constraints: [
       {
         title: 'The Summer Window',
-        body: 'Between the last day of school and staff return, there are roughly ten workable weeks. Multi-campus programs are staffed to run in parallel, with a per-campus completion date rather than one program-wide finish line.',
+        body: 'Between the last day of school and staff return, there are roughly ten workable weeks. Multi-campus programs are staffed to run in parallel, with a per-campus completion date instead of one program-wide finish line.',
       },
       {
         title: 'Occupied-Building Standards',
@@ -233,7 +233,7 @@ export const industries: Industry[] = [
       },
       {
         title: 'Shutdown Windows',
-        body: 'Work that requires a line to stop is planned to the hour. Scope is broken into what can be done live, what needs the line down, and what needs the area fully cleared — priced separately so the plant can decide.',
+        body: 'Work that requires a line to stop is planned to the hour. Scope is broken into what can be done live, what needs the line down, and what needs the area fully cleared, priced separately so the plant can decide.',
       },
       {
         title: 'Preparation Is the Scope',
@@ -274,7 +274,7 @@ export const industries: Industry[] = [
     constraints: [
       {
         title: 'Procurement and Documentation',
-        body: 'Bid forms, submittals, certified payroll where required, and closeout documentation are handled as scope items with their own deadlines — not as an afterthought once the painting is done.',
+        body: 'Bid forms, submittals, certified payroll where required, and closeout documentation are handled as scope items with their own deadlines. Not as an afterthought once the painting is done.',
       },
       {
         title: 'Facilities That Stay Open',
@@ -326,7 +326,7 @@ export const industries: Industry[] = [
       },
       {
         title: 'Base Building Versus Tenant Scope',
-        body: 'The line between landlord work and tenant work causes more disputes than any finish issue. We define it in the bid rather than discovering it during construction.',
+        body: 'The line between landlord work and tenant work causes more disputes than any finish issue. We define it in the bid instead of discovering it during construction.',
       },
     ],
     facilities: [
@@ -354,7 +354,7 @@ export const industries: Industry[] = [
     summary:
       'Hotels, entertainment venues, and guest-facing environments where finish quality is the product and rooms out of service cost revenue.',
     intro:
-      'In hospitality the finish is not a background — guests are paying for it and reviewing it. At the same time, every room, floor, or outlet taken out of service is lost revenue, so the work is scheduled in blocks and returned fast, at a standard that survives close inspection.',
+      'In hospitality the finish is not a background, guests are paying for it and reviewing it. At the same time, every room, floor, or outlet taken out of service is lost revenue, so the work is scheduled in blocks and returned fast, at a standard that survives close inspection.',
     metaTitle: 'Hospitality Painting Contractor | Hotels & Entertainment Venues',
     metaDescription:
       'Painting for hotels, entertainment venues, and guest-facing environments. Floor-by-floor phasing, decorative and specialty finishes, and fast return to service.',
@@ -406,7 +406,7 @@ export const industries: Industry[] = [
     constraints: [
       {
         title: 'Event Calendars Are Immovable',
-        body: 'Work is scheduled into dark days and off-season windows. Scope is sized to the window it actually fits in, with the balance deferred rather than rushed into an event day.',
+        body: 'Work is scheduled into dark days and off-season windows. Scope is sized to the window it actually fits in, with the balance deferred not rushed into an event day.',
       },
       {
         title: 'Public Assembly Standards',
@@ -414,7 +414,7 @@ export const industries: Industry[] = [
       },
       {
         title: 'Scale and Access',
-        body: 'Concourses, structure, and seating bowls need lifts, scaffold, and staged access planned before mobilization — often through loading docks shared with every other trade in the building.',
+        body: 'Concourses, structure, and seating bowls need lifts, scaffold, and staged access planned before mobilization, often through loading docks shared with every other trade in the building.',
       },
     ],
     facilities: [
@@ -545,7 +545,7 @@ export const industries: Industry[] = [
       },
       {
         title: 'One Crew, Start to Finish',
-        body: 'The same crew works the project through, so nobody has to re-explain the scope. A written scope up front means the final walk is measured against a document rather than a memory.',
+        body: 'The same crew works the project through, so nobody has to re-explain the scope. A written scope up front means the final walk is measured against a document and not a memory.',
       },
     ],
     facilities: [
@@ -583,7 +583,7 @@ export const industries: Industry[] = [
     constraints: [
       {
         title: 'Sequence, Not Duration',
-        body: 'The question is never how long painting takes — it is which areas are released, in what order, and whether drywall is actually finished. We plan against the release sequence and hold manpower to it.',
+        body: 'The question is never how long painting takes, it is which areas are released, in what order, and whether drywall is actually finished. We plan against the release sequence and hold manpower to it.',
       },
       {
         title: 'Submittals and Mockups First',

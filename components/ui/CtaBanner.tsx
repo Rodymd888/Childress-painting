@@ -18,7 +18,7 @@ type Props = {
 export function CtaBanner({
   label = 'Bid Invitations',
   title = 'Put Childress on Your Next Bid List.',
-  body = 'Send the plans, the specification sections, and the due date. We confirm receipt and tell you whether we are bidding — so you are never left waiting on a no-bid.',
+  body = 'Send the plans, the specification sections, and the due date. We confirm receipt and tell you whether we are bidding, so you are never left waiting on a no-bid.',
   primary = { href: '/request-bid', text: 'Request a Bid' },
   secondary = { href: '/contact', text: 'Talk to Estimating' },
 }: Props) {

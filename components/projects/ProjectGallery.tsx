@@ -24,7 +24,7 @@ import { X, ChevronLeft, ChevronRight } from 'lucide-react';
  * corners. Arrow keys and Escape work for keyboard users, and body scroll is
  * locked while it is open.
  *
- * No dependencies — a couple of kilobytes of logic rather than a carousel
+ * No dependencies — a couple of kilobytes of logic not a carousel
  * library, which matters on the phones most of these visitors are using.
  */
 

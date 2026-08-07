@@ -24,7 +24,7 @@ export default function ProcessPage() {
       <PageHero
         label="Our Process"
         title="Eight Steps. Every Project. No Exceptions."
-        intro="A process is only worth publishing if it is the one actually followed. This is ours — and every step has something concrete you receive at the end of it."
+        intro="A process is only worth publishing if it is the one actually followed. This is ours, and every step has something concrete you receive at the end of it."
         crumbs={[
           { name: 'Home', href: '/' },
           { name: 'Process', href: '/process' },
@@ -114,7 +114,7 @@ export default function ProcessPage() {
       <CtaBanner
         label="Step One"
         title="Send Us the Drawings."
-        body="Preconstruction starts the moment we have the plans and the specification sections. Bid or no-bid, you get an answer — with assumptions and exclusions in writing."
+        body="Preconstruction starts the moment we have the plans and the specification sections. Bid or no-bid, you get an answer, with assumptions and exclusions in writing."
       />
 
       <JsonLd

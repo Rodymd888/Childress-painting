@@ -18,6 +18,7 @@ import { JsonLd } from '@/components/ui/JsonLd';
 import { getProject, projectSlugs, relatedProjects } from '@/lib/projects';
 import { getIndustry } from '@/lib/industries';
 import { getService } from '@/lib/services';
+import { processSteps } from '@/lib/content';
 import { breadcrumbSchema } from '@/lib/schema';
 import { company } from '@/lib/site';
 
@@ -55,6 +56,20 @@ export default async function ProjectPage({ params }: Params) {
   const related = relatedProjects(project.slug, 3);
   const isCaseStudy = project.detail === 'case-study';
   const gallery = project.gallery ?? [];
+
+  /* Coating systems for the scopes actually performed, de-duplicated. Nothing
+     here is project-specific; it is the specification standard we work to. */
+  const systemsUsed = Array.from(
+    new Map(
+      servicesPerformed.flatMap((svc) => svc.systems.map((sys) => [sys.label, sys] as const)),
+    ).values(),
+  ).slice(0, 4);
+
+  /* The four steps every project runs through, drawn from the published
+     process so the portfolio and the process page never disagree. */
+  const approachSteps = processSteps
+    .filter((s) => ['02', '04', '06', '08'].includes(s.number))
+    .map((s) => ({ number: s.number, title: s.title, body: s.body }));
 
   const crumbs = [
     { name: 'Home', href: '/' },
@@ -227,6 +242,58 @@ export default async function ProjectPage({ params }: Params) {
                       </div>
                     ))}
                   </div>
+                </div>
+              )}
+
+              {/* HOW WE RUN THE WORK — the coating systems and the preparation
+                  standard behind them, pulled from the services actually
+                  performed. Substantive without asserting anything
+                  project-specific that has not been confirmed. */}
+              {!isCaseStudy && systemsUsed.length > 0 && (
+                <div className="mt-10 md:mt-14">
+                  <span className="title-block text-ink/60">Systems &amp; Preparation</span>
+                  <h2 className="mt-5 text-h3 text-ink">What Goes On the Wall, and What Happens First.</h2>
+                  <p className="mt-4 max-w-2xl leading-relaxed text-body">
+                    Coatings are specified against the substrate and the service the surface
+                    has to take, then confirmed with the manufacturer before pricing. Nearly
+                    every finish that fails early fails in preparation, not in the can, so
+                    preparation carries its own line and its own sign-off.
+                  </p>
+                  <dl className="mt-8 grid gap-px border border-line bg-line sm:grid-cols-2">
+                    {systemsUsed.map((sys) => (
+                      <div key={sys.label} className="bg-white p-5 md:p-6">
+                        <dt className="font-mono text-[0.625rem] uppercase tracking-[0.16em] text-red">
+                          {sys.label}
+                        </dt>
+                        <dd className="mt-2 text-[0.875rem] leading-relaxed text-body">
+                          {sys.detail}
+                        </dd>
+                      </div>
+                    ))}
+                  </dl>
+                </div>
+              )}
+
+              {/* HOW THE JOB IS RUN — the sequence every project follows. */}
+              {!isCaseStudy && (
+                <div className="mt-10 md:mt-14">
+                  <span className="title-block text-ink/60">Project Approach</span>
+                  <h2 className="mt-5 text-h3 text-ink">How This Job Was Run.</h2>
+                  <ol className="mt-8 space-y-px bg-line">
+                    {approachSteps.map((step) => (
+                      <li key={step.number} className="flex gap-5 bg-white p-5 md:gap-6 md:p-6">
+                        <span className="font-mono text-[0.6875rem] text-red">{step.number}</span>
+                        <div>
+                          <h3 className="font-display text-h5 font-semibold text-ink">
+                            {step.title}
+                          </h3>
+                          <p className="mt-1.5 text-[0.875rem] leading-relaxed text-body">
+                            {step.body}
+                          </p>
+                        </div>
+                      </li>
+                    ))}
+                  </ol>
                 </div>
               )}
 

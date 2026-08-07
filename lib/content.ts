@@ -11,14 +11,14 @@ export const processSteps = [
     number: '01',
     title: 'Preconstruction',
     short: 'Takeoff, Budget, and Schedule Position',
-    body: 'We read the drawings and the specification before we price them. Takeoff, finish schedule review, access assessment, and an honest read on where painting sits in the schedule — including whether the duration being assumed is realistic.',
+    body: 'We read the drawings and the specification before we price them. Takeoff, finish schedule review, access assessment, and an honest read on where painting sits in the schedule, including whether the duration being assumed is realistic.',
     deliverable: 'Scoped proposal with assumptions and exclusions stated in writing',
   },
   {
     number: '02',
     title: 'Scope Review',
     short: 'Agreeing What Is and Is Not Included',
-    body: 'Scope gaps cause more disputes than any finish issue. We walk the scope line with the general contractor before award — which surfaces, which side of the demising wall, whose doors, whose ceilings — and put the answer in the contract rather than discovering it during construction.',
+    body: 'Scope gaps cause more disputes than any finish issue. We walk the scope line with the general contractor before award, which surfaces, which side of the demising wall, whose doors, whose ceilings, and put the answer in the contract instead of discovering it during construction.',
     deliverable: 'Written scope matrix with clarifications and exclusions',
   },
   {
@@ -32,14 +32,14 @@ export const processSteps = [
     number: '04',
     title: 'Surface Preparation',
     short: 'The Step That Determines Service Life',
-    body: 'Cleaning, profiling, moisture and adhesion testing where warranted, substrate repair, and priming to the manufacturer specification. Preparation is priced as its own line item so it is visible — and so a budget reduction is a decision rather than something that quietly happens.',
+    body: 'Cleaning, profiling, moisture and adhesion testing where warranted, substrate repair, and priming to the manufacturer specification. Preparation is priced as its own line item so it is visible, and so a budget reduction is a decision not something that quietly happens.',
     deliverable: 'Substrate accepted and documented before coating',
   },
   {
     number: '05',
     title: 'Production',
     short: 'Manpower Against the Release Sequence',
-    body: 'Crews are staffed against the area release sequence rather than an ideal duration, with a dedicated project manager from mobilization through closeout. Where the schedule compresses, we add shifts and say what that requires — rather than accepting a date we cannot hit.',
+    body: 'Crews are staffed against the area release sequence rather than an ideal duration, with a dedicated project manager from mobilization through closeout. Where the schedule compresses, we add shifts and say what that requires, rather than accepting a date we cannot hit.',
     deliverable: 'Daily progress reporting and manpower to the committed sequence',
   },
   {
@@ -60,7 +60,7 @@ export const processSteps = [
     number: '08',
     title: 'Project Closeout',
     short: 'Documentation Delivered, Not Chased',
-    body: 'Attic stock, the approved color schedule, product data, and the two-year workmanship warranty are delivered as a package at turnover. Warranty support continues after closeout — a call in year two gets the same response as a call during construction.',
+    body: 'Attic stock, the approved color schedule, product data, and the two-year workmanship warranty are delivered as a package at turnover. Warranty support continues after closeout. A call in year two gets the same response as a call during construction.',
     deliverable: 'Closeout package, attic stock, and written warranty',
   },
 ] as const;
@@ -79,7 +79,7 @@ export const differentiators = [
   },
   {
     title: 'Responsive Project Management',
-    body: 'A dedicated project manager from preconstruction through closeout — one point of contact who knows the job and answers the phone.',
+    body: 'A dedicated project manager from preconstruction through closeout, one point of contact who knows the job and answers the phone.',
     icon: 'user',
   },
   {
@@ -99,7 +99,7 @@ export const differentiators = [
   },
   {
     title: 'Coordination With Other Trades',
-    body: 'We coordinate directly with drywall, flooring, and finish carpentry — fewer conversations routed through the superintendent, fewer conflicts on the floor.',
+    body: 'We coordinate directly with drywall, flooring, and finish carpentry, fewer conversations routed through the superintendent, fewer conflicts on the floor.',
     icon: 'link',
   },
   {
@@ -129,7 +129,7 @@ export const timeline = [
   {
     year: '1990s–2000s',
     title: 'National Retail and Restaurant Work',
-    body: 'The company builds a base in national chain retail and restaurant construction — prototype-standard finishes, hard opening dates, and multi-site rollouts where the same result has to be repeated store after store.',
+    body: 'The company builds a base in national chain retail and restaurant construction, prototype-standard finishes, hard opening dates, and multi-site rollouts where the same result has to be repeated store after store.',
   },
   {
     year: '2010s',
@@ -139,7 +139,7 @@ export const timeline = [
   {
     year: 'Today',
     title: 'Dallas–Fort Worth and Beyond',
-    body: 'Operating from Dallas as Childress Painting DFW LLC, serving Texas as the primary market with continued Kansas and Missouri coverage — commercial construction at the core, with residential and industrial painting delivered to the same standard.',
+    body: 'Operating from Dallas as Childress Painting DFW LLC, serving Texas as the primary market with continued Kansas and Missouri coverage, commercial construction at the core, with residential and industrial painting delivered to the same standard.',
   },
 ] as const;
 
@@ -147,7 +147,7 @@ export const timeline = [
 export const values = [
   {
     title: 'Construction Discipline First',
-    body: 'Commercial construction is where our habits were formed — prevailing wage, multi-trade sequencing, and what a superintendent actually needs from a subcontractor. Every project we touch, commercial or residential, inherits that discipline.',
+    body: 'Commercial construction is where our habits were formed, prevailing wage, multi-trade sequencing, and what a superintendent actually needs from a subcontractor. Every project we touch, commercial or residential, inherits that discipline.',
   },
   {
     title: 'Say It Early',
@@ -155,7 +155,7 @@ export const values = [
   },
   {
     title: 'Preparation Over Product',
-    body: 'Most coating failures are preparation failures. We price preparation as its own line so it stays visible, and we say when a substrate is not ready rather than coating over it.',
+    body: 'Most coating failures are preparation failures. We price preparation as its own line so it stays visible, and we say when a substrate is not ready instead of coating over it.',
   },
   {
     title: 'Inspect Our Own Work First',
@@ -170,7 +170,7 @@ export const capabilitySnapshot = [
   { label: 'Service Area', value: 'Texas (primary) · Kansas, Missouri (secondary)' },
   { label: 'Coating Systems', value: 'Sherwin-Williams' },
   { label: 'Scheduling', value: 'Day, night & occupied-site shifts' },
-  { label: 'Commercial Experience', value: '40+ years — since 1984' },
+  { label: 'Commercial Experience', value: '40+ years, since 1984' },
   { label: 'Warranty', value: '2-year workmanship warranty' },
   { label: 'Safety', value: 'OSHA-compliant crews' },
 ] as const;
@@ -179,7 +179,7 @@ export const capabilitySnapshot = [
 export const safetyCommitments = [
   {
     title: 'OSHA-Compliant Crews',
-    body: 'Crews work to OSHA standards for the task and the environment — fall protection, respiratory protection, ladder and lift operation, and hazard communication. Training records are available on request for prequalification.',
+    body: 'Crews work to OSHA standards for the task and the environment, fall protection, respiratory protection, ladder and lift operation, and hazard communication. Training records are available on request for prequalification.',
   },
   {
     title: 'Site-Specific Planning',
@@ -211,7 +211,7 @@ export const qualityPractices = [
   },
   {
     title: 'Substrate Acceptance',
-    body: 'We inspect and accept the substrate before coating. Where a surface is not ready — moisture, contamination, an unfinished drywall level — we raise it in writing rather than coating over it.',
+    body: 'We inspect and accept the substrate before coating. Where a surface is not ready, moisture, contamination, an unfinished drywall level. We raise it in writing rather than coating over it.',
   },
   {
     title: 'In-Process Checks',

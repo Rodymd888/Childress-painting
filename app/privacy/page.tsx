@@ -96,11 +96,15 @@ export default function PrivacyPage() {
               information on our behalf under its own terms.
             </p>
             <p>
-              {/* REPLACE — list the actual processors once they are selected. */}
-              <em>
-                Placeholder: name the specific email, CRM, hosting, and analytics providers in use
-                once they are chosen.
-              </em>
+              {/*
+                MAINTENANCE NOTE (not rendered): when a specific email, CRM, hosting, or
+                analytics provider is engaged, name it here. Several states require
+                processors to be identified rather than described by category.
+              */}
+              Our service providers are engaged under written agreements that limit them to
+              processing information on our behalf. We do not authorise them to use it for
+              their own purposes. A current list of the categories of provider we work with is
+              available on request.
             </p>
 
             <h2>How Long We Keep It</h2>

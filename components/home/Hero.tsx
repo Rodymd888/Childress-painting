@@ -52,7 +52,7 @@ export function Hero() {
   const [videoReady, setVideoReady] = useState(false);
   const [loaded, setLoaded] = useState(false);
 
-  /* Trigger the entrance sequence on mount rather than on scroll. */
+  /* Trigger the entrance sequence on mount and not on scroll. */
   useEffect(() => {
     const id = requestAnimationFrame(() => setLoaded(true));
     return () => cancelAnimationFrame(id);

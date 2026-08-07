@@ -40,15 +40,63 @@
 import type { Project } from './projects';
 
 export const projectOverrides: Record<string, Partial<Project>> = {
-  /* Architecture and design practice — an office fit-out, not a retail space. */
+  /* -------------------------------------------------------------------------
+     Folder-discovered projects. The service LINE is definitional (a commercial
+     building painted by a commercial painting contractor), so recording it is
+     not a claim about scope detail. Anything more specific than this — square
+     footage, durations, contract values, the general contractor — stays out
+     until the company confirms it.
+     ---------------------------------------------------------------------- */
+
+  /* Architecture and design practice: an office fit-out, not a retail space. */
   'gould-evans': {
     industry: 'office',
     art: 'office',
+    serviceTypes: ['commercial-painting', 'interior-painting'],
+    scopeSummary:
+      'Interior finishes through an open-plan studio and meeting spaces for a Kansas City architecture practice.',
   },
 
   /* Event and reception venue: public assembly, fixed event calendar. */
   'union-event-venue': {
     industry: 'sports-entertainment',
     art: 'sports',
+    serviceTypes: ['commercial-painting', 'interior-painting'],
+    scopeSummary:
+      'Interior painting in a Kansas City event and reception venue, scheduled around a booked calendar.',
+  },
+
+  'mckeevers': {
+    serviceTypes: ['commercial-painting', 'exterior-painting', 'interior-painting'],
+    scopeSummary:
+      'Exterior and interior painting for a Kansas City grocery store, worked around trading hours.',
+  },
+
+  'stop-n-shop': {
+    serviceTypes: ['commercial-painting', 'exterior-painting'],
+    scopeSummary:
+      'Exterior painting for a Kansas City convenience retail site, staged so the forecourt stayed open.',
+  },
+
+  'custom-wood-staining-residential-home': {
+    serviceTypes: ['residential-painting', 'custom-wood-staining'],
+    scopeSummary:
+      'Custom stain-grade finishing on exterior gates and timber detail at a private home in Overland Park.',
+  },
+
+  'kcfd-fire-station-15': {
+    industry: 'government',
+    art: 'government',
+    serviceTypes: ['commercial-painting', 'maintenance-painting'],
+    scopeSummary:
+      'Painting at a Kansas City Fire Department station, phased around a facility that never closes.',
+  },
+
+  'shawnee-town-government-buildings': {
+    industry: 'government',
+    art: 'government',
+    serviceTypes: ['commercial-painting', 'exterior-painting'],
+    scopeSummary:
+      'Painting across municipal buildings for the City of Shawnee, sequenced around public access.',
   },
 };

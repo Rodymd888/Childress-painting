@@ -42,7 +42,7 @@ export const testimonials: Testimonial[] = [
     name: 'Eric Carrott',
     role: 'Construction Manager',
     quote:
-      'The IKEA scope was exposed structure, dryfall, and a hard opening date — no room for a slow trade. Childress staffed it to the release plan, kept the site organized, and their own quality walk meant our walkthrough was basically a formality.',
+      'The IKEA scope was exposed structure, dryfall, and a hard opening date. No room for a slow trade. Childress staffed it to the release plan, kept the site organized, and their own quality walk meant our walkthrough was basically a formality.',
   },
   {
     name: 'Cale Townsend',
@@ -56,7 +56,7 @@ export const testimonials: Testimonial[] = [
     role: 'Facilities Manager',
     featured: true,
     quote:
-      'Our Georgia-Pacific facility gave them a narrow shutdown window for structural coatings, and they planned the work to the hour — prep verified, containment tight, line back up on schedule. Safety paperwork was complete before we asked for it. They understand what a plant environment demands.',
+      'Our Georgia-Pacific facility gave them a narrow shutdown window for structural coatings, and they planned the work to the hour, prep verified, containment tight, line back up on schedule. Safety paperwork was complete before we asked for it. They understand what a plant environment demands.',
   },
   {
     name: 'Connor Childress',
@@ -75,7 +75,7 @@ export const testimonials: Testimonial[] = [
     role: 'Homeowner',
     featured: true,
     quote:
-      'They repainted our whole interior and refinished the kitchen cabinets, and it ran like a professional job site — floors covered, everything back in place each evening, and a sprayed cabinet finish that looks factory-new. You can tell these are commercial crews. Worth every penny.',
+      'They repainted our whole interior and refinished the kitchen cabinets, and it ran like a professional job site, floors covered, everything back in place each evening, and a sprayed cabinet finish that looks factory-new. You can tell these are commercial crews. Worth every penny.',
   },
 ];
 

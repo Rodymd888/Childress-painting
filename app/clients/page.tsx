@@ -21,7 +21,7 @@ import { breadcrumbSchema } from '@/lib/schema';
 export const metadata: Metadata = {
   title: 'Representative Clients | Commercial Painting Experience',
   description:
-    'Representative commercial painting clients by industry — retail, restaurants, healthcare, sports and entertainment, government, and industrial — plus district-level school painting partnerships.',
+    'Representative commercial painting clients by industry, retail, restaurants, healthcare, sports and entertainment, government, and industrial, plus district-level school painting partnerships.',
   alternates: { canonical: '/clients' },
 };
 

@@ -27,7 +27,7 @@ export default function ProjectsPage() {
       <PageHero
         label="Portfolio"
         title="Work, Organised the Way You Look for It."
-        intro="By market sector — because a general contractor bidding a surgery center wants to see healthcare experience, not a photo gallery."
+        intro="By market sector, because a general contractor bidding a surgery center wants to see healthcare experience, not a photo gallery."
         crumbs={[
           { name: 'Home', href: '/' },
           { name: 'Projects', href: '/projects' },

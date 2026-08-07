@@ -26,7 +26,7 @@ export default function IndustriesPage() {
       <PageHero
         label="Markets We Serve"
         title={`${industries.length} Sectors. ${industries.length} Different Constraints.`}
-        intro="The coating rarely changes. What changes is what governs the schedule — infection control in a hospital, a grand-opening date in retail, a dark night in a stadium, badging at an airport. We plan for the constraint."
+        intro="The coating rarely changes. What changes is what governs the schedule, infection control in a hospital, a grand-opening date in retail, a dark night in a stadium, badging at an airport. We plan for the constraint."
         crumbs={[
           { name: 'Home', href: '/' },
           { name: 'Industries', href: '/industries' },

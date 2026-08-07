@@ -16,7 +16,7 @@ import { breadcrumbSchema } from '@/lib/schema';
 export const metadata: Metadata = {
   title: 'About Childress Painting | Commercial Painting Since 1984',
   description:
-    'Childress Painting has performed professional painting work since 1984 — commercial construction at the core, with residential and industrial services alongside. Meet the leadership team.',
+    'Childress Painting has performed professional painting work since 1984, commercial construction at the core, with residential and industrial services alongside. Meet the leadership team.',
   alternates: { canonical: '/about' },
 };
 

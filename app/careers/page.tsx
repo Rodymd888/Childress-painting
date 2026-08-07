@@ -38,7 +38,7 @@ const roleAreas = [
   {
     icon: TrendingUp,
     title: 'Office',
-    body: 'Estimating and project management — takeoff from drawings, scope letters, submittals, and keeping projects moving.',
+    body: 'Estimating and project management, takeoff from drawings, scope letters, submittals, and keeping projects moving.',
     examples: ['Estimator', 'Project manager', 'Administrative'],
   },
 ];
@@ -58,7 +58,7 @@ const whatMatters = [
   },
   {
     title: 'Saying Something',
-    body: 'If a condition is unsafe or a substrate is wrong, we want to hear about it at 8 a.m. — not in a punch walk three weeks later. Nobody here gets second-guessed for stopping work over a safety concern.',
+    body: 'If a condition is unsafe or a substrate is wrong, we want to hear about it at 8 a.m.. Not in a punch walk three weeks later. Nobody here gets second-guessed for stopping work over a safety concern.',
   },
 ];
 

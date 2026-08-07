@@ -214,7 +214,7 @@ export function BidForm() {
               name="projectName"
               label="Project Name"
               required
-              placeholder="e.g. Westside Medical Plaza — Phase 2"
+              placeholder="e.g. Westside Medical Plaza, Phase 2"
               error={err.projectName}
             />
             <TextField
@@ -235,7 +235,7 @@ export function BidForm() {
               name="projectSize"
               label="Estimated Project Size"
               options={PROJECT_SIZES}
-              hint="Approximate is fine — it tells us how to staff the estimate."
+              hint="Approximate is fine, it tells us how to staff the estimate."
               error={err.projectSize}
             />
           </FieldGroup>
@@ -255,7 +255,7 @@ export function BidForm() {
               label="Estimated Budget"
               options={PROJECT_BUDGETS}
               className="sm:col-span-2"
-              hint="A range is enough. It tells us whether the scope and the budget are in the same conversation — worth knowing before either of us spends a day on it."
+              hint="A range is enough. It tells us whether the scope and the budget are in the same conversation, worth knowing before either of us spends a day on it."
               error={err.budget}
             />
           </FieldGroup>
@@ -275,7 +275,7 @@ export function BidForm() {
               rows={7}
               className="sm:col-span-2"
               placeholder="Areas included, substrates, finish requirements, working hours, occupied-space constraints, and anything unusual about the site."
-              hint="Include phasing or after-hours requirements — they change the price and we would rather account for them now."
+              hint="Include phasing or after-hours requirements, they change the price and we would rather account for them now."
               error={err.scope}
             />
 
@@ -285,7 +285,7 @@ export function BidForm() {
               type="url"
               className="sm:col-span-2"
               placeholder="https://"
-              hint="BuildingConnected, Procore, SmartBid, Dropbox, Box, or SharePoint — whatever you already use."
+              hint="BuildingConnected, Procore, SmartBid, Dropbox, Box, or SharePoint, whatever you already use."
               error={err.planLink}
             />
 
@@ -294,7 +294,7 @@ export function BidForm() {
               label="Additional Notes"
               rows={4}
               className="sm:col-span-2"
-              placeholder="Anything else we should know — prevailing wage, bonding, prequalification paperwork, site access, or a hard constraint we have not asked about."
+              placeholder="Anything else we should know, prevailing wage, bonding, prequalification paperwork, site access, or a hard constraint we have not asked about."
               error={err.notes}
             />
 

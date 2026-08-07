@@ -258,6 +258,21 @@ Before launch:
 
 ---
 
+## Voice
+
+Copy is written for the people who actually award the work: general
+contractors, developers, property managers, owners, and facility teams. It
+leans on the language of the trade (sequencing, substrate acceptance, film
+build, progressive punch, closeout) instead of marketing adjectives, and it
+states what the company does rather than how it feels about it.
+
+Two habits worth keeping when editing:
+
+- **Punctuation.** Em dashes are used sparingly. Where a comma or a full stop
+  reads more naturally, use one. A page dense with dashes reads as generated.
+- **Sentence shape.** Vary it. If three sentences in a row are built the same
+  way, rewrite one of them.
+
 ## Content policy
 
 The site deliberately does not publish anything that cannot be substantiated:

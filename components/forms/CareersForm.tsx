@@ -79,7 +79,7 @@ export function CareersForm() {
           name="resumeLink"
           label="Resume"
           className="sm:col-span-2"
-          hint="Paste a link to your resume if you have one. A resume is not required for field roles — the description above is enough."
+          hint="Paste a link to your resume if you have one. A resume is not required for field roles, the description above is enough."
           error={err.resumeLink}
         />
       </FieldGroup>

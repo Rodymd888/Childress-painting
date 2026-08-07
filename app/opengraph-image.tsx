@@ -13,7 +13,7 @@ import { company } from '@/lib/site';
  */
 
 export const alt =
-  'Childress Painting — quality painting, professional results, since 1984';
+  'Childress Painting, quality painting, professional results, since 1984';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 

@@ -77,7 +77,7 @@ export const offices = [
     phone: '972-863-1919',
     phoneHref: '+19728631919',
     email: 'contact@childresspaintingtx.com',
-    covers: 'Texas — primary market',
+    covers: 'Texas, primary market',
   },
   {
     id: 'kansas-city',
@@ -121,7 +121,7 @@ export const leadership = [
     name: 'Cole Childress',
     role: 'Field Operations',
     focus:
-      'Runs crews in the field — manpower loading, daily production, and the standard of finish that leaves the site.',
+      'Runs crews in the field, manpower loading, daily production, and the standard of finish that leaves the site.',
   },
 ] as const;
 
@@ -248,7 +248,7 @@ export const footerNav = [
 export const serviceAreas = [
   {
     region: 'Dallas County',
-    note: 'Home base — 8601 Sovereign Row, Dallas',
+    note: 'Home base, 8601 Sovereign Row, Dallas',
     cities: [
       'Dallas', 'Irving', 'Garland', 'Mesquite', 'Richardson', 'Carrollton',
       'Grand Prairie', 'DeSoto', 'Cedar Hill', 'Farmers Branch',
@@ -271,7 +271,7 @@ export const serviceAreas = [
     ],
   },
   {
-    region: 'Texas — Statewide',
+    region: 'Texas, Statewide',
     note: 'Travel crews for multi-site programs',
     cities: [
       'Austin', 'Houston', 'San Antonio', 'Waco', 'Tyler', 'Abilene',
@@ -280,7 +280,7 @@ export const serviceAreas = [
   },
   {
     region: 'Kansas & Missouri',
-    note: 'Served from our Grandview, MO office — 14000 Century Lane',
+    note: 'Served from our Grandview, MO office, 14000 Century Lane',
     cities: [
       'Kansas City', 'Overland Park', 'Olathe', 'Lenexa', 'Shawnee',
       'Leawood', 'Independence', 'Pleasant Hill', 'Osawatomie', 'Burlington',

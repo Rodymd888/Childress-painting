@@ -15,7 +15,7 @@ export function ContactForm() {
       onSubmit={onSubmit}
       submitLabel="Send message"
       successTitle="Message received."
-      successBody="We read every message that comes through here and route it to the right person. If your question is about an active bid or a job in progress, call the office — it will be faster."
+      successBody="We read every message that comes through here and route it to the right person. If your question is about an active bid or a job in progress, call the office, it will be faster."
       onReset={() => window.location.reload()}
     >
       <FieldGroup step="01" title="Your Details">

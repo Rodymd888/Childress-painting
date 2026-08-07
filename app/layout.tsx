@@ -14,11 +14,11 @@ import { company, siteUrl } from '@/lib/site';
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Childress Painting | Commercial Painting Contractor — Since 1984',
+    default: 'Childress Painting | Commercial Painting Contractor, Since 1984',
     template: '%s | Childress Painting',
   },
   description:
-    'Professional painting contractor since 1984 — commercial, residential, and industrial. Interior and exterior painting, epoxy floors, and protective coatings across Texas, Kansas, and Missouri. Two-year workmanship warranty.',
+    'Professional painting contractor since 1984, commercial, residential, and industrial. Interior and exterior painting, epoxy floors, and protective coatings across Texas, Kansas, and Missouri. Two-year workmanship warranty.',
   applicationName: company.name,
   authors: [{ name: company.name }],
   creator: company.name,

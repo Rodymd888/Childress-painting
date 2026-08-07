@@ -28,7 +28,7 @@ export default function ServiceAreasPage() {
       <PageHero
         label="Coverage"
         title="Two Offices. Three States."
-        intro="Texas is the primary market, worked from our Dallas headquarters. Kansas and Missouri are served from Grandview — the base for four decades of Kansas City-area retail, restaurant, school district, and stadium work."
+        intro="Texas is the primary market, worked from our Dallas headquarters. Kansas and Missouri are served from Grandview. The base for four decades of Kansas City-area retail, restaurant, school district, and stadium work."
         crumbs={[
           { name: 'Home', href: '/' },
           { name: 'Service Areas', href: '/service-areas' },

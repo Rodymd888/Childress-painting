@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
-import { marqueeClients, totalClients } from '@/lib/clients';
+import { marqueeClients, totalClients, totalSchools, clientGroups } from '@/lib/clients';
 
 /**
  * TRUSTED BY
@@ -56,24 +56,51 @@ function Rail({
 
 export function TrustedBy() {
   return (
-    <section aria-labelledby="trusted-by" className="border-y border-line bg-mist py-14 md:py-18">
+    <section aria-labelledby="trusted-by" className="border-y border-line bg-mist py-14 md:py-20">
       <div className="container-site">
-        <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between md:gap-10">
           <div>
             <span className="title-block text-ink/55">Representative Clients</span>
-            <h2 id="trusted-by" className="mt-5 max-w-[22ch] text-h3 text-ink">The Brands Our Leadership Has Painted For.</h2>
+            <h2 id="trusted-by" className="mt-5 max-w-[20ch] text-h2 text-ink">
+              Who We Have Painted For.
+            </h2>
+            <p className="mt-5 max-w-2xl text-lead leading-relaxed text-body">
+              National retail and restaurant rollouts, professional sports venues, district-wide
+              school programs, and industrial plants. Most of this work came through general
+              contractors who invited us back on the next one.
+            </p>
           </div>
           <Link
             href="/clients"
             className="group inline-flex shrink-0 items-center gap-2 border-b-2 border-red pb-1.5 font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-ink transition-colors hover:text-red"
           >
-            All {totalClients} clients by industry
+            All {totalClients} Clients by Industry
             <ArrowRight
               aria-hidden="true"
               className="size-3.5 transition-transform duration-200 group-hover:translate-x-1"
             />
           </Link>
         </div>
+
+        {/* Figures behind the names, so the rails read as a record rather than
+            a logo wall. Every number is computed from the client data. */}
+        <dl className="mt-10 grid grid-cols-2 gap-px border-t border-line bg-line sm:grid-cols-4">
+          {[
+            { value: `${totalClients}`, label: 'Named Clients' },
+            { value: `${clientGroups.length}`, label: 'Industry Groups' },
+            { value: `${totalSchools}`, label: 'School Campuses' },
+            { value: '40+', label: 'Years of Work' },
+          ].map((stat) => (
+            <div key={stat.label} className="bg-mist pr-4 pt-5">
+              <dt className="font-display text-h3 font-bold tabular-nums text-ink">
+                {stat.value}
+              </dt>
+              <dd className="mt-1 font-mono text-[0.625rem] uppercase tracking-[0.16em] text-ink/55">
+                {stat.label}
+              </dd>
+            </div>
+          ))}
+        </dl>
       </div>
 
       <div className="mt-10 space-y-3 md:mt-12 md:space-y-4">
