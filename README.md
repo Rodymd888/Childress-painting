@@ -46,7 +46,8 @@ lib/
 ├── projects.ts    Project portfolio (drives /projects and /projects/[slug])
 ├── content.ts     Process steps, differentiators, values, timeline, safety, QC
 ├── testimonials.ts Client reviews (names supplied by the company)
-├── project-media.generated.ts  GENERATED photos + folder-discovered projects
+├── project-images.ts   Committed photo paths + folder-discovered projects
+├── project-overrides.ts Corrections to discovered projects
 ├── schema.ts      JSON-LD builders
 ├── seo.ts         Metadata helper
 ├── validation.ts  Server-side form schemas
@@ -99,16 +100,13 @@ confirmed by the company.
 
 ### Add project photography
 
-**See `PROJECT-PHOTOS.md`.** Short version: drop a `Projects/` folder in the
-repo root with one folder per project, named
-`Torchy's Tacos - Fort Worth, TX`, and push. Photos are converted to WebP,
-compressed, matched to existing projects (tolerantly — case, punctuation,
-apostrophes and city/state suffixes are all ignored), and published. Folders
-that match nothing become new projects automatically, with neutral placeholder
-wording rather than invented scope.
+**See `PROJECT-PHOTOS.md`.** Photography is static and committed: the files
+live in `public/images/projects/` and their paths in `lib/project-images.ts`.
+Nothing is generated at deploy time.
 
-Ingestion runs on every build via the `prebuild` script, so there is no command
-to remember.
+For a few images, drop them in a folder and add the entry. For a whole batch,
+run `npm run build:images -- "/path/to/Projects"` locally and commit the
+result.
 
 ### Replace the homepage drone video
 
@@ -221,7 +219,7 @@ Before launch:
 - [ ] **Wire form delivery in `lib/submissions.ts`** — it currently only logs.
       Until this is done, bid requests are not delivered anywhere.
 - [ ] Confirm `NEXT_PUBLIC_SITE_URL` matches the live domain
-- [ ] Drop in `Projects/` photo folders (see `PROJECT-PHOTOS.md`)
+- [x] ~~Project photography~~ — 111 images committed under `public/images/projects/`
 - [ ] Name the actual processors in `app/privacy/page.tsx`
 - [x] ~~Hero drone video~~ — encoded and shipped in `public/video/`
 

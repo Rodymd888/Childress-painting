@@ -37,7 +37,7 @@
  * ===========================================================================
  */
 
-import { projectMedia, discoveredProjects } from './project-media.generated';
+import { projectImages, discoveredProjects } from './project-images';
 import { projectOverrides } from './project-overrides';
 
 export type ProjectImage = {
@@ -515,7 +515,7 @@ const baseProjects: Project[] = [
  * discovering a new folder updates every surface at once.
  */
 const photographed: Project[] = baseProjects.map((p) => {
-  const media = projectMedia[p.slug];
+  const media = projectImages[p.slug];
   const withMedia = media ? { ...p, featuredImage: media.hero, gallery: media.gallery } : p;
   return { ...withMedia, ...projectOverrides[p.slug] };
 });
@@ -524,7 +524,7 @@ const photographed: Project[] = baseProjects.map((p) => {
 const fromFolders: Project[] = discoveredProjects
   .filter((d) => !photographed.some((p) => p.slug === d.slug))
   .map((d) => {
-    const media = projectMedia[d.slug];
+    const media = projectImages[d.slug];
     return {
       slug: d.slug,
       name: d.name,

@@ -73,6 +73,7 @@ export default async function ProjectPage({ params }: Params) {
               alt={project.featuredImage.alt}
               fill
               priority
+              quality={85}
               sizes="100vw"
               className="object-cover object-center"
             />

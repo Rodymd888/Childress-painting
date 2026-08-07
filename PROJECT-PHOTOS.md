@@ -1,158 +1,138 @@
-# Adding project photos
+# Project photos
 
-Drop a `Projects/` folder in the root of the repository and push. That is the
-whole process — the photos are optimised, matched to projects, and published
-automatically on the next deploy.
+Photography is **static and committed**. Every image lives in
+`public/images/projects/`, and every path is written out in
+`lib/project-images.ts`. Nothing is generated during a deploy, so a build can
+never regenerate, miss, or erase them.
 
 ---
 
-## 1. Name the folders
+## Why it works this way
 
-**The folder name is the source of truth.** Everything is read from it:
+An earlier version ran the image pipeline automatically before every build. It
+had a failure mode that took the photos off the live site:
 
-```
-Projects/
-├── Torchy's Tacos - Fort Worth, TX/
-│   ├── IMG_4941.jpg
-│   ├── IMG_4942.jpg
-│   └── IMG_4943.jpg
-├── CVS Pharmacy - Azle, TX/
-└── Blue Ridge Elementary School - Frisco, TX/
-```
+1. The repository received the source `Projects/` folder incompletely — GitHub's
+   web uploader silently drops files once an upload gets large.
+2. The pre-build step ran, found folders containing **no images**, and honestly
+   reported "0 photos".
+3. It then rewrote the image data file as **empty**, discarding 111 perfectly
+   good committed image references.
+4. The optimised files were still sitting in `public/images/projects/`, but
+   nothing pointed at them any more, so every photo disappeared.
 
-`Torchy's Tacos - Fort Worth, TX` becomes:
+Generating content at build time from an input that might arrive incomplete is
+the whole problem. Now the committed data is the single source of truth and the
+build only reads it.
 
-| Field | Value |
-| --- | --- |
-| Project name | Torchy's Tacos |
-| Location | Fort Worth, Texas |
-| Market | Restaurants |
+---
 
-All of these forms work:
+## Current layout
 
 ```
-Torchy's Tacos - Fort Worth, TX      (hyphen)
-CVS Pharmacy — Azle, TX              (em-dash)
-IKEA (Grand Prairie, TX)             (parentheses)
-Walmart Supercenter, Azle, TX        (commas)
-Georgia-Pacific                      (no location — that's fine)
+public/images/projects/
+├── aldi-kansas-city/                    hero.jpg  01.jpg … 04.jpg
+├── custom-wood-staining-overland-park/  hero.jpg  01.jpg … 12.jpg
+├── freddys-frozen-custard-kansas-city/  hero.jpg  01.jpg  02.jpg
+├── gordon-ramsay-steakhouse-kansas-city/
+├── gould-evans-kansas-city/
+├── mckeevers-kansas-city/
+├── phillips-66-kansas-city/
+├── stop-n-shop-kansas-city/
+└── torchys-tacos-kansas-city/
 ```
 
-State abbreviations are expanded (`TX` → `Texas`). If there is no location in
-the folder name, the project simply has no location.
+Folder names are lowercase and hyphenated — no spaces, punctuation, or
+parentheses. Filenames are always `hero.jpg` and `01.jpg`, `02.jpg`, … Paths are
+generated from the real files, so capitalisation matches exactly (Vercel's
+filesystem is case-sensitive; Windows and macOS are not, which is exactly how
+this class of bug reaches production unnoticed).
 
-## 2. Push
+---
 
-The ingestion runs automatically before every build. Nothing to install, no
-commands to remember. To run it yourself while developing:
+## Adding or replacing photos
+
+### Option A — by hand (a few images)
+
+1. Drop files into `public/images/projects/<folder>/`, named `hero.jpg`,
+   `01.jpg`, `02.jpg`, …
+2. Add or edit the entry in `lib/project-images.ts`.
+
+`width` and `height` **must** match the real file. They reserve exact space
+while the image loads, which is what stops the page jumping.
+
+### Option B — the script (a whole folder of projects)
 
 ```bash
-npm run ingest:projects
+npm run build:images -- "/path/to/Projects"
 ```
+
+It rewrites `public/images/projects/` and `lib/project-images.ts` from a folder
+of per-project folders named `Project Name - City, ST`. Commit the result.
+
+**It never runs during a build.** You run it, you see the report, you commit
+what it produced.
+
+Matching tolerates capitalisation, spaces, punctuation, apostrophes, hyphens,
+ampersands, and city/state suffixes — `Ikea - Kansas City` finds IKEA, and
+`Freddy's Frozen Custad` still finds `freddys-frozen-custard` despite the typo.
+Matched projects take their **canonical** slug for the public folder name, so a
+misspelling in a source folder never reaches a public URL.
+
+A folder matching no existing project becomes a new project, added to the
+Projects page, its market sector, the filters, counts, related rails, and the
+sitemap — with neutral placeholder scope, never invented detail.
+
+### The hero
+
+The strongest image is picked automatically: resolution 45%, detail and
+contrast 35%, landscape orientation 20%. To choose it yourself, name the source
+file `hero.jpg`, or set `featuredImage` in `lib/project-overrides.ts`.
 
 ---
 
-## What happens to each folder
-
-**Matching is deliberately tolerant.** Capitalisation, extra spaces,
-punctuation, apostrophes, hyphens, ampersands, `LLC`/`Inc` suffixes, and
-city/state suffixes are all ignored when comparing. `ikea (Grand Prairie, TX)`
-matches the existing `IKEA` project; `Georgia Pacific` matches
-`Georgia-Pacific`.
-
-- **Matched an existing project** → the photos are attached to that project.
-  Nothing else about the project changes.
-- **Matched nothing** → it becomes a **new project**, added to the Projects
-  page, the correct market sector, the sector filters, the project counts, the
-  related-projects rails, and the sitemap. Its scope reads *"Project details and
-  scope information will be added soon."* until you fill it in.
-
-Projects that have no photos yet are never removed.
-
-### The hero image
-
-The strongest image is chosen automatically, scored on resolution (45%), image
-detail and contrast (35%), and a landscape bonus (20%).
-
-**To choose it yourself**, name the file `hero.jpg`, `cover.jpg`, or `01.jpg` —
-those always win. Every remaining image goes to the gallery in filename order.
-
-### Optimisation
+## Optimisation
 
 | | |
 | --- | --- |
-| Format | WebP, quality 82 |
-| Hero width | up to 2400px |
-| Gallery width | up to 1800px |
-| Upscaling | never — small images are left at their own size |
-| Aspect ratio | always preserved; images are never stretched |
-| Rotation | EXIF orientation applied, so phone photos are upright |
-| Loading | gallery images lazy-load; the hero loads eagerly |
-| Responsive | correct `sizes` so phones download phone-sized files |
+| Stored format | Progressive JPEG (mozjpeg) |
+| Delivered format | WebP / AVIF, converted automatically by `next/image` |
+| Quality | ladder from 86 down, stopping once the file beats the source |
+| Hero render | `priority`, preloaded, `quality={85}`, `sizes="100vw"` |
+| Gallery render | lazy-loaded, `quality={80}`, natural aspect ratio |
+| Widths | hero ≤ 2400px, gallery ≤ 1800px, **never upscaled** |
+| Aspect | always preserved — images are never stretched |
+| Rotation | EXIF orientation applied |
 
-Typical reduction is 80–90% of the original file size with no visible quality
-loss.
-
----
-
-## Filling in project detail later
-
-Ingestion never writes scope, dates, contract values, or GC names — it will not
-invent facts. To add real detail, edit the record in `lib/projects.ts`:
-
-```ts
-{
-  slug: 'blue-ridge-elementary-school',
-  name: 'Blue Ridge Elementary School',
-  industry: 'education',
-  location: 'Frisco, Texas',
-  serviceTypes: ['interior-painting', 'maintenance-painting'],
-  scopeSummary: 'Summer repaint across classrooms, corridors, and the gymnasium.',
-  detail: 'experience',
-  art: 'education',
-}
-```
-
-Setting `detail: 'case-study'` and filling `overview`, `challenges`,
-`solution`, `results`, and `facts` unlocks the full case-study layout.
-
-Photos always come from the generated file, so re-running ingestion never
-overwrites anything you have written by hand.
+The gallery is a masonry layout that renders each photo at its own aspect
+ratio. Fixed tiles would crop a portrait shot to landscape and throw away the
+framing.
 
 ---
 
 ## Correcting a sector or a hero
 
-Some things a folder name simply cannot reveal — "Gould Evans" gives no hint
-that it is an architecture practice rather than a shop. Edit
-**`lib/project-overrides.ts`** for those. It is a curated layer that always
-beats the ingested value and survives re-ingestion:
+Some things a folder name cannot reveal — "Gould Evans" gives no hint that it
+is an architecture practice rather than a shop. Edit
+**`lib/project-overrides.ts`**; it beats anything inferred and survives a
+re-run of the script.
 
 ```ts
 'gould-evans': { industry: 'office', art: 'office' },
 ```
 
-The same file can pin a different hero image, or add real scope and services
-once they are confirmed.
+---
 
 ## Where things live
 
 | Path | Purpose |
 | --- | --- |
-| `Projects/` | Your original photos. Input only — never served. |
-| `public/images/projects/<slug>/` | Optimised WebP output. Generated. |
-| `lib/project-media.generated.ts` | Generated photo + new-project data. Do not edit. |
-| `lib/project-overrides.ts` | Corrections to discovered projects. **Edit this one.** |
-| `lib/projects.ts` | The curated project record. **Edit this one.** |
-| `scripts/ingest-projects.mjs` | The ingestion script. |
+| `public/images/projects/<folder>/` | The image files. Committed. |
+| `lib/project-images.ts` | Paths, alt text, dimensions. Committed. |
+| `lib/project-overrides.ts` | Corrections to discovered projects. **Edit this.** |
+| `lib/projects.ts` | The curated project record. **Edit this.** |
+| `scripts/build-project-images.mjs` | The optimiser. Run manually. |
 
-`lib/projects.ts` merges the generated data in, so the homepage, Projects page,
-sector filters, industry pages, related projects, counts, and sitemap all
-update from that single source.
-
-### Keeping the repository small
-
-The originals in `Projects/` are only needed at build time. If the repo gets
-heavy, run `npm run ingest:projects` locally, commit
-`public/images/projects/` and `lib/project-media.generated.ts`, then add
-`Projects/` to `.gitignore`. The site behaves identically.
+`lib/projects.ts` merges all of it, so the homepage, Projects page, sector
+filters, industry pages, related projects, counts, and sitemap update from one
+source.

@@ -38,6 +38,7 @@ export function ProjectGallery({ images }: { images: GalleryImage[] }) {
               alt={image.alt}
               width={image.width}
               height={image.height}
+              quality={80}
               sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
               className="h-auto w-full transition-transform duration-700 ease-out group-hover:scale-[1.03]"
             />
