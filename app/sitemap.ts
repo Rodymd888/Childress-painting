@@ -3,6 +3,8 @@ import { siteUrl } from '@/lib/site';
 import { serviceSlugs } from '@/lib/services';
 import { industrySlugs } from '@/lib/industries';
 import { projectSlugs } from '@/lib/projects';
+import { states, cityPaths } from '@/lib/locations';
+import { articleSlugs } from '@/lib/articles';
 
 /**
  * SITEMAP
@@ -25,6 +27,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/why-childress', priority: 0.8, freq: 'monthly' },
     { path: '/safety-quality', priority: 0.7, freq: 'monthly' },
     { path: '/service-areas', priority: 0.7, freq: 'monthly' },
+    { path: '/locations', priority: 0.9, freq: 'monthly' },
+    { path: '/insights', priority: 0.8, freq: 'monthly' },
     { path: '/contact', priority: 0.8, freq: 'monthly' },
     { path: '/careers', priority: 0.6, freq: 'monthly' },
     { path: '/subcontractors', priority: 0.6, freq: 'monthly' },
@@ -53,6 +57,33 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.75,
+    });
+  }
+
+  for (const state of states) {
+    entries.push({
+      url: `${siteUrl}/locations/${state.slug}`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.85,
+    });
+  }
+
+  for (const { state, city } of cityPaths) {
+    entries.push({
+      url: `${siteUrl}/locations/${state}/${city}`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    });
+  }
+
+  for (const slug of articleSlugs) {
+    entries.push({
+      url: `${siteUrl}/insights/${slug}`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
     });
   }
 

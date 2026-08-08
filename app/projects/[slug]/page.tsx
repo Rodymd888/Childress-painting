@@ -17,6 +17,7 @@ import { JsonLd } from '@/components/ui/JsonLd';
 
 import { getProject, projectSlugs, relatedProjects } from '@/lib/projects';
 import { getIndustry } from '@/lib/industries';
+import { allCities } from '@/lib/locations';
 import { getService } from '@/lib/services';
 import { processSteps } from '@/lib/content';
 import { breadcrumbSchema } from '@/lib/schema';
@@ -34,11 +35,18 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   if (!project) return {};
 
   const industry = getIndustry(project.industry);
-  const title = `${project.name} | ${industry?.title ?? 'Commercial'} Painting`;
+  /* Geo-qualified titles: a project page competes for "<brand> painting
+     <city>", which is a real search and one no competitor is answering. */
+  const where = project.location ? ` | ${project.location}` : '';
+  const title = `${project.name} Painting Project${where} | ${
+    industry?.title ?? 'Commercial'
+  } Painting`;
 
   return {
     title,
-    description: project.scopeSummary,
+    description: project.location
+      ? `${project.scopeSummary} A ${industry?.shortTitle.toLowerCase() ?? 'commercial'} painting project completed by Childress Painting in ${project.location}.`
+      : project.scopeSummary,
     alternates: { canonical: `/projects/${project.slug}` },
     openGraph: { title, description: project.scopeSummary, url: `/projects/${project.slug}` },
   };
@@ -56,6 +64,13 @@ export default async function ProjectPage({ params }: Params) {
   const related = relatedProjects(project.slug, 3);
   const isCaseStudy = project.detail === 'case-study';
   const gallery = project.gallery ?? [];
+
+  /* The city page for this project's location, when we publish one. This is
+     what turns the portfolio into a local-search asset: every photographed
+     job points at the market page it belongs to. */
+  const cityMatch = project.location
+    ? allCities.find((c) => c.projectCities.some((pc) => project.location!.includes(pc)))
+    : undefined;
 
   /* Coating systems for the scopes actually performed, de-duplicated. Nothing
      here is project-specific; it is the specification standard we work to. */
@@ -294,6 +309,33 @@ export default async function ProjectPage({ params }: Params) {
                       </li>
                     ))}
                   </ol>
+                </div>
+              )}
+
+              {/* LOCAL MARKET LINK — project to city page. */}
+              {cityMatch && (
+                <div className="mt-10 md:mt-14">
+                  <span className="title-block text-ink/60">Market</span>
+                  <h2 className="mt-5 text-h3 text-ink">
+                    Painting Work in {cityMatch.name}.
+                  </h2>
+                  <p className="mt-4 max-w-2xl leading-relaxed text-body">
+                    {cityMatch.intro.split('. ').slice(0, 2).join('. ')}.
+                  </p>
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    <Link
+                      href={`/locations/${cityMatch.state.slug}/${cityMatch.slug}`}
+                      className="group inline-flex min-h-11 items-center gap-2 border border-line px-4 py-2.5 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-ink transition-colors hover:border-ink hover:bg-ink hover:text-white"
+                    >
+                      Painting Contractors in {cityMatch.name}
+                    </Link>
+                    <Link
+                      href={`/locations/${cityMatch.state.slug}`}
+                      className="group inline-flex min-h-11 items-center gap-2 border border-line px-4 py-2.5 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-ink transition-colors hover:border-ink hover:bg-ink hover:text-white"
+                    >
+                      All {cityMatch.state.name} Markets
+                    </Link>
+                  </div>
                 </div>
               )}
 

@@ -160,6 +160,21 @@ export const primaryNav: NavItem[] = [
     ],
   },
   {
+    label: 'Locations',
+    href: '/locations',
+    children: [
+      { label: 'Texas', href: '/locations/texas', blurb: 'Primary market, worked from Dallas.' },
+      { label: 'Dallas', href: '/locations/texas/dallas', blurb: 'Our headquarters market.' },
+      { label: 'Fort Worth', href: '/locations/texas/fort-worth', blurb: 'Alliance corridor and central.' },
+      { label: 'Plano', href: '/locations/texas/plano', blurb: 'Corporate campuses and Legacy.' },
+      { label: 'Frisco', href: '/locations/texas/frisco', blurb: 'New construction retail and schools.' },
+      { label: 'Arlington', href: '/locations/texas/arlington', blurb: 'Venues and industrial.' },
+      { label: 'Kansas', href: '/locations/kansas', blurb: 'Johnson County school programs.' },
+      { label: 'Missouri', href: '/locations/missouri', blurb: 'Kansas City metro, from Grandview.' },
+      { label: 'All Locations', href: '/locations', blurb: 'Every market we staff.' },
+    ],
+  },
+  {
     label: 'Industries',
     href: '/industries',
     children: [
@@ -186,6 +201,7 @@ export const primaryNav: NavItem[] = [
       { label: 'Why Childress', href: '/why-childress', blurb: 'What general contractors actually buy.' },
       { label: 'Safety & Quality', href: '/safety-quality', blurb: 'OSHA-compliant crews and QC inspections.' },
       { label: 'Service Areas', href: '/service-areas', blurb: 'Texas primary; Kansas and Missouri secondary.' },
+      { label: 'Insights', href: '/insights', blurb: 'Guidance for GCs and owners.' },
       { label: 'Careers', href: '/careers', blurb: 'Field and project management roles.' },
       { label: 'Subcontractors', href: '/subcontractors', blurb: 'Prequalify to work with us.' },
     ],
@@ -221,6 +237,18 @@ export const footerNav = [
     ],
   },
   {
+    heading: 'Locations',
+    links: [
+      { label: 'Dallas, TX', href: '/locations/texas/dallas' },
+      { label: 'Fort Worth, TX', href: '/locations/texas/fort-worth' },
+      { label: 'Plano, TX', href: '/locations/texas/plano' },
+      { label: 'Frisco, TX', href: '/locations/texas/frisco' },
+      { label: 'Kansas City, MO', href: '/locations/missouri/kansas-city' },
+      { label: 'Overland Park, KS', href: '/locations/kansas/overland-park' },
+      { label: 'All Locations', href: '/locations' },
+    ],
+  },
+  {
     heading: 'Company',
     links: [
       { label: 'About', href: '/about' },
@@ -236,6 +264,7 @@ export const footerNav = [
     heading: 'Work With Us',
     links: [
       { label: 'Request a Bid', href: '/request-bid' },
+      { label: 'Insights', href: '/insights' },
       { label: 'Contact', href: '/contact' },
       { label: 'Careers', href: '/careers' },
       { label: 'Subcontractors', href: '/subcontractors' },

@@ -36,7 +36,7 @@ import { company } from '@/lib/site';
 import { breadcrumbSchema } from '@/lib/schema';
 
 export const metadata: Metadata = {
-  title: 'Commercial Painting Contractor in Dallas–Fort Worth | Since 1984',
+  title: 'Commercial, Industrial & Residential Painting Contractor | Since 1984',
   description:
     'Childress Painting is a commercial painting contractor serving Texas since 1984, with residential and industrial painting alongside. Retail, restaurant, healthcare, education, and government work for general contractors. Two-year workmanship warranty.',
   alternates: { canonical: '/' },
