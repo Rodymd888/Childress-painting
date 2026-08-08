@@ -107,7 +107,7 @@ export default function SafetyQualityPage() {
             intro={
               <p>
                 Coverage, film build, sheen uniformity, cut lines, and adjacent-surface
-                condition — checked and corrected before anyone else is asked to look at it.
+                condition, checked and corrected before anyone else is asked to look at it.
               </p>
             }
           />

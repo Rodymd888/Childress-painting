@@ -27,7 +27,7 @@ export function Testimonials() {
           title="Judged by the People Who Hire Painters for a Living."
           intro={
             <p>
-              Superintendents, construction managers, facility teams — and homeowners who got
+              Superintendents, construction managers, facility teams, and homeowners who got
               the same crews. Communication, schedule, and clean job sites come up more than
               the paint does. That is the point.
             </p>

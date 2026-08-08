@@ -36,11 +36,11 @@ export default function PrivacyPage() {
             <div className="flex flex-col gap-4 border-l-4 border-red bg-mist p-6 sm:flex-row sm:items-start sm:gap-5">
               <AlertTriangle aria-hidden="true" className="size-5 shrink-0 text-red" />
               <div>
-                <h2 className="text-lg text-ink">Draft — Requires Legal Review</h2>
+                <h2 className="text-lg text-ink">Draft, Requires Legal Review</h2>
                 <p className="mt-2 max-w-3xl text-[0.9375rem] leading-relaxed text-body">
                   This notice is a starting point written to match how the website currently
                   works. It has not been reviewed by an attorney and does not yet reflect the
-                  company&rsquo;s full data practices — including any CRM, analytics, email
+                  company&rsquo;s full data practices, including any CRM, analytics, email
                   platform, or applicant tracking system added after launch. Have Texas counsel
                   review it, and update this page whenever a new tool starts receiving visitor
                   data.
@@ -57,7 +57,7 @@ export default function PrivacyPage() {
 
             <h2>What We Collect</h2>
             <p>
-              We collect the information you type into the forms on this site — the bid request
+              We collect the information you type into the forms on this site. The bid request
               form, the contact form, the subcontractor prequalification form, and the careers
               form. Depending on the form, that includes your name, company, email address, phone
               number, project details, and any links or descriptions you choose to provide.
@@ -85,14 +85,14 @@ export default function PrivacyPage() {
               This site does not accept direct file uploads. Where a form asks for plans, a W-9,
               a certificate of insurance, or a resume, it collects a link you provide to a
               document hosted elsewhere. Whatever you link to remains governed by the access
-              controls of the service hosting it — check those settings before sharing a link.
+              controls of the service hosting it, check those settings before sharing a link.
             </p>
 
             <h2>Who Sees It</h2>
             <p>
               Submissions are received by Childress Painting personnel. Where a third-party
-              service is used to deliver, store, or manage submissions — for example an email
-              provider or a customer relationship management system — that provider processes the
+              service is used to deliver, store, or manage submissions, for example an email
+              provider or a customer relationship management system, that provider processes the
               information on our behalf under its own terms.
             </p>
             <p>

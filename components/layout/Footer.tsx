@@ -33,7 +33,7 @@ export function Footer() {
               </h2>
               <p className="mt-5 max-w-xl text-lead leading-relaxed text-ash">
                 Bid or no-bid, you get an answer. Scope, assumptions, and exclusions in
-                writing — so there is nothing to discover during construction.
+                writing, so there is nothing to discover during construction.
               </p>
             </div>
 

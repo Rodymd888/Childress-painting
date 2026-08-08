@@ -117,8 +117,7 @@ export default function WhyChildressPage() {
             title="Eight Things Superintendents Tell Us Matter."
             intro={
               <p>
-                Collected from four decades of debriefs. None of them are about the coating —
-                which is exactly the point.
+                Collected from four decades of debriefs. None of them are about the coating, which is exactly the point.
               </p>
             }
           />
@@ -190,7 +189,7 @@ export default function WhyChildressPage() {
               Our workmanship warranty runs for two years from substantial completion, in
               addition to whatever the coating manufacturer provides on the material. It is
               issued in writing at closeout alongside attic stock and the approved color
-              schedule — and a call in year two gets the same response as a call during
+              schedule, and a call in year two gets the same response as a call during
               construction.
             </p>
             <div className="mt-9 flex flex-wrap justify-center gap-3">

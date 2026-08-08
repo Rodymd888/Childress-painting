@@ -79,7 +79,7 @@ export function officeSchemas() {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
     '@id': `${siteUrl}/#office-${office.id}`,
-    name: `${company.name} — ${office.label}`,
+    name: `${company.name}, ${office.label}`,
     url: siteUrl,
     telephone: office.phone,
     email: office.email,

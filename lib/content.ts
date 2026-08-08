@@ -139,7 +139,7 @@ export const timeline = [
   {
     year: 'Today',
     title: 'Dallas–Fort Worth and Beyond',
-    body: 'Operating from Dallas as Childress Painting DFW LLC, serving Texas as the primary market with continued Kansas and Missouri coverage, commercial construction at the core, with residential and industrial painting delivered to the same standard.',
+    body: 'Operating from Dallas as Childress Painting LLC. Texas is the primary market, with continued coverage in Kansas and Missouri from the Grandview office. Commercial construction remains the core of the business, with industrial and residential work held to the same standard.',
   },
 ] as const;
 

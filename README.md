@@ -1,6 +1,6 @@
 # Childress Painting — Website
 
-Commercial painting contractor site for **Childress Painting DFW LLC**.
+Commercial painting contractor site for **Childress Painting LLC**.
 Next.js 15 (App Router) · React 19 · Tailwind CSS v4 · TypeScript.
 
 ---

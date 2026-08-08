@@ -26,7 +26,7 @@ export default function ProjectsPage() {
     <>
       <PageHero
         label="Portfolio"
-        title="Work, Organised the Way You Look for It."
+        title="Work, Organized the Way You Look for It."
         intro="By market sector, because a general contractor bidding a surgery center wants to see healthcare experience, not a photo gallery."
         crumbs={[
           { name: 'Home', href: '/' },
@@ -80,8 +80,8 @@ export default function ProjectsPage() {
                 identify project experience only; no endorsement or affiliation is implied.
               </p>
               <p>
-                Detailed case studies — square footage, durations, photography, and named
-                references — are published only once the owner or general contractor has
+                Detailed case studies, square footage, durations, photography, and named
+                references, are published only once the owner or general contractor has
                 approved release in writing. Where you need specifics for a prequalification,
                 ask and we will provide references directly.
               </p>

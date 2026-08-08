@@ -78,7 +78,7 @@ export default function SubcontractorsPage() {
         crumbs={crumbs}
         meta={[
           { label: 'Required', value: 'Current COI and W-9' },
-          { label: 'Coverage', value: 'DFW and statewide Texas' },
+          { label: 'Coverage', value: 'Dallas-Fort Worth and statewide Texas' },
           { label: 'Trades', value: 'Painting, coatings, related' },
           { label: 'Submissions', value: 'Open year-round' },
         ]}

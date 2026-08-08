@@ -111,7 +111,7 @@ export function FormShell({
         </div>
         <p className="mt-4 max-w-xl text-[0.8125rem] leading-relaxed text-body">
           Fields marked with an asterisk are required. We use what you send to respond to your
-          enquiry — see our{' '}
+          inquiry — see our{' '}
           <a href="/privacy" className="text-red-dark underline underline-offset-2">
             privacy notice
           </a>

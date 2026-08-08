@@ -35,9 +35,8 @@ import { company } from '@/lib/site';
  */
 
 const HEADLINE = [
-  'Commercial Painting',
-  'Held to the',
-  { text: 'Construction Schedule.', accent: true },
+  'Commercial Painting.',
+  { text: 'Delivered On Schedule.', accent: true },
 ] as const;
 
 const TRUST = [
@@ -179,7 +178,7 @@ export function Hero() {
           Commercial painting specialists · Dallas–Fort Worth
         </span>
 
-        <h1 className="mt-6 max-w-[19ch] text-display text-white sm:mt-7">
+        <h1 className="mt-6 max-w-[16ch] text-display text-white sm:mt-7">
           {HEADLINE.map((line, i) => {
             const text = typeof line === 'string' ? line : line.text;
             const accent = typeof line !== 'string' && line.accent;
@@ -194,7 +193,7 @@ export function Hero() {
                 >
                   {accent ? (
                     <>
-                      Construction <span className="text-red">Schedule.</span>
+                      Delivered <span className="text-red">On Schedule.</span>
                     </>
                   ) : (
                     text
@@ -212,10 +211,10 @@ export function Hero() {
             loaded ? 'translate-y-0 opacity-100' : 'translate-y-3 opacity-0',
           ].join(' ')}
         >
-          Four decades of work for general contractors, developers, facility teams, and
-          homeowners — national retail and restaurant rollouts, healthcare and school
-          programs, industrial coatings, and residential projects held to the same standard.
-          We make the superintendent&rsquo;s job easier.
+          Commercial, industrial, and residential painting since 1984. We prepare surfaces
+          properly, coordinate with the trades around us, and finish when we said we would.
+          You get one point of contact, a crew that keeps the site clean, and work that still
+          looks right two years later.
         </p>
 
         <div

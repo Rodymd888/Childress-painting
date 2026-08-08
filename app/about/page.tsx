@@ -62,8 +62,8 @@ export default function AboutPage() {
                 </p>
                 <p>
                   That foundation matters more than it sounds. Habits formed on commercial
-                  jobsites — prevailing wage, submittals, multi-trade sequencing, and what a
-                  superintendent needs on a Tuesday morning — carry into every residential and
+                  jobsites, prevailing wage, submittals, multi-trade sequencing, and what a
+                  superintendent needs on a Tuesday morning, carry into every residential and
                   industrial project we take on. The discipline does not switch off.
                 </p>
                 <p>
@@ -128,7 +128,7 @@ export default function AboutPage() {
             title="How the Record Was Built."
             intro={
               <p>
-                Not a marketing history — the actual arc of the work, from a family trade to a
+                Not a marketing history, the actual arc of the work, from a family trade to a
                 multi-sector painting contractor.
               </p>
             }

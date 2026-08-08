@@ -164,7 +164,7 @@ export default function RequestBidPage() {
                 <div className="border border-line bg-ink p-6 text-white md:p-7">
                   <Send aria-hidden="true" className="size-5 text-red" />
                   <p className="mt-4 text-[0.9375rem] leading-relaxed text-ash">
-                    Share your drawings by link — Dropbox, Box, SharePoint, Procore, or
+                    Share your drawings by link, Dropbox, Box, SharePoint, Procore, or
                     BuildingConnected all work. Paste the link in the plans field and
                     estimating pulls them down the same day.
                   </p>

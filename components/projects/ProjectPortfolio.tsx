@@ -10,7 +10,7 @@ import type { Industry } from '@/lib/industries';
  * FILTERABLE PORTFOLIO
  * ---------------------------------------------------------------------------
  * Client-side filtering across the whole project set. Deliberately not a photo
- * gallery — projects are organised by market sector, which is how a general
+ * gallery — projects are organized by market sector, which is how a general
  * contractor actually looks for relevant experience.
  *
  * SCALING: this filters an array. It handles hundreds of records without

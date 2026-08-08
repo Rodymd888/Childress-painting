@@ -106,7 +106,7 @@ export default function HomePage() {
                 Sherwin-Williams coating system backed by a two-year workmanship warranty.
               </p>
               <p>
-                Commercial construction is the core of the business — and the discipline it
+                Commercial construction is the core of the business, and the discipline it
                 demands carries into everything else we paint, from industrial plants to
                 residential projects. No learning curve on prevailing wage or multi-trade
                 sequencing; just a crew that has done this across retail, restaurant,
@@ -142,8 +142,8 @@ export default function HomePage() {
             }
             intro={
               <p>
-                Commercial, residential, and industrial painting — plus the coatings, floors,
-                and preparation trades that surround them — priced, staffed, and closed out by
+                Commercial, residential, and industrial painting, plus the coatings, floors,
+                and preparation trades that surround them, priced, staffed, and closed out by
                 the same team.
               </p>
             }
@@ -169,8 +169,7 @@ export default function HomePage() {
             title={`${industries.length} Sectors, Each With Its Own Constraint.`}
             intro={
               <p>
-                The coating rarely changes. What changes is what governs the schedule —
-                infection control in a hospital, an opening date in retail, a dark night in a
+                The coating rarely changes. What changes is what governs the schedule, infection control in a hospital, an opening date in retail, a dark night in a
                 stadium, badging at an airport. We plan for the constraint, not just the scope.
               </p>
             }
@@ -316,7 +315,7 @@ export default function HomePage() {
               </h2>
               <p className="mt-6 max-w-xl text-lead leading-relaxed text-ash">
                 District-level painting partnerships across two Kansas City-area school
-                districts — elementary, middle, and high school campuses, all delivered between
+                districts, elementary, middle, and high school campuses, all delivered between
                 the last day of class and staff return.
               </p>
               <div className="mt-9">

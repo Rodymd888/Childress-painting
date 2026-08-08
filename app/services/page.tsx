@@ -56,7 +56,7 @@ export default function ServicesPage() {
             intro={
               <p>
                 Every proposal states what is included, what is assumed, and what is excluded.
-                Scope gaps cause more disputes on a jobsite than any finish issue — so we settle
+                Scope gaps cause more disputes on a jobsite than any finish issue, so we settle
                 them in writing first.
               </p>
             }

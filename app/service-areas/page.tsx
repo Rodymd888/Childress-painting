@@ -116,7 +116,7 @@ export default function ServiceAreasPage() {
             intro={
               <p>
                 Not an exhaustive list. If a project is outside these areas but part of a
-                multi-site program, we travel crews for it — say so in the bid request.
+                multi-site program, we travel crews for it, say so in the bid request.
               </p>
             }
           />

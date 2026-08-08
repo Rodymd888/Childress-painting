@@ -12,7 +12,7 @@ import { breadcrumbSchema } from '@/lib/schema';
 
 export const metadata: Metadata = {
   title: 'Contact Childress Painting | Dallas, Texas',
-  description: `Contact Childress Painting — ${company.phone}, ${company.email}. Commercial painting contractor based at ${company.address.street}, ${company.address.city}, ${company.address.region}.`,
+  description: `Contact Childress Painting, ${company.phone}, ${company.email}. Commercial painting contractor based at ${company.address.street}, ${company.address.city}, ${company.address.region}.`,
   alternates: { canonical: '/contact' },
 };
 
@@ -152,7 +152,7 @@ export default function ContactPage() {
                   Bidding a project?
                 </p>
                 <p className="mt-2.5 text-[0.9375rem] leading-relaxed text-body">
-                  Use the bid portal instead — it collects the drawings, due date, and scope in
+                  Use the bid portal instead, it collects the drawings, due date, and scope in
                   one submission so estimating can start immediately.
                 </p>
                 <div className="mt-5">

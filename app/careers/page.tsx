@@ -54,7 +54,7 @@ const whatMatters = [
   },
   {
     title: 'Leaving It Clean',
-    body: 'Occupied buildings, active plants, and schools mean somebody uses that space tonight. Protecting it and cleaning up is part of the work, not a favour.',
+    body: 'Occupied buildings, active plants, and schools mean somebody uses that space tonight. Protecting it and cleaning up is part of the work, not a favor.',
   },
   {
     title: 'Saying Something',
@@ -86,7 +86,7 @@ export default function CareersPage() {
             title="Three Sides of the Same Business."
             intro={
               <p>
-                We do not maintain a live list of vacancies on this page — postings go stale faster
+                We do not maintain a live list of vacancies on this page, postings go stale faster
                 than they get updated. Send the form and tell us what you do; we contact people
                 when the work matches.
               </p>
@@ -134,7 +134,7 @@ export default function CareersPage() {
             intro={
               <p>
                 Compensation, benefits, and specific requirements are discussed directly rather
-                than advertised here — they vary by role, and we would rather have that
+                than advertised here. They vary by role, and we would rather have that
                 conversation honestly than post a range we cannot hold to.
               </p>
             }

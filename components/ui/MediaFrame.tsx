@@ -119,7 +119,7 @@ export function ImagePlaceholder({
   return (
     <div
       role="img"
-      aria-label={`${label} — illustrative architectural drawing`}
+      aria-label={`${label}, illustrative architectural drawing`}
       className={['relative size-full overflow-hidden bg-ink', className].filter(Boolean).join(' ')}
     >
       <SectorArt art={art} className="size-full" />

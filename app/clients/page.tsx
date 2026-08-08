@@ -31,7 +31,7 @@ export default function ClientsPage() {
       <PageHero
         label="Representative Clients"
         title="Who We Have Painted For."
-        intro="Representative commercial project experience of the Childress Painting leadership team, organised by industry. Company names identify project experience only; no endorsement or affiliation is implied."
+        intro="Representative commercial project experience of the Childress Painting leadership team, organized by industry. Company names identify project experience only; no endorsement or affiliation is implied."
         crumbs={[
           { name: 'Home', href: '/' },
           { name: 'Clients', href: '/clients' },
@@ -140,7 +140,7 @@ export default function ClientsPage() {
             intro={
               <p>
                 District-level painting partnerships across two Kansas City-area school
-                districts — every campus delivered inside the summer window between the last
+                districts. Every campus delivered inside the summer window between the last
                 day of class and staff return.
               </p>
             }

@@ -8,7 +8,7 @@
 
 export const company = {
   name: 'Childress Painting',
-  legalName: 'Childress Painting DFW LLC',
+  legalName: 'Childress Painting LLC',
   tagline: 'Quality painting. Professional results.',
   positioning: 'Commercial painting professionals since 1984.',
 
@@ -67,7 +67,7 @@ export const company = {
 export const offices = [
   {
     id: 'dallas',
-    label: 'Dallas – Fort Worth',
+    label: 'Dallas-Fort Worth',
     role: 'Headquarters',
     street: '8601 Sovereign Row',
     city: 'Dallas',

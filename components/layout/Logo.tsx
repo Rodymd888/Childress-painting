@@ -26,7 +26,7 @@ export function Logo({
   return (
     <Link
       href="/"
-      aria-label={`${company.name} — home`}
+      aria-label={`${company.name}, home`}
       className={['group flex shrink-0 items-center gap-3', className].filter(Boolean).join(' ')}
     >
       <Image
@@ -69,7 +69,7 @@ export function LogoFull({
   return (
     <Image
       src={light ? '/brand/logo-full-light.png' : '/brand/logo-full.png'}
-      alt={`${company.name} — quality painting, professional results, since 1984`}
+      alt={`${company.name}, quality painting, professional results, since 1984`}
       width={900}
       height={564}
       style={{ width, height: 'auto' }}
