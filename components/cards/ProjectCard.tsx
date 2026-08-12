@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { ArrowUpRight, MapPin } from 'lucide-react';
-import { MediaFrame } from '@/components/ui/MediaFrame';
+import { ProjectCover } from '@/components/projects/ProjectCover';
 import { getIndustry } from '@/lib/industries';
 import type { Project } from '@/lib/projects';
 
@@ -11,8 +11,9 @@ import type { Project } from '@/lib/projects';
  * 'experience'` shows the sector and scope category; one marked
  * 'case-study' additionally shows location and completion date.
  *
- * The media slot is a MediaFrame — populate `featuredImage` on the project and
- * a photograph replaces the drawn artwork with no change here.
+ * The media slot is a ProjectCover: a real photograph when the project has
+ * one, and a designed brand cover when it does not. Either way the card is
+ * never an empty frame.
  */
 export function ProjectCard({
   project,
@@ -29,12 +30,11 @@ export function ProjectCard({
       href={`/projects/${project.slug}`}
       className="group lift sweep relative flex flex-col overflow-hidden border border-line bg-white"
     >
-      <MediaFrame
-        image={project.featuredImage}
-        art={project.art}
-        label={project.name}
-        ratio="landscape"
+      <ProjectCover
+        project={project}
+        ratio="video"
         priority={priority}
+        sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
       />
 
       <div className="flex flex-1 flex-col p-6 md:p-7">
@@ -53,7 +53,7 @@ export function ProjectCard({
           {project.name}
         </h3>
 
-        {isCaseStudy && project.location && (
+        {project.location && (
           <p className="mt-2 flex items-center gap-1.5 text-[0.8125rem] text-ink/55">
             <MapPin aria-hidden="true" className="size-3.5 text-red" />
             {project.location}

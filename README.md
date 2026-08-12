@@ -183,6 +183,21 @@ components/
 - All content routes are statically prerendered (84 pages).
 - Brand and video assets get a one-year immutable cache header.
 
+### Project media
+
+Covers render through `components/projects/ProjectCover.tsx`. It shows a real
+photograph when the project has one and a designed brand cover when it does
+not, so no card or hero is ever an empty frame. The fallback uses ink, red, and
+the neutral scale only.
+
+Photography lives in `public/images/projects/<folder>/` with paths committed in
+`lib/project-images.ts`. To add or replace a batch, run
+`npm run build:images -- "/path/to/Projects"` locally and commit the result.
+
+**Video architecture is ready but unpopulated.** `Project` carries `heroVideo`
+and `videos`; see `public/videos/README.md` for file layout, encoding commands,
+and the playback rules the templates already enforce.
+
 ### Mobile
 
 The desktop design is the foundation; mobile is a deliberate translation of it

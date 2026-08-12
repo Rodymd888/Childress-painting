@@ -53,7 +53,7 @@ const US_STATES = {
 };
 
 const INDUSTRY_KEYWORDS = [
-  ['residential', ['residential','residence','homeowner','private home','custom wood staining']],
+  ['residential', ['residential','residence','homeowner','private home','custom wood staining','custom homes','custom home','homebuilder','home builder']],
   ['aviation', ['airport','terminal','hangar','aviation','airfield']],
   ['sports-entertainment', ['stadium','arena','ballpark','chiefs','royals','topgolf','cinema','theater','theatre','bowling','event venue','event center','convention','ballroom']],
   ['education', ['school','isd','university','college','campus','academy','elementary','middle','high school','district']],

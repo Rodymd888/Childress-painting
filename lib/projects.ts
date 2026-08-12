@@ -40,6 +40,25 @@
 import { projectImages, discoveredProjects } from './project-images';
 import { projectOverrides } from './project-overrides';
 
+/** A project video. See the note on `heroVideo` in Project. */
+export type ProjectVideo = {
+  /** H.264 MP4. Required — universal playback. */
+  src: string;
+  /** VP9 WebM, served first where supported. Optional. */
+  webm?: string;
+  /** Still frame. Required, so the slot is never empty. */
+  poster: string;
+  /** What the footage shows, for accessibility and SEO. */
+  title: string;
+  kind: 'walkthrough' | 'before-after' | 'application' | 'crew' | 'overview';
+  width: number;
+  height: number;
+  /** Seconds. Displayed in the gallery. */
+  duration?: number;
+  /** Short line shown beneath the player. */
+  caption?: string;
+};
+
 export type ProjectImage = {
   /** Public path, e.g. '/images/projects/my-project/01.jpg' */
   src: string;
@@ -47,12 +66,6 @@ export type ProjectImage = {
   alt: string;
   width: number;
   height: number;
-  caption?: string;
-};
-
-export type ProjectVideo = {
-  src: string;
-  poster?: string;
   caption?: string;
 };
 
@@ -549,6 +562,15 @@ export const projectsByIndustry = (industry: string) =>
   projects.filter((p) => p.industry === industry);
 
 export const featuredProjects = projects.filter((p) => p.featured);
+
+/**
+ * Projects that actually have photography, richest gallery first. This is what
+ * the homepage Featured Work section shows: a project with forty photographs
+ * makes a better lead image than one with two.
+ */
+export const photographedProjects = projects
+  .filter((p) => Boolean(p.featuredImage))
+  .sort((a, b) => (b.gallery?.length ?? 0) - (a.gallery?.length ?? 0));
 
 /** Projects sharing an industry, excluding the current one. */
 export const relatedProjects = (slug: string, limit = 3) => {

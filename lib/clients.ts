@@ -250,3 +250,58 @@ export const totalSchools = educationDistricts.reduce(
 );
 
 export const totalClients = clientGroups.reduce((sum, g) => sum + g.clients.length, 0);
+
+/**
+ * MAJOR CLIENT BRANDS
+ * ---------------------------------------------------------------------------
+ * The recognisable names, presented as a clean wordmark grid and linked to the
+ * project they relate to where one exists. That link is what turns a logo wall
+ * into a route into the portfolio.
+ *
+ * ON LOGO ARTWORK
+ * These render as typographic wordmarks, not as third-party logo files. We do
+ * not hold licences to reproduce these marks, and inventing logo files would
+ * both look wrong and misrepresent the relationship. If cleared artwork is
+ * supplied later, drop the files into /public/images/clients/<slug>.svg and set
+ * `logo` below; the grid swaps automatically with no layout change.
+ *
+ * The section is headed "Who We Have Painted For" and carries a descriptive-use
+ * disclaimer. No endorsement, sponsorship, or partnership is implied.
+ */
+export type ClientBrand = {
+  name: string;
+  /** Sector label shown beneath the wordmark. */
+  sector: string;
+  /** Project slug to link to, when we have published one. */
+  project?: string;
+  /** Industry slug fallback when there is no single project to point at. */
+  industry?: string;
+  /** Path to cleared logo artwork, when supplied. */
+  logo?: string;
+};
+
+export const clientBrands: ClientBrand[] = [
+  { name: 'CVS Pharmacy', sector: 'Retail', project: 'cvs-pharmacy-program' },
+  { name: 'Walgreens', sector: 'Retail', project: 'walgreens' },
+  { name: 'Walmart', sector: 'Retail', industry: 'retail' },
+  { name: 'IKEA', sector: 'Retail', project: 'ikea' },
+  { name: 'The Home Depot', sector: 'Retail', industry: 'retail' },
+  { name: 'Dollar General', sector: 'Retail', industry: 'retail' },
+  { name: 'Take 5 Oil Change', sector: 'Retail', industry: 'retail' },
+  { name: 'Aldi', sector: 'Grocery', project: 'aldi' },
+  { name: 'Ross Dress for Less', sector: 'Retail', industry: 'retail' },
+  { name: 'Burlington', sector: 'Retail', industry: 'retail' },
+  { name: 'Family Dollar', sector: 'Retail', industry: 'retail' },
+  { name: 'Menards', sector: 'Retail', industry: 'retail' },
+  { name: 'CarMax', sector: 'Automotive Retail', industry: 'retail' },
+  { name: "Torchy's Tacos", sector: 'Restaurants', project: 'torchys-tacos' },
+  { name: 'Chipotle', sector: 'Restaurants', project: 'chipotle' },
+  { name: 'Texas Roadhouse', sector: 'Restaurants', project: 'texas-roadhouse' },
+  { name: 'LongHorn Steakhouse', sector: 'Restaurants', industry: 'restaurants' },
+  { name: "Raising Cane's", sector: 'Restaurants', project: 'raising-canes' },
+  { name: 'Topgolf', sector: 'Entertainment', project: 'topgolf' },
+  { name: 'Georgia-Pacific', sector: 'Industrial', project: 'georgia-pacific' },
+  { name: 'Phillips 66', sector: 'Industrial', project: 'phillips-66' },
+  { name: 'Kansas City Chiefs', sector: 'Sports Venues', project: 'kansas-city-chiefs-stadium' },
+  { name: 'Kansas City Royals', sector: 'Sports Venues', project: 'kansas-city-royals-stadium' },
+];

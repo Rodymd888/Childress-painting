@@ -17,9 +17,10 @@ import { Hero } from '@/components/home/Hero';
 import { TrustedBy } from '@/components/home/TrustedBy';
 import { StatsBand } from '@/components/home/StatsBand';
 import { Testimonials } from '@/components/home/Testimonials';
+import { FeaturedWork } from '@/components/home/FeaturedWork';
+import { ClientBrands } from '@/components/home/ClientBrands';
 import { ServiceCard } from '@/components/cards/ServiceCard';
 import { IndustryCard } from '@/components/cards/IndustryCard';
-import { ProjectCard } from '@/components/cards/ProjectCard';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { ProcessTimeline } from '@/components/ui/ProcessTimeline';
 import { CtaBanner } from '@/components/ui/CtaBanner';
@@ -29,7 +30,7 @@ import { JsonLd } from '@/components/ui/JsonLd';
 
 import { featuredServices } from '@/lib/services';
 import { industries } from '@/lib/industries';
-import { featuredProjects, projectCountByIndustry } from '@/lib/projects';
+import { projectCountByIndustry } from '@/lib/projects';
 import { differentiators, capabilitySnapshot } from '@/lib/content';
 import { educationDistricts, totalSchools } from '@/lib/clients';
 import { company } from '@/lib/site';
@@ -61,7 +62,6 @@ const ICONS: Record<string, typeof CalendarCheck> = {
 
 export default function HomePage() {
   const homeIndustries = industries.slice(0, 6);
-  const homeProjects = featuredProjects.slice(0, 6);
 
   return (
     <>
@@ -268,33 +268,11 @@ export default function HomePage() {
         </div>
       </section>
 
+      <ClientBrands />
+
       <Testimonials />
 
-      {/* ============================================================== PROJECTS */}
-      <section className="section bg-mist">
-        <div className="container-site">
-          <SectionHeading
-            label="Selected Experience"
-            layout="split"
-            title={`Work Across ${industries.length} Market Sectors.`}
-            intro={
-              <p>
-                National retail and restaurant rollouts, district-wide school programs,
-                stadiums, surgery centers, industrial plants, and public safety facilities.
-              </p>
-            }
-            action={<TextLink href="/projects">The full portfolio</TextLink>}
-          />
-
-          <RevealGroup className="mt-10 md:mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" stagger={0.06}>
-            {homeProjects.map((project, i) => (
-              <RevealItem key={project.slug}>
-                <ProjectCard project={project} priority={i < 3} />
-              </RevealItem>
-            ))}
-          </RevealGroup>
-        </div>
-      </section>
+      <FeaturedWork />
 
       {/* ===================================================== EDUCATION SPOTLIGHT */}
       <section className="relative overflow-hidden bg-ink-900 py-20 md:py-24">
