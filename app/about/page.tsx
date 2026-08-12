@@ -5,7 +5,8 @@ import { SectionHeading } from '@/components/ui/SectionHeading';
 import { CtaBanner } from '@/components/ui/CtaBanner';
 import { Reveal, RevealGroup, RevealItem } from '@/components/ui/Reveal';
 import { ButtonLink, TextLink } from '@/components/ui/Button';
-import { MediaFrame } from '@/components/ui/MediaFrame';
+import Image from 'next/image';
+import { aboutPhotos } from '@/lib/site-media';
 import { JsonLd } from '@/components/ui/JsonLd';
 
 import { timeline, values, capabilitySnapshot } from '@/lib/content';
@@ -95,14 +96,18 @@ export default function AboutPage() {
 
             <Reveal delay={0.1} from="right">
               <div className="lg:sticky lg:top-28">
-                <MediaFrame
-                  art="construction"
-                  label="Childress Painting Commercial Work"
-                  ratio="tall"
-                  overlay={false}
-                  priority
-                  sizes="(min-width: 1024px) 36vw, 100vw"
-                />
+                {/* Our own shop, not stock photography. */}
+                <div className="relative aspect-[3/4] overflow-hidden bg-ink">
+                  <Image
+                    src={aboutPhotos.shop.src}
+                    alt={aboutPhotos.shop.alt}
+                    fill
+                    priority
+                    quality={82}
+                    sizes="(min-width: 1024px) 36vw, 100vw"
+                    className="object-cover object-center"
+                  />
+                </div>
                 <div className="mt-8 border-l-2 border-red pl-6">
                   <p className="font-display text-h3 font-bold leading-snug tracking-tight text-ink">
                     &ldquo;Built around the construction schedule.&rdquo;
@@ -113,6 +118,34 @@ export default function AboutPage() {
                 </div>
               </div>
             </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ======================================================== VISUAL BREAK */}
+      <section className="relative">
+        <div className="relative aspect-[4/5] w-full sm:aspect-[16/9] lg:aspect-[21/9]">
+          <Image
+            src={aboutPhotos.office.src}
+            alt={aboutPhotos.office.alt}
+            fill
+            quality={82}
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/25 to-transparent"
+          />
+          <div className="container-site absolute inset-x-0 bottom-0 pb-8 md:pb-12">
+            <span className="title-block text-white/70">Grandview, Missouri</span>
+            <h2 className="mt-4 max-w-2xl text-h3 text-white">
+              The Office Our Kansas City Crews Work From.
+            </h2>
+            <p className="mt-3 max-w-xl text-[0.9375rem] leading-relaxed text-ash">
+              14000 Century Lane. Four decades of school, retail, restaurant, and stadium work
+              across the metro has been run out of this building.
+            </p>
           </div>
         </div>
       </section>

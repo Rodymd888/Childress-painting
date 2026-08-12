@@ -12,7 +12,22 @@
  */
 
 export type ProjectImageRef = { src: string; alt: string; width: number; height: number };
-export type ProjectImageSet = { folder: string; hero: ProjectImageRef; gallery: ProjectImageRef[] };
+export type ProjectVideoRef = {
+  src: string;
+  poster: string;
+  title: string;
+  kind: 'walkthrough' | 'before-after' | 'application' | 'crew' | 'overview';
+  orientation: 'portrait' | 'landscape';
+  width: number;
+  height: number;
+  duration?: number;
+};
+export type ProjectImageSet = {
+  folder: string;
+  hero?: ProjectImageRef;
+  gallery: ProjectImageRef[];
+  videos?: ProjectVideoRef[];
+};
 export type DiscoveredProject = { slug: string; name: string; industry: string; location?: string; art: string };
 
 /** Photography keyed by project slug. */
@@ -25,6 +40,50 @@ export const projectImages: Record<string, ProjectImageSet> = {
       { src: '/images/projects/aldi-kansas-city/02.jpg', alt: 'Painting work by Childress Painting at Aldi, Kansas City — photo 3', width: 960, height: 720 },
       { src: '/images/projects/aldi-kansas-city/03.jpg', alt: 'Painting work by Childress Painting at Aldi, Kansas City — photo 4', width: 960, height: 720 },
       { src: '/images/projects/aldi-kansas-city/04.jpg', alt: 'Painting work by Childress Painting at Aldi, Kansas City — photo 5', width: 960, height: 720 },
+    ],
+  },
+  'billy-goat-industries': {
+    folder: 'billy-goat-industries-lee-summit',
+    hero: { src: '/images/projects/billy-goat-industries-lee-summit/hero.jpg', alt: 'Painting work by Childress Painting at Billy Goat Industries, Lee Summit', width: 864, height: 737 },
+    gallery: [
+      { src: '/images/projects/billy-goat-industries-lee-summit/01.jpg', alt: 'Painting work by Childress Painting at Billy Goat Industries, Lee Summit — photo 2', width: 1800, height: 2400 },
+      { src: '/images/projects/billy-goat-industries-lee-summit/02.jpg', alt: 'Painting work by Childress Painting at Billy Goat Industries, Lee Summit — photo 3', width: 1800, height: 2400 },
+      { src: '/images/projects/billy-goat-industries-lee-summit/03.jpg', alt: 'Painting work by Childress Painting at Billy Goat Industries, Lee Summit — photo 4', width: 1800, height: 2400 },
+      { src: '/images/projects/billy-goat-industries-lee-summit/04.jpg', alt: 'Painting work by Childress Painting at Billy Goat Industries, Lee Summit — photo 5', width: 1800, height: 2400 },
+      { src: '/images/projects/billy-goat-industries-lee-summit/05.jpg', alt: 'Painting work by Childress Painting at Billy Goat Industries, Lee Summit — photo 6', width: 1800, height: 2400 },
+      { src: '/images/projects/billy-goat-industries-lee-summit/06.jpg', alt: 'Painting work by Childress Painting at Billy Goat Industries, Lee Summit — photo 7', width: 1800, height: 2400 },
+      { src: '/images/projects/billy-goat-industries-lee-summit/07.jpg', alt: 'Painting work by Childress Painting at Billy Goat Industries, Lee Summit — photo 8', width: 1800, height: 2400 },
+    ],
+    videos: [
+      {
+        src: '/videos/projects/billy-goat-industries-lee-summit/clip-01.mp4',
+        poster: '/videos/projects/billy-goat-industries-lee-summit/clip-01.jpg',
+        title: 'Childress Painting on site at Billy Goat Industries, Lee Summit',
+        kind: 'walkthrough',
+        orientation: 'portrait',
+        width: 720, height: 1280, duration: 4,
+      },
+      {
+        src: '/videos/projects/billy-goat-industries-lee-summit/clip-02.mp4',
+        poster: '/videos/projects/billy-goat-industries-lee-summit/clip-02.jpg',
+        title: 'Childress Painting on site at Billy Goat Industries, Lee Summit',
+        kind: 'walkthrough',
+        orientation: 'portrait',
+        width: 720, height: 1280, duration: 33,
+      },
+    ],
+  },
+  'brookshire-renovation': {
+    folder: 'brookshire-renovation-kansas-city',
+    hero: { src: '/images/projects/brookshire-renovation-kansas-city/hero.jpg', alt: 'Painting work by Childress Painting at Brookshire Renovation, Kansas City', width: 1950, height: 2600 },
+    gallery: [
+      { src: '/images/projects/brookshire-renovation-kansas-city/01.jpg', alt: 'Painting work by Childress Painting at Brookshire Renovation, Kansas City — photo 2', width: 1800, height: 2400 },
+      { src: '/images/projects/brookshire-renovation-kansas-city/02.jpg', alt: 'Painting work by Childress Painting at Brookshire Renovation, Kansas City — photo 3', width: 1800, height: 2400 },
+      { src: '/images/projects/brookshire-renovation-kansas-city/03.jpg', alt: 'Painting work by Childress Painting at Brookshire Renovation, Kansas City — photo 4', width: 1800, height: 2400 },
+      { src: '/images/projects/brookshire-renovation-kansas-city/04.jpg', alt: 'Painting work by Childress Painting at Brookshire Renovation, Kansas City — photo 5', width: 1800, height: 2400 },
+      { src: '/images/projects/brookshire-renovation-kansas-city/05.jpg', alt: 'Painting work by Childress Painting at Brookshire Renovation, Kansas City — photo 6', width: 1800, height: 2400 },
+      { src: '/images/projects/brookshire-renovation-kansas-city/06.jpg', alt: 'Painting work by Childress Painting at Brookshire Renovation, Kansas City — photo 7', width: 1800, height: 2400 },
+      { src: '/images/projects/brookshire-renovation-kansas-city/07.jpg', alt: 'Painting work by Childress Painting at Brookshire Renovation, Kansas City — photo 8', width: 1800, height: 2400 },
     ],
   },
   'custom-wood-staining-residential-home': {
@@ -159,6 +218,16 @@ export const projectImages: Record<string, ProjectImageSet> = {
       { src: '/images/projects/gould-evans-kansas-city/25.jpg', alt: 'Painting work by Childress Painting at Gould Evans, Kansas City — photo 26', width: 900, height: 506 },
     ],
   },
+  'health-and-beauty-tech': {
+    folder: 'health-and-beauty-tech-kansas-city-airport',
+    hero: { src: '/images/projects/health-and-beauty-tech-kansas-city-airport/hero.jpg', alt: 'Painting work by Childress Painting at Health & Beauty Tech, Kansas City Airport', width: 2400, height: 1800 },
+    gallery: [
+      { src: '/images/projects/health-and-beauty-tech-kansas-city-airport/01.jpg', alt: 'Painting work by Childress Painting at Health & Beauty Tech, Kansas City Airport — photo 2', width: 1800, height: 2400 },
+      { src: '/images/projects/health-and-beauty-tech-kansas-city-airport/02.jpg', alt: 'Painting work by Childress Painting at Health & Beauty Tech, Kansas City Airport — photo 3', width: 1800, height: 2400 },
+      { src: '/images/projects/health-and-beauty-tech-kansas-city-airport/03.jpg', alt: 'Painting work by Childress Painting at Health & Beauty Tech, Kansas City Airport — photo 4', width: 1800, height: 2400 },
+      { src: '/images/projects/health-and-beauty-tech-kansas-city-airport/04.jpg', alt: 'Painting work by Childress Painting at Health & Beauty Tech, Kansas City Airport — photo 5', width: 1800, height: 2400 },
+    ],
+  },
   'kcfd-fire-station-15': {
     folder: 'kcfd-fire-station-15-kansas-city',
     hero: { src: '/images/projects/kcfd-fire-station-15-kansas-city/hero.jpg', alt: 'Painting work by Childress Painting at KCFD Fire Station 15, Kansas City', width: 960, height: 720 },
@@ -206,6 +275,23 @@ export const projectImages: Record<string, ProjectImageSet> = {
       { src: '/images/projects/mckeevers-kansas-city/28.jpg', alt: 'Painting work by Childress Painting at Mckeevers, Kansas City — photo 29', width: 720, height: 960 },
       { src: '/images/projects/mckeevers-kansas-city/29.jpg', alt: 'Painting work by Childress Painting at Mckeevers, Kansas City — photo 30', width: 720, height: 960 },
       { src: '/images/projects/mckeevers-kansas-city/30.jpg', alt: 'Painting work by Childress Painting at Mckeevers, Kansas City — photo 31', width: 720, height: 960 },
+    ],
+  },
+  'meadowbrook-animal-hospital': {
+    folder: 'meadowbrook-animal-hospital-kansas-city',
+    hero: { src: '/images/projects/meadowbrook-animal-hospital-kansas-city/hero.jpg', alt: 'Painting work by Childress Painting at Meadowbrook Animal Hospital, Kansas City', width: 1950, height: 2600 },
+    gallery: [
+      { src: '/images/projects/meadowbrook-animal-hospital-kansas-city/01.jpg', alt: 'Painting work by Childress Painting at Meadowbrook Animal Hospital, Kansas City — photo 2', width: 1800, height: 2400 },
+    ],
+    videos: [
+      {
+        src: '/videos/projects/meadowbrook-animal-hospital-kansas-city/clip-01.mp4',
+        poster: '/videos/projects/meadowbrook-animal-hospital-kansas-city/clip-01.jpg',
+        title: 'Childress Painting on site at Meadowbrook Animal Hospital, Kansas City',
+        kind: 'walkthrough',
+        orientation: 'portrait',
+        width: 720, height: 1280, duration: 10,
+      },
     ],
   },
   'phillips-66': {
@@ -259,13 +345,111 @@ export const projectImages: Record<string, ProjectImageSet> = {
       { src: '/images/projects/union-event-venue-kansas-city/02.jpg', alt: 'Painting work by Childress Painting at Union Event Venue, Kansas City — photo 3', width: 960, height: 720 },
     ],
   },
+  'us-army-reserve': {
+    folder: 'us-army-reserve-kansas-city',
+    hero: { src: '/images/projects/us-army-reserve-kansas-city/hero.jpg', alt: 'Painting work by Childress Painting at US Army Reserve, Kansas City', width: 2400, height: 1800 },
+    gallery: [
+      { src: '/images/projects/us-army-reserve-kansas-city/01.jpg', alt: 'Painting work by Childress Painting at US Army Reserve, Kansas City — photo 2', width: 1320, height: 2868 },
+      { src: '/images/projects/us-army-reserve-kansas-city/02.jpg', alt: 'Painting work by Childress Painting at US Army Reserve, Kansas City — photo 3', width: 1800, height: 1350 },
+      { src: '/images/projects/us-army-reserve-kansas-city/03.jpg', alt: 'Painting work by Childress Painting at US Army Reserve, Kansas City — photo 4', width: 1800, height: 2400 },
+      { src: '/images/projects/us-army-reserve-kansas-city/04.jpg', alt: 'Painting work by Childress Painting at US Army Reserve, Kansas City — photo 5', width: 1800, height: 1350 },
+      { src: '/images/projects/us-army-reserve-kansas-city/05.jpg', alt: 'Painting work by Childress Painting at US Army Reserve, Kansas City — photo 6', width: 1800, height: 2400 },
+      { src: '/images/projects/us-army-reserve-kansas-city/06.jpg', alt: 'Painting work by Childress Painting at US Army Reserve, Kansas City — photo 7', width: 1800, height: 2400 },
+      { src: '/images/projects/us-army-reserve-kansas-city/07.jpg', alt: 'Painting work by Childress Painting at US Army Reserve, Kansas City — photo 8', width: 1800, height: 2400 },
+      { src: '/images/projects/us-army-reserve-kansas-city/08.jpg', alt: 'Painting work by Childress Painting at US Army Reserve, Kansas City — photo 9', width: 1800, height: 1350 },
+      { src: '/images/projects/us-army-reserve-kansas-city/09.jpg', alt: 'Painting work by Childress Painting at US Army Reserve, Kansas City — photo 10', width: 1800, height: 1350 },
+      { src: '/images/projects/us-army-reserve-kansas-city/10.jpg', alt: 'Painting work by Childress Painting at US Army Reserve, Kansas City — photo 11', width: 1800, height: 1350 },
+      { src: '/images/projects/us-army-reserve-kansas-city/11.jpg', alt: 'Painting work by Childress Painting at US Army Reserve, Kansas City — photo 12', width: 1800, height: 2400 },
+      { src: '/images/projects/us-army-reserve-kansas-city/12.jpg', alt: 'Painting work by Childress Painting at US Army Reserve, Kansas City — photo 13', width: 1800, height: 2400 },
+      { src: '/images/projects/us-army-reserve-kansas-city/13.jpg', alt: 'Painting work by Childress Painting at US Army Reserve, Kansas City — photo 14', width: 1800, height: 1350 },
+      { src: '/images/projects/us-army-reserve-kansas-city/14.jpg', alt: 'Painting work by Childress Painting at US Army Reserve, Kansas City — photo 15', width: 1800, height: 2400 },
+      { src: '/images/projects/us-army-reserve-kansas-city/15.jpg', alt: 'Painting work by Childress Painting at US Army Reserve, Kansas City — photo 16', width: 1800, height: 2400 },
+      { src: '/images/projects/us-army-reserve-kansas-city/16.jpg', alt: 'Painting work by Childress Painting at US Army Reserve, Kansas City — photo 17', width: 1800, height: 2400 },
+      { src: '/images/projects/us-army-reserve-kansas-city/17.jpg', alt: 'Painting work by Childress Painting at US Army Reserve, Kansas City — photo 18', width: 1800, height: 2400 },
+      { src: '/images/projects/us-army-reserve-kansas-city/18.jpg', alt: 'Painting work by Childress Painting at US Army Reserve, Kansas City — photo 19', width: 1800, height: 2400 },
+      { src: '/images/projects/us-army-reserve-kansas-city/19.jpg', alt: 'Painting work by Childress Painting at US Army Reserve, Kansas City — photo 20', width: 1800, height: 2400 },
+      { src: '/images/projects/us-army-reserve-kansas-city/20.jpg', alt: 'Painting work by Childress Painting at US Army Reserve, Kansas City — photo 21', width: 1800, height: 2400 },
+      { src: '/images/projects/us-army-reserve-kansas-city/21.jpg', alt: 'Painting work by Childress Painting at US Army Reserve, Kansas City — photo 22', width: 1800, height: 1350 },
+      { src: '/images/projects/us-army-reserve-kansas-city/22.jpg', alt: 'Painting work by Childress Painting at US Army Reserve, Kansas City — photo 23', width: 1800, height: 2400 },
+      { src: '/images/projects/us-army-reserve-kansas-city/23.jpg', alt: 'Painting work by Childress Painting at US Army Reserve, Kansas City — photo 24', width: 1800, height: 2400 },
+      { src: '/images/projects/us-army-reserve-kansas-city/24.jpg', alt: 'Painting work by Childress Painting at US Army Reserve, Kansas City — photo 25', width: 1800, height: 2400 },
+    ],
+    videos: [
+      {
+        src: '/videos/projects/us-army-reserve-kansas-city/clip-01.mp4',
+        poster: '/videos/projects/us-army-reserve-kansas-city/clip-01.jpg',
+        title: 'Childress Painting on site at US Army Reserve, Kansas City',
+        kind: 'walkthrough',
+        orientation: 'portrait',
+        width: 720, height: 1280, duration: 18,
+      },
+      {
+        src: '/videos/projects/us-army-reserve-kansas-city/clip-02.mp4',
+        poster: '/videos/projects/us-army-reserve-kansas-city/clip-02.jpg',
+        title: 'Childress Painting on site at US Army Reserve, Kansas City',
+        kind: 'walkthrough',
+        orientation: 'portrait',
+        width: 720, height: 1280, duration: 6,
+      },
+      {
+        src: '/videos/projects/us-army-reserve-kansas-city/clip-03.mp4',
+        poster: '/videos/projects/us-army-reserve-kansas-city/clip-03.jpg',
+        title: 'Childress Painting on site at US Army Reserve, Kansas City',
+        kind: 'walkthrough',
+        orientation: 'portrait',
+        width: 720, height: 1280, duration: 13,
+      },
+    ],
+  },
 };
 
 /** Folders that matched no existing project, added as new projects. */
 export const discoveredProjects: DiscoveredProject[] = [
   {
+    slug: 'billy-goat-industries',
+    name: 'Billy Goat Industries',
+    industry: 'retail',
+    location: 'Lee Summit',
+    art: 'retail',
+  },
+  {
+    slug: 'billy-goat-industries',
+    name: 'Billy Goat Industries',
+    industry: 'retail',
+    location: 'Lee Summit',
+    art: 'retail',
+  },
+  {
+    slug: 'brookshire-renovation',
+    name: 'Brookshire Renovation',
+    industry: 'retail',
+    location: 'Kansas City',
+    art: 'retail',
+  },
+  {
+    slug: 'brookshire-renovation',
+    name: 'Brookshire Renovation',
+    industry: 'retail',
+    location: 'Kansas City',
+    art: 'retail',
+  },
+  {
     slug: 'custom-wood-staining-residential-home',
     name: 'Custom Wood Staining (Residential Home)',
+    industry: 'residential',
+    location: 'Overland Park',
+    art: 'interior',
+  },
+  {
+    slug: 'custom-wood-staining-residential-home',
+    name: 'Custom Wood Staining (Residential Home)',
+    industry: 'residential',
+    location: 'Overland Park',
+    art: 'interior',
+  },
+  {
+    slug: 'evan-talon-custom-homes',
+    name: 'Evan Talon Custom Homes',
     industry: 'residential',
     location: 'Overland Park',
     art: 'interior',
@@ -285,6 +469,34 @@ export const discoveredProjects: DiscoveredProject[] = [
     art: 'retail',
   },
   {
+    slug: 'gould-evans',
+    name: 'Gould Evans',
+    industry: 'retail',
+    location: 'Kansas City',
+    art: 'retail',
+  },
+  {
+    slug: 'health-and-beauty-tech',
+    name: 'Health & Beauty Tech',
+    industry: 'healthcare',
+    location: 'Kansas City Airport',
+    art: 'healthcare',
+  },
+  {
+    slug: 'health-and-beauty-tech',
+    name: 'Health & Beauty Tech',
+    industry: 'healthcare',
+    location: 'Kansas City Airport',
+    art: 'healthcare',
+  },
+  {
+    slug: 'kcfd-fire-station-15',
+    name: 'KCFD Fire Station 15',
+    industry: 'government',
+    location: 'Kansas City',
+    art: 'government',
+  },
+  {
     slug: 'kcfd-fire-station-15',
     name: 'KCFD Fire Station 15',
     industry: 'government',
@@ -297,6 +509,34 @@ export const discoveredProjects: DiscoveredProject[] = [
     industry: 'retail',
     location: 'Kansas City',
     art: 'retail',
+  },
+  {
+    slug: 'mckeevers',
+    name: 'Mckeevers',
+    industry: 'retail',
+    location: 'Kansas City',
+    art: 'retail',
+  },
+  {
+    slug: 'meadowbrook-animal-hospital',
+    name: 'Meadowbrook Animal Hospital',
+    industry: 'healthcare',
+    location: 'Kansas City',
+    art: 'healthcare',
+  },
+  {
+    slug: 'meadowbrook-animal-hospital',
+    name: 'Meadowbrook Animal Hospital',
+    industry: 'healthcare',
+    location: 'Kansas City',
+    art: 'healthcare',
+  },
+  {
+    slug: 'shawnee-town-government-buildings',
+    name: 'Shawnee Town Government Buildings',
+    industry: 'government',
+    location: 'Shawnee',
+    art: 'government',
   },
   {
     slug: 'shawnee-town-government-buildings',
@@ -313,10 +553,31 @@ export const discoveredProjects: DiscoveredProject[] = [
     art: 'retail',
   },
   {
+    slug: 'stop-n-shop',
+    name: 'Stop N Shop',
+    industry: 'retail',
+    location: 'Kansas City',
+    art: 'retail',
+  },
+  {
     slug: 'union-event-venue',
     name: 'Union Event Venue',
     industry: 'sports-entertainment',
     location: 'Kansas City',
     art: 'sports',
+  },
+  {
+    slug: 'union-event-venue',
+    name: 'Union Event Venue',
+    industry: 'sports-entertainment',
+    location: 'Kansas City',
+    art: 'sports',
+  },
+  {
+    slug: 'us-army-reserve',
+    name: 'US Army Reserve',
+    industry: 'retail',
+    location: 'Kansas City',
+    art: 'retail',
   },
 ];

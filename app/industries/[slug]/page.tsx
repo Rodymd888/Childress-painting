@@ -14,7 +14,7 @@ import { JsonLd } from '@/components/ui/JsonLd';
 
 import { industries, getIndustry, industrySlugs } from '@/lib/industries';
 import { getService } from '@/lib/services';
-import { projectsByIndustry } from '@/lib/projects';
+import { sectorHero, projectsByIndustry } from '@/lib/projects';
 import { clientGroups } from '@/lib/clients';
 import { breadcrumbSchema } from '@/lib/schema';
 import { company } from '@/lib/site';
@@ -109,16 +109,20 @@ export default async function IndustryPage({ params }: Params) {
 
             <Reveal delay={0.1} from="right">
               <div className="lg:sticky lg:top-28">
+                {/* Prefer real Childress work from this sector over anything
+                    generic. `industry.image` wins if one is set explicitly;
+                    otherwise the strongest photographed project in the sector
+                    is used, and the drawn sector artwork is the final fallback. */}
                 <MediaFrame
                   image={
                     industry.image
                       ? {
                           src: industry.image,
-                          alt: `${industry.title} painting project`,
+                          alt: `${industry.title} painting project by Childress Painting`,
                           width: 1200,
                           height: 1500,
                         }
-                      : undefined
+                      : sectorHero(industry.slug)
                   }
                   art={industry.art}
                   label={industry.title}

@@ -2,30 +2,30 @@
 
 import Image from 'next/image';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight, Play } from 'lucide-react';
 
 /**
  * PROJECT GALLERY
  * ---------------------------------------------------------------------------
- * LAYOUT
- * A masonry flow that renders every photograph at its NATURAL aspect ratio.
- * Fixed-ratio tiles would crop a portrait shot to landscape and throw away the
- * framing the photographer chose, so the columns flow instead and each image
- * keeps its own shape.
+ * A single gallery for photographs and video together, with one viewer that
+ * handles both.
  *
- * One column on phones, two from 640px, three from 1024px. Real width/height
- * come from the file, so the browser reserves exact space and nothing shifts
- * as images load.
+ * LAYOUT
+ * Masonry flow at each item's natural aspect ratio. Fixed tiles would crop a
+ * portrait shot to landscape and discard the framing the photographer chose.
+ * One column on phones, two from 640px, three from 1024px.
+ *
+ * VIDEO
+ * Thumbnails show the poster with a play badge, so a clip never appears as a
+ * black rectangle. In the viewer the clip plays with controls, starting muted;
+ * sound is the viewer's choice. Portrait clips keep a 9:16 frame rather than
+ * being stretched into a wide one.
  *
  * VIEWER
- * Tapping opens a full-screen viewer built for one hand: swipe left/right to
- * move between photos, swipe down or tap the backdrop to close, and controls
- * sit at the bottom of the screen within thumb reach rather than in the far
- * corners. Arrow keys and Escape work for keyboard users, and body scroll is
- * locked while it is open.
- *
- * No dependencies — a couple of kilobytes of logic not a carousel
- * library, which matters on the phones most of these visitors are using.
+ * Swipe left and right to move, swipe down or tap the backdrop to close.
+ * Controls sit at the bottom of the screen within thumb reach. Arrow keys and
+ * Escape work for keyboard users, focus moves to the close button, and body
+ * scroll is locked. No carousel dependency.
  */
 
 export type GalleryImage = {
@@ -36,13 +36,39 @@ export type GalleryImage = {
   caption?: string;
 };
 
-export function ProjectGallery({ images }: { images: GalleryImage[] }) {
+export type GalleryVideo = {
+  src: string;
+  poster: string;
+  title: string;
+  orientation?: 'portrait' | 'landscape';
+  width: number;
+  height: number;
+  duration?: number;
+};
+
+type Item =
+  | ({ type: 'image' } & GalleryImage)
+  | ({ type: 'video' } & GalleryVideo);
+
+export function ProjectGallery({
+  images = [],
+  videos = [],
+}: {
+  images?: GalleryImage[];
+  videos?: GalleryVideo[];
+}) {
+  /* Video first: motion is the strongest thing in a portfolio gallery. */
+  const items: Item[] = [
+    ...videos.map((v) => ({ type: 'video' as const, ...v })),
+    ...images.map((i) => ({ type: 'image' as const, ...i })),
+  ];
+
   const [open, setOpen] = useState<number | null>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const touchStart = useRef<{ x: number; y: number } | null>(null);
 
+  const count = items.length;
   const isOpen = open !== null;
-  const count = images.length;
 
   const go = useCallback(
     (delta: number) => setOpen((i) => (i === null ? i : (i + delta + count) % count)),
@@ -60,7 +86,6 @@ export function ProjectGallery({ images }: { images: GalleryImage[] }) {
     return () => window.removeEventListener('keydown', onKey);
   }, [isOpen, go]);
 
-  /* Lock the page behind the viewer without the layout jumping. */
   useEffect(() => {
     if (!isOpen) return;
     const { overflow, paddingRight } = document.body.style;
@@ -76,32 +101,64 @@ export function ProjectGallery({ images }: { images: GalleryImage[] }) {
 
   if (!count) return null;
   const index = open;
-  const current = index !== null ? images[index] : null;
+  const current = index !== null ? items[index] : null;
 
   return (
     <>
       <div className="columns-1 gap-3 sm:columns-2 sm:gap-4 lg:columns-3 [&>*]:mb-3 sm:[&>*]:mb-4">
-        {images.map((image, i) => (
-          <figure key={image.src} className="group break-inside-avoid">
+        {items.map((item, i) => (
+          <figure key={item.src} className="group break-inside-avoid">
             <button
               type="button"
               onClick={() => setOpen(i)}
-              aria-label={`View photo ${i + 1} of ${count} full screen`}
+              aria-label={
+                item.type === 'video'
+                  ? `Play video ${i + 1} of ${count}: ${item.title}`
+                  : `View photo ${i + 1} of ${count} full screen`
+              }
               className="sheen relative block w-full overflow-hidden bg-mist"
             >
-              <Image
-                src={image.src}
-                alt={image.alt}
-                width={image.width}
-                height={image.height}
-                quality={80}
-                sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                className="h-auto w-full transition-transform duration-700 ease-out md:group-hover:scale-[1.03]"
-              />
+              {item.type === 'image' ? (
+                <Image
+                  src={item.src}
+                  alt={item.alt}
+                  width={item.width}
+                  height={item.height}
+                  quality={80}
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  className="h-auto w-full transition-transform duration-700 ease-out md:group-hover:scale-[1.03]"
+                />
+              ) : (
+                <>
+                  <Image
+                    src={item.poster}
+                    alt={item.title}
+                    width={item.width}
+                    height={item.height}
+                    quality={80}
+                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    className="h-auto w-full transition-transform duration-700 ease-out md:group-hover:scale-[1.03]"
+                  />
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-0 flex items-center justify-center bg-ink/25 transition-colors duration-300 group-hover:bg-ink/10"
+                  >
+                    <span className="inline-flex size-14 items-center justify-center border-2 border-white/80 bg-ink/50 backdrop-blur-sm">
+                      <Play className="ml-0.5 size-6 text-white" />
+                    </span>
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    className="absolute bottom-3 left-3 bg-red px-2 py-1 font-mono text-[0.5625rem] uppercase tracking-[0.16em] text-white"
+                  >
+                    Video{item.duration ? ` · ${item.duration}s` : ''}
+                  </span>
+                </>
+              )}
             </button>
-            {image.caption && (
+            {item.type === 'image' && item.caption && (
               <figcaption className="mt-2.5 font-mono text-[0.625rem] uppercase tracking-[0.14em] text-ink/55">
-                {image.caption}
+                {item.caption}
               </figcaption>
             )}
           </figure>
@@ -112,7 +169,7 @@ export function ProjectGallery({ images }: { images: GalleryImage[] }) {
         <div
           role="dialog"
           aria-modal="true"
-          aria-label="Project photo viewer"
+          aria-label="Project media viewer"
           className="fixed inset-0 z-[70] flex flex-col bg-ink/[0.97] backdrop-blur-sm"
           onClick={() => setOpen(null)}
           onTouchStart={(e) => {
@@ -145,25 +202,40 @@ export function ProjectGallery({ images }: { images: GalleryImage[] }) {
             </button>
           </div>
 
-          {/* Taps on the photo itself must not close the viewer. */}
           <div
             className="flex min-h-0 flex-1 items-center justify-center px-3 py-4"
             onClick={(e) => e.stopPropagation()}
           >
-            <Image
-              key={current.src}
-              src={current.src}
-              alt={current.alt}
-              width={current.width}
-              height={current.height}
-              quality={85}
-              sizes="(min-width: 1024px) 80vw, 100vw"
-              priority
-              className="max-h-full w-auto max-w-full object-contain"
-            />
+            {current.type === 'image' ? (
+              <Image
+                key={current.src}
+                src={current.src}
+                alt={current.alt}
+                width={current.width}
+                height={current.height}
+                quality={85}
+                sizes="(min-width: 1024px) 80vw, 100vw"
+                priority
+                className="max-h-full w-auto max-w-full object-contain"
+              />
+            ) : (
+              /* Starts muted so opening the viewer never blasts audio; the
+                 native controls let the viewer turn it on. */
+              <video
+                key={current.src}
+                src={current.src}
+                poster={current.poster}
+                controls
+                autoPlay
+                muted
+                playsInline
+                loop
+                aria-label={current.title}
+                className="max-h-full w-auto max-w-full object-contain"
+              />
+            )}
           </div>
 
-          {/* Controls sit low, so they land under the thumb on a phone. */}
           <div
             className="flex items-center justify-between gap-4 px-4 pb-[max(1.25rem,env(safe-area-inset-bottom))]"
             onClick={(e) => e.stopPropagation()}
@@ -171,18 +243,18 @@ export function ProjectGallery({ images }: { images: GalleryImage[] }) {
             <button
               type="button"
               onClick={() => go(-1)}
-              aria-label="Previous photo"
+              aria-label="Previous item"
               className="tap inline-flex items-center justify-center border border-white/25 text-white/85 transition-colors hover:border-white hover:text-white"
             >
               <ChevronLeft aria-hidden="true" className="size-6" />
             </button>
-            <p className="min-w-0 flex-1 text-center font-mono text-[0.625rem] uppercase tracking-[0.14em] text-white/50">
-              Swipe or use the arrows
+            <p className="min-w-0 flex-1 truncate text-center font-mono text-[0.625rem] uppercase tracking-[0.14em] text-white/50">
+              {current.type === 'video' ? current.title : 'Swipe or Use the Arrows'}
             </p>
             <button
               type="button"
               onClick={() => go(1)}
-              aria-label="Next photo"
+              aria-label="Next item"
               className="tap inline-flex items-center justify-center border border-white/25 text-white/85 transition-colors hover:border-white hover:text-white"
             >
               <ChevronRight aria-hidden="true" className="size-6" />

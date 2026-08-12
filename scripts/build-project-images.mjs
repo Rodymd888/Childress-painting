@@ -21,10 +21,19 @@
  * ===========================================================================
  */
 
-import { readdir, mkdir, writeFile, stat, rm } from 'node:fs/promises';
+import { readdir, mkdir, writeFile, stat, rm, unlink } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
 import { existsSync } from 'node:fs';
+import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import sharp from 'sharp';
+
+/* This script processes hundreds of large images in one pass. Disabling the
+   pixel cache and pinning concurrency keeps peak memory flat instead of
+   climbing until the process is killed. */
+sharp.cache(false);
+sharp.concurrency(1);
+import { execFileSync } from 'node:child_process';
 
 const SOURCE_DIR = process.argv[2] || 'Projects';
 const OUT_ROOT = 'public/images/projects';
@@ -37,7 +46,18 @@ const QUALITY_LADDER = [86, 82, 78, 74, 70];
 const REQUIRED_SAVING = 0.03;
 const MATCH_THRESHOLD = 0.62;
 
-const IMAGE_EXT = new Set(['.jpg', '.jpeg', '.png', '.webp', '.tif', '.tiff']);
+/* iPhone photos arrive as HEIC. sharp decodes them via libheif, so they are
+   accepted here and normalised to JPEG on the way out like everything else. */
+const IMAGE_EXT = new Set(['.jpg', '.jpeg', '.png', '.webp', '.tif', '.tiff', '.heic', '.heif']);
+const VIDEO_EXT = new Set(['.mov', '.mp4', '.m4v', '.avi']);
+
+/* Video output. iPhone footage arrives as HEVC in a MOV container, which
+   Chrome, Firefox, and Edge will not play. Everything is transcoded to H.264
+   MP4 so it works everywhere, and rotation metadata is BAKED IN rather than
+   left for the browser to honour (Safari respects it; others do not, which is
+   how a portrait clip ends up sideways). */
+const VIDEO_MAX_LONG_EDGE = 1280;
+const VIDEO_CRF = 26;
 
 const US_STATES = {
   al:'Alabama',ak:'Alaska',az:'Arizona',ar:'Arkansas',ca:'California',co:'Colorado',
@@ -181,6 +201,27 @@ async function readExistingProjects() {
 
 /* -------------------------------------------------------------- IMAGE WORK */
 
+const HEIC_EXT = new Set(['.heic', '.heif']);
+
+/**
+ * Return a path sharp can actually read.
+ *
+ * sharp's bundled libheif has no HEVC decoder, so HEIC files are decoded to a
+ * temporary JPEG by scripts/heic-to-jpeg.py first. Everything else passes
+ * straight through. Callers must call `cleanupDecoded` when finished.
+ */
+function decodeIfNeeded(file) {
+  if (!HEIC_EXT.has(path.extname(file).toLowerCase())) return { path: file, temp: false };
+  const tmp = path.join(tmpdir(), `cp-${Date.now()}-${Math.random().toString(36).slice(2)}.jpg`);
+  execFileSync('python3', [path.join('scripts', 'heic-to-jpeg.py'), file, tmp], { encoding: 'utf8' });
+  return { path: tmp, temp: true };
+}
+
+async function cleanupDecoded(ref) {
+  if (ref.temp) { try { await unlink(ref.path); } catch { /* already gone */ } }
+}
+
+
 function heroOverrideRank(f) {
   const b = path.parse(f).name.toLowerCase();
   if (/^(hero|cover|main|featured)\b/.test(b)) return 0;
@@ -189,6 +230,15 @@ function heroOverrideRank(f) {
 }
 
 async function scoreImage(file) {
+  const ref = decodeIfNeeded(file);
+  try {
+    return await scoreDecoded(ref.path);
+  } finally {
+    await cleanupDecoded(ref);
+  }
+}
+
+async function scoreDecoded(file) {
   const img = sharp(file).rotate();
   const meta = await img.metadata();
   const stats = await img.stats();
@@ -200,6 +250,15 @@ async function scoreImage(file) {
 
 /** Always writes JPEG, so every path ends in a predictable `.jpg`. */
 async function optimise(srcFile, destFile, maxWidth) {
+  const ref = decodeIfNeeded(srcFile);
+  try {
+    return await optimiseDecoded(ref.path, destFile, maxWidth);
+  } finally {
+    await cleanupDecoded(ref);
+  }
+}
+
+async function optimiseDecoded(srcFile, destFile, maxWidth) {
   const { size: sourceBytes } = await stat(srcFile);
   const base = sharp(srcFile).rotate()
     .resize({ width: maxWidth, withoutEnlargement: true }); // never upscale, never stretch
@@ -213,6 +272,63 @@ async function optimise(srcFile, destFile, maxWidth) {
   }
   await writeFile(destFile, chosen.buffer);
   return { width: chosen.width, height: chosen.height, bytes: chosen.buffer.length };
+}
+
+/** Probe a video: real display dimensions after rotation, duration, audio. */
+function probeVideo(file) {
+  const run = (args) => {
+    try { return execFileSync('ffprobe', args, { encoding: 'utf8' }).trim(); }
+    catch { return ''; }
+  };
+  const dims = run(['-v','error','-select_streams','v:0','-show_entries',
+    'stream=width,height','-of','csv=p=0', file]).split(',');
+  let w = Number(dims[0] || 0), h = Number(dims[1] || 0);
+  const rotRaw = run(['-v','error','-select_streams','v:0','-show_entries',
+    'stream_side_data=rotation','-of','default=noprint_wrappers=1:nokey=1', file]);
+  const rot = Math.abs(Number(rotRaw || 0)) % 180;
+  if (rot === 90) [w, h] = [h, w];          // rotation swaps the display axes
+  const duration = Number(run(['-v','error','-show_entries','format=duration',
+    '-of','default=noprint_wrappers=1:nokey=1', file]) || 0);
+  const audio = run(['-v','error','-select_streams','a:0','-show_entries',
+    'stream=codec_name','-of','default=noprint_wrappers=1:nokey=1', file]);
+  return { width: w, height: h, duration, hasAudio: Boolean(audio),
+           orientation: h > w ? 'portrait' : 'landscape' };
+}
+
+/**
+ * Transcode to web-safe H.264 MP4 and pull a poster frame.
+ * `-vf scale` uses the POST-rotation dimensions, and ffmpeg applies the
+ * rotation automatically on decode, so the output needs no rotation metadata
+ * at all. That is what makes these play upright in every browser.
+ */
+async function transcodeVideo(srcFile, destDir, baseName) {
+  const meta = probeVideo(srcFile);
+  const long = Math.max(meta.width, meta.height) || VIDEO_MAX_LONG_EDGE;
+  const scale = long > VIDEO_MAX_LONG_EDGE
+    ? (meta.orientation === 'portrait'
+        ? `scale=-2:${VIDEO_MAX_LONG_EDGE}`
+        : `scale=${VIDEO_MAX_LONG_EDGE}:-2`)
+    : 'scale=trunc(iw/2)*2:trunc(ih/2)*2';   // H.264 needs even dimensions
+
+  const mp4 = path.join(destDir, `${baseName}.mp4`);
+  const poster = path.join(destDir, `${baseName}.jpg`);
+
+  execFileSync('ffmpeg', ['-v','error','-i', srcFile, '-vf', scale,
+    '-c:v','libx264','-profile:v','high','-crf', String(VIDEO_CRF),
+    '-preset','medium','-pix_fmt','yuv420p','-movflags','+faststart',
+    ...(meta.hasAudio ? ['-c:a','aac','-b:a','96k'] : ['-an']),
+    '-metadata:s:v:0','rotate=0', mp4, '-y']);
+
+  /* Poster from ~15% in: the opening frame of handheld footage is often a
+     blur or a floor. */
+  const seek = Math.max(0.2, meta.duration * 0.15);
+  execFileSync('ffmpeg', ['-v','error','-ss', String(seek), '-i', mp4,
+    '-vframes','1','-q:v','3', poster, '-y']);
+
+  const out = probeVideo(mp4);
+  const { size } = await stat(mp4);
+  return { ...meta, width: out.width, height: out.height, bytes: size,
+           mp4: mp4, poster };
 }
 
 const q = (s) => `'${String(s).replace(/\\/g, '\\\\').replace(/'/g, "\\'")}'`;
@@ -232,7 +348,16 @@ async function main() {
     .filter((e) => e.isDirectory() && !e.name.startsWith('.'))
     .sort((a, b) => a.name.localeCompare(b.name));
 
-  await rm(OUT_ROOT, { recursive: true, force: true });
+  /* RESUME
+     A full pass over several hundred large photographs takes a while and can
+     be interrupted. Each completed project writes a `_meta.json` sidecar, and
+     a rerun reuses any folder that already has one. Pass --fresh to force a
+     rebuild from scratch. */
+  const fresh = process.argv.includes('--fresh');
+  if (fresh) {
+    await rm(OUT_ROOT, { recursive: true, force: true });
+    await rm('public/videos/projects', { recursive: true, force: true });
+  }
   await mkdir(OUT_ROOT, { recursive: true });
 
   const media = {}, discovered = [], report = [];
@@ -241,8 +366,12 @@ async function main() {
 
   for (const folder of folders) {
     const dir = path.join(SOURCE_DIR, folder.name);
-    const files = (await readdir(dir))
-      .filter((f) => IMAGE_EXT.has(path.extname(f).toLowerCase()) && !f.startsWith('.'))
+    const entries = (await readdir(dir)).filter((f) => !f.startsWith('.'));
+    const files = entries
+      .filter((f) => IMAGE_EXT.has(path.extname(f).toLowerCase()))
+      .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+    const videoFiles = entries
+      .filter((f) => VIDEO_EXT.has(path.extname(f).toLowerCase()))
       .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
 
     const { name, location } = parseFolderName(folder.name);
@@ -268,7 +397,24 @@ async function main() {
         confident: inf.confident });
     }
 
-    if (!files.length) {
+    /* Already built on an earlier pass — reuse it. */
+    const probeFolder = matched
+      ? slugify((location ? `${matched.slug} ${location.split(',')[0]}` : matched.slug))
+      : imageFolderName(name, location);
+    const sidecar = path.join(OUT_ROOT, probeFolder, '_meta.json');
+    if (!fresh && existsSync(sidecar)) {
+      const saved = JSON.parse(await readFile(sidecar, 'utf8'));
+      media[slug] = saved.media;
+      if (saved.discovered) discovered.push(saved.discovered);
+      usedFolders.add(saved.media.folder);
+      report.push({ folder: folder.name, status: saved.status, slug,
+        webFolder: saved.media.folder,
+        images: (saved.media.gallery?.length ?? 0) + (saved.media.hero ? 1 : 0),
+        videos: saved.media.videos?.length ?? 0, cached: true });
+      continue;
+    }
+
+    if (!files.length && !videoFiles.length) {
       report.push({ folder: folder.name, status: matched ? 'matched' : 'new', slug, images: 0 });
       continue;
     }
@@ -290,17 +436,22 @@ async function main() {
       try { scored.push({ file: f, full: path.join(dir, f), ...(await scoreImage(path.join(dir, f))), override: heroOverrideRank(f) }); }
       catch { report.push({ folder: folder.name, status: 'warn', note: `unreadable: ${f}` }); }
     }
-    if (!scored.length) continue;
+    /* A folder may hold video only. */
+    if (!scored.length && !videoFiles.length) continue;
 
     scored.sort((a, b) => (a.override - b.override) || (b.score - a.score));
     const hero = scored[0];
-    const rest = scored.slice(1).sort((a, b) => a.file.localeCompare(b.file, undefined, { numeric: true }));
+    const rest = scored.length
+      ? scored.slice(1).sort((a, b) => a.file.localeCompare(b.file, undefined, { numeric: true }))
+      : [];
 
     const outDir = path.join(OUT_ROOT, webFolder);
     await mkdir(outDir, { recursive: true });
 
     const where = location ? `${name}, ${location}` : name;
-    const h = await optimise(hero.full, path.join(outDir, 'hero.jpg'), MAX_HERO_WIDTH);
+    const heroImg = scored.length
+      ? await optimise(hero.full, path.join(outDir, 'hero.jpg'), MAX_HERO_WIDTH)
+      : null;
 
     const gallery = [];
     let i = 1;
@@ -313,14 +464,53 @@ async function main() {
       i++;
     }
 
+    /* ---- video: transcode to web-safe H.264 with a poster ---- */
+    const videos = [];
+    if (videoFiles.length) {
+      const vDir = path.join('public/videos/projects', webFolder);
+      await mkdir(vDir, { recursive: true });
+      let vi = 1;
+      for (const vf of videoFiles) {
+        try {
+          const base = `clip-${String(vi).padStart(2, '0')}`;
+          const r = await transcodeVideo(path.join(dir, vf), vDir, base);
+          videos.push({
+            src: `/videos/projects/${webFolder}/${base}.mp4`,
+            poster: `/videos/projects/${webFolder}/${base}.jpg`,
+            title: `Childress Painting on site at ${where}`,
+            kind: 'walkthrough',
+            orientation: r.orientation,
+            width: r.width, height: r.height,
+            duration: Math.round(r.duration),
+          });
+          vi++;
+        } catch (e) {
+          report.push({ folder: folder.name, status: 'warn', note: `video failed: ${vf} (${e.message.slice(0, 60)})` });
+        }
+      }
+    }
+
     media[slug] = {
       folder: webFolder,
-      hero: { src: `/images/projects/${webFolder}/hero.jpg`,
-        alt: `Painting work by Childress Painting at ${where}`,
-        width: h.width, height: h.height },
+      ...(heroImg
+        ? { hero: { src: `/images/projects/${webFolder}/hero.jpg`,
+              alt: `Painting work by Childress Painting at ${where}`,
+              width: heroImg.width, height: heroImg.height } }
+        : {}),
       gallery,
+      videos,
     };
-    report.push({ folder: folder.name, status: matched ? 'matched' : 'new', slug, webFolder, images: files.length });
+    await writeFile(
+      path.join(outDir, '_meta.json'),
+      JSON.stringify({
+        status: matched ? 'matched' : 'new',
+        media: media[slug],
+        discovered: discovered.find((d) => d.slug === slug) ?? null,
+      }, null, 2),
+      'utf8',
+    );
+
+    report.push({ folder: folder.name, status: matched ? 'matched' : 'new', slug, webFolder, images: files.length, videos: videos.length });
   }
 
   /* ---------------------------------------------------------- write data */
@@ -339,7 +529,22 @@ async function main() {
   L.push(' */');
   L.push('');
   L.push('export type ProjectImageRef = { src: string; alt: string; width: number; height: number };');
-  L.push('export type ProjectImageSet = { folder: string; hero: ProjectImageRef; gallery: ProjectImageRef[] };');
+  L.push("export type ProjectVideoRef = {");
+  L.push('  src: string;');
+  L.push('  poster: string;');
+  L.push('  title: string;');
+  L.push("  kind: 'walkthrough' | 'before-after' | 'application' | 'crew' | 'overview';");
+  L.push("  orientation: 'portrait' | 'landscape';");
+  L.push('  width: number;');
+  L.push('  height: number;');
+  L.push('  duration?: number;');
+  L.push('};');
+  L.push('export type ProjectImageSet = {');
+  L.push('  folder: string;');
+  L.push('  hero?: ProjectImageRef;');
+  L.push('  gallery: ProjectImageRef[];');
+  L.push('  videos?: ProjectVideoRef[];');
+  L.push('};');
   L.push('export type DiscoveredProject = { slug: string; name: string; industry: string; location?: string; art: string };');
   L.push('');
   L.push('/** Photography keyed by project slug. */');
@@ -347,12 +552,27 @@ async function main() {
   for (const [slug, m] of Object.entries(media)) {
     L.push(`  ${q(slug)}: {`);
     L.push(`    folder: ${q(m.folder)},`);
-    L.push(`    hero: { src: ${q(m.hero.src)}, alt: ${q(m.hero.alt)}, width: ${m.hero.width}, height: ${m.hero.height} },`);
+    if (m.hero)
+      L.push(`    hero: { src: ${q(m.hero.src)}, alt: ${q(m.hero.alt)}, width: ${m.hero.width}, height: ${m.hero.height} },`);
     if (!m.gallery.length) L.push('    gallery: [],');
     else {
       L.push('    gallery: [');
       for (const g of m.gallery)
         L.push(`      { src: ${q(g.src)}, alt: ${q(g.alt)}, width: ${g.width}, height: ${g.height} },`);
+      L.push('    ],');
+    }
+    if (m.videos && m.videos.length) {
+      L.push('    videos: [');
+      for (const v of m.videos) {
+        L.push('      {');
+        L.push(`        src: ${q(v.src)},`);
+        L.push(`        poster: ${q(v.poster)},`);
+        L.push(`        title: ${q(v.title)},`);
+        L.push(`        kind: ${q(v.kind)},`);
+        L.push(`        orientation: ${q(v.orientation)},`);
+        L.push(`        width: ${v.width}, height: ${v.height}, duration: ${v.duration},`);
+        L.push('      },');
+      }
       L.push('    ],');
     }
     L.push('  },');
@@ -379,8 +599,14 @@ async function main() {
   console.log(`\n  Source folders: ${folders.length}`);
   for (const r of report.filter((x) => x.images > 0)) {
     console.log(`  ${r.status === 'new' ? 'NEW  ' : 'MATCH'} ${r.folder}`);
-    console.log(`        -> ${r.slug}   public/images/projects/${r.webFolder}/   ${r.images} images`);
+    console.log(`        -> ${r.slug}   ${r.webFolder}   ${r.images} images${r.videos ? `, ${r.videos} videos` : ''}`);
   }
+  const warnings = report.filter((r) => r.status === 'warn');
+  if (warnings.length) {
+    console.log('\n  WARNINGS');
+    for (const w of warnings) console.log(`    ${w.folder}: ${w.note}`);
+  }
+
   const unsure = discovered.filter((d) => !d.confident);
   if (unsure.length) {
     console.log('\n  Confirm market sector (defaulted to retail):');

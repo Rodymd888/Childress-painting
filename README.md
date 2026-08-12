@@ -194,7 +194,16 @@ Photography lives in `public/images/projects/<folder>/` with paths committed in
 `lib/project-images.ts`. To add or replace a batch, run
 `npm run build:images -- "/path/to/Projects"` locally and commit the result.
 
-**Video architecture is ready but unpopulated.** `Project` carries `heroVideo`
+**Video is live.** `npm run build:images` transcodes iPhone HEVC MOV to H.264
+MP4, bakes rotation into the pixels (Safari honours rotation metadata, Chrome
+and Firefox often do not, which is how portrait footage ends up sideways), and
+extracts a poster frame. HEIC photographs are decoded via
+`scripts/heic-to-jpeg.py`, because sharp's bundled libheif has no HEVC decoder.
+
+The pass is resumable: each project writes a `_meta.json` sidecar and a rerun
+reuses it. Pass `--fresh` to rebuild everything.
+
+**Original note on the architecture:** `Project` carries `heroVideo`
 and `videos`; see `public/videos/README.md` for file layout, encoding commands,
 and the playback rules the templates already enforce.
 

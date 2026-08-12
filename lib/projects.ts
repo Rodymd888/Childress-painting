@@ -51,6 +51,11 @@ export type ProjectVideo = {
   /** What the footage shows, for accessibility and SEO. */
   title: string;
   kind: 'walkthrough' | 'before-after' | 'application' | 'crew' | 'overview';
+  /**
+   * Drives the aspect container. Phone footage is overwhelmingly portrait, and
+   * forcing it into a 16:9 frame either crops the subject or pillarboxes it.
+   */
+  orientation?: 'portrait' | 'landscape';
   width: number;
   height: number;
   /** Seconds. Displayed in the gallery. */
@@ -93,7 +98,19 @@ export type Project = {
   results?: string[];
   featuredImage?: ProjectImage;
   gallery?: ProjectImage[];
+  /**
+   * VIDEO
+   * `video` is the legacy single-clip field, retained so older records keep
+   * working. New media populates `videos`, and `heroVideo` plays behind the
+   * project hero where one is supplied.
+   *
+   * Files live in /public/videos/projects/<folder>/ and are written by
+   * `npm run build:images`, which transcodes iPhone HEVC to H.264 and bakes in
+   * rotation so portrait footage plays upright in every browser.
+   */
   video?: ProjectVideo;
+  heroVideo?: ProjectVideo;
+  videos?: ProjectVideo[];
 
   /** Key into components/ui/SectorArt.tsx — drawn artwork used until real
       photography is supplied via `featuredImage`. */
@@ -529,7 +546,9 @@ const baseProjects: Project[] = [
  */
 const photographed: Project[] = baseProjects.map((p) => {
   const media = projectImages[p.slug];
-  const withMedia = media ? { ...p, featuredImage: media.hero, gallery: media.gallery } : p;
+  const withMedia = media
+    ? { ...p, featuredImage: media.hero, gallery: media.gallery, videos: media.videos }
+    : p;
   return { ...withMedia, ...projectOverrides[p.slug] };
 });
 
@@ -547,7 +566,7 @@ const fromFolders: Project[] = discoveredProjects
       detail: 'experience' as const,
       location: d.location,
       art: d.art,
-      ...(media ? { featuredImage: media.hero, gallery: media.gallery } : {}),
+      ...(media ? { featuredImage: media.hero, gallery: media.gallery, videos: media.videos } : {}),
       // The curated layer always wins over anything inferred from a folder name.
       ...projectOverrides[d.slug],
     };
@@ -602,3 +621,16 @@ export const projectCountByIndustry = projects.reduce<Record<string, number>>((a
   acc[p.industry] = (acc[p.industry] ?? 0) + 1;
   return acc;
 }, {});
+
+/**
+ * The strongest photographed project in a sector, used as that sector's hero
+ * image.
+ *
+ * This is deliberately preferred over stock photography. A real Childress
+ * project in the retail sector is both more credible than a stock storefront
+ * and honest by construction: it is genuinely our work, genuinely in that
+ * sector. Sectors with no photographed project fall back to the drawn sector
+ * artwork, which is brand-designed rather than a placeholder.
+ */
+export const sectorHero = (industrySlug: string) =>
+  photographedProjects.find((p) => p.industry === industrySlug)?.featuredImage;

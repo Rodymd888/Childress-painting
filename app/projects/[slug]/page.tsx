@@ -10,6 +10,7 @@ import { CtaBanner } from '@/components/ui/CtaBanner';
 import { ProjectCard } from '@/components/cards/ProjectCard';
 import { MediaFrame } from '@/components/ui/MediaFrame';
 import { ProjectGallery } from '@/components/projects/ProjectGallery';
+import { AutoVideo } from '@/components/media/AutoVideo';
 import { SectorArt } from '@/components/ui/SectorArt';
 import { Reveal, RevealGroup, RevealItem } from '@/components/ui/Reveal';
 import { ButtonLink } from '@/components/ui/Button';
@@ -64,6 +65,7 @@ export default async function ProjectPage({ params }: Params) {
   const related = relatedProjects(project.slug, 3);
   const isCaseStudy = project.detail === 'case-study';
   const gallery = project.gallery ?? [];
+  const videos = project.videos ?? [];
 
   /* The city page for this project's location, when we publish one. This is
      what turns the portfolio into a local-search asset: every photographed
@@ -480,40 +482,71 @@ export default async function ProjectPage({ params }: Params) {
       </section>
 
       {/* =============================================================== GALLERY */}
-      {gallery.length > 0 && (
+      {(gallery.length > 0 || videos.length > 0) && (
         <section className="section bg-mist">
           <div className="container-site">
-            <SectionHeading label="Project Gallery" title="On Site." as="h2" />
+            <SectionHeading
+              label="Project Gallery"
+              title="On Site."
+              as="h2"
+              intro={
+                videos.length > 0 ? (
+                  <p>
+                    {gallery.length} photographs and {videos.length}{' '}
+                    {videos.length === 1 ? 'clip' : 'clips'} from this project. Select any item
+                    to open it full screen.
+                  </p>
+                ) : undefined
+              }
+            />
 
             <Reveal className="mt-12">
-              <ProjectGallery images={gallery} />
+              <ProjectGallery images={gallery} videos={videos} />
             </Reveal>
           </div>
         </section>
       )}
 
-      {/* ================================================================= VIDEO */}
-      {project.video && (
-        <section className="section bg-ink">
-          <div className="container-site">
-            <SectionHeading label="Project Video" title="Walkthrough." as="h2" light />
-            <Reveal className="mt-12">
-              <video
-                controls
-                playsInline
-                preload="metadata"
-                poster={project.video.poster}
-                className="w-full border border-white/15"
-              >
-                <source src={project.video.src} type="video/mp4" />
-                Your browser does not support embedded video.
-              </video>
-              {project.video.caption && (
-                <p className="mt-3 font-mono text-[0.625rem] uppercase tracking-[0.14em] text-white/55">
-                  {project.video.caption}
+      {/* ====================================================== PROJECT IN MOTION */}
+      {videos.length > 0 && (
+        <section className="relative overflow-hidden bg-ink py-14 sm:py-20 md:py-24 lg:py-28">
+          <div className="sheet-grid absolute inset-0 opacity-60" aria-hidden="true" />
+          <div className="container-site relative">
+            <SectionHeading
+              light
+              label="Project in Motion"
+              layout="split"
+              title="Footage From This Job."
+              intro={
+                <p>
+                  Filmed on site during the work. Clips play without sound; use the controls
+                  for audio.
                 </p>
-              )}
-            </Reveal>
+              }
+            />
+
+            {/* Portrait clips sit in a row of tall cards. A 9:16 clip stretched
+                across a desktop viewport is either cropped through its subject
+                or floating in black. */}
+            <RevealGroup
+              className="mt-10 grid gap-4 sm:grid-cols-2 md:mt-14 lg:grid-cols-3 lg:gap-6"
+              stagger={0.08}
+            >
+              {videos.map((video) => (
+                <RevealItem key={video.src}>
+                  <AutoVideo
+                    src={video.src}
+                    poster={video.poster}
+                    title={video.title}
+                    orientation={video.orientation ?? 'portrait'}
+                  />
+                  <p className="mt-3.5 font-mono text-[0.625rem] uppercase tracking-[0.18em] text-red-light">
+                    {video.kind === 'walkthrough' ? 'Walkthrough' : video.kind}
+                    {video.duration ? ` · ${video.duration}s` : ''}
+                  </p>
+                </RevealItem>
+              ))}
+            </RevealGroup>
           </div>
         </section>
       )}

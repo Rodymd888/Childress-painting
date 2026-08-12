@@ -14,7 +14,7 @@ import { JsonLd } from '@/components/ui/JsonLd';
 
 import { services, getService, serviceSlugs } from '@/lib/services';
 import { getIndustry } from '@/lib/industries';
-import { projects } from '@/lib/projects';
+import { sectorHero, projects } from '@/lib/projects';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '@/lib/schema';
 import { company } from '@/lib/site';
 
@@ -105,15 +105,20 @@ export default async function ServicePage({ params }: Params) {
             <Reveal delay={0.1} from="right">
               <div className="lg:sticky lg:top-28">
                 <MediaFrame
+                  /* Real Childress work from a sector this service serves,
+                     preferred over anything generic. Falls back to the drawn
+                     service artwork when we have no photograph yet. */
                   image={
                     service.image
                       ? {
                           src: service.image,
-                          alt: `${service.title} work in progress`,
+                          alt: `${service.title} by Childress Painting`,
                           width: 1200,
                           height: 1500,
                         }
-                      : undefined
+                      : service.relatedIndustries
+                          .map((i) => sectorHero(i))
+                          .find(Boolean)
                   }
                   art={service.art}
                   label={service.title}

@@ -18,6 +18,7 @@ import { TrustedBy } from '@/components/home/TrustedBy';
 import { StatsBand } from '@/components/home/StatsBand';
 import { Testimonials } from '@/components/home/Testimonials';
 import { FeaturedWork } from '@/components/home/FeaturedWork';
+import { WorkInMotion } from '@/components/home/WorkInMotion';
 import { ClientBrands } from '@/components/home/ClientBrands';
 import { ServiceCard } from '@/components/cards/ServiceCard';
 import { IndustryCard } from '@/components/cards/IndustryCard';
@@ -159,6 +160,8 @@ export default function HomePage() {
           </RevealGroup>
         </div>
       </section>
+
+      <WorkInMotion />
 
       {/* ============================================================ INDUSTRIES */}
       <section className="section bg-mist">

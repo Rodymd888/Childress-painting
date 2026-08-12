@@ -99,4 +99,51 @@ export const projectOverrides: Record<string, Partial<Project>> = {
     scopeSummary:
       'Painting across municipal buildings for the City of Shawnee, sequenced around public access.',
   },
+  /* ---- Projects discovered in the latest media drop -------------------- */
+
+  /* Outdoor power equipment manufacturer: a plant, not a shop. */
+  'billy-goat-industries': {
+    industry: 'industrial',
+    art: 'industrial',
+    serviceTypes: ['industrial-painting', 'commercial-painting', 'protective-coatings'],
+    scopeSummary:
+      'Painting and coatings inside a manufacturing facility in Lee\u2019s Summit, planned around production.',
+  },
+
+  /* Federal reserve center: government work, with the documentation that
+     comes with it. */
+  'us-army-reserve': {
+    industry: 'government',
+    art: 'government',
+    serviceTypes: ['commercial-painting', 'interior-painting', 'maintenance-painting'],
+    scopeSummary:
+      'Interior painting through a United States Army Reserve facility in Kansas City, phased around an operating site.',
+  },
+
+  /* Commercial interior renovation. */
+  'brookshire-renovation': {
+    industry: 'office',
+    art: 'office',
+    serviceTypes: ['commercial-painting', 'interior-painting', 'drywall-repair'],
+    scopeSummary:
+      'Interior renovation painting in Kansas City, with drywall repair carried inside the painting scope.',
+  },
+
+  /* Tenant space at Kansas City International. */
+  'health-and-beauty-tech': {
+    industry: 'aviation',
+    art: 'aviation',
+    serviceTypes: ['commercial-painting', 'interior-painting'],
+    scopeSummary:
+      'Tenant interior finishes at Kansas City International Airport, worked around badging and access control.',
+  },
+
+  /* Veterinary clinic: healthcare-adjacent, occupied. */
+  'meadowbrook-animal-hospital': {
+    industry: 'healthcare',
+    art: 'healthcare',
+    serviceTypes: ['commercial-painting', 'interior-painting', 'maintenance-painting'],
+    scopeSummary:
+      'Interior painting at a Kansas City veterinary hospital, scheduled around patient care and clinic hours.',
+  },
 };
