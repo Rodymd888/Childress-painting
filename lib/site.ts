@@ -172,6 +172,8 @@ export const primaryNav: NavItem[] = [
       { label: 'Kansas', href: '/locations/kansas', blurb: 'Johnson County school programs.' },
       { label: 'Missouri', href: '/locations/missouri', blurb: 'Kansas City metro, from Grandview.' },
       { label: 'All Locations', href: '/locations', blurb: 'Every market we staff.' },
+      { label: 'Project Map', href: '/projects/map', blurb: 'Where we have worked.' },
+      { label: 'Project Map', href: '/projects/map', blurb: 'Where we have worked.' },
     ],
   },
   {
@@ -246,6 +248,7 @@ export const footerNav = [
       { label: 'Kansas City, MO', href: '/locations/missouri/kansas-city' },
       { label: 'Overland Park, KS', href: '/locations/kansas/overland-park' },
       { label: 'All Locations', href: '/locations' },
+      { label: 'Project Map', href: '/projects/map' },
     ],
   },
   {

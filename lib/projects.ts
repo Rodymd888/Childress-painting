@@ -112,6 +112,7 @@ export type Project = {
   heroVideo?: ProjectVideo;
   videos?: ProjectVideo[];
 
+
   /** Key into components/ui/SectorArt.tsx — drawn artwork used until real
       photography is supplied via `featuredImage`. */
   art: string;
@@ -587,7 +588,8 @@ const fromFolders: Project[] = discoveredProjects
 export const projects: Project[] = (() => {
   const bySlug = new Map<string, Project>();
   for (const project of [...photographed, ...fromFolders]) {
-    if (!bySlug.has(project.slug)) bySlug.set(project.slug, project);
+    if (bySlug.has(project.slug)) continue;
+    bySlug.set(project.slug, project);
   }
   return [...bySlug.values()];
 })();
@@ -715,3 +717,46 @@ export const toCardData = (p: Project): ProjectCardData => ({
 
 /** Every project as card data, for the index and any other filtered grid. */
 export const projectCards: ProjectCardData[] = projects.map(toCardData);
+
+/* ============================================================== MAP DATA == */
+
+import { projectAddresses, isMappable, formatAddress } from './project-addresses';
+
+export type MappedProject = ProjectCardData & {
+  address?: string;
+  fullAddress: string;
+  city: string;
+  state: string;
+  stateName: string;
+  latitude: number;
+  longitude: number;
+  addressStatus: string;
+};
+
+/**
+ * Projects with a publicly displayable, verified location.
+ *
+ * Built from the canonical `projects` array, so a project can never appear
+ * twice on the map, and a project merged or removed upstream disappears from
+ * the map automatically. Only high-confidence verified and client-supplied
+ * addresses qualify; see lib/project-addresses.ts.
+ */
+export const mappedProjects: MappedProject[] = projects
+  .filter((p) => isMappable(p.slug))
+  .map((p) => {
+    const a = projectAddresses[p.slug];
+    return {
+      ...toCardData(p),
+      address: a.address,
+      fullAddress: formatAddress(p.slug) ?? `${a.city}, ${a.state}`,
+      city: a.city,
+      state: a.state,
+      stateName: a.stateName,
+      latitude: a.latitude as number,
+      longitude: a.longitude as number,
+      addressStatus: a.status,
+    };
+  });
+
+/** States represented on the map, for the geographic filter. */
+export const mappedStates = [...new Set(mappedProjects.map((p) => p.stateName))].sort();

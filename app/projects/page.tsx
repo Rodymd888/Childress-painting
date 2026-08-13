@@ -42,6 +42,9 @@ export default function ProjectsPage() {
         <ButtonLink href="/request-bid" variant="primary" size="lg" withArrow>
           Request a Bid
         </ButtonLink>
+        <ButtonLink href="/projects/map" variant="outlineLight" size="lg">
+          View the Project Map
+        </ButtonLink>
         <ButtonLink href="/clients" variant="outlineLight" size="lg">
           Full Client List
         </ButtonLink>
