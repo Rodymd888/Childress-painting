@@ -12,7 +12,7 @@ import { ButtonLink, TextLink } from '@/components/ui/Button';
 import { JsonLd } from '@/components/ui/JsonLd';
 
 import { getCity, getState, cityPaths, nearbyCities } from '@/lib/locations';
-import { projects } from '@/lib/projects';
+import { toCardData, projects } from '@/lib/projects';
 import { getIndustry } from '@/lib/industries';
 import { getService } from '@/lib/services';
 import { breadcrumbSchema } from '@/lib/schema';
@@ -136,7 +136,7 @@ export default async function CityPage({
             <RevealGroup className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" stagger={0.05}>
               {localProjects.slice(0, 6).map((project) => (
                 <RevealItem key={project.slug}>
-                  <ProjectCard project={project} />
+                  <ProjectCard project={toCardData(project)} />
                 </RevealItem>
               ))}
             </RevealGroup>

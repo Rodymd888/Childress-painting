@@ -73,7 +73,7 @@ export default function AboutPage() {
                   quality-control inspections ahead of the general contractor&rsquo;s
                   walkthrough. We staff every project with a dedicated project manager from
                   preconstruction through closeout. The result is fewer punch list items, faster
-                  sign-off, and a Sherwin-Williams coating system backed by a two-year
+                  sign-off, and a Sherwin-Williams coating system backed by a one-year
                   workmanship warranty.
                 </p>
                 <p>

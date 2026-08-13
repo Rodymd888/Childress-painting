@@ -376,6 +376,24 @@ async function main() {
 
     const { name, location } = parseFolderName(folder.name);
 
+    /* Already built on an earlier pass — reuse it. */
+    const probeFolder = matched
+      ? slugify((location ? `${matched.slug} ${location.split(',')[0]}` : matched.slug))
+      : imageFolderName(name, location);
+    const sidecar = path.join(OUT_ROOT, probeFolder, '_meta.json');
+    if (!fresh && existsSync(sidecar)) {
+      const saved = JSON.parse(await readFile(sidecar, 'utf8'));
+      media[slug] = saved.media;
+      if (saved.discovered) discovered.push(saved.discovered);
+      usedFolders.add(saved.media.folder);
+      report.push({ folder: folder.name, status: saved.status, slug,
+        webFolder: saved.media.folder,
+        images: (saved.media.gallery?.length ?? 0) + (saved.media.hero ? 1 : 0),
+        videos: saved.media.videos?.length ?? 0, cached: true });
+      continue;
+    }
+
+
     let best = null;
     for (const p of existing) {
       const s = Math.max(similarity(name, p.name), similarity(name, p.slug));
@@ -395,23 +413,6 @@ async function main() {
       discovered.push({ slug, name, industry, location,
         art: ART_FOR_INDUSTRY[industry] ?? 'construction',
         confident: inf.confident });
-    }
-
-    /* Already built on an earlier pass — reuse it. */
-    const probeFolder = matched
-      ? slugify((location ? `${matched.slug} ${location.split(',')[0]}` : matched.slug))
-      : imageFolderName(name, location);
-    const sidecar = path.join(OUT_ROOT, probeFolder, '_meta.json');
-    if (!fresh && existsSync(sidecar)) {
-      const saved = JSON.parse(await readFile(sidecar, 'utf8'));
-      media[slug] = saved.media;
-      if (saved.discovered) discovered.push(saved.discovered);
-      usedFolders.add(saved.media.folder);
-      report.push({ folder: folder.name, status: saved.status, slug,
-        webFolder: saved.media.folder,
-        images: (saved.media.gallery?.length ?? 0) + (saved.media.hero ? 1 : 0),
-        videos: saved.media.videos?.length ?? 0, cached: true });
-      continue;
     }
 
     if (!files.length && !videoFiles.length) {
@@ -580,8 +581,17 @@ async function main() {
   L.push('};');
   L.push('');
   L.push('/** Folders that matched no existing project, added as new projects. */');
+  /* Deduplicate by slug before writing. The slug is the canonical identity of
+     a project, so two records sharing one is always a bug. */
+  const seenSlugs = new Set();
+  const uniqueDiscovered = discovered.filter((d) => {
+    if (seenSlugs.has(d.slug)) return false;
+    seenSlugs.add(d.slug);
+    return true;
+  });
+
   L.push('export const discoveredProjects: DiscoveredProject[] = [');
-  for (const d of discovered) {
+  for (const d of uniqueDiscovered) {
     L.push('  {');
     L.push(`    slug: ${q(d.slug)},`);
     L.push(`    name: ${q(d.name)},`);

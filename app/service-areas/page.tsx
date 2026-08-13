@@ -58,7 +58,7 @@ export default function ServiceAreasPage() {
             intro={
               <p>
                 Both offices run the same process, the same coating systems, and the same
-                two-year workmanship warranty. Call whichever is closer to the job.
+                one-year workmanship warranty. Call whichever is closer to the job.
               </p>
             }
           />

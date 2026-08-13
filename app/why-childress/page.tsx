@@ -24,7 +24,7 @@ import { breadcrumbSchema } from '@/lib/schema';
 export const metadata: Metadata = {
   title: 'Why Choose Childress Painting | For General Contractors',
   description:
-    '40+ years experience, a commercial-first focus, reliable scheduling, dedicated project management, quality control inspections, fast punch lists, and a two-year workmanship warranty.',
+    '40+ years experience, a commercial-first focus, reliable scheduling, dedicated project management, quality control inspections, fast punch lists, and a one-year workmanship warranty.',
   alternates: { canonical: '/why-childress' },
 };
 
@@ -184,12 +184,12 @@ export default function WhyChildressPage() {
         <div className="container-site">
           <Reveal className="mx-auto max-w-3xl text-center">
             <ShieldCheck aria-hidden="true" className="mx-auto size-9 text-red" />
-            <h2 className="mt-7 text-h2 text-ink">A Written Two-Year Warranty.</h2>
+            <h2 className="mt-7 text-h2 text-ink">A Written One-Year Warranty.</h2>
             <p className="mt-6 text-lead leading-relaxed text-body">
               Our workmanship warranty runs for two years from substantial completion, in
               addition to whatever the coating manufacturer provides on the material. It is
               issued in writing at closeout alongside attic stock and the approved color
-              schedule, and a call in year two gets the same response as a call during
+              schedule, and a call after closeout gets the same response as a call during
               construction.
             </p>
             <div className="mt-9 flex flex-wrap justify-center gap-3">

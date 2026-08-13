@@ -14,7 +14,7 @@ import { JsonLd } from '@/components/ui/JsonLd';
 
 import { services, getService, serviceSlugs } from '@/lib/services';
 import { getIndustry } from '@/lib/industries';
-import { sectorHero, projects } from '@/lib/projects';
+import { toCardData, sectorHero, projects } from '@/lib/projects';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '@/lib/schema';
 import { company } from '@/lib/site';
 
@@ -226,7 +226,7 @@ export default async function ServicePage({ params }: Params) {
             <RevealGroup className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" stagger={0.06}>
               {serviceProjects.map((project) => (
                 <RevealItem key={project.slug}>
-                  <ProjectCard project={project} />
+                  <ProjectCard project={toCardData(project)} />
                 </RevealItem>
               ))}
             </RevealGroup>

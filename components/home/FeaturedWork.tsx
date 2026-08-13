@@ -5,7 +5,7 @@ import { SectionHeading } from '@/components/ui/SectionHeading';
 import { ProjectCover } from '@/components/projects/ProjectCover';
 import { Reveal, RevealGroup, RevealItem } from '@/components/ui/Reveal';
 import { TextLink } from '@/components/ui/Button';
-import { photographedProjects } from '@/lib/projects';
+import { toCardData, photographedProjects } from '@/lib/projects';
 import { getIndustry } from '@/lib/industries';
 
 /**
@@ -46,15 +46,13 @@ export function FeaturedWork() {
         {/* ----------------------------------------------------------- LEAD */}
         <Reveal className="mt-10 md:mt-14">
           <Link href={`/projects/${lead.slug}`} className="group block">
-            <ProjectCover
-              project={lead}
+            <ProjectCover project={toCardData(lead)}
               ratio="wide"
               priority
               sizes="(min-width: 1280px) 1200px, 100vw"
               className="hidden md:block"
             />
-            <ProjectCover
-              project={lead}
+            <ProjectCover project={toCardData(lead)}
               ratio="video"
               priority
               sizes="100vw"
@@ -97,8 +95,7 @@ export function FeaturedWork() {
               return (
                 <RevealItem key={project.slug}>
                   <Link href={`/projects/${project.slug}`} className="group block">
-                    <ProjectCover
-                      project={project}
+                    <ProjectCover project={toCardData(project)}
                       ratio="photo"
                       sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
                     />

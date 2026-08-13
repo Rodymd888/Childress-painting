@@ -143,7 +143,7 @@ export default function SafetyQualityPage() {
             <ShieldCheck aria-hidden="true" className="mx-auto size-9 text-red" />
             <h2 className="mt-7 text-h2 text-ink">Backed in Writing.</h2>
             <p className="mt-6 text-lead leading-relaxed text-body">
-              Every project carries a two-year workmanship warranty from substantial completion,
+              Every project carries a one-year workmanship warranty from substantial completion,
               in addition to the coating manufacturer&rsquo;s material warranty. We apply{' '}
               {company.coatingSystems} systems and issue the warranty at closeout with attic
               stock and the approved color schedule.

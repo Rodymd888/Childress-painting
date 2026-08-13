@@ -40,7 +40,7 @@ export const company = {
   scheduling: 'Day, night & occupied-site shifts',
 
   coatingSystems: 'Sherwin-Williams',
-  warranty: '2-year workmanship warranty',
+  warranty: '1-year workmanship warranty',
   safety: 'OSHA-compliant crews',
 
   serviceArea: {
@@ -100,7 +100,7 @@ export const companyStats = [
   { value: '40+', label: 'Years Leadership Experience', detail: 'Commercial painting since 1984' },
   { value: '3', label: 'States Served', detail: 'Texas primary · Kansas & Missouri' },
   { value: '13', label: 'Market Sectors', detail: 'Retail through sports & entertainment' },
-  { value: '2yr', label: 'Workmanship Warranty', detail: 'Written, on every project' },
+  { value: '1-Year', label: 'Workmanship Warranty', detail: 'Written, on every project' },
 ] as const;
 
 /** Leadership, per the qualifications document. */

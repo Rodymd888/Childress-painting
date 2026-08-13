@@ -572,7 +572,25 @@ const fromFolders: Project[] = discoveredProjects
     };
   });
 
-export const projects: Project[] = [...photographed, ...fromFolders];
+/**
+ * CANONICAL PROJECT LIST
+ * ---------------------------------------------------------------------------
+ * `slug` is the identity of a project. Deduplicating here means no upstream
+ * data error can ever render the same project twice, in any grid, on any page.
+ * The first record for a slug wins, so a curated entry always beats a
+ * folder-discovered one.
+ *
+ * Everything downstream reads this array, so the fix applies to the index,
+ * filters, counts, related rails, industry pages, location pages, the homepage,
+ * and the sitemap at once.
+ */
+export const projects: Project[] = (() => {
+  const bySlug = new Map<string, Project>();
+  for (const project of [...photographed, ...fromFolders]) {
+    if (!bySlug.has(project.slug)) bySlug.set(project.slug, project);
+  }
+  return [...bySlug.values()];
+})();
 
 export const getProject = (slug: string) => projects.find((p) => p.slug === slug);
 export const projectSlugs = projects.map((p) => p.slug);
@@ -634,3 +652,66 @@ export const projectCountByIndustry = projects.reduce<Record<string, number>>((a
  */
 export const sectorHero = (industrySlug: string) =>
   photographedProjects.find((p) => p.industry === industrySlug)?.featuredImage;
+
+/**
+ * Sectors where we hold no photographed project yet borrow from the closest
+ * sector we do. Education borrows a government building, hospitality borrows a
+ * restaurant interior, and so on: the setting is genuinely comparable, and it
+ * is still our own work rather than stock.
+ *
+ * These appear only on sector cards and sector heroes, never on a project page,
+ * so nothing is ever presented as a job it was not.
+ */
+const SECTOR_STAND_IN: Record<string, string> = {
+  education: 'government',
+  hospitality: 'restaurants',
+  'tenant-improvements': 'office',
+  'new-construction': 'industrial',
+};
+
+/** A photograph for every sector, falling back to the closest related sector. */
+export const sectorImage = (industrySlug: string) =>
+  sectorHero(industrySlug) ??
+  (SECTOR_STAND_IN[industrySlug] ? sectorHero(SECTOR_STAND_IN[industrySlug]) : undefined);
+
+/**
+ * LIGHTWEIGHT CARD DATA
+ * ---------------------------------------------------------------------------
+ * The projects index renders through a client component (it filters), so every
+ * field handed to it is serialized into the RSC flight payload AND rehydrated
+ * in the browser. Passing full project records meant shipping every gallery
+ * array, every video, and every case-study field to render a grid of covers,
+ * which is why /projects was slow.
+ *
+ * This projection carries only what a card draws. Heavy media stays on the
+ * individual project route, where it is actually used.
+ */
+export type ProjectCardData = {
+  slug: string;
+  name: string;
+  industry: string;
+  location?: string;
+  scopeSummary: string;
+  serviceCount: number;
+  art: string;
+  detail: Project['detail'];
+  completionDate?: string;
+  /** Cover only. Never the gallery. */
+  cover?: ProjectImage;
+};
+
+export const toCardData = (p: Project): ProjectCardData => ({
+  slug: p.slug,
+  name: p.name,
+  industry: p.industry,
+  location: p.location,
+  scopeSummary: p.scopeSummary,
+  serviceCount: p.serviceTypes.length,
+  art: p.art,
+  detail: p.detail,
+  completionDate: p.completionDate,
+  cover: p.featuredImage,
+});
+
+/** Every project as card data, for the index and any other filtered grid. */
+export const projectCards: ProjectCardData[] = projects.map(toCardData);

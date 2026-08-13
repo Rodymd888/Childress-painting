@@ -60,7 +60,7 @@ export const processSteps = [
     number: '08',
     title: 'Project Closeout',
     short: 'Documentation Delivered, Not Chased',
-    body: 'Attic stock, the approved color schedule, product data, and the two-year workmanship warranty are delivered as a package at turnover. Warranty support continues after closeout. A call in year two gets the same response as a call during construction.',
+    body: 'Attic stock, the approved color schedule, product data, and the one-year workmanship warranty are delivered as a package at turnover. Warranty support continues after closeout. A call after closeout gets the same response as a call during construction.',
     deliverable: 'Closeout package, attic stock, and written warranty',
   },
 ] as const;
@@ -104,7 +104,7 @@ export const differentiators = [
   },
   {
     title: 'Warranty Support After Closeout',
-    body: 'A written two-year workmanship warranty, backed by Sherwin-Williams coating systems. A call in year two gets a real response.',
+    body: 'A written one-year workmanship warranty, backed by Sherwin-Williams coating systems. A call after closeout gets a real response.',
     icon: 'shield',
   },
 ] as const;
@@ -115,7 +115,7 @@ export const credentials = [
   { value: '1984', label: 'Since', body: 'Four decades of continuous commercial work.' },
   { value: '16', label: 'Services Offered', body: 'Commercial, residential, and industrial painting under one roof.' },
   { value: '3', label: 'States Served', body: 'Texas primary; Kansas and Missouri secondary.' },
-  { value: '2yr', label: 'Workmanship Warranty', body: 'Written, on every project, in addition to material warranties.' },
+  { value: '1-Year', label: 'Workmanship Warranty', body: 'Written, on every project, in addition to material warranties.' },
   { value: '24/7', label: 'Shift Capability', body: 'Day, night, and occupied-site shifts.' },
 ] as const;
 
@@ -171,7 +171,7 @@ export const capabilitySnapshot = [
   { label: 'Coating Systems', value: 'Sherwin-Williams' },
   { label: 'Scheduling', value: 'Day, night & occupied-site shifts' },
   { label: 'Commercial Experience', value: '40+ years, since 1984' },
-  { label: 'Warranty', value: '2-year workmanship warranty' },
+  { label: 'Warranty', value: '1-year workmanship warranty' },
   { label: 'Safety', value: 'OSHA-compliant crews' },
 ] as const;
 
@@ -227,6 +227,6 @@ export const qualityPractices = [
   },
   {
     title: 'Documented Closeout',
-    body: 'Attic stock, approved color schedule, product data, and the written two-year workmanship warranty are delivered as a package at turnover.',
+    body: 'Attic stock, approved color schedule, product data, and the written one-year workmanship warranty are delivered as a package at turnover.',
   },
 ] as const;

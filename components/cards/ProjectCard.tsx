@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { ArrowUpRight, MapPin } from 'lucide-react';
 import { ProjectCover } from '@/components/projects/ProjectCover';
 import { getIndustry } from '@/lib/industries';
-import type { Project } from '@/lib/projects';
+import type { ProjectCardData } from '@/lib/projects';
 
 /**
  * PROJECT CARD
@@ -19,7 +19,7 @@ export function ProjectCard({
   project,
   priority = false,
 }: {
-  project: Project;
+  project: ProjectCardData;
   priority?: boolean;
 }) {
   const industry = getIndustry(project.industry);
@@ -67,9 +67,9 @@ export function ProjectCard({
 
         <span className="mt-6 flex items-center justify-between border-t border-line pt-4 font-mono text-[0.625rem] uppercase tracking-[0.16em] text-ink/55">
           <span>
-            {project.serviceTypes.length > 0
-              ? `${project.serviceTypes.length} ${
-                  project.serviceTypes.length === 1 ? 'service' : 'services'
+            {project.serviceCount > 0
+              ? `${project.serviceCount} ${
+                  project.serviceCount === 1 ? 'service' : 'services'
                 } performed`
               : 'View project'}
           </span>

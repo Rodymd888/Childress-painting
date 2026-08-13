@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { getIndustry } from '@/lib/industries';
-import type { Project } from '@/lib/projects';
+import type { ProjectCardData } from '@/lib/projects';
 
 /**
  * PROJECT COVER
@@ -40,13 +40,13 @@ export function ProjectCover({
   priority = false,
   className = '',
 }: {
-  project: Project;
+  project: ProjectCardData;
   ratio?: Ratio;
   sizes?: string;
   priority?: boolean;
   className?: string;
 }) {
-  const image = project.featuredImage;
+  const image = project.cover;
   const industry = getIndustry(project.industry);
   const sector = industry?.shortTitle ?? 'Commercial';
 

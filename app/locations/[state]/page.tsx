@@ -12,7 +12,7 @@ import { ButtonLink, TextLink } from '@/components/ui/Button';
 import { JsonLd } from '@/components/ui/JsonLd';
 
 import { getState, stateSlugs } from '@/lib/locations';
-import { projects } from '@/lib/projects';
+import { toCardData, projects } from '@/lib/projects';
 import { getIndustry } from '@/lib/industries';
 import { breadcrumbSchema } from '@/lib/schema';
 import { company, siteUrl } from '@/lib/site';
@@ -135,7 +135,7 @@ export default async function StatePage({ params }: { params: Promise<{ state: s
             >
               {stateProjects.map((project) => (
                 <RevealItem key={project.slug}>
-                  <ProjectCard project={project} />
+                  <ProjectCard project={toCardData(project)} />
                 </RevealItem>
               ))}
             </RevealGroup>

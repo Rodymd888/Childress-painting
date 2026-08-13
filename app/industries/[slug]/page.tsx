@@ -14,7 +14,7 @@ import { JsonLd } from '@/components/ui/JsonLd';
 
 import { industries, getIndustry, industrySlugs } from '@/lib/industries';
 import { getService } from '@/lib/services';
-import { sectorHero, projectsByIndustry } from '@/lib/projects';
+import { toCardData, sectorImage, projectsByIndustry } from '@/lib/projects';
 import { clientGroups } from '@/lib/clients';
 import { breadcrumbSchema } from '@/lib/schema';
 import { company } from '@/lib/site';
@@ -122,7 +122,7 @@ export default async function IndustryPage({ params }: Params) {
                           width: 1200,
                           height: 1500,
                         }
-                      : sectorHero(industry.slug)
+                      : sectorImage(industry.slug)
                   }
                   art={industry.art}
                   label={industry.title}
@@ -218,7 +218,7 @@ export default async function IndustryPage({ params }: Params) {
             <RevealGroup className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" stagger={0.05}>
               {sectorProjects.map((project) => (
                 <RevealItem key={project.slug}>
-                  <ProjectCard project={project} />
+                  <ProjectCard project={toCardData(project)} />
                 </RevealItem>
               ))}
             </RevealGroup>

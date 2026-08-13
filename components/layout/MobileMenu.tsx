@@ -22,15 +22,40 @@ export function MobileMenu() {
   const panelRef = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
 
+  /**
+   * Close as a safety net when the route changes.
+   *
+   * Links also close on click (see `closeMenu` below), which is the path that
+   * matters: waiting for `pathname` to change leaves the drawer and its
+   * overlay on screen for the whole navigation, and on a slower route that
+   * reads as a frozen, unresponsive menu. Belt and braces, because a browser
+   * back button changes the route without any click here.
+   */
   useEffect(() => {
     setOpen(false);
+    setExpanded(null);
   }, [pathname]);
 
+  /**
+   * Body scroll lock.
+   *
+   * The previous version captured `document.body.style.overflow` on open and
+   * restored that value on close. Reopening the drawer while the exit
+   * animation was still running captured 'hidden' as the "previous" value, so
+   * the next close restored 'hidden' and the page could never scroll again.
+   * That is the intermittent freeze.
+   *
+   * Locking against a known-good constant removes the race entirely: there is
+   * no captured state to get out of sync. The scrollbar-width compensation
+   * stops the layout jumping when the bar disappears.
+   */
   useEffect(() => {
     if (!open) return;
 
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
+    const { body, documentElement } = document;
+    const scrollbar = window.innerWidth - documentElement.clientWidth;
+    body.style.overflow = 'hidden';
+    if (scrollbar > 0) body.style.paddingRight = `${scrollbar}px`;
 
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -40,14 +65,26 @@ export function MobileMenu() {
     };
 
     document.addEventListener('keydown', onKey);
-    // Move focus into the panel so keyboard users are not left behind it.
     panelRef.current?.focus();
 
     return () => {
-      document.body.style.overflow = previousOverflow;
+      body.style.overflow = '';
+      body.style.paddingRight = '';
       document.removeEventListener('keydown', onKey);
     };
   }, [open]);
+
+  /**
+   * Closing the drawer.
+   *
+   * Called synchronously on link click so navigation and dismissal happen in
+   * the same interaction. No timers: `AnimatePresence` owns the exit
+   * animation, and React owns the state.
+   */
+  function closeMenu() {
+    setOpen(false);
+    setExpanded(null);
+  }
 
   const isActive = (href: string) =>
     href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(`${href}/`);
@@ -76,7 +113,7 @@ export function MobileMenu() {
               animate={{ opacity: 1 }}
               exit={reduceMotion ? undefined : { opacity: 0 }}
               transition={{ duration: 0.2 }}
-              onClick={() => setOpen(false)}
+              onClick={closeMenu}
             />
 
             <motion.div
@@ -100,7 +137,7 @@ export function MobileMenu() {
                 <button
                   type="button"
                   onClick={() => {
-                    setOpen(false);
+                    closeMenu();
                     triggerRef.current?.focus();
                   }}
                   className="inline-flex size-11 items-center justify-center text-white transition-colors hover:text-red-light"
@@ -121,6 +158,7 @@ export function MobileMenu() {
                         <div className="flex items-stretch border-b border-white/10">
                           <Link
                             href={item.href}
+                            onClick={closeMenu}
                             aria-current={isActive(item.href) ? 'page' : undefined}
                             className={[
                               'flex min-h-[3.25rem] flex-1 items-center py-2.5 font-display text-xl font-extrabold uppercase tracking-tight transition-colors',
@@ -171,6 +209,7 @@ export function MobileMenu() {
                                   <Link
                                     key={child.href}
                                     href={child.href}
+                                    onClick={closeMenu}
                                     className="flex min-h-11 items-center font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-white/60 transition-colors hover:text-white"
                                   >
                                     {child.label}

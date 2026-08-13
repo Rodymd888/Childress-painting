@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import { MediaFrame } from '@/components/ui/MediaFrame';
+import { sectorImage } from '@/lib/projects';
 import type { Industry } from '@/lib/industries';
 
 /**
@@ -24,16 +25,20 @@ export function IndustryCard({
       href={`/industries/${industry.slug}`}
       className="group lift sweep relative flex flex-col overflow-hidden border border-line bg-white"
     >
+      {/* Real Childress work from this sector is preferred over anything
+          generic. `industry.image` wins if set explicitly; otherwise the
+          strongest photographed project in the sector is used, and the drawn
+          sector artwork is the final fallback. No card is ever an empty box. */}
       <MediaFrame
         image={
           industry.image
             ? {
                 src: industry.image,
-                alt: `${industry.title} painting project`,
+                alt: `${industry.title} painting project by Childress Painting`,
                 width: 1600,
                 height: 1200,
               }
-            : undefined
+            : sectorImage(industry.slug)
         }
         art={industry.art}
         label={industry.title}

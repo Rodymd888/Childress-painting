@@ -40,7 +40,7 @@ import { breadcrumbSchema } from '@/lib/schema';
 export const metadata: Metadata = {
   title: 'Commercial, Industrial & Residential Painting Contractor | Since 1984',
   description:
-    'Childress Painting is a commercial painting contractor serving Texas since 1984, with residential and industrial painting alongside. Retail, restaurant, healthcare, education, and government work for general contractors. Two-year workmanship warranty.',
+    'Childress Painting is a commercial painting contractor serving Texas since 1984, with residential and industrial painting alongside. Retail, restaurant, healthcare, education, and government work for general contractors. One-year workmanship warranty.',
   alternates: { canonical: '/' },
   openGraph: {
     title: 'Childress Painting | Commercial Painting Specialists Since 1984',
@@ -104,7 +104,7 @@ export default function HomePage() {
                 quality-control inspections ahead of the general contractor&rsquo;s walkthrough,
                 and staff every project with a dedicated project manager from preconstruction
                 through closeout. The result is fewer punch list items, faster sign-off, and a
-                Sherwin-Williams coating system backed by a two-year workmanship warranty.
+                Sherwin-Williams coating system backed by a one-year workmanship warranty.
               </p>
               <p>
                 Commercial construction is the core of the business, and the discipline it

@@ -8,7 +8,7 @@ import { Reveal } from '@/components/ui/Reveal';
 import { ButtonLink } from '@/components/ui/Button';
 import { JsonLd } from '@/components/ui/JsonLd';
 
-import { projects } from '@/lib/projects';
+import { projects, projectCards } from '@/lib/projects';
 import { industries } from '@/lib/industries';
 import { breadcrumbSchema } from '@/lib/schema';
 
@@ -63,7 +63,7 @@ export default function ProjectsPage() {
           />
 
           <Reveal className="mt-12">
-            <ProjectPortfolio projects={projects} industries={industries} />
+            <ProjectPortfolio projects={projectCards} industries={industries} />
           </Reveal>
         </div>
       </section>

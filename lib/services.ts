@@ -75,7 +75,7 @@ export const services: Service[] = [
       },
       {
         heading: 'One Subcontractor, Closeout Included',
-        body: 'Attic stock, the approved color schedule, product data, and a written two-year workmanship warranty are delivered as a package at turnover. Our own quality walk happens before the general contractor walkthrough, which is why the punch list handed over is short.',
+        body: 'Attic stock, the approved color schedule, product data, and a written one-year workmanship warranty are delivered as a package at turnover. Our own quality walk happens before the general contractor walkthrough, which is why the punch list handed over is short.',
       },
     ],
     faqs: [
@@ -107,7 +107,7 @@ export const services: Service[] = [
       'Most of our work is commercial construction, and that is exactly why homeowners hire us. The habits that keep a general contractor happy translate directly: showing up when we said we would, protecting everything that is not being painted, cleaning up daily, and standing behind the work in writing.',
     metaTitle: 'Residential Painting | Interior & Exterior House Painting',
     metaDescription:
-      'Residential interior and exterior painting with commercial-grade preparation, clean job sites, clear communication, and a written two-year workmanship warranty.',
+      'Residential interior and exterior painting with commercial-grade preparation, clean job sites, clear communication, and a written one-year workmanship warranty.',
     scope: [
       'Interior repaints, walls, ceilings, trim, and doors',
       'Exterior repaints over siding, stucco, brick, and trim',
@@ -115,7 +115,7 @@ export const services: Service[] = [
       'Drywall repair, texture matching, and caulking',
       'Color consultation before a gallon is ordered',
       'Daily cleanup and full protection of floors and furnishings',
-      'Written two-year workmanship warranty',
+      'Written one-year workmanship warranty',
     ],
     systems: [
       { label: 'Interior Walls', detail: 'Premium washable acrylics, sheen matched to the room' },
