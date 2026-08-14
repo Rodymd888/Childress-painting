@@ -5,69 +5,61 @@ import { company } from '@/lib/site';
 /**
  * BRAND LOCKUP
  * ---------------------------------------------------------------------------
- * Uses the official Childress Painting logo. Variants in /public/brand, all
- * derived from the supplied master artwork:
+ * ONE central source for the logo. Every visible use on the site renders
+ * through this file, so replacing the artwork later means swapping the files in
+ * /public/brand and nothing else.
  *
- *   logo-mark.png            Texas roundel — light backgrounds
- *   logo-mark-light.png      Texas roundel — dark backgrounds
- *   logo-full.png            Paint can, wordmark and "Since 1984" banner
- *   logo-full-light.png      The same lockup, for dark backgrounds
- *   logo-complete.png        Full artwork including both taglines
- *   logo-complete-light.png  The same, for dark backgrounds
+ *   logo-header.png    Paint can + CHILDRESS PAINTING. The navigation lockup.
+ *   logo-full.png      The above plus the "Since 1984" banner. Footer.
+ *   logo-complete.png  Full artwork including both taglines. Share card.
+ *   logo-mark.png      Texas roundel. Compact and square.
  *
- * On the dark variants the neutral ink is inverted rather than simply
- * recoloured, so the "Since 1984" banner flips to a light plate with dark
- * lettering and stays readable instead of vanishing into itself. Red is left
- * untouched throughout.
+ * NO SEPARATE DARK VARIANT IS NEEDED. The supplied artwork carries white
+ * outlines around the lettering, so it holds contrast on the ink header and on
+ * white alike. The `light` prop is kept for call-site compatibility and no
+ * longer switches files; recolouring the logo per background would mean
+ * altering supplied artwork, which we do not do.
  *
- * The header pairs the roundel with live type: the full lockup is too wide and
- * too detailed to read at 32px, while the roundel holds up. The footer and the
- * share card use the fuller artwork where the banner and taglines are legible.
+ * PROPORTIONS: every use sets height and lets width follow via `w-auto`, so the
+ * logo is never stretched. Intrinsic dimensions are passed to next/image so no
+ * layout shift occurs while it loads.
  */
 
-export function Logo({
-  light = false,
-  className,
-}: {
-  light?: boolean;
-  className?: string;
-}) {
+/** Intrinsic sizes of the prepared files, for correct aspect ratios. */
+const ART = {
+  header: { src: '/brand/logo-header.png', width: 900, height: 373 },
+  full: { src: '/brand/logo-full.png', width: 1000, height: 557 },
+  complete: { src: '/brand/logo-complete.png', width: 1200, height: 788 },
+  mark: { src: '/brand/logo-mark.png', width: 256, height: 256 },
+} as const;
+
+/**
+ * Header lockup. Sized by height so the aspect ratio is preserved: roughly
+ * 92px wide on phones and 111px on desktop, which reads clearly without
+ * crowding the hamburger.
+ */
+export function Logo({ className }: { light?: boolean; className?: string }) {
   return (
     <Link
       href="/"
       aria-label={`${company.name}, home`}
-      className={['group flex shrink-0 items-center gap-3', className].filter(Boolean).join(' ')}
+      className={['group flex shrink-0 items-center', className].filter(Boolean).join(' ')}
     >
       <Image
-        src={light ? '/brand/logo-mark-light.png' : '/brand/logo-mark.png'}
-        alt=""
-        width={198}
-        height={198}
-        sizes="(min-width: 1024px) 36px, 32px"
+        src={ART.header.src}
+        alt={`${company.name}`}
+        width={ART.header.width}
+        height={ART.header.height}
+        sizes="(min-width: 1024px) 111px, 92px"
         priority
-        className="h-8 w-auto transition-transform duration-500 group-hover:scale-[1.04] lg:h-9"
+        className="h-[38px] w-auto transition-transform duration-500 group-hover:scale-[1.03] lg:h-[46px]"
       />
-
-      <span className="hidden leading-none sm:block">
-        <span
-          className={[
-            'block font-display text-h5 font-extrabold uppercase tracking-tight',
-            light ? 'text-white' : 'text-ink',
-          ].join(' ')}
-        >
-          Childress
-        </span>
-        <span className="mt-1 block font-mono text-[0.5625rem] uppercase tracking-[0.3em] text-red">
-          Painting
-        </span>
-      </span>
     </Link>
   );
 }
 
-/** Full lockup — footer and anywhere the ribbon should be legible. */
+/** Full lockup with the "Since 1984" banner. Footer and similar. */
 export function LogoFull({
-  light = false,
   className,
   width = 260,
 }: {
@@ -77,12 +69,36 @@ export function LogoFull({
 }) {
   return (
     <Image
-      src={light ? '/brand/logo-full-light.png' : '/brand/logo-full.png'}
+      src={ART.full.src}
       alt={`${company.name}, quality painting, professional results, since 1984`}
-      width={1000}
-      height={537}
+      width={ART.full.width}
+      height={ART.full.height}
+      sizes={`${width}px`}
       style={{ width, height: 'auto' }}
       className={className}
     />
   );
 }
+
+/** Compact square mark, for tight spaces and branded covers. */
+export function LogoMark({
+  className,
+  size = 40,
+}: {
+  className?: string;
+  size?: number;
+}) {
+  return (
+    <Image
+      src={ART.mark.src}
+      alt=""
+      width={ART.mark.width}
+      height={ART.mark.height}
+      sizes={`${size}px`}
+      style={{ width: size, height: size }}
+      className={className}
+    />
+  );
+}
+
+export { ART as brandArt };

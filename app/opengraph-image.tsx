@@ -18,7 +18,7 @@ export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
 export default async function OpengraphImage() {
-  const logo = await readFile(join(process.cwd(), 'public/brand/logo-complete-light.png'));
+  const logo = await readFile(join(process.cwd(), 'public/brand/logo-complete.png'));
   const logoSrc = `data:image/png;base64,${logo.toString('base64')}`;
 
   return new ImageResponse(
@@ -49,7 +49,7 @@ export default async function OpengraphImage() {
 
         {/* Official lockup */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={logoSrc} width={680} height={432} alt="" />
+        <img src={logoSrc} width={700} height={460} alt="" />
 
         {/* Footer strip */}
         <div

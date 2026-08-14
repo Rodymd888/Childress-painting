@@ -1,42 +1,50 @@
 # Brand assets
 
-All files here are derived from the master Childress Painting artwork. Nothing
-is redrawn: the shapes are cut from the supplied file so the logo on the site is
-the logo.
+Four files, all cut from the master Childress Painting artwork. Nothing is
+redrawn and nothing is recoloured: the logo on the site is the logo.
 
-| File | Use |
-| --- | --- |
-| `logo-full.png` | Paint can, wordmark, and "Since 1984" banner. Light backgrounds. |
-| `logo-full-light.png` | The same lockup, for dark backgrounds. |
-| `logo-mark.png` | Texas roundel. Light backgrounds. |
-| `logo-mark-light.png` | Texas roundel, for dark backgrounds. |
-| `logo-complete.png` | Full artwork including both taglines. Light backgrounds. |
-| `logo-complete-light.png` | The same, for dark backgrounds. Used by the share card. |
+| File | Size | Use |
+| --- | --- | --- |
+| `logo-header.png` | 900×373 | Paint can + CHILDRESS PAINTING. Header and mobile menu. |
+| `logo-full.png` | 1000×557 | The above plus the "Since 1984" banner. Footer. |
+| `logo-complete.png` | 1200×788 | Full artwork including both taglines. Social share card. |
+| `logo-mark.png` | 256×256 | Texas roundel. Compact and square. |
 
-`app/icon.png` and `app/apple-icon.png` use the Texas silhouette alone on the
-brand ink field. The full roundel was tried first and turned to mush at 16px;
-dropping the outer ring keeps the mark readable in a browser tab.
+`app/icon.png` and `app/apple-icon.png` use the Texas silhouette on the brand
+ink field. The full roundel was tried first and turned to mush at 16px; dropping
+the outer ring keeps the mark readable in a browser tab.
 
-## How the variants were produced
+## One asset per context, no dark variants
 
-**Transparency.** The master arrives on white paper with no alpha. Alpha is
-derived from distance to white with a short feather, then the white fringe is
-un-multiplied so edges do not glow when placed on ink.
+The supplied artwork carries white outlines around the lettering, so it holds
+contrast on the ink header and on white alike. Earlier revisions kept separate
+`-light` files produced by inverting the neutral ink; those are gone, because
+altering supplied artwork to suit a background is the wrong way round. Where
+contrast is a problem, change the background.
 
-**Dark-background variants.** Neutral ink is inverted; saturated red is left
-alone. Inverting neutrals wholesale rather than just recolouring the black is
-what keeps the "Since 1984" banner working: it flips to a light plate with dark
-lettering instead of losing its text into its own background.
+## Which artwork goes where, and why
 
-## Which artwork goes where
+The **header** uses `logo-header`, sized by height (38px on phones, 46px from
+1024px) so width follows the aspect ratio. The full lockup was tested at header
+size and the banner and taglines are illegible below roughly 60px tall, so they
+are cut from this variant rather than shrunk into mud.
 
-The header uses the roundel with live type. The full lockup is too wide and
-carries too much detail to read at 32px, while the roundel holds up. The footer
-and the social share card use the fuller artwork, where the banner and taglines
-are legible.
+The **footer** and **share card** use the fuller artwork, where the banner and
+taglines have room to read.
+
+The **roundel** appears on branded "Project Gallery Coming Soon" covers, which
+keeps a project awaiting photography visibly ours.
+
+## Proportions
+
+Every use sets a height and lets width follow (`w-auto`, or `height: 'auto'`).
+The logo is never given both dimensions, so it cannot be stretched. Intrinsic
+dimensions are passed to `next/image` so nothing shifts while it loads, and
+`sizes` is set per context so phones do not download desktop-width files.
 
 ## Replacing the logo later
 
-Drop the new master in and re-run the derivation, or export the six PNGs above
-at the same dimensions and overwrite them. `components/layout/Logo.tsx` reads
-these paths and needs no change unless the aspect ratios move.
+Everything renders through `components/layout/Logo.tsx`, which is the single
+source. Export the four PNGs above at the same aspect ratios, overwrite them,
+and update the `ART` map in that file if the dimensions change. No other file
+needs touching.

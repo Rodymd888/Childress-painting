@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
@@ -131,9 +132,16 @@ export function MobileMenu() {
               transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
             >
               <div className="flex h-16 shrink-0 items-center justify-between border-b border-white/10 px-5">
-                <span className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-white/60">
-                  Menu
-                </span>
+                <Link href="/" onClick={closeMenu} aria-label={`${company.name}, home`}>
+                  <Image
+                    src="/brand/logo-header.png"
+                    alt={company.name}
+                    width={900}
+                    height={373}
+                    sizes="106px"
+                    className="h-[34px] w-auto"
+                  />
+                </Link>
                 <button
                   type="button"
                   onClick={() => {

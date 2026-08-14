@@ -100,9 +100,15 @@ export function ProjectCover({
 
       <div className="relative flex h-full flex-col justify-between p-5 md:p-6">
         <div className="flex items-start justify-between gap-3">
-          <span className="font-mono text-[0.5625rem] uppercase tracking-[0.22em] text-white/45">
-            Childress Painting
-          </span>
+          {/* The real mark, so a cover awaiting photography is still branded. */}
+          <Image
+            src="/brand/logo-mark.png"
+            alt=""
+            width={256}
+            height={256}
+            sizes="28px"
+            className="size-7 shrink-0 opacity-90"
+          />
           <span className="shrink-0 border border-red/50 px-2 py-1 font-mono text-[0.5rem] uppercase tracking-[0.18em] text-red-light">
             {sector}
           </span>
