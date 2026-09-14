@@ -10,6 +10,7 @@ import {
   officeSchemas,
 } from '@/lib/schema';
 import { company, siteUrl } from '@/lib/site';
+import { Analytics } from '@vercel/analytics/next';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -87,6 +88,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             ...officeSchemas(),
           ]}
         />
+        <Analytics />
       </body>
     </html>
   );
